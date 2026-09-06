@@ -9,7 +9,7 @@ import { SimulatorAdapter } from './simulator/adapter';
 import { parsePreferences } from './shared/validate';
 import type { Preferences } from './shared/model';
 
-const squirrelStartup = require('electron-squirrel-startup') as boolean;
+import { handleSquirrelStartup } from './main/squirrel';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -18,7 +18,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 const rendererURL = new URL(MAIN_WINDOW_WEBPACK_ENTRY).href;
 
 // Squirrel owns quitting after Update.exe finishes creating/removing shortcuts.
-if (!squirrelStartup) startApplication();
+if (!handleSquirrelStartup(app)) startApplication();
 
 function startApplication(): void {
   if (process.platform === 'win32') {
