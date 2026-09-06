@@ -53,7 +53,7 @@ Download Windows packages only from [Releases](https://github.com/JarlaxleXenoci
 
 For portable use, download `msfs2024-mission-companion-windows-x64.zip`, verify its hash against `SHA256SUMS`, extract the entire ZIP, and double-click `career-companion.exe` inside the extracted application folder. Keep its DLLs, resources and other runtime files together; the EXE cannot run on its own. Both distribution formats include Electron and Node, so users do not need a separate Node installation.
 
-The initial Windows artifacts are unsigned, so Windows may show a trust prompt. Signing is not currently configured. If signing is added, protected signing secrets or services must be limited to trusted release builds and the final signed files must be hashed again; signing does not guarantee that Microsoft SmartScreen reputation prompts disappear. See [Forge Windows signing](https://www.electronforge.io/guides/code-signing/code-signing-windows). Use windowed or borderless simulator mode when placing the companion alongside MSFS; overlay behavior in exclusive fullscreen has not been validated. Wine support has not been validated.
+Windows packages are unsigned, so Windows may show a trust prompt. Use windowed or borderless simulator mode when placing the companion alongside MSFS.
 
 ## Simulator connection and controls
 
@@ -78,7 +78,7 @@ Routine polling shows **Connected · updating** while retaining the previous obs
 
 Linux uses software rendering and defaults to X11/XWayland when `DISPLAY` is available. Explicit `--ozone-platform=x11` and `--ozone-platform=wayland` arguments are respected. Native Wayland has limited minimized-state reporting and uses desktop-managed pinning; the app displays that limitation. Keep-on-top behavior over exclusive-fullscreen games depends on the desktop.
 
-On Linux, preferences are stored under `$XDG_CONFIG_HOME/MSFS Career Approach Companion/preferences.json`, normally `~/.config/MSFS Career Approach Companion/preferences.json`. On Windows, the observed Electron `userData` directory is `%APPDATA%\MSFS Career Approach Companion`, so the preference file is `%APPDATA%\MSFS Career Approach Companion\preferences.json` after a setting is saved. Mission snapshots and airport data are not persisted.
+On Linux, preferences are stored under `$XDG_CONFIG_HOME/MSFS Career Approach Companion/preferences.json`, normally `~/.config/MSFS Career Approach Companion/preferences.json`. On Windows, preferences are stored in `%APPDATA%\MSFS Career Approach Companion\preferences.json` after a setting is saved. Mission snapshots and airport data are not persisted.
 
 ## Mission route map
 
@@ -86,9 +86,7 @@ Hover a mission route for 300 ms to preview its airports. Click, Enter or Space 
 
 Airport locations come from the simulator. Missing locations are labeled and never invented; the connecting line illustrates endpoints, not a flight plan. Companion helps you locate the departure on the simulator's Career map; mission selection still happens in MSFS.
 
-The basemap streams standard OpenStreetMap images and needs internet access. Only visible previews request imagery, using normal HTTP caching; there is no offline download or map archive. OSM receives image requests revealing the viewed region, not mission titles or GUIDs. Native requests identify the app and version honestly. If imagery is blocked or unavailable, airport labels and the route remain visible with **Retry imagery**; retry is explicit. Map failures do not interrupt simulator polling. Attribution buttons open the fixed Leaflet and OSM credit pages in your system browser.
-
-Native Windows map behavior and a Career-map/Alt+Tab comparison still require manual validation. Synthetic tests establish UI behavior, not acceptance by OSM's live service, whose availability is not guaranteed.
+The basemap streams standard OpenStreetMap images and needs internet access. Only visible previews request imagery, using normal HTTP caching; there is no offline download or map archive. OSM receives image requests revealing the viewed region, not mission titles or GUIDs. If imagery is blocked or unavailable, airport labels and the route remain visible with **Retry imagery**; retry is explicit. Map failures do not interrupt simulator polling. Attribution buttons open the Leaflet and OSM credit pages in your system browser.
 
 ## Build and test
 
@@ -113,7 +111,7 @@ Launch development with `npm start`, or run the packaged executable:
 './out/MSFS Career Approach Companion-linux-x64/career-companion'
 ```
 
-The portable ZIP and checksum are under `out/make/zip/linux/x64/`. CI checks dependencies, tests, builds, renderer behavior and artifact contents, then checks runtime libraries on Ubuntu 22.04/24.04 and Debian 12. Library checks do not certify desktop or simulator compatibility.
+The portable ZIP and checksum are under `out/make/zip/linux/x64/`. CI checks dependencies, tests, builds, renderer behavior and artifact contents, then checks runtime libraries on Ubuntu 22.04/24.04 and Debian 12.
 
 For a native Windows build, use x64 Windows, PowerShell, Node and npm. Info-ZIP and Linux system libraries are not Windows prerequisites:
 
@@ -131,9 +129,9 @@ node scripts/verify-artifact.cjs --platform=win32 --arch=x64
 
 The unpacked Windows runtime is under `out/MSFS Career Approach Companion-win32-x64/`; Forge writes the portable ZIP under `out/make/zip/win32/x64/` and the Squirrel setup files under `out/make/squirrel.windows/x64/`. Final verified Windows delivery files are copied to `out/verified/windows-x64/`.
 
-CI uploads two build artifacts: `linux-x64`, containing the Linux portable ZIP and its manifest, and `windows-x64`, containing the Windows portable ZIP, setup EXE, Squirrel verification inputs and its manifest. A matching version tag combines the public Linux ZIP, Windows ZIP, Windows setup EXE and a new `SHA256SUMS` into one GitHub release. Tag releases remain drafts by default; automatic public publication requires the repository variable `RELEASE_PUBLICATION_ENABLED=true`. These workflows describe current source behavior and do not imply that a hosted run or release has completed.
+CI uploads two build artifacts: `linux-x64`, containing the Linux portable ZIP and its manifest, and `windows-x64`, containing the Windows portable ZIP, setup EXE, Squirrel verification inputs and its manifest. A matching version tag combines the public Linux ZIP, Windows ZIP, Windows setup EXE and a new `SHA256SUMS` into one GitHub release. Tag releases remain drafts by default; automatic public publication requires the repository variable `RELEASE_PUBLICATION_ENABLED=true`.
 
-Version tags must match `package.json` with a `v` prefix. Existing releases are never overwritten. Public distribution remains subject to licensing and platform validation; the source is currently `UNLICENSED`.
+Version tags must match `package.json` with a `v` prefix. Existing releases are never overwritten. The source is currently `UNLICENSED`.
 
 ## Acknowledgements
 
