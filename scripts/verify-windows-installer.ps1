@@ -32,6 +32,11 @@ function Invoke-BoundedProcess([string]$File, [string[]]$Arguments, [string]$Pha
         if ($process.ExitCode -ne 0) { throw "$Phase failed with exit code $($process.ExitCode)." }
     } finally { $process.Dispose() }
 }
+$smokeStartedUtc = [DateTime]::UtcNow
+$previousElectronLogging = $env:ELECTRON_ENABLE_LOGGING
+$previousElectronLogFile = $env:ELECTRON_LOG_FILE
+$env:ELECTRON_ENABLE_LOGGING = '1'
+$env:ELECTRON_LOG_FILE = Join-Path $smokeDiagnosticsDirectory 'electron-startup.log'
 Push-Location $project
 try {
     # Verify all build inputs before executing setup. Task4 re-runs final verification
@@ -110,10 +115,17 @@ try {
                     Copy-Item -LiteralPath $log.FullName -Destination (Join-Path $smokeDiagnosticsDirectory "$index-$name")
                 }
             }
+            # Hooks persist subprocess output outside the installation before Squirrel deletes it.
+            foreach ($directory in Get-ChildItem -LiteralPath ([IO.Path]::GetTempPath()) -Directory -Filter 'msfs-career-squirrel-*') {
+                if ($directory.CreationTimeUtc -lt $smokeStartedUtc) { continue }
+                Copy-Item -LiteralPath $directory.FullName -Destination $smokeDiagnosticsDirectory -Recurse
+            }
             $results.processes = @(Get-Process | Where-Object {
                 $_.Path -and $_.Path.StartsWith($installRoot + '\', [StringComparison]::OrdinalIgnoreCase)
             } | Select-Object Id, ProcessName, Path)
             $results.processes | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $smokeDiagnosticsDirectory 'processes.json')
+            & node scripts/verify-squirrel-lifecycle.cjs $smokeDiagnosticsDirectory
+            if ($LASTEXITCODE -ne 0) { throw 'Squirrel lifecycle diagnostics report a failed or missing hook.' }
     } -Cleanup {
             # Only this absent-before-test directory can be removed; check its resolved
             # absolute boundary again before recursive cleanup, including failure paths.
@@ -126,6 +138,8 @@ try {
             $results.cleanup = 'complete'
     }
 } finally {
+    $env:ELECTRON_ENABLE_LOGGING = $previousElectronLogging
+    $env:ELECTRON_LOG_FILE = $previousElectronLogFile
     $results | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $evidence
     Pop-Location
 }

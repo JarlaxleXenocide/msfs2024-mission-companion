@@ -94,11 +94,12 @@ async function mainHarness(write: (path: string, value: unknown) => Promise<void
   let relaunch: { args: string[] } | undefined;
   let backend = '';
   const appUserModelIds: string[] = [];
+  const exitCodes: (number | undefined)[] = [];
   const order: string[] = [];
   const app = Object.assign(new EventEmitter(), {
     isPackaged: true, getVersion: () => '0.1.2',
     relaunch: (options: { args: string[] }) => { relaunch = options; },
-    exit: () => { throw exited; },
+    exit: (code?: number) => { exitCodes.push(code); throw exited; },
     disableHardwareAcceleration: () => { order.push('software-rendering'); },
     setAppUserModelId: (id: string) => { appUserModelIds.push(id); },
     whenReady: async () => { order.push('ready'); }, getPath: () => '/isolated-user-data', quit: () => { order.push('quit'); app.emit('before-quit', { preventDefault() {} }); },
@@ -156,22 +157,29 @@ async function mainHarness(write: (path: string, value: unknown) => Promise<void
     argv: platform.argv ?? ['companion', `--ozone-platform=${platform.requestedBackend ?? 'x11'}`],
     execPath: '/installed/app/career-companion.exe',
   };
-  const updater = new EventEmitter();
-  const squirrelModule = { exports: false };
-  runInNewContext(readFileSync(require.resolve('electron-squirrel-startup'), 'utf8'), {
-    module: squirrelModule, process: processContext,
-    require: (name: string) => name === 'child_process'
+  const updater = Object.assign(new EventEmitter(), { stdout: new EventEmitter(), stderr: new EventEmitter() });
+  const diagnosticWrites: string[] = [];
+  const copiedLogs: string[] = [];
+  const squirrelModule = { exports: {} };
+  runInNewContext(readFileSync(join(__dirname, '../src/main/squirrel.js'), 'utf8'), {
+    exports: squirrelModule.exports, process: processContext, console, Buffer,
+    require: (name: string) => name === 'node:child_process'
       ? { spawn: (_file: string, args: string[]) => { order.push(`update:${args.join(' ')}`); return updater; } }
-      : modules[name] ?? require(name),
+      : name === 'node:fs' ? {
+        mkdtempSync: () => '/outside-install/diagnostics',
+        appendFileSync: (_file: string, value: string) => { diagnosticWrites.push(value); },
+        existsSync: (file: string) => file.endsWith('Squirrel-Deshortcut.log'),
+        copyFileSync: (source: string, destination: string) => { copiedLogs.push(destination); },
+      } : require(name),
   });
-  modules['electron-squirrel-startup'] = squirrelModule.exports;
+  modules['./main/squirrel'] = squirrelModule.exports;
   try { runInNewContext(readFileSync(join(__dirname, '../src/main.js'), 'utf8'), {
     exports: {}, require: (name: string) => modules[name] ?? require(name), console, URL,
     process: processContext,
     MAIN_WINDOW_WEBPACK_ENTRY: 'file:///app/index.html', MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: '/app/preload.js',
   }); } catch (error) { if (error !== exited) throw error; }
   await new Promise(resolve => setImmediate(resolve));
-  return { app, windows, controllers, order, handlers, pushes, backend, openHandler, relaunch, appUserModelIds, hooks, links, updater };
+  return { app, windows, controllers, order, handlers, pushes, backend, openHandler, relaunch, appUserModelIds, hooks, links, updater, diagnosticWrites, copiedLogs, exitCodes };
 }
 
 for (const [event, shortcut] of [
@@ -193,6 +201,34 @@ for (const [event, shortcut] of [
     }
   });
 }
+
+test('Squirrel updater failure is not reported as a successful quit', async () => {
+  const h = await mainHarness(undefined, { name: 'win32', argv: ['career-companion.exe', '--squirrel-uninstall', '0.1.3'] });
+  h.updater.stderr.emit('data', Buffer.from('Access denied'));
+  assert.throws(() => h.updater.emit('close', 1, null));
+  assert.match(h.diagnosticWrites.join(''), /Access denied/);
+  assert.match(h.diagnosticWrites.join(''), /\"code\":1/);
+  assert.deepEqual(h.copiedLogs, [join('/outside-install/diagnostics', 'Squirrel-Deshortcut.log')]);
+  assert.deepEqual(h.exitCodes, [1]);
+  assert.equal(h.order.includes('quit'), false);
+});
+
+test('Squirrel records spawn errors and signals, and caps subprocess output', async () => {
+  const options = { name: 'win32', argv: ['career-companion.exe', '--squirrel-uninstall', '0.1.3'] };
+  const failed = await mainHarness(undefined, options);
+  assert.throws(() => failed.updater.emit('error', new Error('ENOENT')));
+  assert.match(failed.diagnosticWrites.join(''), /ENOENT/);
+  assert.doesNotThrow(() => failed.updater.emit('close', -2, null));
+  const killed = await mainHarness(undefined, options);
+  killed.updater.stdout.emit('data', Buffer.alloc(100000, 'x'));
+  killed.updater.stderr.emit('data', Buffer.from('after limit'));
+  const output = killed.diagnosticWrites.map(line => JSON.parse(line)).filter(record => record.stream);
+  assert.equal(output.length, 1);
+  assert.equal(Buffer.byteLength(output[0].text), 65536);
+  assert.equal(output[0].truncated, true);
+  assert.throws(() => killed.updater.emit('close', null, 'SIGTERM'));
+  assert.match(killed.diagnosticWrites.join(''), /SIGTERM/);
+});
 
 test('normal Windows launch keeps native graphics defaults, app identity and IPC isolation', async () => {
   const h = await mainHarness(undefined, {
