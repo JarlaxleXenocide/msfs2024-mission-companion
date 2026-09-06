@@ -1,0 +1,215 @@
+name: Linux and Windows CI and releases
+
+on:
+  pull_request:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    outputs:
+      commit: ${{ steps.identity.outputs.commit }}
+      prerelease: ${{ steps.tag.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - id: identity
+        run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '22.23.1'
+          package-manager-cache: false
+      - run: npm ci
+      - run: npm run audit
+      - name: Validate version tag
+        id: tag
+        if: github.ref_type == 'tag'
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/validate-tag.cjs >> "$GITHUB_OUTPUT"
+      - name: Install build and browser dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes zip unzip
+          npx playwright install --with-deps chromium
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run make -- --platform=linux --arch=x64
+      - name: Actual compiled renderer regression (synthetic bridge)
+        run: npm run test:renderer
+      - run: npm run verify:artifact
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: linux-x64
+          path: |
+            out/make/zip/linux/x64/*.zip
+            out/make/zip/linux/x64/SHA256SUMS
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+  build-windows:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    env:
+      CI: 'true'
+    outputs:
+      commit: ${{ steps.identity.outputs.commit }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - id: identity
+        shell: pwsh
+        run: |
+          $commit = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "commit=$commit" >> $env:GITHUB_OUTPUT
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '22.23.1'
+          package-manager-cache: false
+      - run: npm ci
+      - run: npm run audit
+      - name: Validate version tag
+        if: github.ref_type == 'tag'
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        shell: pwsh
+        run: |
+          node scripts/validate-tag.cjs >> $env:GITHUB_OUTPUT
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - run: npm test
+      - run: npm run typecheck
+      - run: npx playwright install chromium
+      - run: npm run make -- --platform=win32 --arch=x64
+      - name: Actual compiled renderer regression (synthetic bridge)
+        run: npm run test:renderer
+      - name: Verify Windows artifacts and smoke install on disposable runner
+        shell: pwsh
+        run: ./scripts/verify-windows-installer.ps1
+      - name: Preserve installer smoke diagnostics
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: windows-installer-smoke-diagnostics
+          path: |
+            out/installer-smoke.json
+            out/installer-smoke-diagnostics/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Verify final Windows delivery bytes after installer smoke
+        run: node scripts/verify-artifact.cjs --platform=win32 --arch=x64
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: windows-x64
+          path: out/verified/windows-x64/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+  libraries:
+    name: Runtime libraries (${{ matrix.image }})
+    needs: build
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ['ubuntu:22.04', 'ubuntu:24.04', 'debian:12']
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: linux-x64
+          path: artifacts
+      - name: Resolve extracted executable and shared-library dependencies
+        env:
+          DISTRO_IMAGE: ${{ matrix.image }}
+        run: |
+          cd artifacts
+          sha256sum --check SHA256SUMS
+          cd ..
+          docker run --rm \
+            --mount "type=bind,source=$PWD/artifacts,target=/artifacts,readonly" \
+            --mount "type=bind,source=$PWD/scripts/check-linux-libraries.sh,target=/check-linux-libraries.sh,readonly" \
+            "$DISTRO_IMAGE" bash /check-linux-libraries.sh
+
+  release:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: [build, build-windows, libraries]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: release-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      # No checkout, dependency installation or repository scripts in this job.
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: linux-x64
+          path: artifacts/linux
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: windows-x64
+          path: artifacts/windows
+      - name: Create release without replacing existing releases or assets
+        working-directory: artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          EXPECTED_COMMIT: ${{ needs.build.outputs.commit }}
+          WINDOWS_COMMIT: ${{ needs.build-windows.outputs.commit }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+          PUBLICATION_ENABLED: ${{ vars.RELEASE_PUBLICATION_ENABLED }}
+        run: |
+          set -euo pipefail
+          test -n "$EXPECTED_COMMIT"
+          test "$WINDOWS_COMMIT" = "$EXPECTED_COMMIT"
+          existing_tags=$(gh api --paginate "repos/$GH_REPO/releases?per_page=100" --jq '.[].tag_name')
+          if grep -Fxq -- "$RELEASE_TAG" <<< "$existing_tags"; then
+            echo 'A release already exists for this tag; leaving it unchanged.' >&2
+            exit 1
+          fi
+          read -r remote_type remote_commit < <(gh api "repos/$GH_REPO/git/ref/tags/$RELEASE_TAG" --jq '[.object.type, .object.sha] | @tsv')
+          while [[ "$remote_type" == tag ]]; do
+            read -r remote_type remote_commit < <(gh api "repos/$GH_REPO/git/tags/$remote_commit" --jq '[.object.type, .object.sha] | @tsv')
+          done
+          test "$remote_type" = commit
+          test "$remote_commit" = "$EXPECTED_COMMIT"
+          (cd linux && sha256sum --check SHA256SUMS)
+          (cd windows && sha256sum --check SHA256SUMS)
+          shopt -s nullglob
+          linux_zips=(linux/*.zip)
+          test "${#linux_zips[@]}" -eq 1
+          windows_zip=msfs2024-mission-companion-windows-x64.zip
+          windows_setup=msfs2024-mission-companion-windows-x64-setup.exe
+          test -f "windows/$windows_zip"
+          test -f "windows/$windows_setup"
+          mkdir staging
+          cp -- "${linux_zips[0]}" staging/msfs2024-mission-companion-linux-x64.zip
+          cp -- "windows/$windows_zip" "windows/$windows_setup" staging/
+          cd staging
+          assets=(msfs2024-mission-companion-linux-x64.zip "$windows_zip" "$windows_setup")
+          sha256sum -- "${assets[@]}" > SHA256SUMS
+          sha256sum --check SHA256SUMS
+          flags=(--verify-tag --target "$EXPECTED_COMMIT" --generate-notes --title "$RELEASE_TAG")
+          if [[ "$PUBLICATION_ENABLED" != true ]]; then flags+=(--draft); fi
+          if [[ "$PRERELEASE" == true ]]; then flags+=(--prerelease); fi
+          gh release create "$RELEASE_TAG" "${flags[@]}" -- "${assets[@]}" SHA256SUMS

@@ -1,0 +1,63 @@
+{
+  "name": "msfs-career-approach-companion",
+  "productName": "MSFS Career Approach Companion",
+  "version": "0.1.3",
+  "description": "Desktop companion for filtering MSFS 2024 Career missions by destination airport capability",
+  "author": "JarlaxleXenocide",
+  "main": ".webpack/main",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "node scripts/start.cjs",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "test": "tsc -p tsconfig.tests.json && node scripts/run-tests.cjs",
+    "typecheck": "tsc --noEmit",
+    "test:renderer": "node tests/renderer-startup.cjs && node tests/renderer-route.cjs && node tests/renderer-visual.cjs",
+    "verify:artifact": "node scripts/verify-artifact.cjs",
+    "audit": "npm audit --audit-level=low"
+  },
+  "overrides": {
+    "qs": "6.16.0",
+    "@electron/rebuild": "4.2.0",
+    "@electron/packager": {
+      "extract-zip": "npm:@electron-internal/extract-zip@1.0.5"
+    },
+    "external-editor": {
+      "tmp": "0.2.7"
+    },
+    "webpack-dev-server": "5.2.6",
+    "sockjs": {
+      "uuid": "11.1.1"
+    },
+    "@electron/asar": "4.3.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "7.11.2",
+    "@electron-forge/maker-squirrel": "7.11.2",
+    "@electron-forge/maker-zip": "7.11.2",
+    "@electron-forge/plugin-auto-unpack-natives": "7.11.2",
+    "@electron-forge/plugin-fuses": "7.11.2",
+    "@electron-forge/plugin-webpack": "7.11.2",
+    "@electron/fuses": "1.8.0",
+    "@types/leaflet": "1.9.21",
+    "@types/node": "22.18.3",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "css-loader": "6.11.0",
+    "electron": "44.2.0",
+    "node-loader": "2.1.0",
+    "playwright": "1.63.0",
+    "style-loader": "3.3.4",
+    "ts-loader": "9.6.2",
+    "typescript": "5.9.3",
+    "yauzl": "3.4.0",
+    "yazl": "3.3.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "1.0.1",
+    "leaflet": "1.9.4"
+  }
+}

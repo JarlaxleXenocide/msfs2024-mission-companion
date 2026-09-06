@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; style-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MSFS Career Approach Companion</title>
+  </head>
+  <body>
+    <main id="app" aria-busy="true">
+      <div class="workspace">
+      <header class="titlebar">
+        <div>
+          <p class="kicker">CAREER APPROACHES</p>
+          <h1>Mission comparison</h1>
+        </div>
+        <div class="title-actions">
+          <button id="refresh" type="button">Refresh</button>
+          <label class="check header-compact"><input id="compact" type="checkbox" /> Compact</label>
+          <div class="connection" role="status" aria-live="polite">
+            <span id="connection-mark" aria-hidden="true">●</span>
+            <span><strong id="connection-label">Starting…</strong><small id="observed-at"></small></span>
+          </div>
+        </div>
+      </header>
+
+      <section class="message-strip" aria-labelledby="connection-detail-label">
+        <div>
+          <strong id="connection-detail-label" class="visually-hidden">Simulator status</strong>
+          <p id="connection-message">Connecting to MSFS 2024…</p>
+        </div>
+
+      </section>
+        <p id="minimize-help" class="desktop-help" hidden>On native Wayland, the desktop may not report minimization; background polling can remain at the visible-window rate.</p>
+      <p id="preference-warning" class="warning" role="alert" hidden></p>
+
+      <section class="filters" aria-label="Mission filters">
+        <fieldset>
+          <legend class="visually-hidden">Available approaches</legend>
+          <label><input type="checkbox" data-category="ILS" /> ILS</label>
+          <label><input type="checkbox" data-category="LPV" /> LPV</label>
+          <label><input type="checkbox" data-category="LNAV_VNAV" /> LNAV/VNAV</label>
+          <label><input type="checkbox" data-category="LOC" /> LOC</label>
+          <label><input type="checkbox" data-category="VOR" /> VOR</label>
+        </fieldset>
+        <label class="minimum">Min runway
+          <span><input aria-label="Minimum runway length in feet, threshold-adjusted geometric length" id="minimum" type="number" min="0" step="any" inputmode="decimal" placeholder="Off" /> ft</span>
+
+          <small id="minimum-error" class="field-error" role="alert"></small>
+        </label>
+        <label class="search">Search missions or airports
+          <input id="search" type="search" autocomplete="off" placeholder="Title, departure or destination" />
+        </label>
+        <label class="check"><input id="matches-only" type="checkbox" /> Matches only</label>
+
+      </section>
+
+      <section class="results" aria-labelledby="results-heading">
+        <div class="result-head">
+          <p id="results-heading" class="kicker">CURRENT CANDIDATES</p>
+          <p id="counts" aria-live="polite">No missions yet</p>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Scrollable mission comparison">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col"><button type="button" data-sort="title">Mission</button></th>
+                <th scope="col"><button type="button" data-sort="destination">Route (destination)</button></th>
+                <th scope="col"><button type="button" data-sort="duration">Est. duration</button></th>
+                <th scope="col"><button type="button" data-sort="credits" title="Advertised payout">Credits earned</button></th>
+                <th scope="col">Approach capability</th>
+                <th scope="col"><button type="button" data-sort="runway" title="Matching runway length">Runway details</button></th>
+              </tr>
+            </thead>
+            <tbody id="mission-rows"></tbody>
+          </table>
+        </div>
+        <p class="scope-note">Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. This companion does not select anything in MSFS.</p>
+      </section>
+      </div>
+      <footer class="settings-footer">
+      <details class="settings-disclosure">
+        <summary><strong>Display &amp; connection</strong><span id="settings-summary">Theme, appearance, pinning and local port</span></summary>
+        <section class="settings" aria-label="Display and connection settings">
+          <label>Theme
+            <select id="theme">
+              <option value="deck">Flight deck</option>
+              <option value="notes">Field notes</option>
+              <option value="clear">Clear</option>
+            </select>
+          </label>
+          <label>Appearance
+            <select id="appearance">
+              <option value="system">Follow system</option>
+              <option value="light">Light</option>
+              <option value="night">Night</option>
+            </select>
+          </label>
+          <label id="pin-control" class="check"><input id="keep-on-top" type="checkbox" /> Keep on top</label>
+          <label>Local port
+            <input id="port" type="number" min="1" max="65535" step="1" inputmode="numeric" />
+          </label>
+          <span id="port-error" class="field-error" role="alert"></span>
+        </section>
+        <div class="action-row">
+          <button id="retry" type="button">Retry connection</button>
+          <button id="refresh-airports" type="button">Refresh airport data</button>
+        </div>
+        <p id="desktop-help" class="desktop-help" hidden></p>
+      </details>
+      </footer>
+
+    </main>
+  </body>
+</html>

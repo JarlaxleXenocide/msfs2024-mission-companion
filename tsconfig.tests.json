@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": ".test-build",
+    "rootDir": ".",
+    "sourceMap": false
+  },
+  "include": [
+    "tests/**/*.ts",
+    "src/shared/**/*.ts",
+    "src/domain/**/*.ts",
+    "src/renderer/view-model.ts",
+    "src/renderer/route-geometry.ts",
+    "src/simulator/**/*.ts",
+    "src/main/controller.ts",
+    "src/main/preferences.ts",
+    "src/preload.ts",
+    "src/main.ts"
+  ],
+  "exclude": [".test-build", ".webpack", "node_modules", "out"]
+}

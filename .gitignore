@@ -1,0 +1,11 @@
+# Local planning, research, validation and diagnostic material.
+/.superpowers/
+/docs/
+/evidence/
+/FEASIBILITY-REPORT.md
+/SPIKE-*
+/.worktrees/
+.test-build/
+.webpack/
+node_modules/
+out/
