@@ -1,7 +1,7 @@
 {
   "name": "msfs-career-approach-companion",
   "productName": "MSFS Career Approach Companion",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Desktop companion for filtering MSFS 2024 Career missions by destination airport capability",
   "author": "JarlaxleXenocide",
   "main": ".webpack/main",
