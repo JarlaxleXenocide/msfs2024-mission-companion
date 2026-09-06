@@ -6,17 +6,29 @@ Airport capability does not determine a mission's assigned approach or aircraft 
 
 ## Screenshots
 
-Compare missions with **ILS**, a minimum runway length of **8,000 ft**, and **Matches only** selected. The table shows routes, approach capabilities and matching runway details, with display and connection controls in the footer.
+Screenshots show the actual app with example missions and representative airport data.
 
-![Mission comparison filtered by ILS and an 8,000-foot minimum runway length](assets/screenshots/mission-comparison-ils.png)
+**Sort by what matters.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, credits are sorted highest first, with shorter flights first when payouts tie. Approach and minimum-runway filters stay visible above the list.
 
-Expand **Show runways** to inspect individual runway ends, including physical and threshold-adjusted lengths, elevation, closure status and available approaches. This example shows runway information for Mexico City (MMMX).
+![Flight deck in Night mode, sorting by credits descending then duration ascending](assets/screenshots/mission-sorting.png)
 
-![Expanded Mexico City runway information with dimensions and approaches for runway ends 05L and 05R](assets/screenshots/runway-information.png)
+**Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
+
+![Pinned route map showing departure at MMQT and destination at CYVR](assets/screenshots/mission-route-map.png)
+
+**Inspect individual runway ends.** Expand a mission to see physical and threshold-adjusted lengths, displaced thresholds, elevations, closure status, and available approaches.
+
+![Expanded runway-end details with dimensions, elevations and ILS and RNAV approaches](assets/screenshots/runway-information.png)
+
+**Choose your look.** Flight deck, Field notes and Clear each support Light, Night, or following your system appearance. Display controls also include Compact and supported keep-on-top behavior.
+
+| Flight deck · Light | Field notes · Light | Clear · Night |
+| --- | --- | --- |
+| ![Flight deck theme in Light mode](assets/screenshots/flight-deck-light.png) | ![Field notes theme in Light mode](assets/screenshots/field-notes-light.png) | ![Clear theme in Night mode](assets/screenshots/clear-night.png) |
 
 ## Run on Linux
 
-Download the application ZIP and `SHA256SUMS` from [Releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases) when available, or the `linux-x64` artifact from a successful [CI run](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/actions/workflows/ci.yml). GitHub's source archives are not executable builds.
+Download the application ZIP and `SHA256SUMS` only from [Releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases). GitHub's source archives are not executable builds.
 
 1. Verify the download with `sha256sum --check --ignore-missing SHA256SUMS` and extract the ZIP into a writable folder. The combined release manifest also lists Windows files that need not be downloaded for this check. Keep the runtime files together.
 2. Start MSFS 2024 and enter Career, outside briefing. With the simulator focused, press **G** to expand the native Missions panel so the companion can scan for missions. Keep the panel expanded while scanning.
@@ -26,7 +38,7 @@ The bundle includes Electron and Node; users do not need a separate Node install
 
 ## Run on Windows
 
-Use a [release](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases) or successful [CI run](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/actions/workflows/ci.yml) that explicitly contains Windows outputs. Older releases may contain only Linux files. GitHub's source archives are not executable builds.
+Download Windows packages only from [Releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases). Choose a release with the Windows setup EXE or portable ZIP. If a release has no Windows packages, use another release that includes them. GitHub's source archives are not executable builds.
 
 1. Download `msfs2024-mission-companion-windows-x64-setup.exe` and `SHA256SUMS` from the same release. Compare the installer's SHA-256 hash with its entry in the checksum file:
 
@@ -60,7 +72,7 @@ Invoke-RestMethod -Uri 'http://127.0.0.1:19999/pagelist.json' -TimeoutSec 3 |
 
 The page list should include `mainUi` and `Electronic Flight Bag`. Page IDs can change; the companion discovers them automatically. The endpoint is `/pagelist.json`, not `/json`. Successful discovery confirms that the inspector is reachable; mission retrieval also requires Career outside briefing with the native Missions panel expanded. If missions are not appearing, focus the simulator and press **G** to expand the panel if it is collapsed.
 
-Use the **Display & connection** footer to change the local port, retry connection, refresh airport data, choose a theme/appearance or enable supported pinning. Filters, search, sorting and Compact affect only the companion. The sort arrow reverses the selected order, including Simulator order; unknown runway lengths remain last. Missions scroll independently of the footer.
+Use the **Display & connection** footer to change the local port, retry connection, refresh airport data, choose a theme/appearance or enable supported pinning. Filters, search, sorting and Compact affect only the companion. Click a sortable column heading to cycle through descending, ascending, and off. Additional columns become tie-breakers in the order selected; numbered arrows show their priority. With every sort off, missions follow Simulator order. Unknown sort values remain last. Missions scroll independently of the footer.
 
 Routine polling shows **Connected · updating** while retaining the previous observation. Disconnected, inactive and stalled results are marked stale. If a native query stalls, wait for it to settle and follow the displayed recovery guidance. Reconnecting a socket does not cancel simulator-side work; do not open additional clients to bypass a stall.
 
