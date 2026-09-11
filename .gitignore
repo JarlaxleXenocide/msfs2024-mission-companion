@@ -9,3 +9,16 @@
 .webpack/
 node_modules/
 out/
+
+# Agent instructions and diagnostics remain local, including nested copies.
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+[Aa][Gg][Ee][Nn][Tt][Ss].override.[Mm][Dd]
+[Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd]
+[Gg][Ee][Mm][Ii][Nn][Ii].[Mm][Dd]
+.codex/
+.agents/
+.superpowers/
+diagnostics/
+evidence/
+*.log
+*.log.*

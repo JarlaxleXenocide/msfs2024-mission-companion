@@ -60,6 +60,15 @@ for (const platform of ['linux', 'win32']) {
     await assert.rejects(verifyArchive(f.zip, '0.1.0', platform), /Unexpected ASAR/);
     assert.deepEqual(readdirSync(tmpdir()).filter(n => n.startsWith('companion-inspect-')).sort(), before);
   });
+  test(`${platform}: excludes agent instructions and diagnostics from runtime and ASAR`, async t => {
+    const f = await fixture(t, platform);
+    for (const name of ['AGENTS.md', 'agents.md', 'resources/AGENTS.md', 'diagnostics/run.json', '.superpowers/plan.md']) {
+      await f.pack([...f.files, { name, data: 'local-only' }]);
+      await assert.rejects(verifyArchive(f.zip, '0.1.0', platform), /Unexpected ZIP/);
+      const embedded = await fixture(t, platform, name);
+      await assert.rejects(verifyArchive(embedded.zip, '0.1.0', platform), /Unexpected ASAR/);
+    }
+  });
   test(`${platform}: rejects unsafe ZIP paths, symlinks and normalized duplicates`, async t => {
     const f = await fixture(t, platform);
     for (const name of ['/escape', 'C:/escape', '../escape', f.root + '../escape', f.root + 'resources/../../escape', '\\\\server\\share', f.root + 'x:ads', f.root + 'CON', f.root + 'x.']) {

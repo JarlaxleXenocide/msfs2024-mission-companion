@@ -1,0 +1,15 @@
+# Exclude local working material from source archives even if tracked accidentally.
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd] export-ignore
+[Aa][Gg][Ee][Nn][Tt][Ss].override.[Mm][Dd] export-ignore
+[Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd] export-ignore
+[Gg][Ee][Mm][Ii][Nn][Ii].[Mm][Dd] export-ignore
+.codex export-ignore
+.agents export-ignore
+.superpowers export-ignore
+diagnostics export-ignore
+evidence export-ignore
+/docs export-ignore
+/FEASIBILITY-REPORT.md export-ignore
+/SPIKE-* export-ignore
+*.log export-ignore
+*.log.* export-ignore
