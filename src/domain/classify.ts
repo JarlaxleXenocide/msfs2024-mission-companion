@@ -91,6 +91,12 @@ function evaluateProcedures(
   for (const procedure of airport.procedures) {
     const category = evaluateCategory(procedure, categories);
     if (category === 'no-match') continue;
+    // Vertical RNAV filters require a specific runway, even if circling data
+    // carries LPV or LNAV/VNAV flags. Missing identity still remains unknown.
+    if (procedure.type === 10 && procedure.runwayNumber === 0 && procedure.runwayDesignator === 0) {
+      outcomes.push(outcome('no-match', null, `${procedure.name}: circling does not satisfy LPV or LNAV/VNAV filters`));
+      continue;
+    }
 
     const association = associate(procedure, airport.ends);
     if (association.state !== 'match') {

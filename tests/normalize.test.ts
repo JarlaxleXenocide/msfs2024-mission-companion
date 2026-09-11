@@ -154,9 +154,9 @@ test('recorded airport extracts reproduce CYVR, MMQT, and I73 decisions', () => 
     reasons: ['No selected approach is available'],
   });
   assert.deepEqual(classify(i73, { categories: ['LPV'], minimumFt: null }), {
-    verdict: 'unknown',
+    verdict: 'no-match',
     runwayIds: [],
-    reasons: ['RNAV A: RNAV subtype is unspecified'],
+    reasons: ['RNAV A: circling does not satisfy LPV or LNAV/VNAV filters'],
   });
 });
 

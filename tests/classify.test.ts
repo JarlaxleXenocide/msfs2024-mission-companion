@@ -384,3 +384,27 @@ test('grouping tolerates missing facility collections', () => {
   const a: Airport = { ...airport(), ends: null, procedures: null };
   assert.deepEqual(groupRunways(a), []);
 });
+
+test('circling RNAV never satisfies vertical-guidance filters, even with reported vertical flags', () => {
+  for (const flags of [0, 2, 8, 10, 11, null]) {
+    for (const categories of [['LPV'], ['LNAV_VNAV'], ['LPV', 'LNAV_VNAV']] as Category[][]) {
+      for (const minimumFt of [null, 1000]) {
+        const a = airport();
+        a.procedures = [{ ...a.procedures![0], name: 'RNAV A', type: 10, rnavFlags: flags, runwayNumber: 0, runwayDesignator: 0 }];
+        const result = classify(a, { categories, minimumFt });
+        assert.equal(result.verdict, 'no-match', `${flags}/${categories}/${minimumFt}`);
+        assert.deepEqual(result.runwayIds, []);
+      }
+    }
+  }
+});
+
+test('a runway-specific RNAV can qualify alongside circling, but missing runway identity cannot', () => {
+  const a = airport();
+  const straight = { ...a.procedures![0], name: 'RNAV 09', type: 10, rnavFlags: 10 };
+  const circling = { ...straight, name: 'RNAV A', runwayNumber: 0, runwayDesignator: 0 };
+  a.procedures = [circling, straight];
+  assert.deepEqual(classify(a, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).runwayIds, ['09']);
+  a.procedures = [{ ...straight, runwayNumber: null }];
+  assert.equal(classify(a, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).verdict, 'unknown');
+});
