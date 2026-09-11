@@ -98,16 +98,6 @@ jobs:
       - name: Verify Windows artifacts and smoke install on disposable runner
         shell: pwsh
         run: ./scripts/verify-windows-installer.ps1
-      - name: Preserve installer smoke diagnostics
-        if: always()
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
-        with:
-          name: windows-installer-smoke-diagnostics
-          path: |
-            out/installer-smoke.json
-            out/installer-smoke-diagnostics/
-          if-no-files-found: ignore
-          retention-days: 14
       - name: Verify final Windows delivery bytes after installer smoke
         run: node scripts/verify-artifact.cjs --platform=win32 --arch=x64
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
