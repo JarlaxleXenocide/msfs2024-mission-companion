@@ -75,7 +75,7 @@ fs.mkdirSync(output, { recursive: true });
    await page.locator('.settings-disclosure summary').click();
    for(const compact of [false,true]) {
     await page.locator('#compact').setChecked(compact);
-    assert.equal(await page.locator('thead th').count(),6);
+    assert.equal(await page.locator('thead th').count(),7);
     assert.equal(await page.locator('.mission-row').count(),4);
     assert.match(await page.locator('.mission-row').first().textContent(),/1 h 25 min.*125,000 Cr/);
     assert.equal(await page.locator('.table-scroll').evaluate(el=>el.scrollWidth<=el.clientWidth),true);

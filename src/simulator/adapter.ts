@@ -198,7 +198,9 @@ function normalizeCapture(raw: unknown): Capture {
     throw new AdapterError('updating', 'Mission list is updating');
   }
   if (raw.firstGuid !== firstGuid) throw unsupported();
-  return { screen: 'browse', observedAt: raw.observedAt, missions };
+  const pilotIdent = isRecord(raw.pilotLocation) && typeof raw.pilotLocation.iCAO === 'string' &&
+    /^[A-Z0-9]{1,8}$/.test(raw.pilotLocation.iCAO) ? raw.pilotLocation.iCAO : null;
+  return { screen: 'browse', observedAt: raw.observedAt, missions, pilotIdent };
 }
 
 function validCount(value: unknown): value is number {

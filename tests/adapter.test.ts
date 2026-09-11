@@ -377,3 +377,10 @@ test('verified facility degree coordinates survive expression and adapter normal
     assert.deepEqual((await adapter.airport(position.ident)).position, { latitude: position.lat, longitude: position.lon });
   }
 });
+
+test('capture exposes Career pilot airport and rejects malformed optional locations', async () => {
+  for (const [pilotLocation, expected] of [[{ iCAO: 'C03' }, 'C03'], [null, null], [{ iCAO: '' }, null], [{ iCAO: 12 }, null]] as const) {
+    const { adapter } = await setup([{ ...record(), pilotLocation }]);
+    assert.equal((await adapter.capture()).pilotIdent, expected);
+  }
+});

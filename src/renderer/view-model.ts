@@ -1,6 +1,6 @@
 import type { Mission, Row } from '../shared/model';
 
-export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits';
+export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'distance';
 export type SortDirection = 'asc' | 'desc';
 export interface SortCriterion { column: RowSort; direction: SortDirection }
 
@@ -105,6 +105,7 @@ export function missionSummary(mission: Mission, _compact: boolean): {
 function sortValue(row: Row, sort: RowSort): string | number | null {
   if (sort === 'title') return row.mission.title;
   if (sort === 'destination') return row.mission.destination;
+  if (sort === 'distance') return row.distanceNm ?? null;
   if (sort === 'credits') return row.mission.payoutCredits;
   if (sort === 'duration') {
     // Sort the advertised duration; raw simulator duration units are unverified.

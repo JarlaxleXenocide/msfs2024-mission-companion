@@ -431,3 +431,35 @@ test('route work respects stalls and new sessions cannot receive old route compl
   assert.equal(controller.getState().route?.departure.status, 'pending');
   controller.stop();
 });
+
+test('pilot distance uses departure, updates after travel and clears when pilot is unavailable', async () => {
+  const simulator = new FakeSimulator();
+  simulator.snapshot = Object.assign(capture(mission('trip', 'DEST')), { pilotIdent: 'PILOT' });
+  simulator.onAirport = async ident => ({ ...facility(ident), position: { latitude: 0, longitude: ident === 'TEST' ? 1 : ident === 'PILOT' ? 0 : 10 } });
+  const controller = new Controller(simulator, defaultPreferences, new Clock());
+  controller.start(); await flush();
+  const distance = () => controller.getState().rows[0].distanceNm;
+  assert.ok(Math.abs(distance()! - 60.04) < 0.1, `Expected 60 NM to departure, got ${distance()}`);
+  simulator.snapshot = Object.assign(capture(mission('trip', 'DEST')), { pilotIdent: 'TEST' });
+  await controller.refresh(); await flush();
+  assert.equal(distance(), 0);
+  simulator.snapshot = capture(mission('trip', 'DEST'));
+  await controller.refresh();
+  assert.equal(distance(), null);
+  controller.stop();
+});
+
+test('pilot and departure lookups share bounded airport work and refresh invalidates distances', async () => {
+  const simulator = new FakeSimulator();
+  simulator.snapshot = Object.assign(capture(mission('A'), mission('B'), mission('C'), mission('D')), { pilotIdent: 'TEST' });
+  const controller = new Controller(simulator, defaultPreferences, new Clock());
+  controller.start(); await flush();
+  assert.equal(simulator.calls.length, 4);
+  assert.equal(simulator.calls.filter(c => c.ident === 'TEST').length, 1);
+  simulator.calls[0].work.resolve({ ...facility('TEST'), position: { latitude: 0, longitude: 0 } });
+  await flush();
+  assert.equal(controller.getState().rows[0].distanceNm, 0);
+  await controller.refreshAirports();
+  assert.equal(controller.getState().rows[0].distanceNm, null);
+  controller.stop();
+});

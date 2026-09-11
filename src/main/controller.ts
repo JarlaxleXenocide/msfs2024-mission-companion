@@ -1,5 +1,6 @@
 import type { Airport, AirportResult, AppState, Capture, ConnectionState, Icao, Preferences, RouteEndpoint } from '../shared/model';
 import { parsePreferences } from '../shared/validate';
+import { distanceNm } from '../domain/distance';
 import { classify } from '../domain/classify';
 import { AdapterError, type Simulator } from '../simulator/adapter';
 import { CoherentError } from '../simulator/coherent';
@@ -148,7 +149,8 @@ export class Controller {
       this.state.route.departure = { ident: this.state.route.mission.departure, status: 'pending' };
       this.state.route.destination = { ident: this.state.route.mission.destination, status: 'pending' };
     }
-    this.state.rows = this.state.rows.map(row => ({ ...row, facility: { status: 'pending' }, decision: null }));
+    if (this.state.pilotLocation) this.state.pilotLocation = { ident: this.state.pilotLocation.ident, status: 'pending' };
+    this.state.rows = this.state.rows.map(row => ({ ...row, departureLocation: { ident: row.mission.departure, status: 'pending' }, distanceNm: null, facility: { status: 'pending' }, decision: null }));
     this.publish();
     return this.refresh();
   }
@@ -253,7 +255,13 @@ export class Controller {
     const previous = new Map(this.rowsSession === this.connection
       ? this.state.rows.map(row => [row.mission.destination, row.facility]) : []);
     this.rowsSession = this.connection;
-    const destinations = new Set(capture.missions.map(mission => mission.destination));
+    const previousDepartures = new Map(this.state.rows.map(row => [row.mission.departure, row.departureLocation]));
+    const pilot = this.state.pilotLocation;
+    this.state.pilotLocation = capture.pilotIdent
+      ? pilot?.ident === capture.pilotIdent ? pilot : { ident: capture.pilotIdent, status: 'pending' }
+      : null;
+    const destinations = new Set(capture.missions.flatMap(mission => [mission.destination, mission.departure]));
+    if (capture.pilotIdent) destinations.add(capture.pilotIdent);
     if (this.state.route?.session === this.connection) {
       destinations.add(this.state.route.mission.departure);
       destinations.add(this.state.route.mission.destination);
@@ -261,7 +269,9 @@ export class Controller {
     for (const ident of this.errors.keys()) if (!destinations.has(ident)) this.errors.delete(ident);
     this.state.revision++;
     this.state.observedAt = capture.observedAt;
-    this.state.rows = capture.missions.map(mission => ({ mission, facility: this.available(mission.destination, previous.get(mission.destination)), decision: null }));
+    this.state.rows = capture.missions.map(mission => ({ mission,
+      departureLocation: previousDepartures.get(mission.departure) ?? { ident: mission.departure, status: 'pending' },
+      facility: this.available(mission.destination, previous.get(mission.destination)), decision: null }));
   }
 
   private available(ident: string, previous?: AirportResult): AirportResult {
@@ -284,12 +294,17 @@ export class Controller {
     this.state.connection = stalled ? 'stalled' : this.baseConnection;
     this.state.stale = stalled || this.baseConnection !== 'ready';
     this.state.message = this.uncertainCapture ? captureRecoveryMessage : stalled ? recoveryMessage : this.baseMessage;
+    if (this.state.pilotLocation) this.state.pilotLocation = this.endpoint(this.state.pilotLocation);
     this.state.rows = this.state.rows.map(row => {
+      const departureLocation = this.endpoint(row.departureLocation ?? { ident: row.mission.departure, status: 'pending' });
+      const pilot = this.state.pilotLocation;
+      const distance = pilot?.status === 'ready' && departureLocation.status === 'ready'
+        ? distanceNm(pilot.position, departureLocation.position) : null;
       const facility = this.available(row.mission.destination, row.facility);
       const unconstrained = this.preferences.criteria.categories.length === 0 && this.preferences.criteria.minimumFt === null;
       const decision = facility.status === 'pending' && !unconstrained ? null
         : classify(facility.status === 'ready' ? facility.airport : null, this.preferences.criteria);
-      return { ...row, facility, decision };
+      return { ...row, facility, decision, departureLocation, distanceNm: distance };
     });
     if (this.state.route?.session === this.connection) {
       this.state.route.departure = this.endpoint(this.state.route.departure);
@@ -314,7 +329,9 @@ export class Controller {
     const route = this.state.route?.session === this.connection ? this.state.route : null;
     const demand = [
       ...(route ? [route.departure, route.destination] : []),
+      ...(this.state.pilotLocation ? [this.state.pilotLocation] : []),
       ...this.state.rows.map(row => ({ ident: row.mission.destination, status: row.facility.status })),
+      ...(this.state.pilotLocation ? this.state.rows.map(row => row.departureLocation!) : []),
     ];
     for (const { ident, status } of demand) {
       if (this.operations.size >= 4) return;
@@ -416,6 +433,8 @@ export class Controller {
   }
 
   private clearCache(): void {
+    this.state.pilotLocation = null;
+    this.state.rows = this.state.rows.map(row => ({ ...row, departureLocation: undefined, distanceNm: null }));
     this.cacheVersion++;
     this.cache.clear(); this.identities.clear(); this.errors.clear();
   }

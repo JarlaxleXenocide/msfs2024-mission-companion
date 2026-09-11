@@ -164,3 +164,15 @@ test('duration and credits sort numerically with ordered tie breakers and unknow
   assert.deepEqual(ids([{ column: 'credits', direction: 'asc' }]), ['7', '6', '3', '1', '2', '8', '5', '4']);
   assert.deepEqual(ids([]), ['1', '2', '3', '4', '5', '6', '7', '8']);
 });
+
+test('distance sorting is numeric and keeps unavailable locations last', () => {
+  const rows = [
+    { ...readyRow(mission('1', 'Near', 'A', 'B'), airport()), distanceNm: 9 },
+    { ...readyRow(mission('2', 'Far', 'A', 'B'), airport()), distanceNm: 100 },
+    { ...readyRow(mission('3', 'Unknown', 'A', 'B'), airport()), distanceNm: null },
+    { ...readyRow(mission('4', 'Here', 'A', 'B'), airport()), distanceNm: 0 },
+  ];
+  const column = 'distance' as SortCriterion['column'];
+  assert.deepEqual(visibleRows(rows, '', false, [{ column, direction: 'asc' }]).map(r => r.mission.guid), ['4', '1', '2', '3']);
+  assert.deepEqual(visibleRows(rows, '', false, [{ column, direction: 'desc' }]).map(r => r.mission.guid), ['2', '1', '4', '3']);
+});

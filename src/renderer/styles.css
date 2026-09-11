@@ -90,7 +90,7 @@ fieldset label:has(input:checked)::before { content: '✓'; }
 .table-scroll { overflow: auto; scrollbar-gutter: stable; width: 100%; flex: 1; min-height: 0; }
 table { min-width: 760px; width: 100%; border-collapse: collapse; text-align: left; font-variant-numeric: tabular-nums; table-layout: fixed; }
 th { position: sticky; top: 0; z-index: 1; background: var(--panel); color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .65px; text-transform: uppercase; padding: 12px 15px; }
-th:nth-child(1) { width: 15%; } th:nth-child(2) { width: 15%; } th:nth-child(3) { width: 12%; } th:nth-child(4) { width: 13%; } th:nth-child(5) { width: 20%; } th:nth-child(6) { width: 25%; }
+th:nth-child(1) { width: 14%; } th:nth-child(2) { width: 14%; } th:nth-child(3) { width: 10%; } th:nth-child(4) { width: 12%; } th:nth-child(5) { width: 9%; } th:nth-child(6) { width: 18%; } th:nth-child(7) { width: 23%; }
 th button { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-transform: inherit; text-align: left; }
 th[aria-sort] { color: var(--accent); }
 td { padding: 14px 15px; border-top: 1px solid var(--line); vertical-align: middle; font-size: 12px; overflow-wrap: anywhere; }

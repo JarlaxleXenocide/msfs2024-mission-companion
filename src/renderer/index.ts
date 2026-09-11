@@ -215,7 +215,7 @@ function renderState(): void {
 
 function renderTable(force = false): void {
   if (!state || !preferences) return;
-  const signature = JSON.stringify([state.rows, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, sorts, preferences.compact, [...expanded], selectedGuid]);
+  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, sorts, preferences.compact, [...expanded], selectedGuid]);
   if (!force && signature === tableSignature) return;
   tableSignature = signature;
   const rows = visibleRows(state.rows, search.value, preferences.matchesOnly, sorts);
@@ -229,7 +229,7 @@ function renderTable(force = false): void {
     const empty = element('td', '', state.rows.length ? 'No missions match the current view.'
       : state.connection === 'ready' && !state.stale ? 'The current Career list is empty.'
       : 'No current mission list is available. Check simulator status above.');
-    empty.colSpan = 6;
+    empty.colSpan = 7;
     row.append(empty);
     desired.push(row);
   } else {
@@ -274,7 +274,7 @@ function createMissionRow(): HTMLTableRowElement {
     renderTable(true);
   });
   toggleCell.append(toggle);
-  missionRow.append(...Array.from({ length: 5 }, () => element('td')), toggleCell);
+  missionRow.append(...Array.from({ length: 6 }, () => element('td')), toggleCell);
   missionRow.addEventListener('click', () => {
     const guid = missionRow.dataset.guid;
     if (!guid) return;
@@ -289,7 +289,7 @@ function updateMissionRow(missionRow: HTMLTableRowElement, row: Row): void {
   const isExpanded = expanded.has(guid);
   missionRow.classList.toggle('selected', selectedGuid === guid || isExpanded);
   missionRow.dataset.guid = guid;
-  const toggle = missionRow.cells[5].querySelector<HTMLButtonElement>('button')!;
+  const toggle = missionRow.cells[6].querySelector<HTMLButtonElement>('button')!;
   toggle.textContent = isExpanded ? 'Hide runways −' : 'Show runways +';
   toggle.dataset.guid = guid;
   toggle.setAttribute('aria-expanded', String(isExpanded));
@@ -305,10 +305,15 @@ function updateMissionRow(missionRow: HTMLTableRowElement, row: Row): void {
   );
   missionRow.cells[2].textContent = summary.duration;
   missionRow.cells[3].textContent = summary.payout;
+  const distanceCell = missionRow.cells[4];
+  distanceCell.textContent = row.distanceNm == null ? '—' : row.distanceNm.toLocaleString('en-US', { maximumFractionDigits: 1 });
+  distanceCell.title = state?.pilotLocation
+    ? `Career pilot at ${state.pilotLocation.ident} to ${row.mission.departure} (straight-line distance)`
+    : 'Career pilot location unavailable';
   const categories = categoryCell(row);
-  missionRow.cells[4].className = categories.className;
-  missionRow.cells[4].replaceChildren(...Array.from(categories.childNodes));
-  missionRow.cells[5].replaceChildren(
+  missionRow.cells[5].className = categories.className;
+  missionRow.cells[5].replaceChildren(...Array.from(categories.childNodes));
+  missionRow.cells[6].replaceChildren(
     toggle,
     element('div', '', runwaySummary(row)),
     element('div', 'secondary', runwayGeometry(row)),
@@ -332,7 +337,7 @@ function detailRow(row: Row): HTMLTableRowElement {
   detail.id = detailId(row.mission.guid);
   detail.dataset.detailGuid = row.mission.guid;
   const container = element('td');
-  container.colSpan = 6;
+  container.colSpan = 7;
   const heading = element('div', 'detail-heading');
   heading.append(
     element('strong', '', `${row.mission.destination} · Approaches by runway end`),

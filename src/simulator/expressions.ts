@@ -57,7 +57,15 @@ export function captureExpression(): string {
     changed = checkState();
     if (changed) return changed;
     if (first && (!firstAgain || firstAgain.missionIndex !== 0 || typeof firstAgain.missionGUID !== 'string' || !firstAgain.missionGUID.trim())) return result('unsupported');
-    return { screen: 'browse', observedAt: new Date().toISOString(), first: first, final: final,
+    // Career pilot airport, available without leaving the world map.
+    var pilotLocation = null;
+    try {
+      var library = await import('/Global/lib.js');
+      pilotLocation = await library.b.game.worldmap.worldLocations.playerLocation();
+    } catch (_) { /* Optional location must not hide missions. */ }
+    changed = checkState();
+    if (changed) return changed;
+    return { pilotLocation: pilotLocation, screen: 'browse', observedAt: new Date().toISOString(), first: first, final: final,
       firstGuid: firstGuid, finalFirstGuid: firstAgain ? firstAgain.missionGUID : null, items: items };
   })()`;
 }

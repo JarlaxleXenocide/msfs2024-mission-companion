@@ -11,7 +11,8 @@ const { resolve } = require('node:path');
       const page = await browser.newPage({ viewport: { width: 1100, height: 760 } });
       await page.addInitScript(() => {
         const snapshot = title => ({ session: 'synthetic-startup', revision: 1, observedAt: '2026-09-05T19:00:00Z',
-          connection: 'ready', stale: false, message: title, rows: [{
+          connection: 'ready', stale: false, message: title, pilotLocation: { ident: 'C03', status: 'ready', position: { latitude: 41.4, longitude: -85.9 } }, rows: [{
+            distanceNm: 123.45,
             mission: { guid: title, title, activity: 'Synthetic', departure: 'AAA', destination: 'BBB', payoutText: '125,000 Cr', payoutCredits: 125000, durationText: '1 h 25 min' },
             facility: { status: 'ready', airport: { key: 'A|||BBB', ident: 'BBB', icao: { type: 'A', region: '', airport: '', ident: 'BBB' }, procedures: [{ name: 'VOR A', type: 2, rnavFlags: 0, runwayNumber: 0, runwayDesignator: 0, rnpAr: false }], ends: [12, 15, 30, 33].map(number => ({ id: String(number), number, designator: 0, physicalM: 1554.4857, thresholdM: 0, thresholdElevationM: 1681.954, physicalElevationM: 1684.17, closed: false, ilsMHz: null, glideslope: null })) } }, decision: { verdict: 'unknown', runwayIds: [], reasons: [] },
           }] });
@@ -35,11 +36,13 @@ const { resolve } = require('node:path');
       assert.equal(await page.locator('#connection-message').textContent(), expected);
       assert.equal(await page.locator('.mission-title').textContent(), expected);
       assert.equal(await page.locator('.table-scroll').evaluate(el => el.scrollWidth <= el.clientWidth), true, 'Comparison fits the default window');
-      assert.equal(await page.locator('thead th').count(), 6, 'Duration and credits have separate columns');
+      assert.equal(await page.locator('thead th').count(), 7, 'Distance, duration and credits have separate columns');
       assert.equal(await page.locator('.mission-row td:last-child .expand').count(), 1, 'Expansion belongs in Runway details');
       assert.equal(await page.locator('td td').count(), 0, 'Summary cells must not nest table cells');
       assert.match(await page.locator('.mission-row').textContent(), /AAA.*BBB/);
       assert.match(await page.locator('.mission-row').textContent(), /1 h 25 min.*125,000 Cr/);
+      assert.equal(await page.locator('.mission-row td').nth(4).textContent(), '123.5');
+      assert.match(await page.locator('.mission-row td').nth(4).getAttribute('title'), /C03.*AAA/);
       await page.locator('.settings-disclosure summary').click();
       for (const theme of ['clear', 'deck', 'notes']) {
         for (const appearance of ['light', 'night']) {

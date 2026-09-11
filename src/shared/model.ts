@@ -85,12 +85,15 @@ export type AirportResult =
   | { status: 'unknown'; reason: string };
 
 export interface Capture {
+  pilotIdent?: string | null;
   screen: Screen;
   observedAt: string;
   missions: Mission[];
 }
 
 export interface Row {
+  departureLocation?: RouteEndpoint;
+  distanceNm?: number | null;
   mission: Mission;
   facility: AirportResult;
   decision: Decision | null;
@@ -117,6 +120,7 @@ export interface RouteLookup {
 }
 
 export interface AppState {
+  pilotLocation?: RouteEndpoint | null;
   route?: RouteLookup | null;
   desktop?: DesktopCapabilities;
   session: string | null;
