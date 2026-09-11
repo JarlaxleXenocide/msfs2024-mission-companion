@@ -25,7 +25,7 @@ async function fixture(t, platform, extraAsar) {
   const files = [...common, ...platformFiles[platform]].map(name => ({ name, data: name.endsWith('.exe') ? pe() : 'runtime' }));
   files.push({ name: 'resources/THIRD-PARTY-LICENSES.md', data: readFileSync(join(__dirname, '../THIRD-PARTY-LICENSES.md')) });
   files.push({ name: 'resources/app.asar', data: readFileSync(archive) });
-  const root = platform === 'win32' ? '' : `MSFS Career Approach Companion-${platform}-x64/`;
+  const root = platform === 'win32' ? '' : `career-companion-${platform}-x64/`;
   const zip = join(dir, 'package.zip');
   const pack = (entries = files, separator = '/') => writeZip(zip, entries.map(e => ({ ...e, name: (root + e.name).replaceAll('/', separator) })));
   await pack(); return { dir, zip, files, pack, root };

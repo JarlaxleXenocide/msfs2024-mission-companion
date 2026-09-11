@@ -110,7 +110,7 @@ Renderer tests use synthetic data and never connect to MSFS. On minimal Linux sy
 Launch development with `npm start`, or run the packaged executable:
 
 ```sh
-'./out/MSFS Career Approach Companion-linux-x64/career-companion'
+./out/career-companion-linux-x64/career-companion
 ```
 
 The portable ZIP and checksum are under `out/make/zip/linux/x64/`. CI checks dependencies, tests, builds, renderer behavior and artifact contents, then checks runtime libraries on Ubuntu 22.04/24.04 and Debian 12.
@@ -129,7 +129,7 @@ npm run test:renderer
 node scripts/verify-artifact.cjs --platform=win32 --arch=x64
 ```
 
-The unpacked Windows runtime is under `out/MSFS Career Approach Companion-win32-x64/`; Forge writes the portable ZIP under `out/make/zip/win32/x64/` and the Squirrel setup files under `out/make/squirrel.windows/x64/`. Final verified Windows delivery files are copied to `out/verified/windows-x64/`.
+The unpacked Windows runtime is under `out/career-companion-win32-x64/`; Forge writes the portable ZIP under `out/make/zip/win32/x64/` and the Squirrel setup files under `out/make/squirrel.windows/x64/`. Final verified Windows delivery files are copied to `out/verified/windows-x64/`.
 
 CI uploads two build artifacts: `linux-x64`, containing the Linux portable ZIP and its manifest, and `windows-x64`, containing the Windows portable ZIP, setup EXE, Squirrel verification inputs and its manifest. A matching version tag combines the public Linux ZIP, Windows ZIP, Windows setup EXE and a new `SHA256SUMS` into one GitHub release. Tag releases remain drafts by default; automatic public publication requires the repository variable `RELEASE_PUBLICATION_ENABLED=true`.
 

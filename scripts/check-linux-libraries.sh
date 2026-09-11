@@ -13,7 +13,7 @@ apt-get update
 apt-get install --yes --no-install-recommends unzip libnss3 "$gtk" libgbm1 "$alsa"
 mkdir /package
 unzip -q /artifacts/*.zip -d /package
-cd '/package/MSFS Career Approach Companion-linux-x64'
+cd '/package/career-companion-linux-x64'
 for binary in career-companion chrome_crashpad_handler chrome-sandbox *.so*; do
   echo "Checking $binary on $PRETTY_NAME"
   dependencies=$(ldd "./$binary")

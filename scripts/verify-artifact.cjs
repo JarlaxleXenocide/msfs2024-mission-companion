@@ -51,7 +51,7 @@ function verifyAsar(bytes, version) {
 }
 async function verifyArchive(zip, version, platform = 'linux') {
   assert(runtime[platform], `Unsupported platform: ${platform}`);
-  const root = platform === 'win32' ? '' : `MSFS Career Approach Companion-${platform}-x64/`;
+  const root = platform === 'win32' ? '' : `career-companion-${platform}-x64/`;
   return withArchive(zip, async (entries, read) => {
     for (const entry of entries.keys()) {
       const name = entry.slice(root.length);
@@ -135,7 +135,7 @@ async function main() {
   for (const arg of process.argv.slice(2)) { const match = /^--(platform|arch|installed-dir)=(.+)$/.exec(arg); assert(match, `Unknown argument: ${arg}`); assert(!options[match[1]], `Duplicate argument: ${arg}`); options[match[1]] = match[2]; }
   const platform = options.platform || 'linux'; assert(runtime[platform], 'Unsupported platform'); assert.equal(options.arch || 'x64', 'x64', 'Only x64 artifacts are supported');
   const directory = `out/make/zip/${platform}/x64`; const version = require('../package.json').version;
-  const name = `MSFS Career Approach Companion-${platform}-x64-${version}.zip`;
+  const name = `career-companion-${platform}-x64-${version}.zip`;
   assert.deepEqual(readdirSync(directory).filter(file => file.endsWith('.zip')), [name], `Expected one ${platform} x64 ZIP`);
   const zip = join(directory, name); const verified = await verifyArchive(zip, version, platform);
   if (options['installed-dir']) { verifyInstalledRuntime(options['installed-dir'], verified); console.log('Installed Windows runtime matches verified ZIP'); return; }

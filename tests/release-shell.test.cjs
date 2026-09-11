@@ -53,7 +53,7 @@ fi
       mkdirSync(join(working, 'linux'));
       mkdirSync(join(working, 'windows'));
       const version = scenario === 'absent-build' ? '0.1.1+build.4' : scenario === 'absent-prerelease' ? '0.1.1-rc.1' : '0.1.0';
-      const incoming = `MSFS Career Approach Companion-linux-x64-${version}.zip`;
+      const incoming = `career-companion-linux-x64-${version}.zip`;
       writeFileSync(join(working, 'linux', incoming), scenario === 'corrupt-linux' ? 'corrupted artifact' : 'synthetic artifact');
       writeFileSync(join(working, 'linux', 'SHA256SUMS'), `${digest}  ${incoming}\n`);
       const windowsFiles = ['msfs2024-mission-companion-windows-x64.zip', 'msfs2024-mission-companion-windows-x64-setup.exe', 'fixture-full.nupkg', 'RELEASES'];

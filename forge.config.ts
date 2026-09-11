@@ -9,7 +9,7 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
 
-const packageMetadata = require('./package.json') as { author: string; description: string };
+const packageMetadata = require('./package.json') as { author: string; description: string; productName: string };
 
 // Supported by electron-winstaller metadata but omitted from its options type.
 const squirrelAdditionalFiles = { additionalFiles: [
@@ -18,11 +18,20 @@ const squirrelAdditionalFiles = { additionalFiles: [
 ] };
 
 const config: ForgeConfig = {
-  packagerConfig: { asar: true, executableName: 'career-companion', extraResource: ['THIRD-PARTY-LICENSES.md'] },
+  packagerConfig: {
+    name: 'career-companion', asar: true, executableName: 'career-companion',
+    extraResource: ['THIRD-PARTY-LICENSES.md'],
+    win32metadata: {
+      FileDescription: packageMetadata.productName,
+      ProductName: packageMetadata.productName,
+      InternalName: packageMetadata.productName,
+    },
+  },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
       name: 'msfsCareerApproachCompanion',
+      title: packageMetadata.productName,
       exe: 'career-companion.exe',
       setupExe: 'msfs2024-mission-companion-windows-x64-setup.exe',
       authors: packageMetadata.author,
