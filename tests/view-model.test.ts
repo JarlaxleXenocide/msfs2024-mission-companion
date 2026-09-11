@@ -4,6 +4,8 @@ import { classify } from '../src/domain/classify';
 import type { Airport, Mission, Row } from '../src/shared/model';
 import {
   displayElevation,
+  procedureType,
+  availableCategories,
   missionSummary,
   parseMinimumFt,
   rowCounts,
@@ -175,4 +177,27 @@ test('distance sorting is numeric and keeps unavailable locations last', () => {
   const column = 'distance' as SortCriterion['column'];
   assert.deepEqual(visibleRows(rows, '', false, [{ column, direction: 'asc' }]).map(r => r.mission.guid), ['4', '1', '2', '3']);
   assert.deepEqual(visibleRows(rows, '', false, [{ column, direction: 'desc' }]).map(r => r.mission.guid), ['2', '1', '4', '3']);
+});
+
+
+test('RNAV labels name lateral minima and distinguish circling from unknown runway data', () => {
+  const base = { ...airport().procedures![0], name: 'RNAV 09', type: 10 };
+  for (const [flags, label] of [[1, 'LNAV'], [4, 'LP'], [2, 'LNAV/VNAV'], [8, 'LPV']] as const) {
+    const procedure = { ...base, rnavFlags: flags };
+    assert.equal(procedureType(procedure), `RNAV · ${label}`);
+    const row = readyRow(mission('1', 'Test', 'A', 'B'), { ...airport(), procedures: [procedure] });
+    assert.deepEqual(availableCategories(row), [label]);
+  }
+  assert.equal(procedureType({ ...base, rnavFlags: 0 }), 'RNAV · minima unavailable');
+  assert.equal(procedureType({ ...base, rnavFlags: 1, runwayNumber: 0, runwayDesignator: 0 }), 'RNAV · LNAV · Circling');
+  assert.equal(procedureType({ ...base, rnavFlags: null, runwayNumber: null }), 'RNAV · minima unavailable · Runway unknown');
+  assert.equal(procedureType({ ...base, rnavFlags: 9 }), 'RNAV · LPV · LNAV');
+});
+
+test('circling RNAV is identified in airport summary and does not imply vertical guidance', () => {
+  const procedure = { ...airport().procedures![0], name: 'RNAV A', type: 10, rnavFlags: 1, runwayNumber: 0, runwayDesignator: 0 };
+  const facility = { ...airport(), procedures: [procedure] };
+  assert.deepEqual(availableCategories(readyRow(mission('1', 'Test', 'A', 'B'), facility)), ['RNAV circling (LNAV)']);
+  assert.equal(classify(facility, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).verdict, 'no-match');
+  assert.equal(classify({ ...facility, procedures: [{ ...procedure, runwayNumber: 9 }] }, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).verdict, 'no-match');
 });

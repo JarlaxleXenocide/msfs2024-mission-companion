@@ -31,6 +31,10 @@ fs.mkdirSync(output, { recursive: true });
   await page.goto(pathToFileURL(resolve('.webpack/x64/renderer/main_window/index.html')).href);
   await page.waitForFunction(()=>document.querySelector('#app').ariaBusy==='false');
   await page.locator('.titlebar .kicker').evaluate(el=>el.textContent='SYNTHETIC QA · CAREER APPROACHES');
+  assert.match(await page.locator('.mission-row').nth(3).textContent(), /RNAV circling/);
+  await page.locator('.expand').nth(3).click();
+  assert.match(await page.locator('.procedure').last().textContent(), /RNAV A.*minima unavailable.*Circling/);
+  await page.locator('.expand').nth(3).click();
   // Polls must not move hit targets or replace unchanged row contents.
   const geometry=()=>page.locator('#refresh, #compact, #search, .expand').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height]}));
   const settled=await geometry();

@@ -11,6 +11,8 @@ import stylesURL from './styles.css';
 import { RouteMapController } from './route-map';
 import {
   displayElevation,
+  availableCategories,
+  procedureType,
   displayLength,
   matchingRunwayLength,
   missionSummary,
@@ -437,34 +439,6 @@ function runwayGeometry(row: Row): string {
       ? end.physicalM - end.thresholdM : null)
     .filter((value): value is number => value !== null && Number.isFinite(value));
   return candidates.length ? displayLength(Math.max(...candidates)) : 'Unknown';
-}
-
-function availableCategories(row: Row): string[] {
-  if (row.facility.status !== 'ready' || row.facility.airport.procedures === null) return [];
-  const values = new Set<string>();
-  for (const procedure of row.facility.airport.procedures) {
-    if (procedure.type === 4) values.add('ILS');
-    else if (procedure.type === 5) values.add('LOC');
-    else if (procedure.type === 8) values.add('VOR');
-    else if (procedure.type === 11) values.add('VOR/DME');
-    else if (procedure.type === 10) {
-      if (procedure.rnavFlags !== null && (procedure.rnavFlags & 8) !== 0) values.add('LPV');
-      if (procedure.rnavFlags !== null && (procedure.rnavFlags & 2) !== 0) values.add('LNAV/VNAV');
-      if (procedure.rnavFlags === null || procedure.rnavFlags <= 0) values.add('RNAV subtype unknown');
-    }
-  }
-  return [...values];
-}
-
-function procedureType(procedure: Procedure): string {
-  const base = procedure.type === 4 ? 'ILS' : procedure.type === 5 ? 'LOC'
-    : procedure.type === 8 ? 'VOR' : procedure.type === 11 ? 'VOR/DME'
-    : procedure.type === 10 ? 'RNAV' : `Type ${procedure.type}`;
-  if (procedure.type !== 10) return base;
-  const categories: string[] = [];
-  if (procedure.rnavFlags !== null && (procedure.rnavFlags & 8) !== 0) categories.push('LPV');
-  if (procedure.rnavFlags !== null && (procedure.rnavFlags & 2) !== 0) categories.push('LNAV/VNAV');
-  return `${base}${categories.length ? ` · ${categories.join(' · ')}` : ' · subtype unknown'}`;
 }
 
 function metric(label: string, value: string): HTMLElement {

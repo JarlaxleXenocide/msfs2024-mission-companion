@@ -1,4 +1,4 @@
-import type { Mission, Row } from '../shared/model';
+import type { Mission, Row, Procedure } from '../shared/model';
 
 export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'distance';
 export type SortDirection = 'asc' | 'desc';
@@ -120,4 +120,48 @@ function sortValue(row: Row, sort: RowSort): string | number | null {
 const numberFormat = new Intl.NumberFormat('en-US');
 function formatNumber(value: number): string {
   return numberFormat.format(value);
+}
+
+export function availableCategories(row: Row): string[] {
+  if (row.facility.status !== 'ready' || row.facility.airport.procedures === null) return [];
+  const values = new Set<string>();
+  for (const procedure of row.facility.airport.procedures) {
+    if (procedure.type === 4) values.add('ILS');
+    else if (procedure.type === 5) values.add('LOC');
+    else if (procedure.type === 8) values.add('VOR');
+    else if (procedure.type === 11) values.add('VOR/DME');
+    else if (procedure.type === 10) {
+      const minima = rnavMinima(procedure);
+      if (isCircling(procedure)) values.add(`RNAV circling${minima.length ? ` (${minima.join(', ')})` : ''}`);
+      else if (minima.length) for (const label of minima) values.add(label);
+      else values.add('RNAV minima unavailable');
+    }
+  }
+  return [...values];
+}
+
+export function procedureType(procedure: Procedure): string {
+  const base = procedure.type === 4 ? 'ILS' : procedure.type === 5 ? 'LOC'
+    : procedure.type === 8 ? 'VOR' : procedure.type === 11 ? 'VOR/DME'
+    : procedure.type === 10 ? 'RNAV' : `Type ${procedure.type}`;
+  if (procedure.type !== 10) return base;
+  const minima = rnavMinima(procedure);
+  const association = isCircling(procedure) ? ' · Circling'
+    : procedure.runwayNumber === null || procedure.runwayDesignator === null ? ' · Runway unknown' : '';
+  return `${base} · ${minima.length ? minima.join(' · ') : 'minima unavailable'}${association}`;
+}
+
+function isCircling(procedure: Procedure): boolean {
+  return procedure.runwayNumber === 0 && procedure.runwayDesignator === 0;
+}
+
+function rnavMinima(procedure: Procedure): string[] {
+  const flags = procedure.rnavFlags;
+  if (flags === null || !Number.isInteger(flags) || flags <= 0) return [];
+  const minima: string[] = [];
+  // MSFS RnavTypeFlags describe minima, independently of runway association.
+  for (const [flag, label] of [[8, 'LPV'], [2, 'LNAV/VNAV'], [4, 'LP'], [1, 'LNAV']] as const) {
+    if ((flags & flag) !== 0) minima.push(label);
+  }
+  return minima;
 }
