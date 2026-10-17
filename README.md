@@ -94,6 +94,8 @@ The basemap streams standard OpenStreetMap images and needs internet access. Onl
 
 ## Build and test
 
+The dependency audit permits two known build-only advisories for `braces@3.0.3` and `sprintf-js@1.1.3`, which have no patched upstream releases. The exceptions are limited to their exact advisory IDs and versions in `scripts/audit-dependencies.cjs`; new advisories, changed versions, and runtime dependency findings still fail the check. Packaged artifacts are separately checked to exclude build dependencies.
+
 Use Node >=22.12.0 (CI uses 22.23.1) and npm. On Linux, install Info-ZIP `zip` for Forge's ZIP maker and `unzip` for distribution-library checks, plus the Electron system libraries listed above:
 
 ```sh
