@@ -1,6 +1,6 @@
 import type { Mission, Row, Procedure } from '../shared/model';
 
-export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'distance';
+export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'creditsPerHour' | 'distance';
 export type SortDirection = 'asc' | 'desc';
 export interface SortCriterion { column: RowSort; direction: SortDirection }
 
@@ -102,18 +102,34 @@ export function missionSummary(mission: Mission, _compact: boolean): {
   };
 }
 
+function durationMinutes(durationText: string | null): number | null {
+  // Use the advertised duration; raw simulator duration units are unverified.
+  const match = /^(?:(\d+(?:\.\d+)?)\s*h\s*)?(?:(\d+(?:\.\d+)?)\s*min)?$/i.exec(durationText?.trim() ?? '');
+  if (!match || (!match[1] && !match[2])) return null;
+  const minutes = Number(match[1] ?? 0) * 60 + Number(match[2] ?? 0);
+  return Number.isFinite(minutes) ? minutes : null;
+}
+
+export function creditsPerHour(mission: Mission): number | null {
+  const minutes = durationMinutes(mission.durationText);
+  const credits = mission.payoutCredits;
+  if (minutes === null || minutes <= 0 || credits === null || !Number.isFinite(credits) || credits < 0) return null;
+  const rate = credits / (minutes / 60);
+  return Number.isFinite(rate) ? rate : null;
+}
+
+export function displayCreditsPerHour(mission: Mission): string {
+  const rate = creditsPerHour(mission);
+  return rate === null ? 'Unknown' : formatNumber(Math.round(rate));
+}
+
 function sortValue(row: Row, sort: RowSort): string | number | null {
   if (sort === 'title') return row.mission.title;
   if (sort === 'destination') return row.mission.destination;
   if (sort === 'distance') return row.distanceNm ?? null;
   if (sort === 'credits') return row.mission.payoutCredits;
-  if (sort === 'duration') {
-    // Sort the advertised duration; raw simulator duration units are unverified.
-    const match = /^(?:(\d+(?:\.\d+)?)\s*h\s*)?(?:(\d+(?:\.\d+)?)\s*min)?$/i.exec(row.mission.durationText?.trim() ?? '');
-    if (!match || (!match[1] && !match[2])) return null;
-    const minutes = Number(match[1] ?? 0) * 60 + Number(match[2] ?? 0);
-    return Number.isFinite(minutes) ? minutes : null;
-  }
+  if (sort === 'creditsPerHour') return creditsPerHour(row.mission);
+  if (sort === 'duration') return durationMinutes(row.mission.durationText);
   return matchingRunwayLength(row);
 }
 

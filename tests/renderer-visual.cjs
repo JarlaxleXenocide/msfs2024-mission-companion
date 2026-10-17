@@ -79,7 +79,7 @@ fs.mkdirSync(output, { recursive: true });
    await page.locator('.settings-disclosure summary').click();
    for(const compact of [false,true]) {
     await page.locator('#compact').setChecked(compact);
-    assert.equal(await page.locator('thead th').count(),7);
+    assert.equal(await page.locator('thead th').count(),8);
     assert.equal(await page.locator('.mission-row').count(),4);
     assert.match(await page.locator('.mission-row').first().textContent(),/1 h 25 min.*125,000 Cr/);
     assert.equal(await page.locator('.table-scroll').evaluate(el=>el.scrollWidth<=el.clientWidth),true);
@@ -154,6 +154,17 @@ fs.mkdirSync(output, { recursive: true });
   assert.deepEqual(await titles(),['#PWO78','#PWO79','#PWO65','#PWO83']);
   await credits.click();
   assert.deepEqual(await titles(),sourceOrder);
+  const hourly = page.locator('[data-sort="creditsPerHour"]');
+  await hourly.focus();
+  await page.keyboard.press('Enter');
+  assert.deepEqual(await titles(),['#PWO83','#PWO65','#PWO79','#PWO78'],'Hourly rate starts descending');
+  assert.equal(await hourly.locator('..').getAttribute('aria-sort'),'descending');
+  await page.evaluate(()=>window.visualTest.push({revision:12}));
+  assert.deepEqual(await titles(),['#PWO83','#PWO65','#PWO79','#PWO78'],'Refresh preserves hourly sorting');
+  await hourly.click();
+  assert.deepEqual(await titles(),['#PWO78','#PWO79','#PWO65','#PWO83'],'Hourly rate sorts ascending');
+  await hourly.click();
+  assert.deepEqual(await titles(),sourceOrder,'Turning hourly sorting off restores source order');
   await page.evaluate(()=>window.visualTest.push({rows:window.visualTest.rows}));
   for(const connection of ['connecting','updating','unavailable','views-unavailable','inactive','briefing','unsupported','stalled']) {
    await page.evaluate(connection=>window.visualTest.push({connection,stale:true,message:`SYNTHETIC ${connection} state`}),connection);
