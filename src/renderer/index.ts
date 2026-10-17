@@ -312,8 +312,8 @@ function updateMissionRow(missionRow: HTMLTableRowElement, row: Row): void {
   const distanceCell = missionRow.cells[5];
   distanceCell.textContent = row.distanceNm == null ? '—' : row.distanceNm.toLocaleString('en-US', { maximumFractionDigits: 1 });
   distanceCell.title = state?.pilotLocation
-    ? `Career pilot at ${state.pilotLocation.ident} to ${row.mission.departure} (straight-line distance)`
-    : 'Career pilot location unavailable';
+    ? `Your current Career location at ${state.pilotLocation.ident} to mission departure at ${row.mission.departure} (straight-line distance in nautical miles)`
+    : 'Your current Career player location is unavailable';
   const categories = categoryCell(row);
   missionRow.cells[6].className = categories.className;
   missionRow.cells[6].replaceChildren(...Array.from(categories.childNodes));
