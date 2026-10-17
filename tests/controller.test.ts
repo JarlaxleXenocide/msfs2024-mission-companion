@@ -55,15 +55,77 @@ async function setup(...missions: Mission[]) {
   controller.start(); await flush(); return { simulator, clock, controller };
 }
 
-test('late airport results cannot resurrect a replaced mission; duplicates share work', async () => {
+test('panning retains scanned missions and their airport work; duplicates share work', async () => {
   const { simulator, controller } = await setup(mission('A', 'CYVR'), mission('A2', 'CYVR'));
   assert.equal(simulator.calls.length, 1);
   simulator.snapshot = capture(mission('B', 'MMQT')); await controller.refresh();
   simulator.calls[0].work.resolve(facility('CYVR')); await flush();
-  assert.deepEqual(controller.getState().rows.map(r => r.mission.guid), ['B']);
+  assert.deepEqual(controller.getState().rows.map(r => r.mission.guid), ['A', 'A2', 'B']);
   assert.equal(controller.getState().revision, 2);
   simulator.calls[1].work.resolve(facility('MMQT')); await flush();
-  assert.equal(controller.getState().rows[0].facility.status, 'ready'); controller.stop();
+  assert.ok(controller.getState().rows.every(row => row.facility.status === 'ready')); controller.stop();
+});
+
+test('polling merges missions by GUID, updates rediscovered data and retains first-seen order', async () => {
+  const { simulator, controller, clock } = await setup(mission('A'), mission('B'));
+  const updated = { ...mission('A', 'NEW'), departure: 'ORIGIN', payoutCredits: 1200, durationText: '30min' };
+  simulator.snapshot = capture(mission('C'), updated);
+  await clock.advance(2000);
+  assert.deepEqual(controller.getState().rows.map(row => row.mission), [updated, mission('B'), mission('C')]);
+  simulator.snapshot = capture(); await controller.refresh();
+  assert.deepEqual(controller.getState().rows.map(row => row.mission.guid), ['A', 'B', 'C']);
+  controller.selectRoute('B');
+  assert.equal(controller.getState().route?.mission.guid, 'B');
+  await controller.retry();
+  assert.deepEqual(controller.getState().rows.map(row => row.mission.guid), ['A', 'B', 'C']);
+  controller.stop();
+});
+
+test('offscreen missions retain airport failures without repeating failed lookups on each scan', async () => {
+  const { simulator, controller } = await setup(mission('A'));
+  simulator.calls[0].work.reject(new Error('Airport unavailable')); await flush();
+  simulator.snapshot = capture(mission('B')); await controller.refresh();
+  simulator.snapshot = capture(); await controller.refresh();
+  assert.deepEqual(controller.getState().rows[0].facility, { status: 'unknown', reason: 'Airport unavailable' });
+  assert.equal(simulator.calls.filter(call => call.ident === 'A').length, 1);
+  controller.stop();
+});
+
+test('refresh airport data clears accumulated missions and route before rescanning the current map', async () => {
+  const { simulator, controller } = await setup(mission('A'));
+  controller.selectRoute('A');
+  simulator.snapshot = capture(mission('B')); await controller.refresh();
+  const work = deferred<Capture>(); simulator.onCapture = () => work.promise;
+  const reset = controller.refreshAirports();
+  assert.deepEqual(controller.getState().rows, []);
+  assert.equal(controller.getState().route, null);
+  assert.equal(controller.getState().observedAt, null);
+  await flush();
+  simulator.calls[0].work.resolve(facility('A')); await flush();
+  assert.deepEqual(controller.getState().rows, [], 'Late airport completion cannot restore cleared missions');
+  work.resolve(capture(mission('C'))); await reset;
+  assert.deepEqual(controller.getState().rows.map(row => row.mission.guid), ['C']);
+  simulator.onCapture = null; simulator.snapshot = capture();
+  await controller.refreshAirports();
+  assert.deepEqual(controller.getState().rows, []);
+  controller.stop();
+});
+
+test('reset during an active scan discards its old results and waits before starting a fresh scan', async () => {
+  const { simulator, controller } = await setup(mission('A'));
+  const oldScan = deferred<Capture>(); simulator.onCapture = () => oldScan.promise;
+  void controller.refresh(); await flush();
+  const reset = controller.refreshAirports(); await flush();
+  assert.equal(simulator.captures, 2, 'Never overlap native scans');
+  assert.deepEqual(controller.getState().rows, []);
+  simulator.onCapture = null; simulator.snapshot = capture(mission('NEW'));
+  const seen: string[][] = [];
+  controller.subscribe(state => seen.push(state.rows.map(row => row.mission.guid)));
+  oldScan.resolve(capture(mission('OLD'))); await reset;
+  assert.equal(simulator.captures, 3);
+  assert.deepEqual(controller.getState().rows.map(row => row.mission.guid), ['NEW']);
+  assert.ok(seen.every(ids => !ids.includes('OLD') && !ids.includes('A')));
+  controller.stop();
 });
 
 test('six destinations never exceed four underlying airport operations', async () => {
@@ -159,7 +221,7 @@ test('disconnect backoff is 1/2/4/8/15 seconds, manual retry bypasses wait', asy
   await controller.retry(); assert.equal(simulator.connects, ++attempts); controller.stop();
 });
 
-test('updating owns no extra retry; empty browse and inactive are distinct', async () => {
+test('updating owns no extra retry; empty browse retains scans and differs from inactive', async () => {
   const { simulator, controller } = await setup(mission('A'));
   simulator.onCapture = async () => { throw new AdapterError('updating', 'changing'); };
   await controller.refresh(); assert.equal(simulator.captures, 2);
@@ -167,7 +229,7 @@ test('updating owns no extra retry; empty browse and inactive are distinct', asy
   simulator.onCapture = null; simulator.snapshot = { ...capture(), screen: 'inactive' }; await controller.refresh();
   assert.equal(controller.getState().connection, 'inactive'); assert.equal(controller.getState().rows.length, 1);
   simulator.snapshot = capture(); await controller.refresh();
-  assert.equal(controller.getState().connection, 'ready'); assert.equal(controller.getState().rows.length, 0); controller.stop();
+  assert.equal(controller.getState().connection, 'ready'); assert.equal(controller.getState().rows.length, 1); controller.stop();
 });
 
 test('preferences reclassify locally, no-constraint pending rows match, unsubscribe and stop clean up', async () => {
@@ -185,11 +247,12 @@ test('preferences reclassify locally, no-constraint pending rows match, unsubscr
 
 test('512-airport LRU evicts identity and facility together and touches on use', async () => {
   const { simulator, controller } = await setup(); simulator.onAirport = async ident => facility(ident);
-  for (let i = 0; i < 512; i++) { simulator.snapshot = capture(mission(String(i))); await controller.refresh(); await flush(); }
-  simulator.snapshot = capture(mission('0')); await controller.refresh(); assert.equal(simulator.calls.length, 512);
-  simulator.snapshot = capture(mission('512')); await controller.refresh(); await flush();
-  simulator.snapshot = capture(mission('0')); await controller.refresh(); assert.equal(simulator.calls.length, 513);
-  simulator.snapshot = capture(mission('1')); await controller.refresh(); await flush();
+  // Reuse a mission GUID so retained rows do not keep the old facilities in use.
+  for (let i = 0; i < 512; i++) { simulator.snapshot = capture(mission('scan', String(i))); await controller.refresh(); await flush(); }
+  simulator.snapshot = capture(mission('scan', '0')); await controller.refresh(); assert.equal(simulator.calls.length, 512);
+  simulator.snapshot = capture(mission('scan', '512')); await controller.refresh(); await flush();
+  simulator.snapshot = capture(mission('scan', '0')); await controller.refresh(); assert.equal(simulator.calls.length, 513);
+  simulator.snapshot = capture(mission('scan', '1')); await controller.refresh(); await flush();
   assert.equal(simulator.calls.length, 514); assert.equal(simulator.calls.at(-1)?.known, undefined);
   await controller.refreshAirports(); await flush(); assert.equal(simulator.calls.at(-1)?.known?.ident, '1');
   await controller.retry(); await flush(); assert.equal(simulator.calls.at(-1)?.known, undefined); controller.stop();
@@ -231,7 +294,7 @@ test('all ICAO fields use collision-free cache keys rather than Airport.key', as
   const { simulator, controller } = await setup();
   simulator.onAirport = async ident => ({ ...facility(ident), key: 'same-external-key', icao: { type: 'A', region: 'R', airport: ident === 'Q|Z' ? 'P' : 'P|Q', ident } });
   for (const ident of ['Q|Z', 'Z', 'Q|Z', 'Z']) {
-    simulator.snapshot = capture(mission(ident)); await controller.refresh(); await flush();
+    simulator.snapshot = capture(mission('scan', ident)); await controller.refresh(); await flush();
     const result = controller.getState().rows[0].facility;
     assert.equal(result.status, 'ready'); if (result.status === 'ready') assert.equal(result.airport.ident, ident);
   }
@@ -396,7 +459,7 @@ test('route uses cached destinations, deduplicates same airport and does not aff
   controller.stop();
 });
 
-test('removed selected mission retains snapshot and route errors until explicit refresh', async () => {
+test('offscreen selected mission retains route errors until explicit reset clears it', async () => {
   const { simulator, controller } = await setup(mission('A'));
   controller.selectRoute('A');
   simulator.calls[1].work.reject(new Error('origin unavailable')); await flush();
@@ -407,7 +470,9 @@ test('removed selected mission retains snapshot and route errors until explicit 
   assert.deepEqual(controller.getState().route?.departure, { ident: 'TEST', status: 'unavailable', reason: 'origin unavailable' });
   assert.equal(simulator.calls.length, 2);
   await controller.refreshAirports();
-  assert.deepEqual(simulator.calls.slice(2).map(call => call.ident), ['TEST', 'A']);
+  assert.deepEqual(controller.getState().rows, []);
+  assert.equal(controller.getState().route, null);
+  assert.equal(simulator.calls.length, 2, 'Cleared routes must not request airport data');
   controller.stop();
 });
 
@@ -432,7 +497,7 @@ test('route work respects stalls and new sessions cannot receive old route compl
   controller.stop();
 });
 
-test('pilot distance uses departure, updates after travel and clears when pilot is unavailable', async () => {
+test('retained mission distance uses departure, updates after travel and clears when pilot is unavailable', async () => {
   const simulator = new FakeSimulator();
   simulator.snapshot = Object.assign(capture(mission('trip', 'DEST')), { pilotIdent: 'PILOT' });
   simulator.onAirport = async ident => ({ ...facility(ident), position: { latitude: 0, longitude: ident === 'TEST' ? 1 : ident === 'PILOT' ? 0 : 10 } });
@@ -440,10 +505,10 @@ test('pilot distance uses departure, updates after travel and clears when pilot 
   controller.start(); await flush();
   const distance = () => controller.getState().rows[0].distanceNm;
   assert.ok(Math.abs(distance()! - 60.04) < 0.1, `Expected 60 NM to departure, got ${distance()}`);
-  simulator.snapshot = Object.assign(capture(mission('trip', 'DEST')), { pilotIdent: 'TEST' });
+  simulator.snapshot = Object.assign(capture(), { pilotIdent: 'TEST' });
   await controller.refresh(); await flush();
   assert.equal(distance(), 0);
-  simulator.snapshot = capture(mission('trip', 'DEST'));
+  simulator.snapshot = capture();
   await controller.refresh();
   assert.equal(distance(), null);
   controller.stop();

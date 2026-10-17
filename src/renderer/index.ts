@@ -198,7 +198,7 @@ function renderState(): void {
   connectionLabel.textContent = state.connection === 'updating' ? 'Connected · updating'
     : state.stale ? `${labels[state.connection]} · stale` : labels[state.connection];
   connectionLabel.title = connectionLabel.textContent;
-  observedAt.textContent = state.observedAt ? `Observed ${formatTime(state.observedAt)}` : 'No mission snapshot yet';
+  observedAt.textContent = state.observedAt ? `Last scan ${formatTime(state.observedAt)}` : 'No mission scan yet';
   connectionMessage.textContent = state.message || setupMessage(state.connection);
 
   warning.hidden = !state.desktop?.preferenceWarning;
@@ -210,7 +210,7 @@ function renderState(): void {
   minimizeHelp.hidden = state.desktop?.minimizePolling !== 'desktop-limited';
 
   const aggregate = rowCounts(state.rows);
-  const prefix = state.stale || state.connection !== 'ready' ? 'Last known results' : 'Current results';
+  const prefix = state.stale || state.connection !== 'ready' ? 'Last known scanned results' : 'Scanned results';
   counts.textContent = `${prefix} · ${aggregate.match} match · ${aggregate.noMatch} not matching · ${aggregate.pending} pending · ${aggregate.unknown} unknown`;
   renderTable();
   routeMap.update(state);
@@ -230,7 +230,7 @@ function renderTable(force = false): void {
   if (rows.length === 0) {
     const row = element('tr', 'empty-row');
     const empty = element('td', '', state.rows.length ? 'No missions match the current view.'
-      : state.connection === 'ready' && !state.stale ? 'The current Career list is empty.'
+      : state.connection === 'ready' && !state.stale ? 'No missions scanned yet. Pan the Career map to find missions.'
       : 'No current mission list is available. Check simulator status above.');
     empty.colSpan = 8;
     row.append(empty);

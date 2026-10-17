@@ -176,7 +176,7 @@ fs.mkdirSync(output, { recursive: true });
   await page.evaluate(()=>window.visualTest.push({connection:'ready',stale:false,rows:[]}));
   await page.screenshot({path:resolve(output,'state-empty.png')});
   assert.equal(await page.locator('.mission-row').count(),0);
-  assert.match(await page.locator('.empty-row').textContent(),/current Career list is empty/i);
+  assert.match(await page.locator('.empty-row').textContent(),/No missions scanned yet/i);
   await page.evaluate(()=>window.visualTest.push({rows:window.visualTest.rows.map(row=>({...row,facility:{status:'pending'},decision:null}))}));
   assert.match(await page.locator('#counts').textContent(),/4 pending/);
   await page.screenshot({path:resolve(output,'state-loading.png')});

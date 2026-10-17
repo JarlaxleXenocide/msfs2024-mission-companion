@@ -82,6 +82,8 @@ On Linux, preferences are stored under `$XDG_CONFIG_HOME/MSFS Career Approach Co
 
 RNAV labels show the simulator’s reported LPV, LNAV/VNAV, LP and LNAV minima. A runway number does not establish vertical guidance. RNAV procedures with no designated runway are labeled Circling; missing runway identity is labeled Runway unknown. “Minima unavailable” means the simulator did not report a recognized minima type. LPV and LNAV/VNAV filters require explicit simulator flags and a valid associated runway; circling-only procedures cannot satisfy them. These filters describe destination capability, not the mission’s assigned approach. Enable Matches only to hide missions that do not qualify.
 
+Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. **Refresh** scans the current area without clearing the list. **Refresh airport data** clears all collected missions and cached airport details, then starts again from the current map area. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
+
 ## Mission route map
 
 Hover a mission route for 300 ms to preview its airports. Click, Enter or Space pins the map; **Pin map** also keeps a hover preview open. **Show route** frames both endpoints and **Focus departure** zooms to the departure region. Escape or the close button dismisses it. Pinned maps survive filtering, polling and Alt+Tab; stale or removed missions retain a clearly labeled snapshot. Use the existing keep-on-top control when supported by your desktop.
