@@ -4,6 +4,8 @@ import { classify } from '../src/domain/classify';
 import type { Airport, Mission, Row } from '../src/shared/model';
 import {
   displayElevation,
+  creditsPerHour,
+  displayCreditsPerHour,
   procedureType,
   availableCategories,
   missionSummary,
@@ -177,6 +179,44 @@ test('distance sorting is numeric and keeps unavailable locations last', () => {
   const column = 'distance' as SortCriterion['column'];
   assert.deepEqual(visibleRows(rows, '', false, [{ column, direction: 'asc' }]).map(r => r.mission.guid), ['4', '1', '2', '3']);
   assert.deepEqual(visibleRows(rows, '', false, [{ column, direction: 'desc' }]).map(r => r.mission.guid), ['2', '1', '4', '3']);
+});
+
+test('credits per hour sorts by the unrounded rate with tie breakers and unknowns last', () => {
+  const values: [string, string | null, number | null][] = [
+    ['unknown', null, 100], ['long', '2 h', 1000], ['short', '30 min', 600],
+    ['mixed', '1h 30min', 1800], ['zero-duration', '0min', 100],
+    ['no-payout', '1h', null], ['free', '1h', 0],
+    ['fractional', '1.5h', 750.1], ['invalid', 'Unknown', 100],
+  ];
+  const rows = values.map(([guid, durationText, payoutCredits]) => readyRow({
+    ...mission(guid, guid, 'AAA', 'BBB'), durationText, payoutCredits,
+  }, airport()));
+  const column = 'creditsPerHour' as SortCriterion['column'];
+  const ids = (direction: 'asc' | 'desc') => visibleRows(rows, '', false, [
+    { column, direction }, { column: 'credits', direction: 'desc' },
+  ]).map(row => row.mission.guid);
+  assert.deepEqual(ids('desc'), ['mixed', 'short', 'fractional', 'long', 'free', 'unknown', 'zero-duration', 'invalid', 'no-payout']);
+  assert.deepEqual(ids('asc'), ['free', 'long', 'fractional', 'mixed', 'short', 'unknown', 'zero-duration', 'invalid', 'no-payout']);
+  assert.deepEqual(rows.map(row => row.mission.guid), values.map(([guid]) => guid));
+});
+
+test('credits per hour uses advertised hours and minutes and rejects unusable estimates', () => {
+  const cases: [string | null, number | null, number | null, string][] = [
+    ['1 h 30 min', 150000, 100000, '100,000'],
+    ['30 min', 25000, 50000, '50,000'],
+    [' 1.5 H ', 150000, 100000, '100,000'],
+    ['1h', 100.4, 100.4, '100'], ['1h', 0, 0, '0'],
+    [null, 100, null, 'Unknown'], ['', 100, null, 'Unknown'],
+    ['Unknown', 100, null, 'Unknown'], ['0min', 100, null, 'Unknown'],
+    ['-1h', 100, null, 'Unknown'], ['1h', null, null, 'Unknown'],
+    ['1h', NaN, null, 'Unknown'], ['1h', Infinity, null, 'Unknown'],
+    ['1h', -100, null, 'Unknown'],
+  ];
+  for (const [durationText, payoutCredits, expected, display] of cases) {
+    const value = { ...mission('1', 'Test', 'AAA', 'BBB'), durationText, payoutCredits };
+    assert.equal(creditsPerHour(value), expected, `${durationText}, ${payoutCredits}`);
+    assert.equal(displayCreditsPerHour(value), display);
+  }
 });
 
 

@@ -18,7 +18,7 @@
           <h1>Mission comparison</h1>
         </div>
         <div class="title-actions">
-          <button id="refresh" type="button">Refresh</button>
+          <button id="refresh" type="button" title="Scan the current map area and keep previously scanned missions">Refresh</button>
           <label class="check header-compact"><input id="compact" type="checkbox" /> Compact</label>
           <div class="connection" role="status" aria-live="polite">
             <span id="connection-mark" aria-hidden="true">●</span>
@@ -60,7 +60,7 @@
 
       <section class="results" aria-labelledby="results-heading">
         <div class="result-head">
-          <p id="results-heading" class="kicker">CURRENT CANDIDATES</p>
+          <p id="results-heading" class="kicker">SCANNED MISSIONS</p>
           <p id="counts" aria-live="polite">No missions yet</p>
         </div>
         <div class="table-scroll" tabindex="0" aria-label="Scrollable mission comparison">
@@ -71,7 +71,8 @@
                 <th scope="col"><button type="button" data-sort="destination">Route (destination)</button></th>
                 <th scope="col"><button type="button" data-sort="duration">Est. duration</button></th>
                 <th scope="col"><button type="button" data-sort="credits" title="Advertised payout">Credits earned</button></th>
-                <th scope="col"><button type="button" data-sort="distance" title="Straight-line distance from Career pilot location to mission departure">Distance (NM)</button></th>
+                <th scope="col"><button type="button" data-sort="creditsPerHour" title="Advertised payout divided by estimated duration in hours">Credits/hour</button></th>
+                <th scope="col"><button type="button" data-sort="distance" title="Straight-line distance from your current Career player location to the mission's departure airport, in nautical miles">From player (NM)</button></th>
                 <th scope="col">Approach capability</th>
                 <th scope="col"><button type="button" data-sort="runway" title="Matching runway length">Runway details</button></th>
               </tr>
@@ -79,7 +80,7 @@
             <tbody id="mission-rows"></tbody>
           </table>
         </div>
-        <p class="scope-note">Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. This companion does not select anything in MSFS.</p>
+        <p class="scope-note">Missions stay until you use Refresh airport data or close the app; availability may change. Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. This companion does not select anything in MSFS.</p>
       </section>
       </div>
       <footer class="settings-footer">
@@ -108,7 +109,7 @@
         </section>
         <div class="action-row">
           <button id="retry" type="button">Retry connection</button>
-          <button id="refresh-airports" type="button">Refresh airport data</button>
+          <button id="refresh-airports" type="button" title="Clear all scanned missions and cached airport data, then scan the current map area again">Refresh airport data</button>
         </div>
         <p id="desktop-help" class="desktop-help" hidden></p>
       </details>

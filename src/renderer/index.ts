@@ -11,6 +11,7 @@ import stylesURL from './styles.css';
 import { RouteMapController } from './route-map';
 import {
   displayElevation,
+  displayCreditsPerHour,
   availableCategories,
   procedureType,
   displayLength,
@@ -197,7 +198,7 @@ function renderState(): void {
   connectionLabel.textContent = state.connection === 'updating' ? 'Connected · updating'
     : state.stale ? `${labels[state.connection]} · stale` : labels[state.connection];
   connectionLabel.title = connectionLabel.textContent;
-  observedAt.textContent = state.observedAt ? `Observed ${formatTime(state.observedAt)}` : 'No mission snapshot yet';
+  observedAt.textContent = state.observedAt ? `Last scan ${formatTime(state.observedAt)}` : 'No mission scan yet';
   connectionMessage.textContent = state.message || setupMessage(state.connection);
 
   warning.hidden = !state.desktop?.preferenceWarning;
@@ -209,7 +210,7 @@ function renderState(): void {
   minimizeHelp.hidden = state.desktop?.minimizePolling !== 'desktop-limited';
 
   const aggregate = rowCounts(state.rows);
-  const prefix = state.stale || state.connection !== 'ready' ? 'Last known results' : 'Current results';
+  const prefix = state.stale || state.connection !== 'ready' ? 'Last known scanned results' : 'Scanned results';
   counts.textContent = `${prefix} · ${aggregate.match} match · ${aggregate.noMatch} not matching · ${aggregate.pending} pending · ${aggregate.unknown} unknown`;
   renderTable();
   routeMap.update(state);
@@ -229,9 +230,9 @@ function renderTable(force = false): void {
   if (rows.length === 0) {
     const row = element('tr', 'empty-row');
     const empty = element('td', '', state.rows.length ? 'No missions match the current view.'
-      : state.connection === 'ready' && !state.stale ? 'The current Career list is empty.'
+      : state.connection === 'ready' && !state.stale ? 'No missions scanned yet. Pan the Career map to find missions.'
       : 'No current mission list is available. Check simulator status above.');
-    empty.colSpan = 7;
+    empty.colSpan = 8;
     row.append(empty);
     desired.push(row);
   } else {
@@ -276,7 +277,7 @@ function createMissionRow(): HTMLTableRowElement {
     renderTable(true);
   });
   toggleCell.append(toggle);
-  missionRow.append(...Array.from({ length: 6 }, () => element('td')), toggleCell);
+  missionRow.append(...Array.from({ length: 7 }, () => element('td')), toggleCell);
   missionRow.addEventListener('click', () => {
     const guid = missionRow.dataset.guid;
     if (!guid) return;
@@ -291,7 +292,7 @@ function updateMissionRow(missionRow: HTMLTableRowElement, row: Row): void {
   const isExpanded = expanded.has(guid);
   missionRow.classList.toggle('selected', selectedGuid === guid || isExpanded);
   missionRow.dataset.guid = guid;
-  const toggle = missionRow.cells[6].querySelector<HTMLButtonElement>('button')!;
+  const toggle = missionRow.cells[7].querySelector<HTMLButtonElement>('button')!;
   toggle.textContent = isExpanded ? 'Hide runways −' : 'Show runways +';
   toggle.dataset.guid = guid;
   toggle.setAttribute('aria-expanded', String(isExpanded));
@@ -307,15 +308,16 @@ function updateMissionRow(missionRow: HTMLTableRowElement, row: Row): void {
   );
   missionRow.cells[2].textContent = summary.duration;
   missionRow.cells[3].textContent = summary.payout;
-  const distanceCell = missionRow.cells[4];
+  missionRow.cells[4].textContent = displayCreditsPerHour(row.mission);
+  const distanceCell = missionRow.cells[5];
   distanceCell.textContent = row.distanceNm == null ? '—' : row.distanceNm.toLocaleString('en-US', { maximumFractionDigits: 1 });
   distanceCell.title = state?.pilotLocation
-    ? `Career pilot at ${state.pilotLocation.ident} to ${row.mission.departure} (straight-line distance)`
-    : 'Career pilot location unavailable';
+    ? `Your current Career location at ${state.pilotLocation.ident} to mission departure at ${row.mission.departure} (straight-line distance in nautical miles)`
+    : 'Your current Career player location is unavailable';
   const categories = categoryCell(row);
-  missionRow.cells[5].className = categories.className;
-  missionRow.cells[5].replaceChildren(...Array.from(categories.childNodes));
-  missionRow.cells[6].replaceChildren(
+  missionRow.cells[6].className = categories.className;
+  missionRow.cells[6].replaceChildren(...Array.from(categories.childNodes));
+  missionRow.cells[7].replaceChildren(
     toggle,
     element('div', '', runwaySummary(row)),
     element('div', 'secondary', runwayGeometry(row)),
@@ -339,7 +341,7 @@ function detailRow(row: Row): HTMLTableRowElement {
   detail.id = detailId(row.mission.guid);
   detail.dataset.detailGuid = row.mission.guid;
   const container = element('td');
-  container.colSpan = 7;
+  container.colSpan = 8;
   const heading = element('div', 'detail-heading');
   heading.append(
     element('strong', '', `${row.mission.destination} · Approaches by runway end`),

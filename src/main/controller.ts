@@ -48,6 +48,7 @@ export class Controller {
   private baseConnection: ConnectionState = 'connecting';
   private baseMessage = 'Connecting to simulator';
   private cacheVersion = 0;
+  private scanVersion = 0;
   private rowsSession: string | null = null;
   private readonly cache = new Map<string, CachedAirport>();
   private readonly identities = new Map<string, string>();
@@ -142,16 +143,22 @@ export class Controller {
   }
 
   refreshAirports(): Promise<void> {
+    const scanVersion = ++this.scanVersion;
     this.cacheVersion++;
     for (const entry of this.cache.values()) entry.airport = null;
     this.errors.clear();
-    if (this.state.route?.session === this.connection) {
-      this.state.route.departure = { ident: this.state.route.mission.departure, status: 'pending' };
-      this.state.route.destination = { ident: this.state.route.mission.destination, status: 'pending' };
-    }
-    if (this.state.pilotLocation) this.state.pilotLocation = { ident: this.state.pilotLocation.ident, status: 'pending' };
-    this.state.rows = this.state.rows.map(row => ({ ...row, departureLocation: { ident: row.mission.departure, status: 'pending' }, distanceNm: null, facility: { status: 'pending' }, decision: null }));
+    this.state.rows = [];
+    this.state.route = null;
+    this.state.pilotLocation = null;
+    this.state.observedAt = null;
+    this.rowsSession = null;
+    this.baseConnection = 'updating';
+    this.baseMessage = 'Cleared scanned missions. Scanning the current map area.';
     this.publish();
+    // A pre-reset native capture must settle before a new scan can start.
+    if (this.inFlight) return this.inFlight.then(() => {
+      if (this.scanVersion === scanVersion) return this.refresh();
+    });
     return this.refresh();
   }
 
@@ -166,6 +173,7 @@ export class Controller {
 
   private async run(): Promise<void> {
     const generation = this.generation;
+    const scanVersion = this.scanVersion;
     if (!this.current(generation)) return;
     let captureOwner: { lifetime: string | null } | null = null;
     try {
@@ -200,12 +208,12 @@ export class Controller {
       this.baseConnection = 'updating';
       this.baseMessage = 'Updating mission list';
       this.watchPhase(); this.publish();
-      if (!this.current(generation)) return;
+      if (!this.current(generation) || scanVersion !== this.scanVersion) return;
       captureOwner = { lifetime: this.simulator.mainLifetime };
       this.captureStartedAt = this.clock.now();
       const capture = await this.simulator.capture();
       captureOwner = null;
-      if (!this.current(generation)) return;
+      if (!this.current(generation) || scanVersion !== this.scanVersion) return;
       this.clearPhase();
       this.failures = 0;
       this.accept(capture);
@@ -252,6 +260,11 @@ export class Controller {
       : capture.screen === 'briefing' ? 'Mission briefing is open'
       : 'This simulator screen or data shape is unsupported';
     if (capture.screen !== 'browse') return;
+    const missions = new Map(this.state.rows.map(row => [row.mission.guid, row.mission]));
+    for (const mission of capture.missions) missions.set(mission.guid, mission);
+    this.baseMessage = missions.size
+      ? `${missions.size} scanned missions retained. Pan the Career map to collect more.`
+      : 'No missions scanned yet. Pan the Career map to find missions.';
     const previous = new Map(this.rowsSession === this.connection
       ? this.state.rows.map(row => [row.mission.destination, row.facility]) : []);
     this.rowsSession = this.connection;
@@ -260,7 +273,7 @@ export class Controller {
     this.state.pilotLocation = capture.pilotIdent
       ? pilot?.ident === capture.pilotIdent ? pilot : { ident: capture.pilotIdent, status: 'pending' }
       : null;
-    const destinations = new Set(capture.missions.flatMap(mission => [mission.destination, mission.departure]));
+    const destinations = new Set([...missions.values()].flatMap(mission => [mission.destination, mission.departure]));
     if (capture.pilotIdent) destinations.add(capture.pilotIdent);
     if (this.state.route?.session === this.connection) {
       destinations.add(this.state.route.mission.departure);
@@ -269,7 +282,7 @@ export class Controller {
     for (const ident of this.errors.keys()) if (!destinations.has(ident)) this.errors.delete(ident);
     this.state.revision++;
     this.state.observedAt = capture.observedAt;
-    this.state.rows = capture.missions.map(mission => ({ mission,
+    this.state.rows = [...missions.values()].map(mission => ({ mission,
       departureLocation: previousDepartures.get(mission.departure) ?? { ident: mission.departure, status: 'pending' },
       facility: this.available(mission.destination, previous.get(mission.destination)), decision: null }));
   }

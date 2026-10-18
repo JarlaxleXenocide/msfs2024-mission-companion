@@ -36,13 +36,14 @@ const { resolve } = require('node:path');
       assert.equal(await page.locator('#connection-message').textContent(), expected);
       assert.equal(await page.locator('.mission-title').textContent(), expected);
       assert.equal(await page.locator('.table-scroll').evaluate(el => el.scrollWidth <= el.clientWidth), true, 'Comparison fits the default window');
-      assert.equal(await page.locator('thead th').count(), 7, 'Distance, duration and credits have separate columns');
+      assert.equal(await page.locator('thead th').count(), 8, 'Distance, duration, credits and credits/hour have separate columns');
       assert.equal(await page.locator('.mission-row td:last-child .expand').count(), 1, 'Expansion belongs in Runway details');
       assert.equal(await page.locator('td td').count(), 0, 'Summary cells must not nest table cells');
       assert.match(await page.locator('.mission-row').textContent(), /AAA.*BBB/);
       assert.match(await page.locator('.mission-row').textContent(), /1 h 25 min.*125,000 Cr/);
-      assert.equal(await page.locator('.mission-row td').nth(4).textContent(), '123.5');
-      assert.match(await page.locator('.mission-row td').nth(4).getAttribute('title'), /C03.*AAA/);
+      assert.equal(await page.locator('.mission-row td').nth(4).textContent(), '88,235');
+      assert.equal(await page.locator('.mission-row td').nth(5).textContent(), '123.5');
+      assert.match(await page.locator('.mission-row td').nth(5).getAttribute('title'), /C03.*AAA/);
       await page.locator('.settings-disclosure summary').click();
       for (const theme of ['clear', 'deck', 'notes']) {
         for (const appearance of ['light', 'night']) {

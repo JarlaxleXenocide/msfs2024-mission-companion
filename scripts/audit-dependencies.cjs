@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
 
-// Backported from v0.1.6: upstream has no patched releases for these build tools.
+// Accepted for v0.1.6: upstream has no patched releases for these build tools.
 // Exact versions and advisories only; runtime dependencies are never excepted.
 const exceptions = {
   braces: { version: '3.0.3', severity: 'high', url: 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm' },
