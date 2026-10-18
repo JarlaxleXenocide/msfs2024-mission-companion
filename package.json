@@ -15,9 +15,12 @@
     "typecheck": "tsc --noEmit",
     "test:renderer": "node tests/renderer-startup.cjs && node tests/renderer-route.cjs && node tests/renderer-visual.cjs",
     "verify:artifact": "node scripts/verify-artifact.cjs",
-    "audit": "npm audit --audit-level=low"
+    "audit": "node scripts/audit-dependencies.cjs"
   },
   "overrides": {
+    "brace-expansion@1": "1.1.21",
+    "proxy-addr": "2.0.8",
+    "shell-quote": "1.12.0",
     "qs": "6.16.0",
     "@electron/rebuild": "4.2.0",
     "@electron/packager": {
