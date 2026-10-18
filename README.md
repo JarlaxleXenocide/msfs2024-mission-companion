@@ -6,19 +6,21 @@ Airport capability does not determine a mission's assigned approach or aircraft 
 
 ## Screenshots
 
-Screenshots show the actual app with example missions and representative airport data.
+Screenshots show v0.1.6 of the actual app with example missions and representative airport data.
 
-**Sort by what matters.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, credits are sorted highest first, with shorter flights first when payouts tie. Approach and minimum-runway filters stay visible above the list.
+**Compare earnings and departure distance.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, **Credits/hour** sorts estimated hourly earnings highest first, with **From player (NM)** putting nearer departures first when rates tie. Hourly earnings use advertised payout and estimated duration; distance is measured from the Career pilot’s current airport (KSEA in these examples) to the mission’s departure.
 
-![Flight deck in Night mode, sorting by credits descending then duration ascending](assets/screenshots/mission-sorting.png)
+![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/mission-sorting.png)
+
+**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Refresh adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach and minimum-runway filters stay visible above the list.
 
 **Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
 
 ![Pinned route map showing departure at MMQT and destination at CYVR](assets/screenshots/mission-route-map.png)
 
-**Inspect individual runway ends.** Expand a mission to see physical and threshold-adjusted lengths, displaced thresholds, elevations, closure status, and available approaches.
+**Inspect individual runway ends.** Expand a mission to see physical and threshold-adjusted lengths, displaced thresholds, elevations, closure status, and available approaches. RNAV procedures distinguish LPV, LNAV/VNAV, LP and LNAV minima; circling procedures are labeled separately.
 
-![Expanded runway-end details with dimensions, elevations and ILS and RNAV approaches](assets/screenshots/runway-information.png)
+![Expanded CYVR runway ends with lengths, displaced thresholds, elevations, and ILS and RNAV minima including LPV, LNAV/VNAV and LNAV](assets/screenshots/runway-information.png)
 
 **Choose your look.** Flight deck, Field notes and Clear each support Light, Night, or following your system appearance. Display controls also include Compact and supported keep-on-top behavior.
 
