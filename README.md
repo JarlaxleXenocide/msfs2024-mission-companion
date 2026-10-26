@@ -12,7 +12,7 @@ Screenshots show v0.1.6 of the actual app with example missions and representati
 
 ![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/mission-sorting.png)
 
-**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Refresh adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach and minimum-runway filters stay visible above the list.
+**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Scan now adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach, duration and runway-range filters stay visible above the list.
 
 **Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
 
@@ -84,13 +84,17 @@ On Linux, preferences are stored under `$XDG_CONFIG_HOME/MSFS Career Approach Co
 
 RNAV labels show the simulator’s reported LPV, LNAV/VNAV, LP and LNAV minima. A runway number does not establish vertical guidance. RNAV procedures with no designated runway are labeled Circling; missing runway identity is labeled Runway unknown. “Minima unavailable” means the simulator did not report a recognized minima type. LPV and LNAV/VNAV filters require explicit simulator flags and a valid associated runway; circling-only procedures cannot satisfy them. These filters describe destination capability, not the mission’s assigned approach. Enable Matches only to hide missions that do not qualify.
 
-Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. **Refresh** scans the current area without clearing the list. **Refresh airport data** clears all collected missions and cached airport details, then starts again from the current map area. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
+Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. **Scan now** starts a scan immediately instead of waiting for the next automatic scan (normally every two seconds, or ten seconds while minimized). It retains collected missions and cached airport data; if a scan is already running, it joins that scan. **Refresh airport data** clears all collected missions and cached airport details, dismisses any open route map, then starts again from the current map area. It does not clear the browser’s OpenStreetMap image cache. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
+
+**Duration** and **Runway length** have two draggable handles and From/To fields. Duration handles move by one hour; runway handles move by 500 feet, with exact feet available in the fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
+
+Ranges hide nonmatching and unknown values even when Matches only is off. They combine with search and approach filters. Runway length is threshold-adjusted geometric length: at least one open destination runway must meet both bounds and the selected approach criteria. A different or longer runway cannot satisfy those criteria for it. The results count shows how many scanned missions are visible.
 
 ## Mission route map
 
 Hover a mission route for 300 ms to preview its airports. Click, Enter or Space pins the map; **Pin map** also keeps a hover preview open. **Show route** frames both endpoints and **Focus departure** zooms to the departure region. Escape or the close button dismisses it. Pinned maps survive filtering, polling and Alt+Tab; stale or removed missions retain a clearly labeled snapshot. Use the existing keep-on-top control when supported by your desktop.
 
-Airport locations come from the simulator. Missing locations are labeled and never invented; the connecting line illustrates endpoints, not a flight plan. Companion helps you locate the departure on the simulator's Career map; mission selection still happens in MSFS.
+Airport locations come from the simulator. “Route snapshot is stale” refers to simulator data or a changed connection, not the OpenStreetMap image cache. Routine scans retain the freshness of the last completed observation. Missing locations show the MSFS lookup reason and are never invented; the connecting line illustrates endpoints, not a flight plan. Companion helps you locate the departure on the simulator's Career map; mission selection still happens in MSFS.
 
 The basemap streams standard OpenStreetMap images and needs internet access. Only visible previews request imagery, using normal HTTP caching; there is no offline download or map archive. OSM receives image requests revealing the viewed region, not mission titles or GUIDs. If imagery is blocked or unavailable, airport labels and the route remain visible with **Retry imagery**; retry is explicit. Map failures do not interrupt simulator polling. Attribution buttons open the Leaflet and OSM credit pages in your system browser.
 

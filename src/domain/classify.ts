@@ -41,7 +41,7 @@ export function classify(
   airport: Airport | null,
   criteria: Criteria,
 ): Decision {
-  if (criteria.categories.length === 0 && criteria.minimumFt === null) {
+  if (criteria.categories.length === 0 && criteria.minimumFt === null && criteria.maximumFt == null) {
     return decision('match', [], ['No approach or runway constraints selected']);
   }
   if (airport === null) {
@@ -50,8 +50,8 @@ export function classify(
 
   const outcomes =
     criteria.categories.length === 0
-      ? evaluateRunways(airport.ends, criteria.minimumFt)
-      : evaluateProcedures(airport, criteria.categories, criteria.minimumFt);
+      ? evaluateRunways(airport.ends, criteria.minimumFt, criteria.maximumFt ?? null)
+      : evaluateProcedures(airport, criteria.categories, criteria.minimumFt, criteria.maximumFt ?? null);
 
   const matches = outcomes.filter(({ state }) => state === 'match');
   if (matches.length > 0) return fromOutcomes('match', matches);
@@ -68,6 +68,7 @@ export function classify(
 function evaluateRunways(
   ends: RunwayEnd[] | null,
   minimumFt: number | null,
+  maximumFt: number | null,
 ): Outcome[] {
   if (ends === null) {
     return [outcome('unknown', null, 'Runway data is unavailable')];
@@ -75,13 +76,14 @@ function evaluateRunways(
   if (ends.length === 0) {
     return [outcome('no-match', null, 'No runway ends are available')];
   }
-  return ends.map((end) => evaluateEnd(end, minimumFt));
+  return ends.map((end) => evaluateEnd(end, minimumFt, maximumFt));
 }
 
 function evaluateProcedures(
   airport: Airport,
   categories: Category[],
   minimumFt: number | null,
+  maximumFt: number | null,
 ): Outcome[] {
   if (airport.procedures === null) {
     return [outcome('unknown', null, 'Approach data is unavailable')];
@@ -108,14 +110,14 @@ function evaluateProcedures(
         outcomes.push(
           outcome('unknown', null, `${procedure.name}: RNAV subtype is unspecified`),
         );
-      } else if (minimumFt === null) {
+      } else if (minimumFt === null && maximumFt === null) {
         outcomes.push(outcome('match', null, `${procedure.name} meets selected filters`));
       } else {
         outcomes.push(
           outcome(
             'unknown',
             null,
-            `${procedure.name}: no runway is associated with the minimum length`,
+            `${procedure.name}: no runway is associated with the length range`,
           ),
         );
       }
@@ -130,7 +132,7 @@ function evaluateProcedures(
           : outcome('match', end.id, ''),
         evaluateClosure(end),
         evaluateIlsEquipment(procedure, categories, end),
-        evaluateLength(end, minimumFt),
+        evaluateLength(end, minimumFt, maximumFt),
       ]),
     );
   }
@@ -205,10 +207,10 @@ function associate(
   return { state: 'match', end, runwayId: end.id, reason: '' };
 }
 
-function evaluateEnd(end: RunwayEnd, minimumFt: number | null): Outcome {
+function evaluateEnd(end: RunwayEnd, minimumFt: number | null, maximumFt: number | null): Outcome {
   return combineOption(end.id, [
     evaluateClosure(end),
-    evaluateLength(end, minimumFt),
+    evaluateLength(end, minimumFt, maximumFt),
   ]);
 }
 
@@ -247,8 +249,8 @@ function evaluateIlsEquipment(
   return outcome('match', end.id, '');
 }
 
-function evaluateLength(end: RunwayEnd, minimumFt: number | null): Outcome {
-  if (minimumFt !== null) {
+function evaluateLength(end: RunwayEnd, minimumFt: number | null, maximumFt: number | null): Outcome {
+  if (minimumFt !== null || maximumFt !== null) {
     if (
       end.physicalM === null ||
       end.thresholdM === null ||
@@ -260,8 +262,14 @@ function evaluateLength(end: RunwayEnd, minimumFt: number | null): Outcome {
     ) {
       return outcome('unknown', end.id, `${end.id}: runway dimensions are incomplete`);
     }
-    if ((end.physicalM - end.thresholdM) / 0.3048 < minimumFt) {
+    const lengthFt = (end.physicalM - end.thresholdM) / 0.3048;
+    // Absorb arithmetic roundoff at inclusive bounds, preserving sub-foot precision.
+    const toleranceFt = 4 * Number.EPSILON * Math.max(1, end.physicalM / 0.3048);
+    if (minimumFt !== null && lengthFt < minimumFt - toleranceFt) {
       return outcome('no-match', end.id, `${end.id}: runway is below the minimum length`);
+    }
+    if (maximumFt !== null && lengthFt > maximumFt + toleranceFt) {
+      return outcome('no-match', end.id, `${end.id}: runway is above the maximum length`);
     }
   }
   return outcome('match', end.id, '');

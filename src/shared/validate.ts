@@ -6,6 +6,7 @@ const appearances = ['light', 'night', 'system'] as const;
 const preferenceFields = new Set([
   'port',
   'criteria',
+  'duration',
   'matchesOnly',
   'compact',
   'theme',
@@ -16,11 +17,12 @@ const preferenceFields = new Set([
   'x',
   'y',
 ]);
-const criteriaFields = new Set(['categories', 'minimumFt']);
+const criteriaFields = new Set(['categories', 'minimumFt', 'maximumFt']);
 
 export const defaultPreferences: Preferences = {
   port: 19999,
-  criteria: { categories: ['ILS'], minimumFt: null },
+  criteria: { categories: ['ILS'], minimumFt: null, maximumFt: null },
+  duration: { minimumHours: null, maximumHours: null },
   matchesOnly: false,
   compact: false,
   theme: 'clear',
@@ -47,7 +49,9 @@ export function parsePreferences(input: unknown): Preferences {
         expectOneOf(category, categories, 'category'),
       ),
       minimumFt: expectMinimum(criteria.minimumFt),
+      maximumFt: expectMinimum(criteria.maximumFt === undefined ? null : criteria.maximumFt, 'maximumFt'),
     },
+    duration: parseDuration(value.duration),
     matchesOnly: expectBoolean(value.matchesOnly, 'matchesOnly'),
     compact: expectBoolean(value.compact, 'compact'),
     theme: expectOneOf(value.theme, themes, 'theme'),
@@ -57,6 +61,7 @@ export function parsePreferences(input: unknown): Preferences {
     height: expectInteger(value.height, 'height', 1),
   };
 
+  checkBounds(parsed.criteria.minimumFt, parsed.criteria.maximumFt ?? null, 'runway');
   if ('x' in value) parsed.x = expectInteger(value.x, 'x');
   if ('y' in value) parsed.y = expectInteger(value.y, 'y');
   return parsed;
@@ -102,10 +107,10 @@ function expectInteger(
   return value;
 }
 
-function expectMinimum(value: unknown): number | null {
+function expectMinimum(value: unknown, name = 'minimumFt'): number | null {
   if (value === null) return null;
   if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
-    throw new TypeError('minimumFt must be null or a nonnegative finite number');
+    throw new TypeError(`${name} must be null or a nonnegative finite number`);
   }
   return value;
 }
@@ -148,4 +153,20 @@ export function parseCommand(channel: unknown, args: readonly unknown[]): Comman
   }
   if (args.length !== 0) throw new TypeError('Command does not accept arguments');
   return { channel: name };
+}
+
+function checkBounds(minimum: number | null, maximum: number | null, name: string): void {
+  if (minimum !== null && maximum !== null && minimum > maximum) {
+    throw new TypeError(`${name} minimum cannot exceed maximum`);
+  }
+}
+
+function parseDuration(value: unknown): NonNullable<Preferences['duration']> {
+  if (value === undefined) return { minimumHours: null, maximumHours: null };
+  const range = expectObject(value, 'duration');
+  rejectUnknownFields(range, new Set(['minimumHours', 'maximumHours']), 'duration');
+  const minimumHours = range.minimumHours === null ? null : expectInteger(range.minimumHours, 'minimumHours', 0);
+  const maximumHours = range.maximumHours === null ? null : expectInteger(range.maximumHours, 'maximumHours', 0);
+  checkBounds(minimumHours, maximumHours, 'duration');
+  return { minimumHours, maximumHours };
 }

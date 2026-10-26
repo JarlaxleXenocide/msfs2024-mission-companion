@@ -6,7 +6,8 @@ import type {
   Row,
   RunwayEnd,
 } from '../shared/model';
-import { groupRunways } from '../domain/classify';
+import { RangeFilter } from './range-filter';
+import { classify, groupRunways } from '../domain/classify';
 import stylesURL from './styles.css';
 import { RouteMapController } from './route-map';
 import {
@@ -17,7 +18,6 @@ import {
   displayLength,
   matchingRunwayLength,
   missionSummary,
-  parseMinimumFt,
   rowCounts,
   visibleRows,
   type RowSort,
@@ -50,8 +50,6 @@ const compact = required<HTMLInputElement>('compact');
 const keepOnTop = required<HTMLInputElement>('keep-on-top');
 const port = required<HTMLInputElement>('port');
 const portError = required<HTMLElement>('port-error');
-const minimum = required<HTMLInputElement>('minimum');
-const minimumError = required<HTMLElement>('minimum-error');
 const matchesOnly = required<HTMLInputElement>('matches-only');
 const search = required<HTMLInputElement>('search');
 const sortControls = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-sort]'));
@@ -66,6 +64,27 @@ let sorts: SortCriterion[] = [];
 let saveVersion = 0;
 let tableSignature = '';
 
+const durationFilter = new RangeFilter(required('duration-filter'), {
+  label: 'Duration', unit: 'hours', step: 1, ceiling: 24, integer: true,
+  minimumId: 'duration-minimum', maximumId: 'duration-maximum', errorId: 'duration-error',
+  description: 'Estimated flight duration, inclusive. Drag in one-hour steps or type hours; blank means no limit.',
+}, bounds => {
+  if (!preferences) return;
+  saveVersion++;
+  preferences = { ...preferences, duration: { minimumHours: bounds.minimum, maximumHours: bounds.maximum } };
+  renderTable(true);
+}, () => { if (preferences) void savePreferences(preferences); });
+const runwayFilter = new RangeFilter(required('runway-filter'), {
+  label: 'Runway length', unit: 'ft', step: 500, ceiling: 15000,
+  minimumId: 'minimum', maximumId: 'maximum', errorId: 'minimum-error',
+  description: 'Threshold-adjusted geometric length of a qualifying open destination runway. Drag in 500-foot steps; blank means no limit.',
+}, bounds => {
+  if (!preferences) return;
+  saveVersion++;
+  preferences = { ...preferences, criteria: { ...preferences.criteria, minimumFt: bounds.minimum, maximumFt: bounds.maximum } };
+  renderTable(true);
+}, () => { if (preferences) void savePreferences(preferences); });
+
 const unsubscribe = window.companion.subscribe(acceptState);
 addEventListener('unload', () => { routeMap.dispose(); unsubscribe(); }, { once: true });
 systemMode.addEventListener('change', () => applyTheme());
@@ -76,26 +95,6 @@ for (const control of categoryControls) control.addEventListener('change', () =>
     .filter(input => input.checked)
     .map(input => input.dataset.category as Category);
   void savePreferences({ ...preferences, criteria: { ...preferences.criteria, categories } });
-});
-
-minimum.addEventListener('change', () => {
-  if (!preferences) return;
-  const parsed = parseMinimumFt(minimum.value.trim(), minimum.validity.badInput);
-  if (!parsed.valid) {
-    minimumError.textContent = 'Enter zero or a positive runway length, or leave blank.';
-    minimum.setAttribute('aria-invalid', 'true');
-    return;
-  }
-  minimumError.textContent = '';
-  minimum.removeAttribute('aria-invalid');
-  void savePreferences({ ...preferences, criteria: { ...preferences.criteria, minimumFt: parsed.value } });
-});
-
-minimum.addEventListener('input', () => {
-  if (parseMinimumFt(minimum.value.trim(), minimum.validity.badInput).valid) {
-    minimumError.textContent = '';
-    minimum.removeAttribute('aria-invalid');
-  }
 });
 
 matchesOnly.addEventListener('change', () => {
@@ -159,7 +158,10 @@ for (const button of sortControls) {
 
 bindAction('refresh', () => window.companion.refresh());
 bindAction('retry', () => window.companion.retry());
-bindAction('refresh-airports', () => window.companion.refreshAirports());
+bindAction('refresh-airports', () => {
+  routeMap.dismiss();
+  return window.companion.refreshAirports();
+});
 
 void Promise.all([window.companion.getPreferences(), window.companion.getState()])
   .then(([initialPreferences, initialState]) => {
@@ -209,19 +211,23 @@ function renderState(): void {
   desktopHelp.textContent = managed ? state.desktop?.keepOnTopHelp ?? '' : '';
   minimizeHelp.hidden = state.desktop?.minimizePolling !== 'desktop-limited';
 
-  const aggregate = rowCounts(state.rows);
-  const prefix = state.stale || state.connection !== 'ready' ? 'Last known scanned results' : 'Scanned results';
-  counts.textContent = `${prefix} · ${aggregate.match} match · ${aggregate.noMatch} not matching · ${aggregate.pending} pending · ${aggregate.unknown} unknown`;
   renderTable();
   routeMap.update(state);
 }
 
 function renderTable(force = false): void {
   if (!state || !preferences) return;
-  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, sorts, preferences.compact, [...expanded], selectedGuid]);
+  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, preferences.criteria, preferences.duration, sorts, preferences.compact, [...expanded], selectedGuid]);
+  // Reclassify previews locally while dragging, before preferences are persisted.
+  const classified = state.rows.map(row => ({ ...row, decision:
+    row.facility.status === 'pending' && (preferences!.criteria.categories.length > 0 || preferences!.criteria.minimumFt !== null || preferences!.criteria.maximumFt != null)
+      ? null : classify(row.facility.status === 'ready' ? row.facility.airport : null, preferences!.criteria) }));
+  const rows = visibleRows(classified, search.value, preferences.matchesOnly, sorts, preferences);
+  const aggregate = rowCounts(classified);
+  const prefix = state.stale ? 'Last known · ' : '';
+  counts.textContent = `${prefix}${rows.length} shown / ${state.rows.length} scanned · ${aggregate.match} match · ${aggregate.noMatch} not matching · ${aggregate.pending} pending · ${aggregate.unknown} unknown`;
   if (!force && signature === tableSignature) return;
   tableSignature = signature;
-  const rows = visibleRows(state.rows, search.value, preferences.matchesOnly, sorts);
   const missionRows = new Map(Array.from(tbody.querySelectorAll<HTMLTableRowElement>(':scope > tr.mission-row[data-guid]'))
     .map(row => [row.dataset.guid!, row]));
   const detailRows = new Map(Array.from(tbody.querySelectorAll<HTMLTableRowElement>(':scope > tr.details-row[data-detail-guid]'))
@@ -475,7 +481,8 @@ function syncPreferenceControls(): void {
   compact.checked = preferences.compact;
   keepOnTop.checked = preferences.keepOnTop;
   port.value = String(preferences.port);
-  minimum.value = preferences.criteria.minimumFt === null ? '' : String(preferences.criteria.minimumFt);
+  durationFilter.set({ minimum: preferences.duration?.minimumHours ?? null, maximum: preferences.duration?.maximumHours ?? null });
+  runwayFilter.set({ minimum: preferences.criteria.minimumFt, maximum: preferences.criteria.maximumFt ?? null });
   matchesOnly.checked = preferences.matchesOnly;
   for (const control of categoryControls) control.checked = preferences.criteria.categories.includes(control.dataset.category as Category);
 }

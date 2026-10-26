@@ -528,3 +528,21 @@ test('pilot and departure lookups share bounded airport work and refresh invalid
   assert.equal(controller.getState().rows[0].distanceNm, null);
   controller.stop();
 });
+
+test('routine polling preserves fresh observations until a real simulator failure', async () => {
+  const { simulator, controller, clock } = await setup();
+  const work = deferred<Capture>(); simulator.onCapture = () => work.promise;
+  const refresh = controller.refresh(); await flush();
+  assert.equal(controller.getState().connection, 'updating');
+  assert.equal(controller.getState().stale, false, 'An ordinary scan does not invalidate the last observation');
+  await clock.advance(10000);
+  assert.equal(controller.getState().stale, true, 'A stalled capture is stale');
+  work.resolve(capture()); await refresh;
+  assert.equal(controller.getState().stale, false);
+  simulator.onCapture = null; simulator.snapshot = { ...capture(), screen: 'inactive' };
+  await controller.refresh();
+  simulator.onCapture = () => deferred<Capture>().promise;
+  void controller.refresh(); await flush();
+  assert.equal(controller.getState().stale, true, 'Polling cannot make an inactive observation fresh');
+  controller.stop();
+});

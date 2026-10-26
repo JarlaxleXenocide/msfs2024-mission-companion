@@ -13,7 +13,7 @@
     "make": "electron-forge make",
     "test": "tsc -p tsconfig.tests.json && node scripts/run-tests.cjs",
     "typecheck": "tsc --noEmit",
-    "test:renderer": "node tests/renderer-startup.cjs && node tests/renderer-route.cjs && node tests/renderer-visual.cjs",
+    "test:renderer": "node tests/renderer-startup.cjs && node tests/renderer-ranges.cjs && node tests/renderer-route.cjs && node tests/renderer-visual.cjs",
     "verify:artifact": "node scripts/verify-artifact.cjs",
     "audit": "node scripts/audit-dependencies.cjs"
   },

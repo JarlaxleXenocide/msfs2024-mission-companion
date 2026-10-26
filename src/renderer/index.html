@@ -18,7 +18,7 @@
           <h1>Mission comparison</h1>
         </div>
         <div class="title-actions">
-          <button id="refresh" type="button" title="Scan the current map area and keep previously scanned missions">Refresh</button>
+          <button id="refresh" type="button" title="Scan now instead of waiting for the next automatic scan (normally every 2 seconds). Keeps collected missions and cached airport data.">Scan now</button>
           <label class="check header-compact"><input id="compact" type="checkbox" /> Compact</label>
           <div class="connection" role="status" aria-live="polite">
             <span id="connection-mark" aria-hidden="true">●</span>
@@ -46,16 +46,16 @@
           <label><input type="checkbox" data-category="LOC" /> LOC</label>
           <label><input type="checkbox" data-category="VOR" /> VOR</label>
         </fieldset>
-        <label class="minimum">Min runway
-          <span><input aria-label="Minimum runway length in feet, threshold-adjusted geometric length" id="minimum" type="number" min="0" step="any" inputmode="decimal" placeholder="Off" /> ft</span>
-
-          <small id="minimum-error" class="field-error" role="alert"></small>
-        </label>
         <label class="search">Search missions or airports
           <input id="search" type="search" autocomplete="off" placeholder="Title, departure or destination" />
         </label>
         <label class="check"><input id="matches-only" type="checkbox" /> Matches only</label>
 
+        <div class="range-filters">
+          <div id="duration-filter"></div>
+          <div id="runway-filter"></div>
+          <p class="range-help">Ranges include both limits. Unknown values are hidden while a range is set. Runway range uses an open destination runway meeting your approach filters.</p>
+        </div>
       </section>
 
       <section class="results" aria-labelledby="results-heading">

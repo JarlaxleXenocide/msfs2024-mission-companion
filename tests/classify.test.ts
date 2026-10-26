@@ -249,7 +249,7 @@ test('circling procedures qualify only when no runway minimum is selected', () =
   assert.deepEqual(classify(a, { categories: ['VOR'], minimumFt: 1000 }), {
     verdict: 'unknown',
     runwayIds: [],
-    reasons: ['VOR A: no runway is associated with the minimum length'],
+    reasons: ['VOR A: no runway is associated with the length range'],
   });
 });
 
@@ -408,3 +408,32 @@ test('a runway-specific RNAV can qualify alongside circling, but missing runway 
   a.procedures = [{ ...straight, runwayNumber: null }];
   assert.equal(classify(a, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).verdict, 'unknown');
 });
+
+test('runway ranges apply inclusive bounds to the same approach-qualified end', () => {
+  const value = airport();
+  value.ends![0].physicalM = 1600;
+  value.ends![0].thresholdM = 76;
+  const criteria = { categories: ['ILS'] as const, minimumFt: 5000, maximumFt: 5000 };
+  const classifyRange = (minimumFt: number | null, maximumFt: number | null) => classify(value, { ...criteria, categories: ['ILS'], minimumFt, maximumFt });
+  assert.equal(classifyRange(5000, 5000).verdict, 'match');
+  assert.equal(classifyRange(null, 4999).verdict, 'no-match');
+  assert.equal(classifyRange(5001, null).verdict, 'no-match');
+  value.ends!.push({ ...value.ends![0], id: '18', number: 18, physicalM: 2500, thresholdM: 0 });
+  assert.equal(classifyRange(7000, 9000).verdict, 'no-match', 'An unrelated runway cannot meet the approach requirement');
+  value.ends![0].thresholdM = null;
+  assert.equal(classifyRange(null, 6000).verdict, 'unknown');
+  assert.equal(classify(value, { categories: [], minimumFt: null, maximumFt: 1000 }).verdict, 'unknown');
+});
+
+for (const feet of [3600, 4001, 5000.1]) {
+  test(`runway range includes ${feet} ft despite conversion roundoff without rounding precise limits`, () => {
+    const value = airport();
+    value.ends![0].physicalM = feet * 0.3048;
+    value.ends![0].thresholdM = 0;
+    const within = (minimumFt: number | null, maximumFt: number | null) =>
+      classify(value, { categories: ['ILS'], minimumFt, maximumFt }).verdict;
+    assert.equal(within(feet, feet), 'match');
+    assert.equal(within(feet + 0.000001, null), 'no-match');
+    assert.equal(within(null, feet - 0.000001), 'no-match');
+  });
+}

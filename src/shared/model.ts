@@ -66,6 +66,7 @@ export interface Airport {
 export interface Criteria {
   categories: Category[];
   minimumFt: number | null;
+  maximumFt?: number | null;
 }
 
 export interface Decision {
@@ -132,7 +133,13 @@ export interface AppState {
   rows: Row[];
 }
 
+export interface DurationRange {
+  minimumHours: number | null;
+  maximumHours: number | null;
+}
+
 export interface Preferences {
+  duration?: DurationRange;
   port: number;
   criteria: Criteria;
   matchesOnly: boolean;

@@ -1,4 +1,5 @@
-import type { Mission, Row, Procedure } from '../shared/model';
+import { classify } from '../domain/classify';
+import type { Criteria, DurationRange, Mission, Row, Procedure } from '../shared/model';
 
 export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'creditsPerHour' | 'distance';
 export type SortDirection = 'asc' | 'desc';
@@ -29,12 +30,18 @@ export function visibleRows(
   query: string,
   matchesOnly: boolean,
   sorts: SortCriterion[],
+  filters: { duration?: DurationRange; criteria?: Criteria } = {},
 ): Row[] {
   const needle = query.trim().toLocaleLowerCase();
-  const filtered = rows.filter(({ mission, decision }) =>
+  const duration = filters.duration;
+  const criteria = filters.criteria;
+  const runwayRange = criteria && (criteria.minimumFt !== null || criteria.maximumFt != null);
+  const filtered = rows.filter(({ mission, decision, facility }) =>
     (!needle || [mission.title, mission.departure, mission.destination]
       .some(value => value.toLocaleLowerCase().includes(needle))) &&
-    (!matchesOnly || decision?.verdict === 'match'));
+    (!matchesOnly || decision?.verdict === 'match') &&
+    matchesDuration(mission.durationText, duration) &&
+    (!runwayRange || classify(facility.status === 'ready' ? facility.airport : null, criteria).verdict === 'match'));
   return filtered.sort((a, b) => {
     for (const { column, direction } of sorts) {
       const left = sortValue(a, column);
@@ -180,4 +187,12 @@ function rnavMinima(procedure: Procedure): string[] {
     if ((flags & flag) !== 0) minima.push(label);
   }
   return minima;
+}
+
+function matchesDuration(text: string | null, range?: DurationRange): boolean {
+  if (!range || (range.minimumHours === null && range.maximumHours === null)) return true;
+  const minutes = durationMinutes(text);
+  return minutes !== null &&
+    (range.minimumHours === null || minutes >= range.minimumHours * 60) &&
+    (range.maximumHours === null || minutes <= range.maximumHours * 60);
 }

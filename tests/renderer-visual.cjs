@@ -118,7 +118,7 @@ fs.mkdirSync(output, { recursive: true });
   await page.locator('#search').fill('');
   await page.locator('#matches-only').check();
   assert.equal(await page.locator('.mission-row').count(),2);
-  assert.match(await page.locator('#counts').textContent(),/1 unknown/);
+  assert.match(await page.locator('#counts').textContent(),/2 match · 2 not matching · 0 pending · 0 unknown/);
   await page.locator('#matches-only').uncheck();
   const titles=()=>page.locator('.mission-title').allTextContents();
   const sourceOrder=await titles();

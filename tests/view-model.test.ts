@@ -241,3 +241,24 @@ test('circling RNAV is identified in airport summary and does not imply vertical
   assert.equal(classify(facility, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).verdict, 'no-match');
   assert.equal(classify({ ...facility, procedures: [{ ...procedure, runwayNumber: 9 }] }, { categories: ['LPV', 'LNAV_VNAV'], minimumFt: null }).verdict, 'no-match');
 });
+
+test('duration ranges are inclusive, combine with search and exclude unknown durations only when active', () => {
+  const rows = ['1h59min', '2h', '2h30min', '3h', '3h1min', null].map((durationText, index) =>
+    readyRow({ ...mission(String(index), `Trip ${index}`, 'KAAA', 'KBBB'), durationText }, airport()));
+  const filters = { duration: { minimumHours: 2, maximumHours: 3 } };
+  assert.deepEqual(visibleRows(rows, '', false, [], filters).map(row => row.mission.guid), ['1', '2', '3']);
+  assert.deepEqual(visibleRows(rows, 'Trip 2', false, [], filters).map(row => row.mission.guid), ['2']);
+  assert.equal(visibleRows(rows, '', false, []).length, 6);
+  assert.equal(visibleRows(rows, '', false, [], { duration: { minimumHours: null, maximumHours: 2 } }).length, 2);
+  assert.equal(visibleRows(rows, '', false, [], { duration: { minimumHours: 3, maximumHours: null } }).length, 2);
+});
+
+test('runway ranges filter without Matches only using any qualifying runway, not the longest', () => {
+  const value = airport();
+  value.ends![0].physicalM = 1524;
+  value.ends!.push({ ...value.ends![0], id: '18', number: 18, physicalM: 3048 });
+  value.procedures!.push({ ...value.procedures![0], name: 'ILS 18', runwayNumber: 18 });
+  const rows = [readyRow(mission('1', 'Trip', 'A', 'B'), value), { mission: mission('2', 'Pending', 'A', 'C'), facility: { status: 'pending' as const }, decision: null }];
+  assert.equal(visibleRows(rows, '', false, [], { criteria: { categories: ['ILS'], minimumFt: 4000, maximumFt: 6000 } }).length, 1);
+  assert.equal(visibleRows(rows, '', false, [], { criteria: { categories: ['ILS'], minimumFt: null, maximumFt: 4000 } }).length, 0);
+});

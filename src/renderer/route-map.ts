@@ -59,6 +59,10 @@ export class RouteMapController {
     this.render(state.route?.mission.guid === this.snapshot.guid ? state.route : null);
   }
 
+  dismiss(): void {
+    if (this.visible) this.close(false);
+  }
+
   dispose(): void {
     clearTimeout(this.openTimer);
     clearTimeout(this.closeTimer);
@@ -196,13 +200,15 @@ export class RouteMapController {
     const status: string[] = [];
     if (!this.anchor) status.push(this.state?.rows.some(row => row.mission.guid === this.snapshot!.guid)
       ? 'Mission is no longer in the current view.' : 'Mission is no longer in the current list.');
-    if (this.state?.stale || this.snapshotSession !== this.state?.session) status.push('Route snapshot is stale.');
+    if (this.snapshotSession !== this.state?.session) status.push('Route snapshot is stale: simulator connection changed. Close and reopen this map to reload airport locations.');
+    else if (this.state?.stale) status.push(`Route snapshot is stale: ${this.state.message || 'simulator data is not current'}`);
     status.push(this.endpointStatus(departure, destination));
     if (this.tileFailed || this.awaitingRetrySuccess) status.push('Map imagery unavailable.');
     this.text('route-map-status', status.join(' '));
     this.button('route-pin').textContent = this.pinned ? 'Pinned' : 'Pin map';
     this.button('route-pin').setAttribute('aria-pressed', String(this.pinned));
     this.button('route-departure').disabled = departure?.status !== 'ready';
+    this.button('route-show').disabled = departure?.status !== 'ready' && destination?.status !== 'ready';
     this.button('route-retry').hidden = !this.tileFailed && !this.awaitingRetrySuccess;
     this.button('route-retry').disabled = this.awaitingRetrySuccess;
 
@@ -233,9 +239,11 @@ export class RouteMapController {
   private endpointStatus(departure: RouteEndpoint | null, destination: RouteEndpoint | null): string {
     if (!departure || !destination || departure.status === 'pending' || destination.status === 'pending') return 'Loading airport locations…';
     if (departure.status === 'ready' && destination.status === 'ready') return 'Route locations available.';
-    if (departure.status === 'ready') return `Destination ${destination.ident} unavailable.`;
-    if (destination.status === 'ready') return `Departure ${departure.ident} unavailable.`;
-    return 'Airport locations unavailable.';
+    const reason = (endpoint: RouteEndpoint) => endpoint.status === 'unavailable'
+      ? `${endpoint.ident}: ${endpoint.reason}` : '';
+    if (departure.status === 'ready') return `Destination ${destination.ident} unavailable. MSFS airport data — ${reason(destination)}`;
+    if (destination.status === 'ready') return `Departure ${departure.ident} unavailable. MSFS airport data — ${reason(departure)}`;
+    return `Airport locations unavailable. MSFS airport data — ${reason(departure)}; ${reason(destination)}`;
   }
 
   private ensureMap(): void {

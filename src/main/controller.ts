@@ -151,6 +151,7 @@ export class Controller {
     this.state.route = null;
     this.state.pilotLocation = null;
     this.state.observedAt = null;
+    this.state.stale = true;
     this.rowsSession = null;
     this.baseConnection = 'updating';
     this.baseMessage = 'Cleared scanned missions. Scanning the current map area.';
@@ -226,6 +227,7 @@ export class Controller {
       }
       if (!this.current(generation)) return;
       this.clearPhase();
+      this.state.stale = true;
       if (error instanceof AdapterError) {
         this.baseConnection = error.state;
         this.baseMessage = error.message;
@@ -305,7 +307,9 @@ export class Controller {
     if (!this.running) return;
     const stalled = this.stalled();
     this.state.connection = stalled ? 'stalled' : this.baseConnection;
-    this.state.stale = stalled || this.baseConnection !== 'ready';
+    // A routine scan retains the freshness of its last completed observation.
+    this.state.stale = stalled || (this.baseConnection !== 'ready' &&
+      (this.baseConnection !== 'updating' || this.state.stale));
     this.state.message = this.uncertainCapture ? captureRecoveryMessage : stalled ? recoveryMessage : this.baseMessage;
     if (this.state.pilotLocation) this.state.pilotLocation = this.endpoint(this.state.pilotLocation);
     this.state.rows = this.state.rows.map(row => {
@@ -314,7 +318,7 @@ export class Controller {
       const distance = pilot?.status === 'ready' && departureLocation.status === 'ready'
         ? distanceNm(pilot.position, departureLocation.position) : null;
       const facility = this.available(row.mission.destination, row.facility);
-      const unconstrained = this.preferences.criteria.categories.length === 0 && this.preferences.criteria.minimumFt === null;
+      const unconstrained = this.preferences.criteria.categories.length === 0 && this.preferences.criteria.minimumFt === null && this.preferences.criteria.maximumFt == null;
       const decision = facility.status === 'pending' && !unconstrained ? null
         : classify(facility.status === 'ready' ? facility.airport : null, this.preferences.criteria);
       return { ...row, facility, decision, departureLocation, distanceNm: distance };

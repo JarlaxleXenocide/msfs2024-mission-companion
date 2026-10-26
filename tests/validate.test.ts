@@ -86,3 +86,19 @@ test('select-route accepts exactly one nonempty GUID or null', () => {
   for (const missionGuid of ['guid', null]) assert.deepEqual(parseCommand('companion:select-route', [missionGuid]), { channel: 'companion:select-route', missionGuid });
   for (const args of [[], [null, null], [''], ['  '], [undefined], [1], [{}], [[]], [true]]) assert.throws(() => parseCommand('companion:select-route', args));
 });
+
+test('range preferences accept legacy settings and reject invalid or reversed bounds', () => {
+  const legacy = { ...defaultPreferences, criteria: { categories: ['ILS'], minimumFt: 2500 } };
+  delete legacy.duration;
+  assert.deepEqual(parsePreferences(legacy).duration, { minimumHours: null, maximumHours: null });
+  assert.equal(parsePreferences(legacy).criteria.maximumFt, null);
+  assert.equal(parsePreferences({ ...defaultPreferences, duration: { minimumHours: 2, maximumHours: 3 } }).duration?.maximumHours, 3);
+  for (const maximumFt of [-1, Infinity, NaN, '5000', 2000]) {
+    assert.throws(() => parsePreferences({ ...legacy, criteria: { ...legacy.criteria, maximumFt } }));
+  }
+  for (const duration of [null, { minimumHours: 3, maximumHours: 2 }, { minimumHours: -1, maximumHours: null },
+    { minimumHours: 1.5, maximumHours: null }, { minimumHours: null, maximumHours: Infinity },
+    { minimumHours: null, maximumHours: null, extra: true }]) {
+    assert.throws(() => parsePreferences({ ...defaultPreferences, duration }));
+  }
+});

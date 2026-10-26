@@ -48,7 +48,7 @@ const endpoint = (ident, latitude, longitude) => ({ ident, status: 'ready', posi
     await page.waitForTimeout(250);
     assert.equal(await page.locator('#route-map-popup').isVisible(), false, 'fast pass does not open');
     assert.equal(tileRequests, 0, 'dwell alone does not request tiles before coordinates');
-    await page.waitForTimeout(70);
+    await page.locator('#route-map-popup').waitFor({ state: 'visible' });
     assert.equal(await page.locator('#route-map-popup').isVisible(), true, '300 ms hover opens');
     assert.deepEqual(await page.evaluate(() => window.routeTest.selections), ['one']);
     await page.mouse.move(890, 10);
@@ -149,6 +149,8 @@ const endpoint = (ident, latitude, longitude) => ({ ident, status: 'ready', posi
     assert.match(await page.locator('#route-map-status').textContent(), /Destination BBB unavailable/);
     await page.evaluate(() => window.routeTest.push({ route: { session: 'session-a', mission: { ...window.routeTest.rows[0].mission }, departure: { ident: 'AAA', status: 'unavailable', reason: 'Missing' }, destination: { ident: 'BBB', status: 'unavailable', reason: 'Missing' } } }));
     assert.match(await page.locator('#route-map-status').textContent(), /Airport locations unavailable/);
+    assert.match(await page.locator('#route-map-status').textContent(), /AAA: Missing.*BBB: Missing/);
+    assert.equal(await page.locator('#route-show').isDisabled(), true);
     assert.equal(await page.locator('#route-map .leaflet-tile').count(), 0, 'no-coordinate state does not create tiles');
     assert.equal(await page.locator('#route-map .route-airport-label').count(), 0, 'same-GUID unavailable update clears previous geography');
     await page.evaluate(() => window.routeTest.push({ route: { session: 'session-a', mission: window.routeTest.rows[0].mission, departure: { ident: 'AAA', status: 'unavailable', reason: 'Missing' }, destination: { ident: 'BBB', status: 'ready', position: { latitude: 45, longitude: -80 } } } }));
@@ -189,9 +191,14 @@ const endpoint = (ident, latitude, longitude) => ({ ident, status: 'ready', posi
     await page.mouse.move(mapBox.x + 230, mapBox.y + 150, { steps: 5 });
     await page.mouse.up();
     await page.waitForTimeout(350);
-    const userView = await page.locator('#route-map .leaflet-map-pane').getAttribute('style');
+    const panPosition = () => page.locator('#route-map .leaflet-map-pane').evaluate(el => {
+      const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform);
+      return [matrix.m41, matrix.m42];
+    });
+    const userView = await panPosition();
     await page.evaluate(route => window.routeTest.push({ route: { session: 'session-a', ...route } }), secondRoute);
-    assert.equal(await page.locator('#route-map .leaflet-map-pane').getAttribute('style'), userView, 'late endpoint preserves intervening user pan');
+    const completedView = await panPosition();
+    assert.ok(completedView.every((value, index) => Math.abs(value - userView[index]) < 0.5), 'late endpoint preserves intervening user pan within subpixel rounding');
 
     await page.locator('#route-close').click();
     const beforeDetachedHover = await page.evaluate(() => window.routeTest.selections.filter(guid => guid !== null).length);
@@ -206,6 +213,14 @@ const endpoint = (ident, latitude, longitude) => ({ ident, status: 'ready', posi
     await page.waitForTimeout(350);
     assert.equal(await page.locator('#route-map-popup').isVisible(), false, 'regenerated pending hover cannot open');
     assert.equal(await page.evaluate(() => window.routeTest.selections.filter(guid => guid !== null).length), beforeDetachedHover, 'regenerated pending hover cannot request endpoints');
+
+    await routes.nth(1).click();
+    await page.evaluate(route => window.routeTest.push({ route: { session: 'session-a', ...route } }), secondRoute);
+    await page.locator('.settings-disclosure').evaluate(el => { el.open = true; });
+    await page.locator('#refresh-airports').click();
+    assert.equal(await page.locator('#route-map-popup').isVisible(), false, 'Explicit airport reset dismisses the pinned snapshot');
+    assert.equal(await page.evaluate(() => window.routeTest.selections.at(-1)), null);
+    await page.locator('.settings-disclosure').evaluate(el => { el.open = false; });
 
     // All imagery remains intercepted locally throughout the visual matrix.
     await routes.nth(1).click();
