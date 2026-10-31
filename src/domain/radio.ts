@@ -72,6 +72,7 @@ const parkingTaxi = (text: string) => /\btaxi(?:ing)? to\b.*\bparking\b/i.test(t
 const acknowledgments = new Map<string, RadioAction['kind']>([
   ['acknowledge handoff','acknowledge'],
   ['acknowledge instruction','acknowledge-instruction'],
+  ['acknowledge assigned approach','acknowledge-assigned-approach'],
   ['acknowledge approach clearance','acknowledge-approach'],
   ['acknowledge pattern entry instructions','acknowledge-pattern-entry'],
   ['acknowledge landing clearance','acknowledge-landing'],
@@ -83,6 +84,7 @@ function matchesAcknowledgment(kind: RadioAction['kind'], message: RadioMessage)
   switch (kind) {
     case 'acknowledge': return !!target && !target.ground;
     case 'acknowledge-instruction': return altitudeInstruction(message.text);
+    case 'acknowledge-assigned-approach': return /\bexpect\b.*\bapproach\b/i.test(message.text) && /\bcleared to\s+\S+/i.test(message.text);
     case 'acknowledge-approach': return approachClearance(message.text) || !!target && /\btower$/i.test(target.name);
     case 'acknowledge-pattern-entry': return /\bcleared\b.*\bapproach\b/i.test(message.text);
     case 'acknowledge-landing': return landingClearance(message.text);

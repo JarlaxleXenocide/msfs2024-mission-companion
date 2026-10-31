@@ -10,7 +10,7 @@ export interface RadioSnapshot {
   complete: boolean;
 }
 export interface RadioAction {
-  kind: 'acknowledge' | 'acknowledge-instruction' | 'acknowledge-approach' | 'acknowledge-pattern-entry'
+  kind: 'acknowledge' | 'acknowledge-instruction' | 'acknowledge-assigned-approach' | 'acknowledge-approach' | 'acknowledge-pattern-entry'
     | 'acknowledge-landing' | 'acknowledge-ground-handoff' | 'acknowledge-taxi'
     | 'tune' | 'contact' | 'request-taxi-parking';
   option: RadioOption;

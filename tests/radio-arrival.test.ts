@@ -14,6 +14,7 @@ function ready(s: RadioSnapshot, engine = new RadioDecisions(), at = 0) {
 const cases = [
   ['Acknowledge Instruction','Example 123, Climb and maintain FL260, Keep speed not above 280 knots.','acknowledge-instruction'],
   ['Acknowledge Instruction','Example 123, Climb and maintain 15,000 ft.','acknowledge-instruction'],
+  ['Acknowledge Assigned Approach','Example 123,Maintain present heading and altitude Expect ILS runway 10 approach via FIXIT transition. Cleared to  FIXIT.','acknowledge-assigned-approach'],
   ['Acknowledge Approach Clearance','Example 123, Contact Example Tower on 118.7 when inbound on the approach.','acknowledge-approach'],
   ['Acknowledge Approach Clearance','Example 123, Cleared EXAMPLE1 arrival. Descend and maintain 10,000 ft Expect ILS runway 09 approach.','acknowledge-approach'],
   ['Acknowledge Pattern Entry Instructions','Example 123, Example Tower. Altimeter 2992, Cleared ILS Z runway 09 approach.','acknowledge-pattern-entry'],
@@ -21,6 +22,24 @@ const cases = [
   ['Acknowledge Ground Handoff','Example 123, contact ground on 121.9.','acknowledge-ground-handoff'],
   ['Acknowledge Taxi Clearance','Example 123, taxi to general aviation parking via taxiway A cross runway 18 A B.','acknowledge-taxi'],
 ] as const;
+
+test('assigned approach selects the acknowledgement without choosing an alternate approach',()=>{
+  const menu=['1 - Acknowledge Assigned Approach','2 - Standby -- [ Select Another Approach ]','3 - Say Again'];
+  for(const approach of ['ILS','RNAV','visual']) {
+    const s=state([`Example 123, Maintain present heading and altitude Expect ${approach} runway 10 approach via FIXIT transition. Cleared to FIXIT.`],menu);
+    assert.equal(ready(s)?.option.id,0,approach);
+  }
+  for(const text of ['Example 123, Expect ILS runway 10 approach.',
+    'Example 123, Cleared to FIXIT.',
+    'Example 123, Cleared ILS runway 10 approach.',
+    'Example 123, Maintain present heading and altitude.',
+    'Example 123, cleared to land runway 10.']) {
+    assert.equal(ready(state([text],menu)),null,text);
+  }
+  const assignment='Example 123, Expect ILS runway 10 approach via FIXIT transition. Cleared to FIXIT.';
+  assert.equal(ready(state([assignment],['1 - Acknowledge Approach Clearance'])),null,'Assignment is distinct from approach clearance');
+  assert.equal(ready(state([assignment],menu.slice(1))),null,'Never select standby or another approach');
+});
 
 test('captured arrival labels acknowledge their matching current message',()=>{
   for(const [label,text,kind] of cases) {
