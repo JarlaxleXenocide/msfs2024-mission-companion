@@ -10,7 +10,7 @@ export interface RadioSnapshot {
   complete: boolean;
 }
 export interface RadioAction {
-  kind: 'acknowledge' | 'tune' | 'contact';
+  kind: 'acknowledge' | 'acknowledge-instruction' | 'tune' | 'contact';
   option: RadioOption;
   key: string;
 }

@@ -72,3 +72,14 @@ test('an allowed action key cannot authorize a different menu option',async()=>{
   const e=new RadioDecisions();e.next(state,0);const action=e.next(state,2000)!;
   assert.throws(()=>radioSelectExpression(state,{...action,option:state.options[1]}),/Invalid radio action/);
 });
+
+test('altitude acknowledgment uses only native SelectOption and refuses a changed instruction',async()=>{
+  const f=setup();f.data.Options[0].content='1 - Acknowledge Instruction';
+  f.messages[0].messageContent='Example 123, Descend and maintain FL290.';
+  const state=parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  const e=new RadioDecisions();e.next(state,0);const action=e.next(state,2000)!;
+  assert.equal(action?.kind,'acknowledge-instruction');
+  assert.equal(await f.evaluate(radioSelectExpression(state,action)),true);assert.deepEqual(f.sent,['0']);
+  f.messages[0].messageContent='Example 123, Maintain present altitude.';
+  assert.equal(await f.evaluate(radioSelectExpression(state,action)),false);assert.deepEqual(f.sent,['0']);
+});

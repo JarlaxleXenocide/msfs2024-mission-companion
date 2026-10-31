@@ -49,7 +49,7 @@ export function radioSelectExpression(expected: RadioSnapshot, action: RadioActi
   if (!allowed || allowed.kind !== action.kind || allowed.key !== action.key ||
       allowed.option.id !== action.option.id || allowed.option.text !== action.option.text) throw new TypeError('Invalid radio action');
   const option = state.options.find(o => o.id === action.option.id && o.text === action.option.text && o.enabled);
-  if (!option || !['acknowledge', 'tune', 'contact'].includes(action.kind) || !state.complete) throw new TypeError('Invalid radio action');
+  if (!option || !['acknowledge', 'acknowledge-instruction', 'tune', 'contact'].includes(action.kind) || !state.complete) throw new TypeError('Invalid radio action');
   return `(async function() { ${prelude}
     var current = snapshot();
     if (!current.complete || fingerprint(current) !== ${JSON.stringify(fingerprint(state))}) return false;

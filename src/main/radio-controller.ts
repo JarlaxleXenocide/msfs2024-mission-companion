@@ -83,7 +83,7 @@ export class RadioController {
       this.state.agent = value.agent;
       this.state.latestMessage = value.messages.at(-1)?.text ?? '';
       this.state.status = value.complete && !value.messages.some(m => m.queued) ? 'listening' : 'waiting';
-      this.state.message = this.state.status === 'waiting' ? 'Waiting for radio transmission or message data' : 'Listening for handoffs · other ATC calls remain manual';
+      this.state.message = this.state.status === 'waiting' ? 'Waiting for radio transmission or message data' : 'Listening for handoffs and altitude instructions · other calls remain manual';
       const action = this.decisions.next(value, this.clock.now());
       this.publish();
       if (!action || !this.current(generation)) return;

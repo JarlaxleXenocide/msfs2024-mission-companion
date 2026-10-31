@@ -77,3 +77,55 @@ test('menu renumbering restarts the stabilization delay before an unattempted re
   assert.equal(e.next(s,1500),null);assert.equal(e.next(s,3000),null);
   assert.equal(e.next(s,3500)?.option.id,1);
 });
+
+function instruction(text = 'Example 123, Descend and maintain FL290.'): RadioSnapshot {
+  const s = snapshot('1 - Acknowledge Instruction');
+  s.messages[0].text = text;
+  s.options.push({ id: 1, text: '2 - Say Again', enabled: true });
+  return s;
+}
+function addMessage(s: RadioSnapshot, text: string, outgoing = false): void {
+  s.messages.push({index:s.count++,text,outgoing,queued:false});
+}
+
+test('observed instruction acknowledgment supports descent and maintaining current altitude without a handoff',()=>{
+  for(const text of ['Example 123, Descend and maintain FL290.', 'Example 123, Descend and maintain 10,000 ft.',
+    'Example 123, Maintain present altitude.', 'Example 123, Maintain current altitude.',
+    'Example 123, Descend and maintain FL290. Maintain present altitude.']) {
+    const action=ready(new RadioDecisions(),instruction(text));
+    assert.equal(action?.kind,'acknowledge-instruction',text);assert.equal(action?.option.id,0);
+  }
+});
+
+test('instruction reminders and menu renumbering do not repeat a response; new instructions can be acknowledged',()=>{
+  const e=new RadioDecisions(),s=instruction();const first=ready(e,s)!;e.attempted(first);
+  addMessage(s,'Example 123, acknowledge last transmission.');
+  s.options[0]={id:3,text:'4 - Acknowledge Instruction',enabled:true};
+  assert.equal(e.next(s,3000),null);assert.equal(e.next(s,6000),null);
+  addMessage(s,'Descend and maintain FL290, Example 123.',true);
+  addMessage(s,'Example 123, Maintain present altitude.');
+  const maintain=ready(e,s,7000)!;assert.equal(maintain.kind,'acknowledge-instruction');assert.notEqual(maintain.key,first.key);e.attempted(maintain);
+  addMessage(s,'Example 123, Maintain present altitude.');
+  assert.notEqual(ready(e,s,10000)?.key,maintain.key,'Reissued instruction has a new message identity');
+});
+
+test('an unanswered instruction survives a reminder, but never a readback or an unrelated newer message',()=>{
+  for(const reminder of ['Example 123, please acknowledge.','Example 123, acknowledge last transmission.']) {
+    const s=instruction();addMessage(s,reminder);
+    assert.equal(ready(new RadioDecisions(),s)?.kind,'acknowledge-instruction');
+  }
+  for(const [text,outgoing] of [['Descend and maintain FL290, Example 123.',true],['Example 123, turn left heading 030.',false]]) {
+    const s=instruction();addMessage(s,text as string,outgoing as boolean);addMessage(s,'Example 123, please acknowledge.');
+    assert.equal(ready(new RadioDecisions(),s),null);
+  }
+});
+
+test('instruction acknowledgment rejects disabled, queued, incomplete, ambiguous and unrecognized contexts',()=>{
+  const states=Array.from({length:7},()=>instruction());
+  states[0].options[0].enabled=false;states[1].messages[0].queued=true;states[2].complete=false;
+  states[3].options.push({id:5,text:'6 - Acknowledge Instruction',enabled:true});
+  states[4].options.push({id:5,text:'6 - Acknowledge Handoff',enabled:true});
+  states[5].messages[0].text='Example 123, Cleared to land runway 17R.';
+  states[6].options[0].text='1 - Request altitude decrease';
+  for(const s of states)assert.equal(ready(new RadioDecisions(),s),null);
+});

@@ -42,7 +42,19 @@ export function parseRadioSnapshot(input: unknown): RadioSnapshot {
 const clean = (value: string) => value.replace(/^\s*\d+\s*-\s*/, '').trim();
 const sameFrequency = (a: number, b: number) => Math.abs(a - b) < 0.0005;
 
-/** Only the menu, handoff transcript and actual radio state authorize an action. */
+// A reminder refers to the preceding instruction; any readback or unrelated newer
+// transmission ends that opportunity. Never search past one for an older order.
+function unansweredAltitudeInstruction(messages: RadioMessage[]): RadioMessage | null {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const message = messages[i];
+    if (message.outgoing) return null;
+    if (/^(?:[^,]+,\s*)?(?:please acknowledge|acknowledge last transmission)[.!]?\s*$/i.test(message.text.trim())) continue;
+    return /\b(?:descend and maintain (?:FL\s*\d{1,3}|\d[\d,]*\s*(?:ft|feet))|maintain (?:present|current) altitude)\b/i.test(message.text) ? message : null;
+  }
+  return null;
+}
+
+/** Only the menu, transcript and actual radio state authorize a radio response. */
 export class RadioDecisions {
   private stable = '';
   private stableSince = 0;
@@ -63,6 +75,16 @@ export class RadioDecisions {
 
   private candidate(state: RadioSnapshot): RadioAction | null {
     if (!state.complete || state.messages.some(m => m.queued)) return null;
+    const instruction = unansweredAltitudeInstruction(state.messages);
+    const instructionOptions = state.options.filter(o => /^Acknowledge Instruction$/i.test(clean(o.text)));
+    if (instructionOptions.length) {
+      const enabled = instructionOptions.filter(o => o.enabled);
+      if (!instruction || enabled.length !== 1 || state.options.some(o => o.enabled &&
+          /^(?:Acknowledge Handoff|Contact .+|\[\s*Tune .+\])$/i.test(clean(o.text)))) return null;
+      return { kind: 'acknowledge-instruction', option: enabled[0],
+        key: JSON.stringify([state.lifetime, instruction.index, instruction.text, 'acknowledge-instruction']) };
+    }
+    if (instruction) return null; // An older handoff cannot authorize a different current order.
     let target: { index: number; name: string; frequency: number; text: string } | null = null;
     for (const m of state.messages) {
       if (m.outgoing) continue;
