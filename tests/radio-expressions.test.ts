@@ -83,3 +83,30 @@ test('altitude acknowledgment uses only native SelectOption and refuses a change
   f.messages[0].messageContent='Example 123, Maintain present altitude.';
   assert.equal(await f.evaluate(radioSelectExpression(state,action)),false);assert.deepEqual(f.sent,['0']);
 });
+
+test('captured clearance labels submit only their option and reject a concurrent manual readback',async()=>{
+  for(const [label,text] of [
+    ['Acknowledge Approach Clearance','Example 123, Contact Example Tower on 118.7 when inbound on the approach.'],
+    ['Acknowledge Pattern Entry Instructions','Example 123, Cleared ILS runway 09 approach.'],
+    ['Acknowledge Landing Clearance','Example 123, cleared to land runway 09.'],
+    ['Acknowledge Ground Handoff','Example 123, contact ground on 121.9.'],
+    ['Acknowledge Taxi Clearance','Example 123, taxi to general aviation parking via taxiway A.'],
+  ]) {
+    const f=setup();f.data.Options[0].content=`1 - ${label}`;f.messages[0].messageContent=text;
+    const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));const e=new RadioDecisions();e.next(s,0);const action=e.next(s,2000)!;
+    assert.ok(action,label);assert.equal(await f.evaluate(radioSelectExpression(s,action)),true);assert.deepEqual(f.sent,['0']);
+    f.data.Messages=2;f.messages.push({messageContent:'Read back, Example 123.',outgoing:true,isQueued:false});
+    assert.equal(await f.evaluate(radioSelectExpression(s,action)),false);assert.deepEqual(f.sent,['0']);
+  }
+});
+
+test('post-landing taxi request is guarded against a changed frequency before submission',async()=>{
+  const f=setup();f.messages.splice(0,1,
+    {messageContent:'Example 123, turn next taxiway.',outgoing:false,isQueued:false},
+    {messageContent:'Example 123, contact ground on 121.9.',outgoing:false,isQueued:false},
+    {messageContent:'Going to 121.9, Example 123.',outgoing:true,isQueued:false});
+  f.data.Messages=3;f.data.Frequency.value=121.9;f.data.Options=[{id:1,content:'2 - Request Taxi to Parking',enabled:true}];
+  const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));const e=new RadioDecisions();e.next(s,0);const action=e.next(s,2000)!;
+  assert.equal(action?.kind,'request-taxi-parking');assert.equal(await f.evaluate(radioSelectExpression(s,action)),true);assert.deepEqual(f.sent,['1']);
+  f.data.Frequency.value=118.7;assert.equal(await f.evaluate(radioSelectExpression(s,action)),false);assert.deepEqual(f.sent,['1']);
+});
