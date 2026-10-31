@@ -65,3 +65,14 @@ test('a submitted action with no observable simulator progress pauses instead of
   assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,false);
   assert.match(c.getState().message,/no progress/i);
 });
+
+test('normal app startup uses the default clock without dependency injection',async()=>{
+  const sim=new Simulator();sim.data.options=[];
+  const c=new RadioController(sim,19999);
+  try {
+    assert.equal(c.getState().enabled,false);assert.equal(sim.connects,0);
+    c.setEnabled(true);await flush();
+    assert.equal(sim.connects,1);assert.equal(sim.reads,1);
+    assert.equal(c.getState().status,'listening');
+  } finally {c.stop();}
+});

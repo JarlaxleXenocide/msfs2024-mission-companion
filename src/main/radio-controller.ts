@@ -3,7 +3,7 @@ import type { RadioSimulator } from '../simulator/radio-adapter';
 import type { RadioSnapshot, RadioState } from '../shared/radio';
 
 interface Clock { now(): number; setTimeout(fn: () => void, ms: number): unknown; clearTimeout(id: unknown): void }
-const clock: Clock = { now: Date.now, setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: id => clearTimeout(id as ReturnType<typeof setTimeout>) };
+const systemClock: Clock = { now: Date.now, setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: id => clearTimeout(id as ReturnType<typeof setTimeout>) };
 
 export class RadioController {
   private state: RadioState = { enabled: false, status: 'off', message: 'Radio assist is off', frequency: null, agent: '', latestMessage: '', lastAction: '' };
@@ -16,7 +16,7 @@ export class RadioController {
   private connected = false;
   private previous: RadioSnapshot | null = null;
   private awaiting: { state: RadioSnapshot; optionId: number; since: number } | null = null;
-  constructor(private readonly simulator: RadioSimulator, private port: number, private readonly clock: Clock = clock) {}
+  constructor(private readonly simulator: RadioSimulator, private port: number, private readonly clock: Clock = systemClock) {}
 
   getState(): RadioState { return { ...this.state }; }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
