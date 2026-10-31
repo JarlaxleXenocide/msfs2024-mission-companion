@@ -53,10 +53,16 @@
 
         <div class="range-filters">
           <div id="duration-filter"></div>
-          <div id="runway-filter"></div>
           <div id="distance-filter"></div>
-          <p class="range-help">Ranges include both limits. Unknown values are hidden while a range is set. Runway range uses an open destination runway meeting your approach filters.</p>
+          <div id="credits-filter"></div>
+          <p class="range-help">Ranges include both limits. Unknown values are hidden while a range is set. Total Credits uses the advertised mission payout.</p>
         </div>
+      </section>
+
+      <section class="recommendations" aria-labelledby="recommendations-heading">
+        <div class="recommendations-heading"><h2 id="recommendations-heading">Recommended flights</h2><span id="recommendations-freshness"></span></div>
+        <p class="recommendations-help">Highest credits/hour first; nearer departures break ties. Matches your search, ranges and selected approaches.</p>
+        <div id="recommendations-list" class="recommendations-list" tabindex="0" aria-label="Top recommended flights"></div>
       </section>
 
       <section class="results" aria-labelledby="results-heading">

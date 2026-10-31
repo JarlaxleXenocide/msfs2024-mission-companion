@@ -61,3 +61,13 @@ test('audit accepts a clean report but fails closed on incomplete or failed audi
     assert.throws(() => evaluateAudit(report, fixture().lock), /audit/i);
   }
 });
+
+test('legacy minimatch exception is restricted to its build-only version and exact advisory', () => {
+  const report = { auditReportVersion: 2, vulnerabilities: { minimatch: { nodes: ['node_modules/minimatch'], via: [advisory('minimatch', 'GHSA-g3hv-75wg-m249', 'moderate')] } }, metadata: { vulnerabilities: { total: 1 } } };
+  const lock = { packages: { 'node_modules/minimatch': { version: '3.1.5', dev: true } } };
+  assert.deepEqual(evaluateAudit(report, lock).accepted, ['minimatch']);
+  for (const entry of [{ version: '10.2.6', dev: true }, { version: '3.1.5', dev: false }]) {
+    lock.packages['node_modules/minimatch'] = entry;
+    assert.deepEqual(evaluateAudit(report, lock).rejected, ['minimatch']);
+  }
+});

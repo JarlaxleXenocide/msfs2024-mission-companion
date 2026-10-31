@@ -1,18 +1,26 @@
 # MSFS 2024 Career Approach Companion
 
-A native Linux and Windows x64 desktop companion for comparing current Microsoft Flight Simulator 2024 Career missions by destination approach capability and runway length. Supports ILS, RNAV (LPV and LNAV/VNAV), LOC and VOR, with expandable runway-end details, advertised payout and estimated duration.
+A native Linux and Windows x64 desktop companion for comparing Microsoft Flight Simulator 2024 Career missions by duration, distance from the player, advertised total payout, and destination approach capability. Supports ILS, RNAV (LPV and LNAV/VNAV), LOC and VOR, with expandable runway-end details, advertised payout and estimated duration.
 
 Airport capability does not determine a mission's assigned approach or aircraft suitability. The companion reads simulator data; it does not select missions, change simulator filters, edit routes or modify Career saves.
 
 ## Screenshots
 
-Screenshots show v0.1.6 of the actual app with example missions and representative airport data.
+Screenshots show v0.1.7 of the actual app with example missions and representative airport data.
 
 **Compare earnings and departure distance.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, **Credits/hour** sorts estimated hourly earnings highest first, with **From player (NM)** putting nearer departures first when rates tie. Hourly earnings use advertised payout and estimated duration; distance is measured from the Career pilot’s current airport (KSEA in these examples) to the mission’s departure.
 
 ![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/mission-sorting.png)
 
-**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Scan now adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach, duration, runway-length and player-distance filters stay visible above the list.
+**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Scan now adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach, duration, player-distance and total-credit filters stay visible above the list.
+
+**Narrow the list before sorting.** Set Duration in 30-minute steps, Distance from player in 25 NM steps, and Total Credits in 500,000-credit steps. Drag either end of a range, type its bounds, or leave a side open. The filters combine and persist across restarts.
+
+![Duration, Distance from player and Total Credits ranges narrowing the scanned mission list](assets/screenshots/mission-filters.png)
+
+**Start with recommended flights.** The top pane shows up to three flights matching your search, ranges and selected approaches. Highest credits/hour ranks first; nearer departures break ties. Flights with unknown earnings, duration or player distance are excluded. **View flight** opens that mission’s runway details without changing your table sort. Recommendations update as filters and scanned data change; stale snapshots are labeled.
+
+![Top three recommended flights ranked by hourly earnings and departure distance](assets/screenshots/mission-recommendations.png)
 
 **Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
 
@@ -20,7 +28,7 @@ Screenshots show v0.1.6 of the actual app with example missions and representati
 
 **Inspect individual runway ends.** Expand a mission to see physical and threshold-adjusted lengths, displaced thresholds, elevations, closure status, and available approaches. RNAV procedures distinguish LPV, LNAV/VNAV, LP and LNAV minima; circling procedures are labeled separately.
 
-![Expanded CYVR runway ends with lengths, displaced thresholds, elevations, and ILS and RNAV minima including LPV, LNAV/VNAV and LNAV](assets/screenshots/runway-information.png)
+![Expanded CYVR runway ends with lengths, displaced thresholds, elevations, and ILS and RNAV minima including LPV and LNAV/VNAV](assets/screenshots/runway-information.png)
 
 **Choose your look.** Flight deck, Field notes and Clear each support Light, Night, or following your system appearance. Display controls also include Compact and supported keep-on-top behavior.
 
@@ -86,9 +94,9 @@ RNAV labels show the simulator’s reported LPV, LNAV/VNAV, LP and LNAV minima. 
 
 Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. **Scan now** starts a scan immediately instead of waiting for the next automatic scan (normally every two seconds, or ten seconds while minimized). It retains collected missions and cached airport data; if a scan is already running, it joins that scan. **Refresh airport data** clears all collected missions and cached airport details, dismisses any open route map, then starts again from the current map area. It does not clear the browser’s OpenStreetMap image cache. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
 
-**Duration**, **Runway length** and **Distance from player** have two draggable handles and From/To fields. Duration handles and numeric fields move by 30 minutes (0.5 hours); runway handles move by 500 feet; player-distance handles move by 25 NM. Exact feet and nautical miles can be entered in the fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
+**Duration**, **Distance from player** and **Total Credits** have two draggable handles and From/To fields. Duration handles and numeric fields move by 30 minutes (0.5 hours); player-distance handles move by 25 NM; total-credit handles and numeric fields move by 500,000 credits. Exact nautical miles can be entered in the distance fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
 
-Ranges hide nonmatching and unknown values even when Matches only is off. They combine with search and approach filters. Runway length is threshold-adjusted geometric length: at least one open destination runway must meet both bounds and the selected approach criteria. A different or longer runway cannot satisfy those criteria for it. The distance range uses the same straight-line player-airport-to-departure distance as the From player (NM) column and updates when the player location changes. The results count shows how many scanned missions are visible.
+Ranges hide nonmatching and unknown values even when Matches only is off. They combine with search and approach filters. Total Credits uses the advertised mission payout, independently of Credits/hour. The runway-length slider has been removed; saved runway-length bounds are cleared on startup, while runway details and approach filtering remain available. The distance range uses the same straight-line player-airport-to-departure distance as the From player (NM) column and updates when the player location changes. The results count shows how many scanned missions are visible.
 
 ## Mission route map
 
@@ -100,7 +108,7 @@ The basemap streams standard OpenStreetMap images and needs internet access. Onl
 
 ## Build and test
 
-The dependency audit permits two known build-only advisories for `braces@3.0.3` and `sprintf-js@1.1.3`, which have no patched upstream releases. The exceptions are limited to their exact advisory IDs and versions in `scripts/audit-dependencies.cjs`; new advisories, changed versions, and runtime dependency findings still fail the check. Packaged artifacts are separately checked to exclude build dependencies.
+The dependency audit allows only exact build-tool exceptions listed in `scripts/audit-dependencies.cjs`. The legacy `minimatch@3.1.5` exception covers [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249): this callable-API version lacks the reported `firstPhasePreProcess`/`optimizationLevel` code path. Modern minimatch, glob, Electron and affected transitive dependencies are updated. Existing exact exceptions for `braces@3.0.3` and `sprintf-js@1.1.3` remain. New advisories, changed versions and runtime dependency findings fail the check; packaged artifacts exclude build dependencies.
 
 Use Node >=22.12.0 (CI uses 22.23.1) and npm. On Linux, install Info-ZIP `zip` for Forge's ZIP maker and `unzip` for distribution-library checks, plus the Electron system libraries listed above:
 

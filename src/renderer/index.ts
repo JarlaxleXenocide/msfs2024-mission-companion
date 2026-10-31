@@ -19,6 +19,7 @@ import {
   matchingRunwayLength,
   missionSummary,
   rowCounts,
+  recommendedRows,
   visibleRows,
   type RowSort,
   cycleSort,
@@ -63,6 +64,8 @@ let selectedGuid: string | null = null;
 let sorts: SortCriterion[] = [];
 let saveVersion = 0;
 let tableSignature = '';
+let recommendationSignature = '';
+const recommendationsList = required<HTMLElement>('recommendations-list');
 
 const durationFilter = new RangeFilter(required('duration-filter'), {
   label: 'Duration', unit: 'hours', step: 0.5, ceiling: 24, numberStep: 0.5,
@@ -74,17 +77,6 @@ const durationFilter = new RangeFilter(required('duration-filter'), {
   preferences = { ...preferences, duration: { minimumHours: bounds.minimum, maximumHours: bounds.maximum } };
   renderTable(true);
 }, () => { if (preferences) void savePreferences(preferences); });
-const runwayFilter = new RangeFilter(required('runway-filter'), {
-  label: 'Runway length', unit: 'ft', step: 500, ceiling: 15000,
-  minimumId: 'minimum', maximumId: 'maximum', errorId: 'minimum-error',
-  description: 'Threshold-adjusted geometric length of a qualifying open destination runway. Drag in 500-foot steps; blank means no limit.',
-}, bounds => {
-  if (!preferences) return;
-  saveVersion++;
-  preferences = { ...preferences, criteria: { ...preferences.criteria, minimumFt: bounds.minimum, maximumFt: bounds.maximum } };
-  renderTable(true);
-}, () => { if (preferences) void savePreferences(preferences); });
-
 const distanceFilter = new RangeFilter(required('distance-filter'), {
   label: 'Distance from player', unit: 'NM', step: 25, ceiling: 1000,
   minimumId: 'distance-minimum', maximumId: 'distance-maximum', errorId: 'distance-error',
@@ -93,6 +85,18 @@ const distanceFilter = new RangeFilter(required('distance-filter'), {
   if (!preferences) return;
   saveVersion++;
   preferences = { ...preferences, distance: { minimumNm: bounds.minimum, maximumNm: bounds.maximum } };
+  renderTable(true);
+}, () => { if (preferences) void savePreferences(preferences); });
+
+const creditsFilter = new RangeFilter(required('credits-filter'), {
+  label: 'Total Credits', unit: 'Cr.', step: 500000, ceiling: 10000000, numberStep: 500000,
+  minimumId: 'credits-minimum', maximumId: 'credits-maximum', errorId: 'credits-error',
+  description: 'Advertised total mission payout, not credits per hour. Adjust in 500,000-credit steps; blank means no limit.',
+  formatValue: value => value >= 1000000 ? `${value / 1000000}M` : `${value / 1000}k`,
+}, bounds => {
+  if (!preferences) return;
+  saveVersion++;
+  preferences = { ...preferences, credits: { minimumCredits: bounds.minimum, maximumCredits: bounds.maximum } };
   renderTable(true);
 }, () => { if (preferences) void savePreferences(preferences); });
 
@@ -228,12 +232,13 @@ function renderState(): void {
 
 function renderTable(force = false): void {
   if (!state || !preferences) return;
-  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, preferences.criteria, preferences.duration, preferences.distance, sorts, preferences.compact, [...expanded], selectedGuid]);
+  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, preferences.criteria, preferences.duration, preferences.distance, preferences.credits, sorts, preferences.compact, [...expanded], selectedGuid]);
   // Reclassify previews locally while dragging, before preferences are persisted.
   const classified = state.rows.map(row => ({ ...row, decision:
     row.facility.status === 'pending' && (preferences!.criteria.categories.length > 0 || preferences!.criteria.minimumFt !== null || preferences!.criteria.maximumFt != null)
       ? null : classify(row.facility.status === 'ready' ? row.facility.airport : null, preferences!.criteria) }));
   const rows = visibleRows(classified, search.value, preferences.matchesOnly, sorts, preferences);
+  renderRecommendations(rows);
   const aggregate = rowCounts(classified);
   const prefix = state.stale ? 'Last known · ' : '';
   counts.textContent = `${prefix}${rows.length} shown / ${state.rows.length} scanned · ${aggregate.match} match · ${aggregate.noMatch} not matching · ${aggregate.pending} pending · ${aggregate.unknown} unknown`;
@@ -278,6 +283,41 @@ function renderTable(force = false): void {
   }
   while (tbody.children.length > desired.length) tbody.lastElementChild!.remove();
   routeMap.update(state);
+}
+
+function renderRecommendations(rows: Row[]): void {
+  required('recommendations-freshness').textContent = state?.stale ? 'Last known · stale' : '';
+  const recommendations = recommendedRows(rows);
+  const signature = JSON.stringify(recommendations);
+  if (signature === recommendationSignature) return;
+  recommendationSignature = signature;
+  if (!recommendations.length) {
+    recommendationsList.replaceChildren(element('p', 'recommendations-empty',
+      'No qualifying flights with known credits/hour and player distance. Adjust filters or scan more missions.'));
+    return;
+  }
+  recommendationsList.replaceChildren(...recommendations.map((row, index) => {
+    const card = element('article', 'recommendation-card');
+    card.dataset.guid = row.mission.guid;
+    card.append(element('strong', 'recommendation-title', `${index + 1}. ${row.mission.title}`),
+      element('div', 'recommendation-route', `${row.mission.departure} → ${row.mission.destination}`),
+      element('div', 'recommendation-rate', `${displayCreditsPerHour(row.mission)} Cr./h`),
+      element('div', 'secondary', `${row.distanceNm!.toLocaleString('en-US', { maximumFractionDigits: 1 })} NM from player · ${row.mission.durationText}`));
+    const view = element('button', '', 'View flight');
+    view.type = 'button';
+    view.ariaLabel = `View recommended flight ${row.mission.title}`;
+    view.addEventListener('click', () => {
+      selectedGuid = row.mission.guid;
+      expanded.add(row.mission.guid);
+      renderTable(true);
+      const target = Array.from(tbody.querySelectorAll<HTMLTableRowElement>('.mission-row'))
+        .find(candidate => candidate.dataset.guid === row.mission.guid);
+      target?.scrollIntoView({ block: 'nearest' });
+      target?.querySelector<HTMLButtonElement>('.expand')?.focus({ preventScroll: true });
+    });
+    card.append(view);
+    return card;
+  }));
 }
 
 function createMissionRow(): HTMLTableRowElement {
@@ -493,8 +533,8 @@ function syncPreferenceControls(): void {
   keepOnTop.checked = preferences.keepOnTop;
   port.value = String(preferences.port);
   durationFilter.set({ minimum: preferences.duration?.minimumHours ?? null, maximum: preferences.duration?.maximumHours ?? null });
-  runwayFilter.set({ minimum: preferences.criteria.minimumFt, maximum: preferences.criteria.maximumFt ?? null });
   distanceFilter.set({ minimum: preferences.distance?.minimumNm ?? null, maximum: preferences.distance?.maximumNm ?? null });
+  creditsFilter.set({ minimum: preferences.credits?.minimumCredits ?? null, maximum: preferences.credits?.maximumCredits ?? null });
   matchesOnly.checked = preferences.matchesOnly;
   for (const control of categoryControls) control.checked = preferences.criteria.categories.includes(control.dataset.category as Category);
 }

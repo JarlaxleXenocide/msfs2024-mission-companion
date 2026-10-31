@@ -128,3 +128,17 @@ test('duration preferences accept only whole or half-hour bounds', () => {
     assert.throws(() => parsePreferences({ ...defaultPreferences, duration: { minimumHours: null, maximumHours: hours } }));
   }
 });
+
+test('total credits preferences default to unlimited and use 500k increments', () => {
+  const legacy = { ...defaultPreferences }; delete legacy.credits;
+  assert.deepEqual(parsePreferences(legacy).credits, { minimumCredits: null, maximumCredits: null });
+  for (const credits of [{ minimumCredits: 0, maximumCredits: 0 }, { minimumCredits: 500000, maximumCredits: 1500000 }, { minimumCredits: null, maximumCredits: 10000000 }]) {
+    assert.deepEqual(parsePreferences({ ...defaultPreferences, credits }).credits, credits);
+  }
+  for (const credits of [null, {}, { minimumCredits: 1000000, maximumCredits: 500000 },
+    { minimumCredits: -500000, maximumCredits: null }, { minimumCredits: 250000, maximumCredits: null },
+    { minimumCredits: null, maximumCredits: Infinity }, { minimumCredits: '500000', maximumCredits: null },
+    { minimumCredits: null, maximumCredits: null, extra: 1 }]) {
+    assert.throws(() => parsePreferences({ ...defaultPreferences, credits }));
+  }
+});

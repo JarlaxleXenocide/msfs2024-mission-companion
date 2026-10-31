@@ -8,6 +8,7 @@ const preferenceFields = new Set([
   'criteria',
   'duration',
   'distance',
+  'credits',
   'matchesOnly',
   'compact',
   'theme',
@@ -25,6 +26,7 @@ export const defaultPreferences: Preferences = {
   criteria: { categories: ['ILS'], minimumFt: null, maximumFt: null },
   duration: { minimumHours: null, maximumHours: null },
   distance: { minimumNm: null, maximumNm: null },
+  credits: { minimumCredits: null, maximumCredits: null },
   matchesOnly: false,
   compact: false,
   theme: 'clear',
@@ -55,6 +57,7 @@ export function parsePreferences(input: unknown): Preferences {
     },
     duration: parseDuration(value.duration),
     distance: parseDistance(value.distance),
+    credits: parseCredits(value.credits),
     matchesOnly: expectBoolean(value.matchesOnly, 'matchesOnly'),
     compact: expectBoolean(value.compact, 'compact'),
     theme: expectOneOf(value.theme, themes, 'theme'),
@@ -190,4 +193,20 @@ function expectHalfHours(value: unknown, name: string): number | null {
     throw new TypeError(`${name} must use 30-minute increments`);
   }
   return hours;
+}
+
+function parseCredits(value: unknown): NonNullable<Preferences['credits']> {
+  if (value === undefined) return { minimumCredits: null, maximumCredits: null };
+  const range = expectObject(value, 'credits');
+  rejectUnknownFields(range, new Set(['minimumCredits', 'maximumCredits']), 'credits');
+  const bound = (value: unknown, name: string): number | null => {
+    if (value === null) return null;
+    const credits = expectInteger(value, name, 0);
+    if (credits % 500000 !== 0) throw new TypeError(`${name} must use 500,000-credit increments`);
+    return credits;
+  };
+  const minimumCredits = bound(range.minimumCredits, 'minimumCredits');
+  const maximumCredits = bound(range.maximumCredits, 'maximumCredits');
+  checkBounds(minimumCredits, maximumCredits, 'credits');
+  return { minimumCredits, maximumCredits };
 }

@@ -1,7 +1,7 @@
 {
   "name": "msfs-career-approach-companion",
   "productName": "MSFS Career Approach Companion",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Desktop companion for filtering MSFS 2024 Career missions by destination airport capability",
   "author": "JarlaxleXenocide",
   "main": ".webpack/main",
@@ -21,7 +21,7 @@
     "brace-expansion@1": "1.1.21",
     "proxy-addr": "2.0.8",
     "shell-quote": "1.12.0",
-    "qs": "6.16.0",
+    "qs": "6.17.1",
     "@electron/rebuild": "4.2.0",
     "@electron/packager": {
       "extract-zip": "npm:@electron-internal/extract-zip@1.0.5"
@@ -33,7 +33,11 @@
     "sockjs": {
       "uuid": "11.1.1"
     },
-    "@electron/asar": "4.3.0"
+    "@electron/asar": "4.3.0",
+    "glob@13": "14.0.3",
+    "minimatch@9": "11.0.3",
+    "minimatch@10": "11.0.3",
+    "body-parser": "1.20.9"
   },
   "devDependencies": {
     "@electron-forge/cli": "7.11.2",
@@ -47,7 +51,7 @@
     "@types/node": "22.18.3",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
     "css-loader": "6.11.0",
-    "electron": "44.2.0",
+    "electron": "44.10.0",
     "node-loader": "2.1.0",
     "playwright": "1.63.0",
     "style-loader": "3.3.4",

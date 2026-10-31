@@ -1,5 +1,5 @@
 import { classify } from '../domain/classify';
-import type { Criteria, DistanceRange, DurationRange, Mission, Row, Procedure } from '../shared/model';
+import type { Criteria, CreditsRange, DistanceRange, DurationRange, Mission, Row, Procedure } from '../shared/model';
 
 export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'creditsPerHour' | 'distance';
 export type SortDirection = 'asc' | 'desc';
@@ -30,7 +30,7 @@ export function visibleRows(
   query: string,
   matchesOnly: boolean,
   sorts: SortCriterion[],
-  filters: { duration?: DurationRange; distance?: DistanceRange; criteria?: Criteria } = {},
+  filters: { duration?: DurationRange; distance?: DistanceRange; credits?: CreditsRange; criteria?: Criteria } = {},
 ): Row[] {
   const needle = query.trim().toLocaleLowerCase();
   const duration = filters.duration;
@@ -42,6 +42,7 @@ export function visibleRows(
     (!matchesOnly || decision?.verdict === 'match') &&
     matchesDuration(mission.durationText, duration) &&
     matchesDistance(distanceNm, filters.distance) &&
+    matchesCredits(mission.payoutCredits, filters.credits) &&
     (!runwayRange || classify(facility.status === 'ready' ? facility.airport : null, criteria).verdict === 'match'));
   return filtered.sort((a, b) => {
     for (const { column, direction } of sorts) {
@@ -203,4 +204,22 @@ function matchesDistance(distance: number | null | undefined, range?: DistanceRa
   return distance != null && Number.isFinite(distance) && distance >= 0 &&
     (range.minimumNm === null || distance >= range.minimumNm) &&
     (range.maximumNm === null || distance <= range.maximumNm);
+}
+
+function matchesCredits(credits: number | null, range?: CreditsRange): boolean {
+  if (!range || (range.minimumCredits === null && range.maximumCredits === null)) return true;
+  return credits !== null && Number.isFinite(credits) && credits >= 0 &&
+    (range.minimumCredits === null || credits >= range.minimumCredits) &&
+    (range.maximumCredits === null || credits <= range.maximumCredits);
+}
+
+
+/** Rank already-filtered rows without changing the user's table sort. */
+export function recommendedRows(rows: Row[]): Row[] {
+  return rows.filter(row => row.decision?.verdict === 'match' &&
+    creditsPerHour(row.mission) !== null && row.distanceNm != null &&
+    Number.isFinite(row.distanceNm) && row.distanceNm >= 0)
+    .sort((a, b) => creditsPerHour(b.mission)! - creditsPerHour(a.mission)! ||
+      a.distanceNm! - b.distanceNm! || a.mission.guid.localeCompare(b.mission.guid))
+    .slice(0, 3);
 }

@@ -1,9 +1,12 @@
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
 
-// Accepted for v0.1.6: upstream has no patched releases for these build tools.
+// Build-only exceptions, restricted to exact installed versions and advisories.
 // Exact versions and advisories only; runtime dependencies are never excepted.
 const exceptions = {
+  // Legacy callable API used by dir-compare/glob 7. This version has neither
+  // firstPhasePreProcess nor optimizationLevel, the reported amplification path.
+  minimatch: { version: '3.1.5', severity: 'moderate', url: 'https://github.com/advisories/GHSA-g3hv-75wg-m249' },
   braces: { version: '3.0.3', severity: 'high', url: 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm' },
   'sprintf-js': { version: '1.1.3', severity: 'moderate', url: 'https://github.com/advisories/GHSA-hp3w-g68c-fv3c' },
 };

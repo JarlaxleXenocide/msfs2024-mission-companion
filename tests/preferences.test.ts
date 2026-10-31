@@ -94,3 +94,13 @@ test('unrelated appearance edits retain actual normal bounds, omitting coordinat
   assert.equal('x' in result, false);
   assert.equal('y' in result, false);
 });
+
+test('loading old preferences clears removed runway bounds and preserves other settings', async () => temporary(async path => {
+  const legacy = { ...defaultPreferences, criteria: { categories: ['LPV'], minimumFt: 4000, maximumFt: 6000 },
+    duration: { minimumHours: 1.5, maximumHours: 3 }, distance: { minimumNm: 25, maximumNm: 100 }, port: 22222 };
+  await writeFile(path, JSON.stringify(legacy));
+  const warnings: string[] = [];
+  const migrated = await readPreferences(path, message => warnings.push(message));
+  assert.deepEqual(migrated, { ...legacy, criteria: { categories: ['LPV'], minimumFt: null, maximumFt: null } });
+  assert.deepEqual(warnings, []);
+}));

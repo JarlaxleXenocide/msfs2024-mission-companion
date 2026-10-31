@@ -143,7 +143,13 @@ export interface DistanceRange {
   maximumNm: number | null;
 }
 
+export interface CreditsRange {
+  minimumCredits: number | null;
+  maximumCredits: number | null;
+}
+
 export interface Preferences {
+  credits?: CreditsRange;
   distance?: DistanceRange;
   duration?: DurationRange;
   port: number;

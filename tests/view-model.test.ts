@@ -11,6 +11,7 @@ import {
   missionSummary,
   parseMinimumFt,
   rowCounts,
+  recommendedRows,
   visibleRows,
   cycleSort,
   type SortCriterion,
@@ -278,4 +279,33 @@ test('player distance ranges include both bounds, zero, and exact NM values whil
   assert.deepEqual(visibleRows(rows, 'Trip 3', false, [], filters).map(row => row.mission.guid), ['3']);
   rows[3].distanceNm = 200;
   assert.deepEqual(visibleRows(rows, '', false, [], filters).map(row => row.mission.guid), ['4'], 'New player distances are used immediately');
+});
+
+test('total credits ranges use advertised payout, include endpoints and combine with duration and distance', () => {
+  const rows = [0, 499999, 500000, 1000000, 1500000, 1500001, null, NaN, -1].map((payoutCredits, index) =>
+    ({ ...readyRow({ ...mission(String(index), `Trip ${index}`, 'A', 'B'), payoutCredits, durationText: index === 3 ? '2h30min' : '3h' }, airport()), distanceNm: index * 25 }));
+  const ids = (minimumCredits: number | null, maximumCredits: number | null) => visibleRows(rows, '', false, [], { credits: { minimumCredits, maximumCredits } }).map(row => row.mission.guid);
+  assert.equal(ids(null, null).length, rows.length);
+  assert.deepEqual(ids(500000, 1500000), ['2', '3', '4']);
+  assert.deepEqual(ids(null, 0), ['0']);
+  assert.deepEqual(ids(1500000, null), ['4', '5']);
+  assert.deepEqual(visibleRows(rows, 'Trip', true, [], { credits: { minimumCredits: 500000, maximumCredits: 1500000 }, duration: { minimumHours: 2, maximumHours: 2.5 }, distance: { minimumNm: 50, maximumNm: 100 } }).map(row => row.mission.guid), ['3']);
+});
+
+
+test('recommendations rank qualifying missions by hourly earnings, then distance, independently of table order', () => {
+  const row = (guid: string, payout: number | null, duration: string | null, distance: number | null, verdict = 'match'): Row => ({
+    mission: { ...mission(guid, guid, 'AAA', 'BBB'), payoutCredits: payout, durationText: duration },
+    distanceNm: distance, facility: { status: 'pending' },
+    decision: { verdict: verdict as 'match', runwayIds: [], reasons: [] },
+  });
+  const rows = [row('far', 2000000, '2h', 100), row('near', 1000000, '1h', 25), row('best', 3000000, '2h', 500), row('fourth', 500000, '1h', 0),
+    row('unknown-rate', null, '1h', 0), row('unknown-distance', 9000000, '1h', null), row('zero-duration', 9000000, '0h', 0), row('wrong-approach', 9000000, '1h', 0, 'no-match')];
+  const original = [...rows];
+  assert.deepEqual(recommendedRows(rows).map(r => r.mission.guid), ['best', 'near', 'far']);
+  assert.deepEqual(recommendedRows([...rows].reverse()).map(r => r.mission.guid), ['best', 'near', 'far']);
+  assert.deepEqual(rows, original);
+  const filtered = visibleRows(rows, '', false, [], { duration: { minimumHours: 1, maximumHours: 1 }, distance: { minimumNm: null, maximumNm: 50 }, credits: { minimumCredits: 500000, maximumCredits: 1000000 } });
+  assert.deepEqual(recommendedRows(filtered).map(r => r.mission.guid), ['near', 'fourth']);
+  assert.deepEqual(recommendedRows([]), []);
 });

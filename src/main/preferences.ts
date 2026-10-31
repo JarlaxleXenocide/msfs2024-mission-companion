@@ -7,7 +7,11 @@ const writes = new Map<string, Promise<void>>();
 
 export async function readPreferences(path: string, onWarning: (message: string) => void = () => {}): Promise<Preferences> {
   try {
-    return parsePreferences(JSON.parse(await readFile(path, 'utf8')));
+    const preferences = parsePreferences(JSON.parse(await readFile(path, 'utf8')));
+    // The runway-length control was removed; never retain an invisible length filter.
+    preferences.criteria.minimumFt = null;
+    preferences.criteria.maximumFt = null;
+    return preferences;
   } catch (error) {
     if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) {
       onWarning('Saved preferences could not be read. Defaults are in use; change a setting to save again.');

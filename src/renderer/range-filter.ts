@@ -9,6 +9,7 @@ interface RangeOptions {
   errorId: string;
   numberStep?: number;
   description: string;
+  formatValue?: (value: number) => string;
 }
 
 /** Two native sliders share a track; number fields also support precise/open bounds. */
@@ -125,7 +126,7 @@ export class RangeFilter {
     this.upper.setAttribute('aria-valuemin', String(minimum ?? 0));
     this.fill.style.left = `${Number(this.lower.value) / this.limit * 100}%`;
     this.fill.style.right = `${100 - Number(this.upper.value) / this.limit * 100}%`;
-    const format = (value: number) => value.toLocaleString('en-US');
+    const format = this.options.formatValue ?? ((value: number) => value.toLocaleString('en-US'));
     this.output.textContent = minimum === null && maximum === null ? 'Any'
       : maximum === null ? `${format(minimum!)}+ ${this.options.unit}`
       : `${format(minimum ?? 0)}–${format(maximum)} ${this.options.unit}`;
