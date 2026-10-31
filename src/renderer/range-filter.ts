@@ -7,7 +7,7 @@ interface RangeOptions {
   minimumId: string;
   maximumId: string;
   errorId: string;
-  integer?: boolean;
+  numberStep?: number;
   description: string;
 }
 
@@ -39,8 +39,8 @@ export class RangeFilter {
         <input class="range-lower" type="range" min="0" step="${options.step}" aria-label="Minimum ${options.label.toLowerCase()} slider" />
         <input class="range-upper" type="range" min="0" step="${options.step}" aria-label="Maximum ${options.label.toLowerCase()} slider" />
       </div>
-      <div class="range-values"><label>From <input id="${options.minimumId}" type="number" min="0" step="${options.integer ? 1 : 'any'}" placeholder="Any" aria-label="Minimum ${options.label.toLowerCase()} in ${options.unit}" /></label>
-        <label>To <input id="${options.maximumId}" type="number" min="0" step="${options.integer ? 1 : 'any'}" placeholder="Any" aria-label="Maximum ${options.label.toLowerCase()} in ${options.unit}" /></label><span>${options.unit}</span></div>
+      <div class="range-values"><label>From <input id="${options.minimumId}" type="number" min="0" step="${options.numberStep ?? 'any'}" placeholder="Any" aria-label="Minimum ${options.label.toLowerCase()} in ${options.unit}" /></label>
+        <label>To <input id="${options.maximumId}" type="number" min="0" step="${options.numberStep ?? 'any'}" placeholder="Any" aria-label="Maximum ${options.label.toLowerCase()} in ${options.unit}" /></label><span>${options.unit}</span></div>
       <small id="${options.errorId}" class="field-error" role="alert"></small>`;
     root.title = options.description;
     this.lower = root.querySelector('.range-lower')!;
@@ -73,7 +73,7 @@ export class RangeFilter {
         const maximum = this.read(this.maximum);
         if (minimum === undefined || maximum === undefined ||
             (minimum !== null && maximum !== null && minimum > maximum)) {
-          this.error.textContent = `Enter ${options.integer ? 'whole ' : ''}nonnegative values with From ≤ To, or leave blank.`;
+          this.error.textContent = `Enter nonnegative values${options.numberStep ? ` in steps of ${options.numberStep}` : ''} with From ≤ To, or leave blank.`;
           control.setAttribute('aria-invalid', 'true');
           return;
         }
@@ -101,7 +101,7 @@ export class RangeFilter {
     if (control.validity.badInput) return undefined;
     if (!control.value.trim()) return null;
     const value = Number(control.value);
-    return Number.isFinite(value) && value >= 0 && (!this.options.integer || Number.isSafeInteger(value)) ? value : undefined;
+    return Number.isFinite(value) && value >= 0 && (!this.options.numberStep || Number.isSafeInteger(value / this.options.numberStep)) ? value : undefined;
   }
 
   private clearError(): void {

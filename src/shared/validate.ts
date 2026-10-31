@@ -168,8 +168,8 @@ function parseDuration(value: unknown): NonNullable<Preferences['duration']> {
   if (value === undefined) return { minimumHours: null, maximumHours: null };
   const range = expectObject(value, 'duration');
   rejectUnknownFields(range, new Set(['minimumHours', 'maximumHours']), 'duration');
-  const minimumHours = range.minimumHours === null ? null : expectInteger(range.minimumHours, 'minimumHours', 0);
-  const maximumHours = range.maximumHours === null ? null : expectInteger(range.maximumHours, 'maximumHours', 0);
+  const minimumHours = expectHalfHours(range.minimumHours, 'minimumHours');
+  const maximumHours = expectHalfHours(range.maximumHours, 'maximumHours');
   checkBounds(minimumHours, maximumHours, 'duration');
   return { minimumHours, maximumHours };
 }
@@ -182,4 +182,12 @@ function parseDistance(value: unknown): NonNullable<Preferences['distance']> {
   const maximumNm = expectMinimum(range.maximumNm, 'maximumNm');
   checkBounds(minimumNm, maximumNm, 'distance');
   return { minimumNm, maximumNm };
+}
+
+function expectHalfHours(value: unknown, name: string): number | null {
+  const hours = expectMinimum(value, name);
+  if (hours !== null && !Number.isSafeInteger(hours * 2)) {
+    throw new TypeError(`${name} must use 30-minute increments`);
+  }
+  return hours;
 }

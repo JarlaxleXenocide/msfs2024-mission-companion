@@ -65,9 +65,9 @@ let saveVersion = 0;
 let tableSignature = '';
 
 const durationFilter = new RangeFilter(required('duration-filter'), {
-  label: 'Duration', unit: 'hours', step: 1, ceiling: 24, integer: true,
+  label: 'Duration', unit: 'hours', step: 0.5, ceiling: 24, numberStep: 0.5,
   minimumId: 'duration-minimum', maximumId: 'duration-maximum', errorId: 'duration-error',
-  description: 'Estimated flight duration, inclusive. Drag in one-hour steps or type hours; blank means no limit.',
+  description: 'Estimated flight duration, inclusive. Drag in 30-minute steps or type hours (0.5 = 30 minutes); blank means no limit.',
 }, bounds => {
   if (!preferences) return;
   saveVersion++;

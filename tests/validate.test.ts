@@ -97,7 +97,7 @@ test('range preferences accept legacy settings and reject invalid or reversed bo
     assert.throws(() => parsePreferences({ ...legacy, criteria: { ...legacy.criteria, maximumFt } }));
   }
   for (const duration of [null, { minimumHours: 3, maximumHours: 2 }, { minimumHours: -1, maximumHours: null },
-    { minimumHours: 1.5, maximumHours: null }, { minimumHours: null, maximumHours: Infinity },
+    { minimumHours: 1.25, maximumHours: null }, { minimumHours: null, maximumHours: Infinity },
     { minimumHours: null, maximumHours: null, extra: true }]) {
     assert.throws(() => parsePreferences({ ...defaultPreferences, duration }));
   }
@@ -114,5 +114,17 @@ test('player distance preferences migrate older settings and validate exact incl
     { minimumNm: NaN, maximumNm: null }, { minimumNm: null, maximumNm: Infinity }, { minimumNm: '25', maximumNm: 100 },
     { minimumNm: null, maximumNm: null, extra: true }]) {
     assert.throws(() => parsePreferences({ ...defaultPreferences, distance }));
+  }
+});
+
+
+test('duration preferences accept only whole or half-hour bounds', () => {
+  for (const hours of [0, 0.5, 1, 1.5, 2.5, 24]) {
+    const duration = { minimumHours: hours, maximumHours: hours };
+    assert.deepEqual(parsePreferences({ ...defaultPreferences, duration }).duration, duration);
+  }
+  for (const hours of [0.1, 1.25, -0.5, NaN, Infinity, '1.5']) {
+    assert.throws(() => parsePreferences({ ...defaultPreferences, duration: { minimumHours: hours, maximumHours: null } }));
+    assert.throws(() => parsePreferences({ ...defaultPreferences, duration: { minimumHours: null, maximumHours: hours } }));
   }
 });
