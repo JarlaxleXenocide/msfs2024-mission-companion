@@ -9,8 +9,8 @@ import type { AppState } from '../src/shared/model';
 
 const state: AppState = { session: null, revision: 0, observedAt: null, connection: 'unavailable', stale: true, message: 'Offline', rows: [] };
 
-test('exact eight commands reject unknown names and unexpected payloads', () => {
-  assert.equal(channels.length, 8);
+test('exact nine commands reject unknown names and unexpected payloads', () => {
+  assert.equal(channels.length, 9);
   assert.throws(() => parseCommand('companion:evaluate', []));
   for (const channel of channels) {
     if (channel === 'companion:set-preferences') {
@@ -34,6 +34,7 @@ test('registered handlers check sender identity, main frame and explicit dev/pac
     const event = { sender, senderFrame: frame };
     const calls: string[] = [];
     const dispose = registerCompanionIPC({ handle: (name, fn) => { handlers.set(name, fn); }, removeHandler: name => { handlers.delete(name); } }, sender, url, {
+      setRadioEnabled: enabled => { calls.push(`radio:${enabled}`); return { enabled } as any; },
       selectRoute: value => { calls.push(`route:${value}`); },
       openAttribution: async value => { calls.push(`link:${value}`); },
       getState: () => state, getPreferences: () => defaultPreferences,
@@ -42,7 +43,7 @@ test('registered handlers check sender identity, main frame and explicit dev/pac
     });
     assert.deepEqual([...handlers.keys()], [...channels]);
     for (const [name, fn] of handlers) {
-      const args = name === 'companion:set-preferences' ? [defaultPreferences] : name === 'companion:select-route' ? [null] : name === 'companion:open-attribution' ? ['osm'] : [];
+      const args = name === 'companion:set-radio-enabled' ? [true] : name === 'companion:set-preferences' ? [defaultPreferences] : name === 'companion:select-route' ? [null] : name === 'companion:open-attribution' ? ['osm'] : [];
       for (const bad of [{ sender: { mainFrame: frame }, senderFrame: frame }, { sender, senderFrame: { url } }, { sender, senderFrame: null }]) {
         await assert.rejects(async () => fn(bad, ...args), /sender/);
       }
@@ -55,7 +56,7 @@ test('registered handlers check sender identity, main frame and explicit dev/pac
       await assert.rejects(async () => fn(event, ...args, 'extra'));
       await fn(event, ...args);
     }
-    assert.deepEqual(calls, ['set', 'refresh', 'airports', 'retry', 'route:null', 'link:osm']);
+    assert.deepEqual(calls, ['set', 'refresh', 'airports', 'retry', 'route:null', 'link:osm', 'radio:true']);
     assert.equal(handlers.has('companion:fs'), false);
     dispose();
     assert.equal(handlers.size, 0);
@@ -75,8 +76,8 @@ test('actual preload exposes only CompanionAPI, strips event and unsubscribes ex
     },
   };
   runInNewContext(readFileSync(join(__dirname, '../src/preload.js'), 'utf8'), { exports: {}, require: (name: string) => { assert.equal(name, 'electron'); return electron; } });
-  assert.deepEqual(Object.keys(api).sort(), ['getState', 'getPreferences', 'setPreferences', 'refresh', 'refreshAirports', 'retry', 'selectRoute', 'openAttribution', 'subscribe'].sort());
-  await api.getState(); await api.getPreferences(); await api.setPreferences(defaultPreferences); await api.refresh(); await api.refreshAirports(); await api.retry(); await api.selectRoute(null); await api.openAttribution('osm');
+  assert.deepEqual(Object.keys(api).sort(), ['getState', 'getPreferences', 'setPreferences', 'refresh', 'refreshAirports', 'retry', 'selectRoute', 'openAttribution', 'subscribe', 'setRadioEnabled'].sort());
+  await api.getState(); await api.getPreferences(); await api.setPreferences(defaultPreferences); await api.refresh(); await api.refreshAirports(); await api.retry(); await api.selectRoute(null); await api.openAttribution('osm'); await api.setRadioEnabled(true);
   assert.deepEqual(calls.map(call => call[0]), [...channels]);
   const received: unknown[][] = [];
   const unsubscribe = api.subscribe((...args: unknown[]) => received.push(args));
@@ -146,7 +147,17 @@ async function mainHarness(write: (path: string, value: unknown) => Promise<void
     async retry() {}
     selectRoute(value: string | null) { this.values.push(value); }
   }
+  class FakeRadioController {
+    enabled=false; listener?:()=>void;
+    getState(){return {enabled:this.enabled,status:this.enabled?'listening':'off',message:'Radio state',frequency:null,agent:'',latestMessage:'',lastAction:''};}
+    setEnabled(value:boolean){this.enabled=value;this.listener?.();return this.getState();}
+    setPort(_port:number){this.setEnabled(false);}
+    stop(){this.setEnabled(false);}
+    subscribe(fn:()=>void){this.listener=fn;return()=>{this.listener=undefined;};}
+  }
   const modules: Record<string, unknown> = {
+    './main/radio-controller': { RadioController: FakeRadioController },
+    './simulator/radio-adapter': { RadioAdapter: class {} },
     electron: { shell: { openExternal: async (url: string) => { links.push(url); } }, app, BrowserWindow: FakeWindow, ipcMain: { handle: (name: string, fn: any) => handlers.set(name, fn), removeHandler: (name: string) => handlers.delete(name) }, screen: { getAllDisplays: () => [{ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }], getPrimaryDisplay: () => ({ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }) } },
     './main/controller': { Controller: FakeController }, './simulator/adapter': { SimulatorAdapter: class {} },
     './main/preferences': { readPreferences: async () => { order.push('preferences:read'); return defaultPreferences; }, writePreferences: async (path: string, value: unknown) => { order.push('preferences:write'); return write(path, value); } },
@@ -391,4 +402,20 @@ test('native tile hooks identify only owned exact HTTPS tile images, reject HTTP
   assert.equal(invoke('onBeforeSendHeaders', { ...request, webContentsId: recreated.webContents.id }).requestHeaders['User-Agent'], headers['User-Agent']);
   recreated.emit('closed');
   assert.equal(h.hooks.onBeforeSendHeaders, null); assert.equal(h.hooks.onHeadersReceived, null);
+});
+
+
+test('radio toggle only accepts one boolean and exposes no simulator command', () => {
+  for(const enabled of [true,false])assert.deepEqual(parseCommand('companion:set-radio-enabled',[enabled]),{channel:'companion:set-radio-enabled',enabled});
+  for(const args of [[],[1],['true'],[{}],[true,false],[null]])assert.throws(()=>parseCommand('companion:set-radio-enabled',args));
+});
+
+test('main connects radio toggle/state and disables it on window closure', async () => {
+  const h=await mainHarness();const win=h.windows[0];const event={sender:win.webContents,senderFrame:win.webContents.mainFrame};
+  assert.equal((await h.handlers.get('companion:get-state')!(event)).radio.enabled,false);
+  await h.handlers.get('companion:set-radio-enabled')!(event,true);
+  assert.equal(h.pushes.at(-1)!.value.radio!.enabled,true);
+  win.emit('closed');h.app.emit('activate');
+  const reopened=h.windows.at(-1)!;const e={sender:reopened.webContents,senderFrame:reopened.webContents.mainFrame};
+  assert.equal((await h.handlers.get('companion:get-state')!(e)).radio.enabled,false);
 });

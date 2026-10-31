@@ -1,0 +1,74 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { runInNewContext } from 'node:vm';
+import { radioReadExpression, radioSelectExpression } from '../src/simulator/radio-expressions';
+import { parseRadioSnapshot, RadioDecisions } from '../src/domain/radio';
+
+function setup() {
+  let hydrated = false;
+  const sent: string[] = []; const ranges: number[][] = [];
+  const messages = [{ messageContent: 'Example 123 contact Example Center on 133.25. Good day.', outgoing: false, isQueued: false }];
+  const data: Record<string, any> = {
+    Options: [{ id: 0, content: '1 - Acknowledge Handoff ', enabled: true }], Messages: 1,
+    Frequency: { value: 120.55 }, CurrentAgent: 'EXAMPLE',
+  };
+  const native = { getData(path: string) {
+    const key = path.replace('Game/Communication/Atc/', '');
+    return { value: key.startsWith('Messages/') ? hydrated ? messages[Number(key.split('/')[1])] : undefined : data[key] };
+  } };
+  const reader = { listener: native, async getData(path: string) { return native.getData(path).value; },
+    async requestRange(_path: string, start: number, size: number) { ranges.push([start, size]); hydrated = true; return messages.length; } };
+  const lib = { b: { m_listener: reader, Game: { Communication: { Atc: { SelectOption: { request: async (id: string) => { sent.push(id); } } } } } } };
+  const context = { testLib: lib, performance: { timeOrigin: 1000 } };
+  const evaluate = (expression: string) => runInNewContext(expression.replace("await import('/Global/lib.js')", 'testLib'), context);
+  return { evaluate, ranges, sent, data, messages, context };
+}
+test('closed-panel capture requests and hydrates a bounded message tail', async () => {
+  const f = setup(); const state = parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  assert.deepEqual(f.ranges, [[0, 1]]); assert.equal(state.messages[0].text.includes('133.25'), true);
+  assert.equal(state.complete, true); assert.deepEqual(f.sent, []);
+});
+test('native selection rejects stale menu, frequency, transcript, queued message or lifetime', async () => {
+  for (const change of ['menu', 'frequency', 'transcript', 'queued', 'lifetime']) {
+    const f = setup(), state = parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+    const e = new RadioDecisions(); e.next(state, 0); const action = e.next(state, 2000)!;
+    if (change === 'menu') f.data.Options[0].content = '1 - Cancel IFR';
+    if (change === 'frequency') f.data.Frequency.value = 133.25;
+    if (change === 'transcript') f.messages[0].messageContent = 'Something else';
+    if (change === 'queued') f.messages[0].isQueued = true;
+    if (change === 'lifetime') f.context.performance.timeOrigin = 2000;
+    assert.equal(await f.evaluate(radioSelectExpression(state, action)), false, change);
+    assert.deepEqual(f.sent, []);
+  }
+});
+test('native selection sends only the matched option and keeps text as data', async () => {
+  const f = setup(), state = parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  const e = new RadioDecisions(); e.next(state, 0); const action = e.next(state, 2000)!;
+  assert.equal(await f.evaluate(radioSelectExpression(state, action)), true);
+  assert.deepEqual(f.sent, ['0']);
+  assert.throws(() => radioSelectExpression(state, { ...action, option: { ...action.option, id: NaN } }));
+});
+
+test('native action builder rejects a matching but unsupported option',async()=>{
+  const f=setup();f.data.Options[0].content='1 - Cancel IFR';
+  const state=parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  assert.throws(()=>radioSelectExpression(state,{kind:'acknowledge',option:state.options[0],key:'forged'}),/Invalid radio action/);
+});
+
+test('radio snapshots and pre-submit checks use the older Coherent navigation timestamp when timeOrigin is absent',async()=>{
+  const f=setup();(f.context.performance as any).timing={navigationStart:1000};delete (f.context.performance as any).timeOrigin;
+  const state=parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  assert.equal(state.lifetime,1000);
+  const e=new RadioDecisions();e.next(state,0);const action=e.next(state,2000)!;
+  assert.equal(await f.evaluate(radioSelectExpression(state,action)),true);
+  (f.context.performance as any).timing.navigationStart=2000;
+  assert.equal(await f.evaluate(radioSelectExpression(state,action)),false);
+  assert.deepEqual(f.sent,['0']);
+});
+
+test('an allowed action key cannot authorize a different menu option',async()=>{
+  const f=setup();f.data.Options.push({id:2,content:'3 - Cancel IFR',enabled:true});
+  const state=parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  const e=new RadioDecisions();e.next(state,0);const action=e.next(state,2000)!;
+  assert.throws(()=>radioSelectExpression(state,{...action,option:state.options[1]}),/Invalid radio action/);
+});

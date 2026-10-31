@@ -546,3 +546,19 @@ test('routine polling preserves fresh observations until a real simulator failur
   assert.equal(controller.getState().stale, true, 'Polling cannot make an inactive observation fresh');
   controller.stop();
 });
+
+test('inactive mission browser probes every ten seconds and starts no further airport queries', async () => {
+  const { simulator, clock, controller } = await setup(...Array.from({length:8},(_,i)=>mission(`M${i}`,`APT${i}`)));
+  assert.equal(simulator.calls.length,4);
+  simulator.snapshot={...capture(),screen:'inactive'};
+  await controller.refresh();
+  for(const call of simulator.calls)call.work.resolve(facility(call.ident));
+  await flush();assert.equal(simulator.calls.length,4,'Settled work must not launch remaining airport requests in flight');
+  const n=simulator.captures;
+  await clock.advance(9999);assert.equal(simulator.captures,n);
+  await clock.advance(1);assert.equal(simulator.captures,n+1);
+  assert.match(controller.getState().message,/paused/i);
+  simulator.snapshot=capture();await controller.refresh();
+  const active=simulator.captures;await clock.advance(2000);assert.equal(simulator.captures,active+1);
+  controller.stop();
+});

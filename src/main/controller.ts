@@ -258,9 +258,9 @@ export class Controller {
   private accept(capture: Capture): void {
     this.baseConnection = capture.screen === 'browse' ? 'ready' : capture.screen;
     this.baseMessage = capture.screen === 'browse' ? (capture.missions.length ? 'Mission list is current' : 'No missions in the current map list')
-      : capture.screen === 'inactive' ? 'Career mission list is inactive or collapsed'
-      : capture.screen === 'briefing' ? 'Mission briefing is open'
-      : 'This simulator screen or data shape is unsupported';
+      : capture.screen === 'inactive' ? 'Mission scans paused: Career mission list is inactive or collapsed'
+      : capture.screen === 'briefing' ? 'Mission scans paused: mission briefing is open'
+      : 'Mission scans paused: Career browser is unavailable or its data is unsupported';
     if (capture.screen !== 'browse') return;
     const missions = new Map(this.state.rows.map(row => [row.mission.guid, row.mission]));
     for (const mission of capture.missions) missions.set(mission.guid, mission);
@@ -418,7 +418,8 @@ export class Controller {
   private schedule(): void {
     this.clearPoll();
     if (!this.running || this.inFlight) return;
-    const interval = this.minimized ? 10000 : 2000;
+    const paused = ['inactive', 'briefing', 'unsupported'].includes(this.baseConnection);
+    const interval = this.minimized || paused ? 10000 : 2000;
     // Keep the request cadence and skip elapsed ticks instead of catching up.
     const pollDelay = interval - Math.max(0, this.clock.now() - this.captureStartedAt) % interval;
     const delay = this.connection === null && this.failures > 0

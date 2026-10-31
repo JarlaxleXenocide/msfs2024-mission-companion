@@ -134,15 +134,20 @@ function expectOneOf<const Values extends readonly string[]>(
 
 export const channels = ['companion:get-state', 'companion:get-preferences',
   'companion:set-preferences', 'companion:refresh', 'companion:refresh-airports',
-  'companion:retry', 'companion:select-route', 'companion:open-attribution'] as const;
+  'companion:retry', 'companion:select-route', 'companion:open-attribution', 'companion:set-radio-enabled'] as const;
 
-type Command = { channel: Exclude<typeof channels[number], 'companion:set-preferences' | 'companion:select-route' | 'companion:open-attribution'> }
+type Command = { channel: Exclude<typeof channels[number], 'companion:set-preferences' | 'companion:select-route' | 'companion:open-attribution' | 'companion:set-radio-enabled'> }
+  | { channel: 'companion:set-radio-enabled'; enabled: boolean }
   | { channel: 'companion:set-preferences'; preferences: Preferences }
   | { channel: 'companion:select-route'; missionGuid: string | null }
   | { channel: 'companion:open-attribution'; key: 'osm' | 'leaflet' };
 
 export function parseCommand(channel: unknown, args: readonly unknown[]): Command {
   const name = expectOneOf(channel, channels, 'channel');
+  if (name === 'companion:set-radio-enabled') {
+    if (args.length !== 1) throw new TypeError('Radio toggle requires exactly one boolean');
+    return { channel: name, enabled: expectBoolean(args[0], 'enabled') };
+  }
   if (name === 'companion:open-attribution') {
     if (args.length !== 1) throw new TypeError('open-attribution requires exactly one key');
     return { channel: name, key: expectOneOf(args[0], ['osm', 'leaflet'], 'attribution') };

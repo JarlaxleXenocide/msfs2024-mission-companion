@@ -9,6 +9,7 @@ import type {
 import { RangeFilter } from './range-filter';
 import { classify, groupRunways } from '../domain/classify';
 import stylesURL from './styles.css';
+import radioIconURL from './assets/radio-assist.png';
 import { RouteMapController } from './route-map';
 import {
   displayElevation,
@@ -36,6 +37,15 @@ const connection = required<HTMLElement>('connection-label').parentElement!.pare
 const connectionLabel = required<HTMLElement>('connection-label');
 const observedAt = required<HTMLElement>('observed-at');
 const connectionMessage = required<HTMLElement>('connection-message');
+const radioEnabled = required<HTMLInputElement>('radio-enabled');
+required<HTMLImageElement>('radio-icon').src = radioIconURL;
+const radioStatus = required<HTMLElement>('radio-status');
+const radioFrequency = required<HTMLElement>('radio-frequency');
+const radioLatest = required<HTMLElement>('radio-latest');
+const radioAction = required<HTMLElement>('radio-action');
+const radioError = required<HTMLElement>('radio-error');
+let radioPending = false;
+let stateVersion = 0;
 const warning = required<HTMLElement>('preference-warning');
 const desktopHelp = required<HTMLElement>('desktop-help');
 const minimizeHelp = required<HTMLElement>('minimize-help');
@@ -101,6 +111,19 @@ const creditsFilter = new RangeFilter(required('credits-filter'), {
 }, () => { if (preferences) void savePreferences(preferences); });
 
 const unsubscribe = window.companion.subscribe(acceptState);
+radioEnabled.addEventListener('change', async () => {
+  const enabled = radioEnabled.checked;
+  const version = stateVersion;
+  radioPending = true; radioEnabled.disabled = true;
+  radioError.hidden = true;
+  try {
+    const radio = await window.companion.setRadioEnabled(enabled);
+    if (state && stateVersion === version) state = { ...state, radio };
+  } catch (error) {
+    radioError.textContent = error instanceof Error ? error.message : 'Radio assist could not be changed.';
+    radioError.hidden = false;
+  } finally { radioPending = false; renderRadio(); }
+});
 addEventListener('unload', () => { routeMap.dispose(); unsubscribe(); }, { once: true });
 systemMode.addEventListener('change', () => applyTheme());
 
@@ -194,6 +217,7 @@ void Promise.all([window.companion.getPreferences(), window.companion.getState()
   });
 
 function acceptState(next: AppState): void {
+  stateVersion++;
   state = next;
   const current = new Set(next.rows.map(row => row.mission.guid));
   for (const guid of expanded) if (!current.has(guid)) expanded.delete(guid);
@@ -217,6 +241,7 @@ function renderState(): void {
   connectionLabel.title = connectionLabel.textContent;
   observedAt.textContent = state.observedAt ? `Last scan ${formatTime(state.observedAt)}` : 'No mission scan yet';
   connectionMessage.textContent = state.message || setupMessage(state.connection);
+  renderRadio();
 
   warning.hidden = !state.desktop?.preferenceWarning;
   warning.textContent = state.desktop?.preferenceWarning ?? '';
@@ -228,6 +253,18 @@ function renderState(): void {
 
   renderTable();
   routeMap.update(state);
+}
+
+function renderRadio(): void {
+  const radio = state?.radio;
+  radioEnabled.disabled = radioPending || !radio;
+  radioEnabled.checked = radio?.enabled ?? false;
+  required<HTMLElement>('radio-power').textContent = radioEnabled.checked ? 'On' : 'Off';
+  radioStatus.textContent = radio?.message ?? 'Radio assist is off';
+  radioStatus.dataset.state = radio?.status ?? 'off';
+  radioFrequency.textContent = radio?.frequency ? `${radio.agent || 'Radio'} · ${radio.frequency.toFixed(3)} MHz` : '';
+  radioLatest.textContent = radio?.latestMessage || 'No radio messages yet';
+  radioAction.textContent = radio?.lastAction ? `Last action sent: ${radio.lastAction}` : 'No action sent';
 }
 
 function renderTable(force = false): void {

@@ -2,6 +2,8 @@ import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { join } from 'node:path';
 import { attributionURLs, installMapPolicy } from './main/map-policy';
 import { Controller } from './main/controller';
+import { RadioController } from './main/radio-controller';
+import { RadioAdapter } from './simulator/radio-adapter';
 import { registerCompanionIPC } from './main/ipc';
 import { readPreferences, writePreferences } from './main/preferences';
 import { applyWindowPreferences, desktopCapabilities, restoreBounds, withWindowBounds, type WindowBackend } from './main/window';
@@ -46,6 +48,7 @@ function startApplication(): void {
   const desktop = desktopCapabilities(backend);
   const wayland = backend === 'wayland';
   let controller: Controller | undefined;
+  let radio: RadioController | undefined;
   let window: BrowserWindow | null = null;
   let preferences: Preferences;
   let preferencesPath: string;
@@ -55,7 +58,7 @@ function startApplication(): void {
   const pendingWrites = new Set<Promise<void>>();
 
   function getState() {
-    return { ...controller!.getState(), desktop: { ...desktop } };
+    return { ...controller!.getState(), radio: radio!.getState(), desktop: { ...desktop } };
   }
 
   function pushState(): void {
@@ -69,6 +72,7 @@ function startApplication(): void {
     preferences = parsePreferences(window && !window.isDestroyed()
       ? withWindowBounds(value, window.getNormalBounds(), wayland) : value);
     controller!.setPreferences(preferences);
+    radio!.setPort(preferences.port);
     if (window) applyWindowPreferences(window, preferences, wayland);
     const version = ++preferenceVersion;
     const writing = writePreferences(preferencesPath, preferences).then(() => {
@@ -120,6 +124,7 @@ function startApplication(): void {
 
     const removeMapPolicy = installMapPolicy(created.webContents.session, created.webContents.id, app.getVersion());
     const removeIPC = registerCompanionIPC(ipcMain, created.webContents, rendererURL, {
+      setRadioEnabled: enabled => radio!.setEnabled(enabled),
       getState,
       openAttribution: key => shell.openExternal(attributionURLs[key]),
       getPreferences: () => parsePreferences(preferences),
@@ -130,7 +135,8 @@ function startApplication(): void {
       retry: () => controller!.retry(),
     });
     const unsubscribe = controller!.subscribe(pushState);
-    disposeWindow = () => { unsubscribe(); removeIPC(); removeMapPolicy(); };
+    const unsubscribeRadio = radio!.subscribe(pushState);
+    disposeWindow = () => { unsubscribe(); unsubscribeRadio(); removeIPC(); removeMapPolicy(); };
     created.on('minimize', () => controller!.setMinimized(true));
     created.on('restore', () => controller!.setMinimized(false));
     // Native Wayland/server decorations may not emit minimize; never infer it from blur.
@@ -140,6 +146,7 @@ function startApplication(): void {
     created.on('closed', () => {
       disposeWindow?.(); disposeWindow = undefined;
       controller!.stop();
+      radio!.stop();
       window = null;
     });
     controller!.setMinimized(false);
@@ -151,6 +158,7 @@ function startApplication(): void {
     preferencesPath = join(app.getPath('userData'), 'preferences.json');
     preferences = await readPreferences(preferencesPath, message => { desktop.preferenceWarning = message; });
     controller = new Controller(new SimulatorAdapter(preferences.port), preferences);
+    radio = new RadioController(new RadioAdapter(preferences.port), preferences.port);
     createWindow();
     app.on('activate', () => {
       if (!quitting && BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -163,6 +171,7 @@ function startApplication(): void {
     saveWindowBounds();
     quitting = true;
     controller?.stop();
+    radio?.stop();
     disposeWindow?.(); disposeWindow = undefined;
     void Promise.all([...pendingWrites]).then(() => app.quit());
   });

@@ -2,6 +2,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 import type { AppState, CompanionAPI } from './shared/model';
 
 const companion: CompanionAPI = {
+  setRadioEnabled: enabled => ipcRenderer.invoke('companion:set-radio-enabled', enabled),
   getState: () => ipcRenderer.invoke('companion:get-state'),
   getPreferences: () => ipcRenderer.invoke('companion:get-preferences'),
   setPreferences: value => ipcRenderer.invoke('companion:set-preferences', value),

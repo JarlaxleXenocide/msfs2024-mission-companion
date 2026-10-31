@@ -1,3 +1,4 @@
+import type { RadioState } from './radio';
 export type Category = 'ILS' | 'LPV' | 'LNAV_VNAV' | 'LOC' | 'VOR';
 export type Verdict = 'match' | 'no-match' | 'unknown';
 export type Screen = 'browse' | 'inactive' | 'briefing' | 'unsupported';
@@ -121,6 +122,7 @@ export interface RouteLookup {
 }
 
 export interface AppState {
+  radio?: RadioState;
   pilotLocation?: RouteEndpoint | null;
   route?: RouteLookup | null;
   desktop?: DesktopCapabilities;
@@ -166,6 +168,7 @@ export interface Preferences {
 }
 
 export interface CompanionAPI {
+  setRadioEnabled(enabled: boolean): Promise<RadioState>;
   getState(): Promise<AppState>;
   getPreferences(): Promise<Preferences>;
   setPreferences(value: Preferences): Promise<Preferences>;

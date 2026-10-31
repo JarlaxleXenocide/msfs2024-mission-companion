@@ -11,6 +11,10 @@ export const rendererConfig: Configuration = {
         test: /\.css$/,
         type: 'asset/resource',
       },
+      {
+        test: /\.png$/,
+        type: 'asset/inline',
+      },
     ],
   },
   resolve: { extensions: ['.js', '.ts', '.css'] },

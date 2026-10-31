@@ -37,6 +37,25 @@
         <p id="minimize-help" class="desktop-help" hidden>On native Wayland, the desktop may not report minimization; background polling can remain at the visible-window rate.</p>
       <p id="preference-warning" class="warning" role="alert" hidden></p>
 
+      <section class="radio-assist" aria-label="Radio assistance">
+        <div class="radio-heading">
+          <label class="radio-toggle" title="Toggle automatic ATC handoffs">
+            <input id="radio-enabled" type="checkbox" role="switch" aria-label="Radio assist" aria-describedby="radio-status" disabled />
+            <span class="radio-pilot"><img id="radio-icon" alt="" width="44" height="44" /></span>
+            <span class="radio-label"><strong>Radio assist <span id="radio-power">Off</span></strong><small>Handoffs only</small></span>
+          </label>
+          <span id="radio-frequency"></span>
+        </div>
+        <p id="radio-status" role="status" aria-live="polite">Radio assist is off</p>
+        <details id="radio-activity">
+          <summary>Radio activity</summary>
+          <p id="radio-latest">No radio messages yet</p>
+          <p id="radio-action">No action sent</p>
+          <p class="radio-help">Acknowledges handoffs, tunes and checks in. Other calls remain manual. Starts off each launch; flying stays with you.</p>
+        </details>
+        <p id="radio-error" class="field-error" role="alert" hidden></p>
+      </section>
+
       <section class="filters" aria-label="Mission filters">
         <fieldset>
           <legend class="visually-hidden">Available approaches</legend>
@@ -87,7 +106,7 @@
             <tbody id="mission-rows"></tbody>
           </table>
         </div>
-        <p class="scope-note">Missions stay until you use Refresh airport data or close the app; availability may change. Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. This companion does not select anything in MSFS.</p>
+        <p class="scope-note">Missions stay until you use Refresh airport data or close the app; availability may change. Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. Mission comparison does not select missions in MSFS. Radio assist sends ATC handoff responses only when enabled.</p>
       </section>
       </div>
       <footer class="settings-footer">

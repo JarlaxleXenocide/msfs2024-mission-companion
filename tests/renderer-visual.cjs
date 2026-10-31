@@ -37,8 +37,9 @@ fs.mkdirSync(output, { recursive: true });
   await page.locator('.expand').nth(3).click();
   // Polls must not move hit targets or replace unchanged row contents.
   const geometry=()=>page.locator('#refresh, #compact, #search, .expand').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height]}));
-  const settled=await geometry();
+  // Focus can scroll a shorter results pane; measure after that deliberate movement.
   await page.locator('.expand').first().focus();
+  const settled=await geometry();
   await page.evaluate(()=>{window.rowMutations=0;new MutationObserver(records=>window.rowMutations+=records.length).observe(document.querySelector('#mission-rows'),{childList:true,subtree:true})});
   for(let i=0;i<4;i++) {
    await page.evaluate(()=>window.visualTest.push({connection:'updating',stale:true,message:'Updating mission list'}));

@@ -1,4 +1,5 @@
 import type { AppState, Preferences } from '../shared/model';
+import type { RadioState } from '../shared/radio';
 import { channels, parseCommand } from '../shared/validate';
 
 interface Sender { mainFrame: { url: string } }
@@ -8,6 +9,7 @@ interface IPCRegistry {
   removeHandler(channel: string): void;
 }
 interface Commands {
+  setRadioEnabled(enabled: boolean): RadioState;
   getState(): AppState;
   getPreferences(): Preferences;
   setPreferences(value: Preferences): Promise<Preferences>;
@@ -29,6 +31,7 @@ export function registerCompanionIPC(ipc: IPCRegistry, sender: Sender, rendererU
       }
       const command = parseCommand(channel, args);
       switch (command.channel) {
+        case 'companion:set-radio-enabled': return commands.setRadioEnabled(command.enabled);
         case 'companion:get-state': return commands.getState();
         case 'companion:get-preferences': return commands.getPreferences();
         case 'companion:set-preferences': return commands.setPreferences(command.preferences);
