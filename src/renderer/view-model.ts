@@ -1,5 +1,5 @@
 import { classify } from '../domain/classify';
-import type { Criteria, DurationRange, Mission, Row, Procedure } from '../shared/model';
+import type { Criteria, DistanceRange, DurationRange, Mission, Row, Procedure } from '../shared/model';
 
 export type RowSort = 'title' | 'destination' | 'runway' | 'duration' | 'credits' | 'creditsPerHour' | 'distance';
 export type SortDirection = 'asc' | 'desc';
@@ -30,17 +30,18 @@ export function visibleRows(
   query: string,
   matchesOnly: boolean,
   sorts: SortCriterion[],
-  filters: { duration?: DurationRange; criteria?: Criteria } = {},
+  filters: { duration?: DurationRange; distance?: DistanceRange; criteria?: Criteria } = {},
 ): Row[] {
   const needle = query.trim().toLocaleLowerCase();
   const duration = filters.duration;
   const criteria = filters.criteria;
   const runwayRange = criteria && (criteria.minimumFt !== null || criteria.maximumFt != null);
-  const filtered = rows.filter(({ mission, decision, facility }) =>
+  const filtered = rows.filter(({ mission, decision, facility, distanceNm }) =>
     (!needle || [mission.title, mission.departure, mission.destination]
       .some(value => value.toLocaleLowerCase().includes(needle))) &&
     (!matchesOnly || decision?.verdict === 'match') &&
     matchesDuration(mission.durationText, duration) &&
+    matchesDistance(distanceNm, filters.distance) &&
     (!runwayRange || classify(facility.status === 'ready' ? facility.airport : null, criteria).verdict === 'match'));
   return filtered.sort((a, b) => {
     for (const { column, direction } of sorts) {
@@ -195,4 +196,11 @@ function matchesDuration(text: string | null, range?: DurationRange): boolean {
   return minutes !== null &&
     (range.minimumHours === null || minutes >= range.minimumHours * 60) &&
     (range.maximumHours === null || minutes <= range.maximumHours * 60);
+}
+
+function matchesDistance(distance: number | null | undefined, range?: DistanceRange): boolean {
+  if (!range || (range.minimumNm === null && range.maximumNm === null)) return true;
+  return distance != null && Number.isFinite(distance) && distance >= 0 &&
+    (range.minimumNm === null || distance >= range.minimumNm) &&
+    (range.maximumNm === null || distance <= range.maximumNm);
 }

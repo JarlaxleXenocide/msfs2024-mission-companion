@@ -7,6 +7,7 @@ const preferenceFields = new Set([
   'port',
   'criteria',
   'duration',
+  'distance',
   'matchesOnly',
   'compact',
   'theme',
@@ -23,6 +24,7 @@ export const defaultPreferences: Preferences = {
   port: 19999,
   criteria: { categories: ['ILS'], minimumFt: null, maximumFt: null },
   duration: { minimumHours: null, maximumHours: null },
+  distance: { minimumNm: null, maximumNm: null },
   matchesOnly: false,
   compact: false,
   theme: 'clear',
@@ -52,6 +54,7 @@ export function parsePreferences(input: unknown): Preferences {
       maximumFt: expectMinimum(criteria.maximumFt === undefined ? null : criteria.maximumFt, 'maximumFt'),
     },
     duration: parseDuration(value.duration),
+    distance: parseDistance(value.distance),
     matchesOnly: expectBoolean(value.matchesOnly, 'matchesOnly'),
     compact: expectBoolean(value.compact, 'compact'),
     theme: expectOneOf(value.theme, themes, 'theme'),
@@ -169,4 +172,14 @@ function parseDuration(value: unknown): NonNullable<Preferences['duration']> {
   const maximumHours = range.maximumHours === null ? null : expectInteger(range.maximumHours, 'maximumHours', 0);
   checkBounds(minimumHours, maximumHours, 'duration');
   return { minimumHours, maximumHours };
+}
+
+function parseDistance(value: unknown): NonNullable<Preferences['distance']> {
+  if (value === undefined) return { minimumNm: null, maximumNm: null };
+  const range = expectObject(value, 'distance');
+  rejectUnknownFields(range, new Set(['minimumNm', 'maximumNm']), 'distance');
+  const minimumNm = expectMinimum(range.minimumNm, 'minimumNm');
+  const maximumNm = expectMinimum(range.maximumNm, 'maximumNm');
+  checkBounds(minimumNm, maximumNm, 'distance');
+  return { minimumNm, maximumNm };
 }

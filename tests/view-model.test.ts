@@ -262,3 +262,20 @@ test('runway ranges filter without Matches only using any qualifying runway, not
   assert.equal(visibleRows(rows, '', false, [], { criteria: { categories: ['ILS'], minimumFt: 4000, maximumFt: 6000 } }).length, 1);
   assert.equal(visibleRows(rows, '', false, [], { criteria: { categories: ['ILS'], minimumFt: null, maximumFt: 4000 } }).length, 0);
 });
+
+test('player distance ranges include both bounds, zero, and exact NM values while excluding unavailable distances only when active', () => {
+  const rows = [0, 24.9, 25, 50.5, 100, 100.1, null, undefined, NaN, Infinity, -1].map((distanceNm, index) =>
+    ({ ...readyRow(mission(String(index), `Trip ${index}`, 'KAAA', 'KBBB'), airport()), distanceNm }));
+  const ids = (minimumNm: number | null, maximumNm: number | null) =>
+    visibleRows(rows, '', false, [], { distance: { minimumNm, maximumNm } }).map(row => row.mission.guid);
+  assert.equal(ids(null, null).length, rows.length);
+  assert.deepEqual(ids(25, 100), ['2', '3', '4']);
+  assert.deepEqual(ids(null, 0), ['0']);
+  assert.deepEqual(ids(100, null), ['4', '5']);
+  assert.deepEqual(ids(null, 50.5), ['0', '1', '2', '3']);
+  const filters = { distance: { minimumNm: 25, maximumNm: 100 }, duration: { minimumHours: 3, maximumHours: 4 } };
+  assert.deepEqual(visibleRows(rows, '', true, [{ column: 'distance', direction: 'desc' }], filters).map(row => row.mission.guid), ['4', '3']);
+  assert.deepEqual(visibleRows(rows, 'Trip 3', false, [], filters).map(row => row.mission.guid), ['3']);
+  rows[3].distanceNm = 200;
+  assert.deepEqual(visibleRows(rows, '', false, [], filters).map(row => row.mission.guid), ['4'], 'New player distances are used immediately');
+});

@@ -102,3 +102,17 @@ test('range preferences accept legacy settings and reject invalid or reversed bo
     assert.throws(() => parsePreferences({ ...defaultPreferences, duration }));
   }
 });
+
+test('player distance preferences migrate older settings and validate exact inclusive bounds', () => {
+  const legacy = { ...defaultPreferences };
+  delete legacy.distance;
+  assert.deepEqual(parsePreferences(legacy).distance, { minimumNm: null, maximumNm: null });
+  for (const distance of [{ minimumNm: 0, maximumNm: 0 }, { minimumNm: 25.5, maximumNm: 100.25 }, { minimumNm: 0, maximumNm: null }]) {
+    assert.deepEqual(parsePreferences({ ...defaultPreferences, distance }).distance, distance);
+  }
+  for (const distance of [null, {}, { minimumNm: 100, maximumNm: 25 }, { minimumNm: -1, maximumNm: null },
+    { minimumNm: NaN, maximumNm: null }, { minimumNm: null, maximumNm: Infinity }, { minimumNm: '25', maximumNm: 100 },
+    { minimumNm: null, maximumNm: null, extra: true }]) {
+    assert.throws(() => parsePreferences({ ...defaultPreferences, distance }));
+  }
+});

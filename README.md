@@ -12,7 +12,7 @@ Screenshots show v0.1.6 of the actual app with example missions and representati
 
 ![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/mission-sorting.png)
 
-**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Scan now adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach, duration and runway-range filters stay visible above the list.
+**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Scan now adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach, duration, runway-length and player-distance filters stay visible above the list.
 
 **Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
 
@@ -86,9 +86,9 @@ RNAV labels show the simulator’s reported LPV, LNAV/VNAV, LP and LNAV minima. 
 
 Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. **Scan now** starts a scan immediately instead of waiting for the next automatic scan (normally every two seconds, or ten seconds while minimized). It retains collected missions and cached airport data; if a scan is already running, it joins that scan. **Refresh airport data** clears all collected missions and cached airport details, dismisses any open route map, then starts again from the current map area. It does not clear the browser’s OpenStreetMap image cache. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
 
-**Duration** and **Runway length** have two draggable handles and From/To fields. Duration handles move by one hour; runway handles move by 500 feet, with exact feet available in the fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
+**Duration**, **Runway length** and **Distance from player** have two draggable handles and From/To fields. Duration handles move by one hour; runway handles move by 500 feet; player-distance handles move by 25 NM. Exact feet and nautical miles can be entered in the fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
 
-Ranges hide nonmatching and unknown values even when Matches only is off. They combine with search and approach filters. Runway length is threshold-adjusted geometric length: at least one open destination runway must meet both bounds and the selected approach criteria. A different or longer runway cannot satisfy those criteria for it. The results count shows how many scanned missions are visible.
+Ranges hide nonmatching and unknown values even when Matches only is off. They combine with search and approach filters. Runway length is threshold-adjusted geometric length: at least one open destination runway must meet both bounds and the selected approach criteria. A different or longer runway cannot satisfy those criteria for it. The distance range uses the same straight-line player-airport-to-departure distance as the From player (NM) column and updates when the player location changes. The results count shows how many scanned missions are visible.
 
 ## Mission route map
 
@@ -114,6 +114,8 @@ npm run make -- --platform=linux --arch=x64
 CI=true npm run test:renderer
 npm run verify:artifact
 ```
+
+A local build does not automatically replace an installed copy. If you launch from a desktop shortcut, install the new packaged application and update the shortcut to its executable, then close and reopen the app.
 
 Renderer tests use synthetic data and never connect to MSFS. On minimal Linux systems, use `npx playwright install --with-deps chromium` to install browser dependencies. Run renderer tests before `npm start`, which replaces intermediate packaged assets with development assets.
 

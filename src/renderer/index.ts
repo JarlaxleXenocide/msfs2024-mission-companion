@@ -85,6 +85,17 @@ const runwayFilter = new RangeFilter(required('runway-filter'), {
   renderTable(true);
 }, () => { if (preferences) void savePreferences(preferences); });
 
+const distanceFilter = new RangeFilter(required('distance-filter'), {
+  label: 'Distance from player', unit: 'NM', step: 25, ceiling: 1000,
+  minimumId: 'distance-minimum', maximumId: 'distance-maximum', errorId: 'distance-error',
+  description: 'Straight-line distance from your current Career airport to the mission departure. Drag in 25 NM steps or type exact nautical miles; blank means no limit.',
+}, bounds => {
+  if (!preferences) return;
+  saveVersion++;
+  preferences = { ...preferences, distance: { minimumNm: bounds.minimum, maximumNm: bounds.maximum } };
+  renderTable(true);
+}, () => { if (preferences) void savePreferences(preferences); });
+
 const unsubscribe = window.companion.subscribe(acceptState);
 addEventListener('unload', () => { routeMap.dispose(); unsubscribe(); }, { once: true });
 systemMode.addEventListener('change', () => applyTheme());
@@ -217,7 +228,7 @@ function renderState(): void {
 
 function renderTable(force = false): void {
   if (!state || !preferences) return;
-  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, preferences.criteria, preferences.duration, sorts, preferences.compact, [...expanded], selectedGuid]);
+  const signature = JSON.stringify([state.rows, state.pilotLocation, state.rows.length ? null : [state.connection, state.stale], search.value, preferences.matchesOnly, preferences.criteria, preferences.duration, preferences.distance, sorts, preferences.compact, [...expanded], selectedGuid]);
   // Reclassify previews locally while dragging, before preferences are persisted.
   const classified = state.rows.map(row => ({ ...row, decision:
     row.facility.status === 'pending' && (preferences!.criteria.categories.length > 0 || preferences!.criteria.minimumFt !== null || preferences!.criteria.maximumFt != null)
@@ -483,6 +494,7 @@ function syncPreferenceControls(): void {
   port.value = String(preferences.port);
   durationFilter.set({ minimum: preferences.duration?.minimumHours ?? null, maximum: preferences.duration?.maximumHours ?? null });
   runwayFilter.set({ minimum: preferences.criteria.minimumFt, maximum: preferences.criteria.maximumFt ?? null });
+  distanceFilter.set({ minimum: preferences.distance?.minimumNm ?? null, maximum: preferences.distance?.maximumNm ?? null });
   matchesOnly.checked = preferences.matchesOnly;
   for (const control of categoryControls) control.checked = preferences.criteria.categories.includes(control.dataset.category as Category);
 }

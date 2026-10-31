@@ -138,7 +138,13 @@ export interface DurationRange {
   maximumHours: number | null;
 }
 
+export interface DistanceRange {
+  minimumNm: number | null;
+  maximumNm: number | null;
+}
+
 export interface Preferences {
+  distance?: DistanceRange;
   duration?: DurationRange;
   port: number;
   criteria: Criteria;
