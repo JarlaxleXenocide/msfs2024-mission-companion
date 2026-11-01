@@ -13,7 +13,8 @@
     "contact": {
       "center": "Kontaktujte {name} centrum",
       "approach": "Kontaktujte {name} přiblížení",
-      "tower": "Kontaktujte věž {name}"
+      "tower": "Kontaktujte věž {name}",
+      "departure": "Kontaktujte {name} Odlet"
     },
     "tune": "[ Nalaďte {name} {role} na {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -229,7 +230,8 @@
     "contact": {
       "center": "Kontakt {name} Center",
       "approach": "Kontakt {name} indflyvning",
-      "tower": "Kontakt {name} tårn"
+      "tower": "Kontakt {name} tårn",
+      "departure": "Kontakt {name} Afrejse"
     },
     "tune": "[ Indstil {name} {role} til {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -447,7 +449,8 @@
     "contact": {
       "center": "{name} Center kontaktieren",
       "approach": "{name} Anflug kontaktieren",
-      "tower": "{name} Tower kontaktieren"
+      "tower": "{name} Tower kontaktieren",
+      "departure": "{name} Departure kontaktieren"
     },
     "tune": "[ {name} einstellen {role} auf {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -663,7 +666,8 @@
     "contact": {
       "center": "Επικοινωνία με το Κέντρο {name}",
       "approach": "Επικοινωνία {name} Προσέγγιση",
-      "tower": "Επικοινωνία με τον Πύργο {name}"
+      "tower": "Επικοινωνία με τον Πύργο {name}",
+      "departure": "Επικοινωνία {name} Αναχώρηση"
     },
     "tune": "[ Συντονιστείτε {name} {role} στο {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -881,7 +885,8 @@
     "contact": {
       "center": "Contact {name} Center",
       "approach": "Contact {name} Approach",
-      "tower": "Contact {name} Tower"
+      "tower": "Contact {name} Tower",
+      "departure": "Contact {name} Departure"
     },
     "tune": "[ Tune {name} {role} on {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -1099,7 +1104,8 @@
     "contact": {
       "center": "Contactar centro {name}",
       "approach": "Contactar aproximación {name}",
-      "tower": "Contactar torre de control {name}"
+      "tower": "Contactar torre de control {name}",
+      "departure": "Contactar salida {name}"
     },
     "tune": "[ Sintonizar {name} {role} en {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -1314,7 +1320,8 @@
     "contact": {
       "center": "Contactar centro {name}",
       "approach": "Contactar aproximación {name}",
-      "tower": "Contactar torre de control {name}"
+      "tower": "Contactar torre de control {name}",
+      "departure": "Contactar salida {name}"
     },
     "tune": "[ Sintonizar {name} {role} en {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -1530,7 +1537,8 @@
     "contact": {
       "center": "Ota yhteys {name} keskukseen",
       "approach": "Ota yhteys {name} lähestymiseen",
-      "tower": "Ota yhteys {name} lennonjohtotorniin"
+      "tower": "Ota yhteys {name} lennonjohtotorniin",
+      "departure": "Ota yhteys {name} lähtöön"
     },
     "tune": "[ Viritä {name} {role} on {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -1747,7 +1755,8 @@
     "contact": {
       "center": "Contacter {name} centre",
       "approach": "Contacter {name} approche",
-      "tower": "Contacter {name} tour"
+      "tower": "Contacter {name} tour",
+      "departure": "Contacter {name} départ"
     },
     "tune": "[ Régler {name} {role} sur {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -1963,7 +1972,8 @@
     "contact": {
       "center": "{name} सेंटर पर संपर्क करें",
       "approach": "संपर्क {name} अप्रोच करें",
-      "tower": "{name} टावर से संपर्क करें"
+      "tower": "{name} टावर से संपर्क करें",
+      "departure": "{name} प्रस्थान पर संपर्क करें"
     },
     "tune": "[{mhz}{decimal}{khz} पर {name} {role} ट्यून करें]",
     "station": "{name} {role}",
@@ -2181,7 +2191,8 @@
     "contact": {
       "center": "Kapcsolatfelvétel a következővel: {name} központ",
       "approach": "Kapcsolatfelvétel a következővel: {name} – megközelítés",
-      "tower": "Kapcsolatfelvétel a következő toronnyal: {name}"
+      "tower": "Kapcsolatfelvétel a következő toronnyal: {name}",
+      "departure": "Kapcsolatfelvétel a következővel: {name} – indulás"
     },
     "tune": "[ {name} {role} hangolása erre: {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -2399,7 +2410,8 @@
     "contact": {
       "center": "Kontak Pusat {name}",
       "approach": "Kontak Approach {name}",
-      "tower": "Hubungi Menara {name}"
+      "tower": "Hubungi Menara {name}",
+      "departure": "Kontak Keberangkatan {name}"
     },
     "tune": "[Setel {name} {role} di {mhz}{decimal}{khz}]",
     "station": "{name} {role}",
@@ -2617,7 +2629,8 @@
     "contact": {
       "center": "Contatta centro {name}",
       "approach": "Contatta avvicinamento {name}",
-      "tower": "Contatta torre {name}"
+      "tower": "Contatta torre {name}",
+      "departure": "Contatta partenza {name}"
     },
     "tune": "[ Regola {name} {role} su {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -2832,7 +2845,8 @@
     "contact": {
       "center": "{name} センターにコンタクト",
       "approach": "{name} アプローチにコンタクト",
-      "tower": "{name} 管制塔にコンタクト"
+      "tower": "{name} 管制塔にコンタクト",
+      "departure": "{name} デパーチャーにコンタクト"
     },
     "tune": "[{name} {role} ({mhz}{khz}) に合わせる]",
     "station": "{name} {role}",
@@ -3044,7 +3058,8 @@
     "contact": {
       "center": "{name} 중심 문의",
       "approach": "{name} 접근 문의",
-      "tower": "{name} 타워 문의"
+      "tower": "{name} 타워 문의",
+      "departure": "{name} 출발 문의"
     },
     "tune": "[ {mhz}{decimal}{khz}에서 {name} {role} 동조 ]",
     "station": "{name} {role}",
@@ -3261,7 +3276,8 @@
     "contact": {
       "center": "Hubungi Pusat {name}",
       "approach": "Hubungi {name} Lintasan tuju",
-      "tower": "Hubungi Menara {name}"
+      "tower": "Hubungi Menara {name}",
+      "departure": "Hubungi {name} Berlepas"
     },
     "tune": "[ Tala {name} {role} pada {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -3479,7 +3495,8 @@
     "contact": {
       "center": "Kontakt {name} senter",
       "approach": "Kontakt {name} innflyvning",
-      "tower": "Kontakt {name} tårn"
+      "tower": "Kontakt {name} tårn",
+      "departure": "Kontakt {name} avgang"
     },
     "tune": "[ Still inn {name} {role} på {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -3696,7 +3713,8 @@
     "contact": {
       "center": "Contact opnemen met {name} – Centreren",
       "approach": "Contact opnemen met {name} – Nadering",
-      "tower": "Contact opnemen met {name} – Toren"
+      "tower": "Contact opnemen met {name} – Toren",
+      "departure": "Contact opnemen met {name} – Vertrekken"
     },
     "tune": "[ Afstemmen op {name} {role} op {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -3913,7 +3931,8 @@
     "contact": {
       "center": "Nawiąż łączność z centrum {name}",
       "approach": "Nawiąż łączność z kontrolą zbliżania {name}",
-      "tower": "Nawiąż łączność z wieżą {name}"
+      "tower": "Nawiąż łączność z wieżą {name}",
+      "departure": "Nawiąż łączność z kontrolą odlotów {name}"
     },
     "tune": "[ Nastaw {name} {role} na {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -4130,7 +4149,8 @@
     "contact": {
       "center": "Contatar {name} Centralizar",
       "approach": "Contatar {name} Aproximação",
-      "tower": "Contatar {name} Torre"
+      "tower": "Contatar {name} Torre",
+      "departure": "Contatar {name} Partida"
     },
     "tune": "[ Ajustar {name} {role} em {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -4349,7 +4369,8 @@
     "contact": {
       "center": "Contactar {name} Centrar",
       "approach": "Contactar {name} Aproximação",
-      "tower": "Contactar {name} Torre"
+      "tower": "Contactar {name} Torre",
+      "departure": "Contactar {name} Partida"
     },
     "tune": "[ Ajustar {name} {role} em {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -4567,7 +4588,8 @@
     "contact": {
       "center": "Связаться с районным диспетчерским пунктом {name}",
       "approach": "Связаться с диспетчерским пунктом захода {name}",
-      "tower": "Связаться с диспетчерским пунктом {name}"
+      "tower": "Связаться с диспетчерским пунктом {name}",
+      "departure": "Связаться с диспетчерским пунктом вылета {name}"
     },
     "tune": "[ Настроить {name} {role} на {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -4785,7 +4807,8 @@
     "contact": {
       "center": "Kontakta {name} center",
       "approach": "Kontakta {name} inflygning",
-      "tower": "Kontakta tornet i {name}"
+      "tower": "Kontakta tornet i {name}",
+      "departure": "Kontakta {name} avgång"
     },
     "tune": "[ Ställ in {name} {role} på {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -5001,7 +5024,8 @@
     "contact": {
       "center": "ติดต่อศูนย์ {name}",
       "approach": "ติดต่อ {name} ร่อนลงจอด",
-      "tower": "ติดต่อ {name} หอบังคับ"
+      "tower": "ติดต่อ {name} หอบังคับ",
+      "departure": "ติดต่อ {name} ออกเดินทาง"
     },
     "tune": "[ จูน {name} {role} บน {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",
@@ -5219,7 +5243,8 @@
     "contact": {
       "center": "Merkezle {name} İletişime Geçin",
       "approach": "Yaklaşma İle {name} İletişime Geçin",
-      "tower": "Kuleyle {name} İletişime Geçin"
+      "tower": "Kuleyle {name} İletişime Geçin",
+      "departure": "Kalkışla {name} İletişime Geçin"
     },
     "tune": "[ {mhz}{decimal}{khz} konumunda {name} {role} ayarı yapın ]",
     "station": "{name} {role}",
@@ -5430,7 +5455,8 @@
     "contact": {
       "center": "Liên hệ trung tâm {name}",
       "approach": "Liên hệ tiếp cận {name}",
-      "tower": "Liên hệ đài kiểm soát không lưu {name}"
+      "tower": "Liên hệ đài kiểm soát không lưu {name}",
+      "departure": "Liên hệ khởi hành {name}"
     },
     "tune": "[Điều chỉnh {name} {role} trên {mhz}{decimal}{khz}]",
     "station": "{name} {role}",
@@ -5644,7 +5670,8 @@
     "contact": {
       "center": "联络{name}中心",
       "approach": "联络{name}进近",
-      "tower": "联络{name}塔台"
+      "tower": "联络{name}塔台",
+      "departure": "联络{name}出发"
     },
     "tune": "[联络{mhz}{decimal}{khz}，调频至{name} {role}]",
     "station": "{name}{role}",
@@ -5853,7 +5880,8 @@
     "contact": {
       "center": "聯絡 {name} 區域管制中心",
       "approach": "聯絡 {name} 進場",
-      "tower": "聯絡 {name} 塔台"
+      "tower": "聯絡 {name} 塔台",
+      "departure": "聯絡 {name} 離場"
     },
     "tune": "[ 調整 {name} {role} 在 {mhz}{decimal}{khz} ]",
     "station": "{name} {role}",

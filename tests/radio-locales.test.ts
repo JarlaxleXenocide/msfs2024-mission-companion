@@ -52,7 +52,7 @@ test('independent localized literals cover Unicode digits, word order and statio
   assert.equal(hasLandingClearance(state('Example 123, ILS piste 09R autorisé.','')),false);
 });
 test('unsupported station roles, ambiguous translations and mismatched roles fail closed',()=>{
-  for(const role of ['Ground','Departure','ATIS','Unknown']){
+  for(const role of ['Ground','ATIS','Unknown']){
     assert.equal(ready(state(`Example 123, contact Example ${role} on 133.250.`,`[ Tune Example ${role} on 133.250 ]`)),null,role);
     assert.equal(ready(state(`Example 123, contact Example ${role} on 133.250.`,'Acknowledge Handoff')),null,role);
   }
@@ -102,9 +102,9 @@ test('a center handoff with appended traffic cannot authorize weather recovery',
   add(s,weather);recovery.next(s);add(s,weather);assert.equal(recovery.next(s),false);
 });
 for(const f of fixtures) {
-  test(`${f.locale}: center, approach and tower handoffs preserve their own station roles`,()=>{
+  test(`${f.locale}: center, approach, tower and departure handoffs preserve their own station roles`,()=>{
     for(const target of f.stations) {
-      const supported=!(f.locale==='zh-CN' && target.role==='approach');
+      const supported=!(f.locale==='zh-CN' && ['approach','departure'].includes(target.role));
       assert.equal(ready(state(target.handoff,f.ack))?.kind,supported?'acknowledge':undefined,target.role);
       assert.equal(ready(state(target.handoff,target.tune))?.kind,supported?'tune':undefined,target.role);
       assert.equal(ready(state(target.handoff,target.contact,133.25))?.kind,supported?'contact':undefined,target.role);
@@ -192,4 +192,14 @@ test('captured Seattle TMBRS4 descent with vectors to final survives a reminder'
   assert.equal(ready(s)?.kind,'acknowledge-descent');
   add(s,'Boeing PAO4511 , acknowledge last transmission.');assert.equal(ready(s)?.kind,'acknowledge-descent');
   s.options[0].enabled=false;assert.equal(ready(s),null);
+});
+
+
+test('captured Portland Departure handoff acknowledges, tunes and checks in once',()=>{
+  const s=state('Boeing PAO1111  contact Portland Departure on 127.85. Good day.','Acknowledge Handoff',118.69999694824219);
+  assert.equal(ready(s)?.kind,'acknowledge');
+  add(s,'127.85 for Boeing PAO1111 . ',true);
+  s.options[0].text='1 - [ Tune Portland Departure on 127.850 ]';assert.equal(ready(s)?.kind,'tune');
+  s.frequency=127.8499984741211;s.options[0].text='1 - Contact Portland Departure';assert.equal(ready(s)?.kind,'contact');
+  add(s,'Portland Departure, Boeing PAO1111  is passing 1700 ft climbing FL350.',true);assert.equal(ready(s),null);
 });

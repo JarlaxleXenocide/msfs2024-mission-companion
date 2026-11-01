@@ -39,6 +39,12 @@
         "handoff": "Example 123 kontaktujte Example Věž na 133.250. Hezký den.",
         "tune": "[ Nalaďte Example Věž na 133.250 ]",
         "contact": "Kontaktujte věž Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 kontaktujte Example Odlet na 133.250. Hezký den.",
+        "tune": "[ Nalaďte Example Odlet na 133.250 ]",
+        "contact": "Kontaktujte Example Odlet"
       }
     ],
     "descentVectors": "Example 123, sestupte přes EXAMPLE2 na FL210. Očekávejte přiblížení ILS , vektory na přistání."
@@ -83,6 +89,12 @@
         "handoff": "Example 123 Kontakt Example Tårn på 133.250. Goddag.",
         "tune": "[ Indstil Example Tårn til 133.250 ]",
         "contact": "Kontakt Example tårn"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 Kontakt Example Afgang på 133.250. Goddag.",
+        "tune": "[ Indstil Example Afgang til 133.250 ]",
+        "contact": "Kontakt Example Afrejse"
       }
     ],
     "descentVectors": "Example 123, dyk via EXAMPLE2 til FL210. Forvent ILS tilgang, vektorer til finale."
@@ -127,6 +139,12 @@
         "handoff": "Example 123 , rufen Sie Example Tower auf 133.250. Guten Tag.",
         "tune": "[ Example einstellen Tower auf 133.250 ]",
         "contact": "Example Tower kontaktieren"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 , rufen Sie Example Departure auf 133.250. Guten Tag.",
+        "tune": "[ Example einstellen Departure auf 133.250 ]",
+        "contact": "Example Departure kontaktieren"
       }
     ],
     "descentVectors": "Example 123Sinkflug über EXAMPLE2 zu FL210. Erwarten Sie ILS Landeanflug, Radarführung zum Endanflug."
@@ -171,6 +189,12 @@
         "handoff": "Example 123 επικοινωνήστε με Example Τάουερ στο 133.250. Καλή σας μέρα.",
         "tune": "[ Συντονιστείτε Example Τάουερ στο 133.250 ]",
         "contact": "Επικοινωνία με τον Πύργο Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 επικοινωνήστε με Example Αναχώρηση στο 133.250. Καλή σας μέρα.",
+        "tune": "[ Συντονιστείτε Example Αναχώρηση στο 133.250 ]",
+        "contact": "Επικοινωνία Example Αναχώρηση"
       }
     ],
     "descentVectors": "Example 123, κατεβείτε μέσω EXAMPLE2 στα FL210. Αναμένετε ILS προσέγγιση, διανύσματα προς τελική προσέγγιση."
@@ -215,6 +239,12 @@
         "handoff": "Example 123 contact Example Tower on 133.250. Good day.",
         "tune": "[ Tune Example Tower on 133.250 ]",
         "contact": "Contact Example Tower"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contact Example Departure on 133.250. Good day.",
+        "tune": "[ Tune Example Departure on 133.250 ]",
+        "contact": "Contact Example Departure"
       }
     ],
     "descentVectors": "Example 123, descend via EXAMPLE2 to FL210. Expect ILS approach, vectors to final."
@@ -259,6 +289,12 @@
         "handoff": "Example 123 contacte con Example Torre de control en 133.250. Buen día.",
         "tune": "[ Sintonizar Example Torre de control en 133.250 ]",
         "contact": "Contactar torre de control Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contacte con Example Salida en 133.250. Buen día.",
+        "tune": "[ Sintonizar Example Salida en 133.250 ]",
+        "contact": "Contactar salida Example"
       }
     ],
     "descentVectors": "Example 123, desciendar por EXAMPLE2 a FL210. Espera aproximación a ILS , vectores para final  ."
@@ -303,6 +339,12 @@
         "handoff": "Example 123 contacte con Example Torre de control en 133.250. Good day.",
         "tune": "[ Sintonizar Example Torre de control en 133.250 ]",
         "contact": "Contactar torre de control Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contacte con Example Salida en 133.250. Good day.",
+        "tune": "[ Sintonizar Example Salida en 133.250 ]",
+        "contact": "Contactar salida Example"
       }
     ],
     "descentVectors": "Example 123, desciende por EXAMPLE2 a FL210. Espera aproximación a ILS , vectores para final  ."
@@ -347,6 +389,12 @@
         "handoff": "Example 123 ota yhteyttä tahoon Example Lennonjohtotorni taajuudella 133.250. Hyvää päivänjatkoa.",
         "tune": "[ Viritä Example Lennonjohtotorni on 133.250 ]",
         "contact": "Ota yhteys Example lennonjohtotorniin"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 ota yhteyttä tahoon Example Lähtö taajuudella 133.250. Hyvää päivänjatkoa.",
+        "tune": "[ Viritä Example Lähtö on 133.250 ]",
+        "contact": "Ota yhteys Example lähtöön"
       }
     ],
     "descentVectors": "Example 123, laskeutuminen kohteen EXAMPLE2 kautta korkeuteen FL210. Odotettavissa lähestyminen ILS , vektorit lopulliseen."
@@ -391,6 +439,12 @@
         "handoff": "Example 123 contactez Example Tour sur 133.250. Bonne journée.",
         "tune": "[ Régler Example Tour sur 133.250 ]",
         "contact": "Contacter Example tour"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contactez Example Départ sur 133.250. Bonne journée.",
+        "tune": "[ Régler Example Départ sur 133.250 ]",
+        "contact": "Contacter Example départ"
       }
     ],
     "descentVectors": "Example 123, descente via EXAMPLE2 à FL210. Prévoyez approche ILS , radars jusqu'en finale."
@@ -435,6 +489,12 @@
         "handoff": "Example 123 133.250 पर Example टॉवर संपर्क करें. दिन अच्छा हो.",
         "tune": "[133.250 पर Example टॉवर ट्यून करें]",
         "contact": "Example टावर से संपर्क करें"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 133.250 पर Example प्रस्थान संपर्क करें. दिन अच्छा हो.",
+        "tune": "[133.250 पर Example प्रस्थान ट्यून करें]",
+        "contact": "Example प्रस्थान पर संपर्क करें"
       }
     ],
     "descentVectors": "Example 123, EXAMPLE2 से होते हुए FL210 तक उतरें। ILS दृष्टिकोण, फ़ाइनल के लिए वैक्टर की अपेक्षा करें।"
@@ -479,6 +539,12 @@
         "handoff": "Example 123 vegye fel az összeköttetést Example Torony ügynökkel 133.250 frekvencián. Üdvözlöm.",
         "tune": "[ Example Torony hangolása erre: 133.250 ]",
         "contact": "Kapcsolatfelvétel a következő toronnyal: Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 vegye fel az összeköttetést Example Indulás ügynökkel 133.250 frekvencián. Üdvözlöm.",
+        "tune": "[ Example Indulás hangolása erre: 133.250 ]",
+        "contact": "Kapcsolatfelvétel a következővel: Example – indulás"
       }
     ],
     "descentVectors": "Example 123, ereszkedés EXAMPLE2 eljárással FL210 magasságra. Várható ILS megközelítés, vektor a végső egyenesig."
@@ -523,6 +589,12 @@
         "handoff": "Example 123 hubungi Example Tower di 133.250. Halo.",
         "tune": "[Setel Example Tower di 133.250]",
         "contact": "Hubungi Menara Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 hubungi Example Keberangkatan di 133.250. Halo.",
+        "tune": "[Setel Example Keberangkatan di 133.250]",
+        "contact": "Kontak Keberangkatan Example"
       }
     ],
     "descentVectors": "Example 123, turun melalui EXAMPLE2 ke FL210. Tunggu approach ILS , vektor ke final."
@@ -567,6 +639,12 @@
         "handoff": "Example 123 contattare Example Torre su 133.250. Buona giornata.",
         "tune": "[ Regola Example Torre su 133.250 ]",
         "contact": "Contatta torre Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contattare Example Partenza su 133.250. Buona giornata.",
+        "tune": "[ Regola Example Partenza su 133.250 ]",
+        "contact": "Contatta partenza Example"
       }
     ],
     "descentVectors": "Example 123, discesa via EXAMPLE2 a FL210. Avvicinamento previsto: ILS , vettori per finale."
@@ -611,6 +689,12 @@
         "handoff": "Example 123 133.250 でExample 管制塔と交信せよ。よい日を。",
         "tune": "[Example 管制塔 (133250) に合わせる]",
         "contact": "Example 管制塔にコンタクト"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 133.250 でExample デパーチャーと交信せよ。よい日を。",
+        "tune": "[Example デパーチャー (133250) に合わせる]",
+        "contact": "Example デパーチャーにコンタクト"
       }
     ],
     "descentVectors": "Example 123、EXAMPLE2 にて FL210 まで降下。ILS アプローチ 、ファイナルへの誘導   の見込み。"
@@ -655,6 +739,12 @@
         "handoff": "Example 123 133.250 주파수로 Example 관제탑 교신하십시오. 좋은 하루.",
         "tune": "[ 133.250에서 Example 관제탑 동조 ]",
         "contact": "Example 타워 문의"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 133.250 주파수로 Example 출발 교신하십시오. 좋은 하루.",
+        "tune": "[ 133.250에서 Example 출발 동조 ]",
+        "contact": "Example 출발 문의"
       }
     ],
     "descentVectors": "Example 123, EXAMPLE2 통해 FL210으로 하강하세요. ILS 경로로 , 최종 접근 경로까지 레이더 유도 접근 예상하세요."
@@ -699,6 +789,12 @@
         "handoff": "Example 123 hubungi Example Menara pada 133.250. Selamat sejahtera.",
         "tune": "[ Tala Example Menara pada 133.250 ]",
         "contact": "Hubungi Menara Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 hubungi Example Berlepas pada 133.250. Selamat sejahtera.",
+        "tune": "[ Tala Example Berlepas pada 133.250 ]",
+        "contact": "Hubungi Example Berlepas"
       }
     ],
     "descentVectors": "Example 123, turun melalui EXAMPLE2 ke FL210. Jangkakan lintasan tuju ILS, vektor ke akhir."
@@ -743,6 +839,12 @@
         "handoff": "Example 123 kontakt Example Tårn på 133.250. Goddag.",
         "tune": "[ Still inn Example Tårn på 133.250 ]",
         "contact": "Kontakt Example tårn"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 kontakt Example Avgang på 133.250. Goddag.",
+        "tune": "[ Still inn Example Avgang på 133.250 ]",
+        "contact": "Kontakt Example avgang"
       }
     ],
     "descentVectors": "Example 123, gå ned via EXAMPLE2 til FL210. Forvent ILS innflyvning, vektorer til endelig."
@@ -787,6 +889,12 @@
         "handoff": "Example 123 contact Example Toren op 133.250. Goedendag.",
         "tune": "[ Afstemmen op Example Toren op 133.250 ]",
         "contact": "Contact opnemen met Example – Toren"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contact Example Vertrek op 133.250. Goedendag.",
+        "tune": "[ Afstemmen op Example Vertrek op 133.250 ]",
+        "contact": "Contact opnemen met Example – Vertrekken"
       }
     ],
     "descentVectors": "Example 123, dalen via EXAMPLE2 naar FL210. Verwacht ILS nadering, vectoren naar eind."
@@ -831,6 +939,12 @@
         "handoff": "Example 123 nawiąż kontakt z Example Wieża na 133.250. Dobrego dnia.",
         "tune": "[ Nastaw Example Wieża na 133.250 ]",
         "contact": "Nawiąż łączność z wieżą Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 nawiąż kontakt z Example Odlot na 133.250. Dobrego dnia.",
+        "tune": "[ Nastaw Example Odlot na 133.250 ]",
+        "contact": "Nawiąż łączność z kontrolą odlotów Example"
       }
     ],
     "descentVectors": "Example 123, zniżaj się w procedurze EXAMPLE2 do FL210. Spodziewaj się podejścia ILS , wektorowanie do prostej do lądowania."
@@ -875,6 +989,12 @@
         "handoff": "Example 123 contate Example Torre em 133.250. Bom dia.",
         "tune": "[ Ajustar Example Torre em 133.250 ]",
         "contact": "Contatar Example Torre"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contate Example Partida em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Partida em 133.250 ]",
+        "contact": "Contatar Example Partida"
       }
     ],
     "descentVectors": "Example 123, desça via EXAMPLE2 até FL210. Espere ILS aproximação, vetores para aproximação final."
@@ -919,6 +1039,12 @@
         "handoff": "Example 123 contacte Example Torre em 133.250. Bom dia.",
         "tune": "[ Ajustar Example Torre em 133.250 ]",
         "contact": "Contactar Example Torre"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 contacte Example Partida em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Partida em 133.250 ]",
+        "contact": "Contactar Example Partida"
       }
     ],
     "descentVectors": "Example 123, desça via EXAMPLE2 para FL210. Espere uma aproximação ILS, , vetores para aproximação final."
@@ -963,6 +1089,12 @@
         "handoff": "Example 123 свяжитесь — Example Диспетчерская на частоте 133.250. Хорошего дня.",
         "tune": "[ Настроить Example Диспетчерская на 133.250 ]",
         "contact": "Связаться с диспетчерским пунктом Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 свяжитесь — Example Вылет на частоте 133.250. Хорошего дня.",
+        "tune": "[ Настроить Example Вылет на 133.250 ]",
+        "contact": "Связаться с диспетчерским пунктом вылета Example"
       }
     ],
     "descentVectors": "Example 123, снижайтесь к EXAMPLE2 до FL210.Ожидайте ILS заход на посадку, вектор на предпосадочную прямую."
@@ -1007,6 +1139,12 @@
         "handoff": "Example 123 kontakta Example Tornet på 133.250. Goddag.",
         "tune": "[ Ställ in Example Tornet på 133.250 ]",
         "contact": "Kontakta tornet i Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 kontakta Example Avgång på 133.250. Goddag.",
+        "tune": "[ Ställ in Example Avgång på 133.250 ]",
+        "contact": "Kontakta Example avgång"
       }
     ],
     "descentVectors": "Example 123, gå ner via EXAMPLE2 till FL210. Räkna med ILS inflygning , vektorering till final."
@@ -1051,6 +1189,12 @@
         "handoff": "Example 123 ติดต่อ Example หอบังคับ ที่ 133.250 สวัสดี",
         "tune": "[ จูน Example หอบังคับ บน 133.250 ]",
         "contact": "ติดต่อ Example หอบังคับ"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 ติดต่อ Example การออกเดินทาง ที่ 133.250 สวัสดี",
+        "tune": "[ จูน Example การออกเดินทาง บน 133.250 ]",
+        "contact": "ติดต่อ Example ออกเดินทาง"
       }
     ],
     "descentVectors": "Example 123 ลดระดับตามเส้นทาง EXAMPLE2 จนถึงระดับความสูง FL210 รอ ILS ร่อนลงจอด เวคเตอร์ไป Final"
@@ -1095,6 +1239,12 @@
         "handoff": "Example 123 133.250 frekansı üzerinden Example Kule ile iletişime geçin. İyi günler.",
         "tune": "[ 133.250 konumunda Example Kule ayarı yapın ]",
         "contact": "Kuleyle Example İletişime Geçin"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 133.250 frekansı üzerinden Example Kalkış ile iletişime geçin. İyi günler.",
+        "tune": "[ 133.250 konumunda Example Kalkış ayarı yapın ]",
+        "contact": "Kalkışla Example İletişime Geçin"
       }
     ],
     "descentVectors": "Example 123, EXAMPLE2 ile FL210 irtifasına alçalın. ILS yaklaşma yapabilirsiniz, vektör finale."
@@ -1139,6 +1289,12 @@
         "handoff": "Example 123 Liên hệ với Example Đài kiểm soát không lưu ở tần số 133.250. Chúc ngày tốt lành.",
         "tune": "[Điều chỉnh Example Đài kiểm soát không lưu trên 133.250]",
         "contact": "Liên hệ đài kiểm soát không lưu Example"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 Liên hệ với Example Cửa đi ở tần số 133.250. Chúc ngày tốt lành.",
+        "tune": "[Điều chỉnh Example Cửa đi trên 133.250]",
+        "contact": "Liên hệ khởi hành Example"
       }
     ],
     "descentVectors": "Example 123, hạ độ cao qua EXAMPLE2 xuống FL210. Dự kiến tiếp cận ILS bằng, véc-tơ đến đoạn cuối cùng."
@@ -1183,6 +1339,12 @@
         "handoff": "Example 123联系Example塔台133.250，你好！",
         "tune": "[联络133.250，调频至Example 塔台]",
         "contact": "联络Example塔台"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 联系Example进近133.250，你好！",
+        "tune": "[联络133.250，调频至Example 进近]",
+        "contact": "联络Example出发"
       }
     ],
     "descentVectors": "Example 123，通过EXAMPLE2下降至FL210。预期ILS进近，引导至最终边。"
@@ -1227,6 +1389,12 @@
         "handoff": "Example 123 聯絡 Example 塔，頻道 133.250。日安。",
         "tune": "[ 調整 Example 塔 在 133.250 ]",
         "contact": "聯絡 Example 塔台"
+      },
+      {
+        "role": "departure",
+        "handoff": "Example 123 聯絡 Example 起飛，頻道 133.250。日安。",
+        "tune": "[ 調整 Example 起飛 在 133.250 ]",
+        "contact": "聯絡 Example 離場"
       }
     ],
     "descentVectors": "Example 123，請依循 EXAMPLE2 下降至 FL210。預期採用 ILS 進場程序 ， 到最終進場航程向量。"

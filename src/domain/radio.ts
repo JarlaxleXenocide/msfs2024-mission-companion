@@ -70,7 +70,7 @@ interface Handoff { message: RadioMessage; frequency: number; supported: boolean
 function handoff(message: RadioMessage): Handoff | null {
   if (message.outgoing) return null;
   const target = localizedHandoff(message.text);
-  return target ? {message, frequency:target.frequency, supported:['center','approach','tower'].includes(target.role), station:target} : null;
+  return target ? {message, frequency:target.frequency, supported:['center','approach','tower','departure'].includes(target.role), station:target} : null;
 }
 function matchesAcknowledgment(kind: RadioAction['kind'], message: RadioMessage): boolean {
   const target = handoff(message);
