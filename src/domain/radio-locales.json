@@ -108,7 +108,8 @@
       "approachMethod": [
         " po {fix} {heading} radiále, {number} oblouku DME",
         " prostřednictvím {fix} přechodu",
-        ""
+        "",
+        ", vektory na přistání"
       ],
       "runway": [
         "dráha {runwayNumber}{runwayPosition}"
@@ -323,7 +324,8 @@
       "approachMethod": [
         " via {fix} {heading} radial, {number} DME-bue",
         " via {fix} overgang",
-        ""
+        "",
+        ", vektorer til finale"
       ],
       "runway": [
         "landingsbane {runwayNumber}{runwayPosition}"
@@ -538,7 +540,8 @@
       "approachMethod": [
         " via {fix} {heading} Radial, {number} DME-Arc",
         " via {fix} Transition",
-        ""
+        "",
+        ", Radarführung zum Endanflug"
       ],
       "runway": [
         "Piste {runwayNumber}{runwayPosition}"
@@ -752,7 +755,8 @@
       "approachMethod": [
         " μέσω ακτινικού {fix} {heading}, DME τόξου {number}",
         " μέσω μετάβασης από {fix}",
-        ""
+        "",
+        ", διανύσματα προς τελική προσέγγιση"
       ],
       "runway": [
         "διάδρομος {runwayNumber}{runwayPosition}"
@@ -968,7 +972,8 @@
       "approachMethod": [
         " via {fix} {heading} radial, {number} DME arc",
         " via {fix} transition",
-        ""
+        "",
+        ", vectors to final"
       ],
       "runway": [
         "runway {runwayNumber}{runwayPosition}"
@@ -1183,7 +1188,8 @@
       "approachMethod": [
         " a través de {fix} {heading} radial, arco DME {number}",
         " a través de transición {fix}",
-        ""
+        "",
+        ", vectores para final"
       ],
       "runway": [
         "pista {runwayNumber}{runwayPosition}"
@@ -1396,7 +1402,8 @@
       "approachMethod": [
         " a través de {fix} {heading} radial, arco DME {number}",
         " a través de transición {fix}",
-        ""
+        "",
+        ", vectores para final"
       ],
       "runway": [
         "pista {runwayNumber}{runwayPosition}"
@@ -1610,7 +1617,8 @@
       "approachMethod": [
         " {fix} kautta radiaali {heading}, {number} DME-kaari",
         " siirtymän {fix} kautta",
-        ""
+        "",
+        ", vektorit lopulliseen"
       ],
       "runway": [
         "kiitotie {runwayNumber}{runwayPosition}"
@@ -1824,7 +1832,8 @@
       "approachMethod": [
         " par la radiale {fix} {heading}, arc DME {number}",
         " en transit {fix}",
-        ""
+        "",
+        ", radars jusqu'en finale"
       ],
       "runway": [
         "piste {runwayNumber} {runwayPosition}"
@@ -2038,7 +2047,8 @@
       "approachMethod": [
         " {fix} {heading} रेडियल, {number} DME आर्क के माध्यम से",
         " {fix} ट्रांज़िशन के माध्यम से",
-        ""
+        "",
+        ", फ़ाइनल के लिए वैक्टर"
       ],
       "runway": [
         "रनवे {runwayNumber}{runwayPosition}"
@@ -2253,7 +2263,8 @@
       "approachMethod": [
         " {fix} {heading} radiállal, {number} DME-ív",
         " {fix} átmeneti eljárással",
-        ""
+        "",
+        ", vektor a végső egyenesig"
       ],
       "runway": [
         "{runwayNumber}{runwayPosition} futópálya"
@@ -2467,7 +2478,8 @@
       "approachMethod": [
         " lewat radial {fix} {heading}, busur DME {number}",
         " lewat transisi {fix}",
-        ""
+        "",
+        ", vektor ke final"
       ],
       "runway": [
         "landasan pacu {runwayNumber}{runwayPosition}"
@@ -2681,7 +2693,8 @@
       "approachMethod": [
         " via {fix} radiale {heading}, arco DME {number}",
         " via transizione {fix}",
-        ""
+        "",
+        ", vettori per finale"
       ],
       "runway": [
         "pista {runwayNumber}{runwayPosition}"
@@ -2888,7 +2901,8 @@
       "approachMethod": [
         " {fix} {heading} ラジアル経由、{number} DME アーク",
         " {fix} トランジション経由",
-        ""
+        "",
+        "、ファイナルへの誘導"
       ],
       "runway": [
         "滑走路 {runwayNumber}{runwayPosition}"
@@ -3103,7 +3117,8 @@
       "approachMethod": [
         " {fix}을(를) 통해 {heading} 레디얼, {number} DME 호.",
         " {fix} 전환을 통해",
-        ""
+        "",
+        ", 최종 접근 경로까지 레이더 유도"
       ],
       "runway": [
         "{runwayNumber}{runwayPosition} 활주로"
@@ -3317,7 +3332,8 @@
       "approachMethod": [
         " melalui {fix} {heading} jejari, {number} arka DME",
         " melalui peralihan {fix}",
-        ""
+        "",
+        ", vektor ke akhir"
       ],
       "runway": [
         "landasan {runwayNumber}{runwayPosition}"
@@ -3532,7 +3548,8 @@
       "approachMethod": [
         " via {fix} {heading} radial, {number} DME-bue",
         " via {fix}-overgang",
-        ""
+        "",
+        ", vektorer til endelig"
       ],
       "runway": [
         "rullebane {runwayNumber}{runwayPosition}"
@@ -3747,7 +3764,8 @@
       "approachMethod": [
         " via {fix} radiaal {heading}, DME-boog {number}",
         " via overgang {fix}",
-        ""
+        "",
+        ", vectoren naar eind"
       ],
       "runway": [
         "baan {runwayNumber}{runwayPosition}"
@@ -3962,7 +3980,8 @@
       "approachMethod": [
         " przez {fix} radial {heading}, łuk DME {number}",
         " przez przejście {fix}",
-        ""
+        "",
+        ", wektorowanie do prostej do lądowania"
       ],
       "runway": [
         "droga startowa {runwayNumber}{runwayPosition}"
@@ -4176,7 +4195,8 @@
       "approachMethod": [
         " via {fix} radial {heading}, arco DME {number}",
         " via transição {fix}",
-        ""
+        "",
+        ", vetores para aproximação final"
       ],
       "runway": [
         "pista {runwayNumber}{runwayPosition}"
@@ -4391,7 +4411,8 @@
       "approachMethod": [
         " via {fix} radial {heading}, arco DME {number}",
         " via transição {fix}",
-        ""
+        "",
+        ", vetores para aproximação final"
       ],
       "runway": [
         "pista {runwayNumber}{runwayPosition}"
@@ -4605,7 +4626,8 @@
       "approachMethod": [
         " через {fix}, {heading} радиал, {number} дуга DME",
         " через {fix} вход",
-        ""
+        "",
+        ", вектор на предпосадочную прямую"
       ],
       "runway": [
         "полоса {runwayNumber}{runwayPosition}"
@@ -4819,7 +4841,8 @@
       "approachMethod": [
         " via {fix} {heading} radial, {number} DME-båge",
         " via övergången {fix}",
-        ""
+        "",
+        ", vektorering till final"
       ],
       "runway": [
         "bana {runwayNumber}{runwayPosition}"
@@ -5032,7 +5055,8 @@
       "approachMethod": [
         " ผ่าน {fix} {heading} Radial, {number} DME Arc",
         " ผ่านการแวะพัก {fix}",
-        ""
+        "",
+        "เวคเตอร์ไป Final"
       ],
       "runway": [
         "รันเวย์ {runwayNumber}{runwayPosition}"
@@ -5242,7 +5266,8 @@
       "approachMethod": [
         " {fix} {heading} radyal üzerinden, {number} DME arkı",
         " {fix} geçişiyle",
-        ""
+        "",
+        ", vektör finale"
       ],
       "runway": [
         "pist {runwayNumber}{runwayPosition}"
@@ -5453,7 +5478,8 @@
       "approachMethod": [
         " qua {fix} ở radian {heading}, vòng cung DME {number}",
         " thông qua chuyển tiếp {fix}",
-        ""
+        "",
+        ", véc-tơ đến đoạn cuối cùng"
       ],
       "runway": [
         "đường băng {runwayNumber}{runwayPosition}"
@@ -5660,7 +5686,8 @@
       "approachMethod": [
         " 通过{fix}{heading}径向线，DME弧{number}",
         " 过渡点{fix}",
-        ""
+        "",
+        "，引导至最终边"
       ],
       "runway": [
         "跑道{runwayNumber}{runwayPosition}"
@@ -5872,7 +5899,8 @@
       "approachMethod": [
         " 經由 {fix} {heading} 徑向線，{number} 測距儀弧",
         " 經由 {fix} 轉換點",
-        ""
+        "",
+        "， 到最終進場航程向量"
       ],
       "runway": [
         "跑道 {runwayNumber}{runwayPosition}"

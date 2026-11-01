@@ -40,7 +40,8 @@
         "tune": "[ Nalaďte Example Věž na 133.250 ]",
         "contact": "Kontaktujte věž Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, sestupte přes EXAMPLE2 na FL210. Očekávejte přiblížení ILS , vektory na přistání."
   },
   {
     "locale": "da-DK",
@@ -83,7 +84,8 @@
         "tune": "[ Indstil Example Tårn til 133.250 ]",
         "contact": "Kontakt Example tårn"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, dyk via EXAMPLE2 til FL210. Forvent ILS tilgang, vektorer til finale."
   },
   {
     "locale": "de-DE",
@@ -126,7 +128,8 @@
         "tune": "[ Example einstellen Tower auf 133.250 ]",
         "contact": "Example Tower kontaktieren"
       }
-    ]
+    ],
+    "descentVectors": "Example 123Sinkflug über EXAMPLE2 zu FL210. Erwarten Sie ILS Landeanflug, Radarführung zum Endanflug."
   },
   {
     "locale": "el-GR",
@@ -169,7 +172,8 @@
         "tune": "[ Συντονιστείτε Example Τάουερ στο 133.250 ]",
         "contact": "Επικοινωνία με τον Πύργο Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, κατεβείτε μέσω EXAMPLE2 στα FL210. Αναμένετε ILS προσέγγιση, διανύσματα προς τελική προσέγγιση."
   },
   {
     "locale": "en-US",
@@ -212,7 +216,8 @@
         "tune": "[ Tune Example Tower on 133.250 ]",
         "contact": "Contact Example Tower"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, descend via EXAMPLE2 to FL210. Expect ILS approach, vectors to final."
   },
   {
     "locale": "es-ES",
@@ -255,7 +260,8 @@
         "tune": "[ Sintonizar Example Torre de control en 133.250 ]",
         "contact": "Contactar torre de control Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, desciendar por EXAMPLE2 a FL210. Espera aproximación a ILS , vectores para final  ."
   },
   {
     "locale": "es-MX",
@@ -298,7 +304,8 @@
         "tune": "[ Sintonizar Example Torre de control en 133.250 ]",
         "contact": "Contactar torre de control Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, desciende por EXAMPLE2 a FL210. Espera aproximación a ILS , vectores para final  ."
   },
   {
     "locale": "fi-FI",
@@ -341,7 +348,8 @@
         "tune": "[ Viritä Example Lennonjohtotorni on 133.250 ]",
         "contact": "Ota yhteys Example lennonjohtotorniin"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, laskeutuminen kohteen EXAMPLE2 kautta korkeuteen FL210. Odotettavissa lähestyminen ILS , vektorit lopulliseen."
   },
   {
     "locale": "fr-FR",
@@ -384,7 +392,8 @@
         "tune": "[ Régler Example Tour sur 133.250 ]",
         "contact": "Contacter Example tour"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, descente via EXAMPLE2 à FL210. Prévoyez approche ILS , radars jusqu'en finale."
   },
   {
     "locale": "hi-IN",
@@ -427,7 +436,8 @@
         "tune": "[133.250 पर Example टॉवर ट्यून करें]",
         "contact": "Example टावर से संपर्क करें"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, EXAMPLE2 से होते हुए FL210 तक उतरें। ILS दृष्टिकोण, फ़ाइनल के लिए वैक्टर की अपेक्षा करें।"
   },
   {
     "locale": "hu-HU",
@@ -470,7 +480,8 @@
         "tune": "[ Example Torony hangolása erre: 133.250 ]",
         "contact": "Kapcsolatfelvétel a következő toronnyal: Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, ereszkedés EXAMPLE2 eljárással FL210 magasságra. Várható ILS megközelítés, vektor a végső egyenesig."
   },
   {
     "locale": "id-ID",
@@ -513,7 +524,8 @@
         "tune": "[Setel Example Tower di 133.250]",
         "contact": "Hubungi Menara Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, turun melalui EXAMPLE2 ke FL210. Tunggu approach ILS , vektor ke final."
   },
   {
     "locale": "it-IT",
@@ -556,7 +568,8 @@
         "tune": "[ Regola Example Torre su 133.250 ]",
         "contact": "Contatta torre Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, discesa via EXAMPLE2 a FL210. Avvicinamento previsto: ILS , vettori per finale."
   },
   {
     "locale": "ja-JP",
@@ -599,7 +612,8 @@
         "tune": "[Example 管制塔 (133250) に合わせる]",
         "contact": "Example 管制塔にコンタクト"
       }
-    ]
+    ],
+    "descentVectors": "Example 123、EXAMPLE2 にて FL210 まで降下。ILS アプローチ 、ファイナルへの誘導   の見込み。"
   },
   {
     "locale": "ko-KR",
@@ -642,7 +656,8 @@
         "tune": "[ 133.250에서 Example 관제탑 동조 ]",
         "contact": "Example 타워 문의"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, EXAMPLE2 통해 FL210으로 하강하세요. ILS 경로로 , 최종 접근 경로까지 레이더 유도 접근 예상하세요."
   },
   {
     "locale": "ms-MY",
@@ -685,7 +700,8 @@
         "tune": "[ Tala Example Menara pada 133.250 ]",
         "contact": "Hubungi Menara Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, turun melalui EXAMPLE2 ke FL210. Jangkakan lintasan tuju ILS, vektor ke akhir."
   },
   {
     "locale": "nb-NO",
@@ -728,7 +744,8 @@
         "tune": "[ Still inn Example Tårn på 133.250 ]",
         "contact": "Kontakt Example tårn"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, gå ned via EXAMPLE2 til FL210. Forvent ILS innflyvning, vektorer til endelig."
   },
   {
     "locale": "nl-NL",
@@ -771,7 +788,8 @@
         "tune": "[ Afstemmen op Example Toren op 133.250 ]",
         "contact": "Contact opnemen met Example – Toren"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, dalen via EXAMPLE2 naar FL210. Verwacht ILS nadering, vectoren naar eind."
   },
   {
     "locale": "pl-PL",
@@ -814,7 +832,8 @@
         "tune": "[ Nastaw Example Wieża na 133.250 ]",
         "contact": "Nawiąż łączność z wieżą Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, zniżaj się w procedurze EXAMPLE2 do FL210. Spodziewaj się podejścia ILS , wektorowanie do prostej do lądowania."
   },
   {
     "locale": "pt-BR",
@@ -857,7 +876,8 @@
         "tune": "[ Ajustar Example Torre em 133.250 ]",
         "contact": "Contatar Example Torre"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, desça via EXAMPLE2 até FL210. Espere ILS aproximação, vetores para aproximação final."
   },
   {
     "locale": "pt-PT",
@@ -900,7 +920,8 @@
         "tune": "[ Ajustar Example Torre em 133.250 ]",
         "contact": "Contactar Example Torre"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, desça via EXAMPLE2 para FL210. Espere uma aproximação ILS, , vetores para aproximação final."
   },
   {
     "locale": "ru-RU",
@@ -943,7 +964,8 @@
         "tune": "[ Настроить Example Диспетчерская на 133.250 ]",
         "contact": "Связаться с диспетчерским пунктом Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, снижайтесь к EXAMPLE2 до FL210.Ожидайте ILS заход на посадку, вектор на предпосадочную прямую."
   },
   {
     "locale": "sv-SE",
@@ -986,7 +1008,8 @@
         "tune": "[ Ställ in Example Tornet på 133.250 ]",
         "contact": "Kontakta tornet i Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, gå ner via EXAMPLE2 till FL210. Räkna med ILS inflygning , vektorering till final."
   },
   {
     "locale": "th-TH",
@@ -1029,7 +1052,8 @@
         "tune": "[ จูน Example หอบังคับ บน 133.250 ]",
         "contact": "ติดต่อ Example หอบังคับ"
       }
-    ]
+    ],
+    "descentVectors": "Example 123 ลดระดับตามเส้นทาง EXAMPLE2 จนถึงระดับความสูง FL210 รอ ILS ร่อนลงจอด เวคเตอร์ไป Final"
   },
   {
     "locale": "tr-TR",
@@ -1072,7 +1096,8 @@
         "tune": "[ 133.250 konumunda Example Kule ayarı yapın ]",
         "contact": "Kuleyle Example İletişime Geçin"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, EXAMPLE2 ile FL210 irtifasına alçalın. ILS yaklaşma yapabilirsiniz, vektör finale."
   },
   {
     "locale": "vi-VN",
@@ -1115,7 +1140,8 @@
         "tune": "[Điều chỉnh Example Đài kiểm soát không lưu trên 133.250]",
         "contact": "Liên hệ đài kiểm soát không lưu Example"
       }
-    ]
+    ],
+    "descentVectors": "Example 123, hạ độ cao qua EXAMPLE2 xuống FL210. Dự kiến tiếp cận ILS bằng, véc-tơ đến đoạn cuối cùng."
   },
   {
     "locale": "zh-CN",
@@ -1158,7 +1184,8 @@
         "tune": "[联络133.250，调频至Example 塔台]",
         "contact": "联络Example塔台"
       }
-    ]
+    ],
+    "descentVectors": "Example 123，通过EXAMPLE2下降至FL210。预期ILS进近，引导至最终边。"
   },
   {
     "locale": "zh-TW",
@@ -1201,6 +1228,7 @@
         "tune": "[ 調整 Example 塔 在 133.250 ]",
         "contact": "聯絡 Example 塔台"
       }
-    ]
+    ],
+    "descentVectors": "Example 123，請依循 EXAMPLE2 下降至 FL210。預期採用 ILS 進場程序 ， 到最終進場航程向量。"
   }
 ]

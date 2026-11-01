@@ -177,3 +177,19 @@ test('current Cessna KUN screenshot instructions stay supported',()=>{
   assert.equal(ready(state('Cessna KUN, descend via NISA8R to 8,000 ft. Expect ILS Z runway 4R approach via MUS transition.','Acknowledge Descent Clearance'))?.kind,'acknowledge-descent');
   assert.equal(ready(state('Cessna KUN, you are 2300 ft below your assigned altitude. Climb and maintain FL320','Acknowledge Instruction'))?.kind,'acknowledge-instruction');
 });
+
+for(const f of fixtures) {
+  test(`${f.locale}: descent clearance with vectors to final is acknowledged only in current context`,()=>{
+    const s=state(f.descentVectors,f.descentMenu);
+    assert.equal(ready(s)?.kind,'acknowledge-descent',f.descentVectors);
+    assert.equal(ready(state(f.descentVectors+' Cancel that clearance.',f.descentMenu)),null);
+    add(s,'Manual readback',true);assert.equal(ready(s),null);
+  });
+}
+test('captured Seattle TMBRS4 descent with vectors to final survives a reminder',()=>{
+  const s=state('Boeing PAO4511 , descend via TMBRS4 to 5,000 ft. Expect ILS runway 10R approach, vectors to final.','Acknowledge Descent Clearance',124.8499984741211);
+  s.options.push({id:1,text:'2 - Standby -- [ Select Another Runway for Landing ]',enabled:true},{id:2,text:'3 - Standby -- [ Select Another Approach ]',enabled:true},{id:3,text:'4 - Say Again',enabled:true});
+  assert.equal(ready(s)?.kind,'acknowledge-descent');
+  add(s,'Boeing PAO4511 , acknowledge last transmission.');assert.equal(ready(s)?.kind,'acknowledge-descent');
+  s.options[0].enabled=false;assert.equal(ready(s),null);
+});
