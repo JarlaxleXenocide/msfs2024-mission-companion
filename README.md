@@ -1,168 +1,87 @@
 # MSFS 2024 Career Approach Companion
 
-A native Linux and Windows x64 desktop companion for comparing Microsoft Flight Simulator 2024 Career missions by duration, distance from the player, advertised total payout, and destination approach capability. Supports ILS, RNAV (LPV and LNAV/VNAV), LOC and VOR, with expandable runway-end details, advertised payout and estimated duration.
+Compare MSFS 2024 Career missions by payout, credits/hour, duration, departure distance and destination approaches. Available for Linux and Windows x64.
 
-Airport capability does not determine a mission's assigned approach or aircraft suitability. Mission comparison reads simulator data without selecting missions, changing simulator filters, editing routes or modifying Career saves. Optional Radio assist can send supported native ATC responses and change COM frequencies.
+Filter for ILS, RNAV (LPV and LNAV/VNAV), LOC or VOR, inspect runway details, and preview airports on a map. Airport capability does not guarantee the mission’s assigned approach or aircraft suitability. Mission selection stays in MSFS.
+
+## Get started
+
+Download your platform’s package and `SHA256SUMS` from [Releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases). Node is bundled; GitHub’s source archives are not executable builds.
+
+- **Linux:** verify with `sha256sum --check --ignore-missing SHA256SUMS`, extract the ZIP, and run `./career-companion`. Keep the runtime files together; do not run with sudo or disable the sandbox.
+- **Windows:** compare the download’s `Get-FileHash -Algorithm SHA256` result with `SHA256SUMS`, then run the setup EXE. For portable use, extract the entire ZIP and launch `career-companion.exe`. Packages are unsigned.
+
+Start MSFS, enter Career outside briefing, and press **G** with the simulator focused to expand its Missions panel. Keep it open while scanning.
+
+The local Coherent inspector must expose `mainUi` and `Electronic Flight Bag` at `http://127.0.0.1:19999/pagelist.json`. Setup varies; the companion does not enable it automatically. Change the port or retry through **Display & connection**.
+
+## Using the companion
+
+- Pan the Career map to collect missions. **Refresh** clears collected missions and cached airport data, then rescans the current area.
+- Combine search, approach and range filters. Drag a range or type its bounds; leave a side blank for no limit. Unknown values are excluded when a range is set.
+- Click column headings to cycle descending → ascending → off. Numbered arrows show sort priority. Credits/hour uses advertised payout and duration; distance runs from the Career pilot’s airport to the departure airport.
+- **Suggested flights** ranks up to three matches by credits/hour, then nearer departure. Collapse it for more space; **View flight** opens runway details.
+- Hover a route to preview its airports; click to pin it. Escape closes it. The line connects endpoints, not the flight plan. OpenStreetMap imagery requires internet and reveals the viewed region to the tile provider.
+- Choose a theme, Compact mode and supported keep-on-top behavior. Settings persist; collected missions and airport data do not survive closing the app.
 
 ## Radio assist (experimental)
 
-Click the pilot button in the header to turn Radio assist on or off. It starts **off** every time you launch the app and glows while enabled. **Activity** opens the current frequency, latest message and last submitted response without moving the mission list. Close it with Escape or a click outside. A paused indicator stays visible in the header when attention is needed.
+Use the header’s pilot button to enable it; **Activity** shows the frequency, latest message and last action. It starts **off** each launch and uses the simulator’s ATC menu, without a microphone or cloud service.
 
-Radio assist reads the simulator’s ATC transcript and response menu. It does not use a microphone, speech recognition, a language model or a cloud service, and the Communications panel can stay closed. Unlike mission comparison, it **can send radio responses and change COM frequencies** when enabled.
+Supported English calls include handoffs, climb/descend-and-maintain instructions, descend-via clearances and approach acknowledgments. It can send responses and change COM frequencies, but does not fly the aircraft, validate clearances or decide when you are inbound.
 
-### Supported calls
+**It switches off at “cleared to land.” Read back that clearance and handle ground/taxi calls yourself.** Departure procedures, alternate approaches and unrecognized calls also remain manual.
 
-It recognizes these English call/menu combinations:
+Repeated weather broadcasts can trigger a tune-away-and-back attempt using the transmitting radio’s existing standby frequency. Recovery is limited to high, level flight (at least 18,000 ft, within ±300 ft/min), with no active approach or observed arrival/descent cues. **This recovery is covered by automated tests but has not been verified in flight.** Check the active frequency if it fails.
 
-- Center and tower handoffs: acknowledge, tune the requested frequency if needed, and check in.
-- Climb/descend-and-maintain and maintain-present/current-altitude instructions, including calls with accompanying speed restrictions.
-- Descend-via clearances that specify both a route and altitude, under **Acknowledge Descent Clearance**.
-- Assigned approaches ("Expect … approach … Cleared to …"), approach clearances, and the observed ILS clearance labeled **Acknowledge Pattern Entry Instructions**.
-
-The offered response must match the current unanswered call. Reminders keep the original call’s identity so they do not cause another submission. Normal spoken replies wait while transcript messages are queued.
-
-**At “cleared to land,” Radio assist switches off and closes its radio connection.** Approach clearance does not trigger this stop. Read back the landing clearance yourself. Ground handoffs, taxi-to-parking requests, departure procedures, alternate approaches/runways and unrecognized calls remain manual.
-
-### Repeated weather broadcasts
-
-Recognized ATIS/automated weather text does not replace a pending handoff. A matching handoff tune option can leave a weather station without transmitting over its broadcast.
-
-When the same weather text appears in two separate transcript entries, the assistant can try one tune-away-and-back cycle for that recently tracked report. Repeated polling or a queued/unqueued update to the same entry does not count as a repeat. It temporarily uses the transmitting COM radio’s existing standby frequency, restores the original active frequency, and checks both changes. It does not write the standby frequency. It then checks for a pending acknowledgment before continuing the handoff; the temporary changes do not confirm an earlier ATC response.
-
-This recovery requires:
-
-- Airborne flight at or above **18,000 ft**, within **300 ft/min** of level flight, with no active GPS approach.
-- No observed descent, approach, arrival, tower, ground/taxi or landing cue in the current tracked conversation. Missing transcript history also blocks recovery.
-- One transmitting COM radio (COM1 or COM2), a different valid standby frequency, and the simulator’s EFB frequency API.
-
-These are conservative checks, **not an FMC flight-phase reading**. If they are not met, ordinary supported ATC handling continues and the weather loop remains manual. If a manual frequency change is detected during recovery, the assistant stops rather than restoring over it.
-
-**The weather-recovery sequence has automated test coverage but has not yet been verified as an in-flight workaround.** It may not clear every weather loop. Check the active frequency if recovery fails or the connection is lost partway through it.
-
-### Limitations and manual takeover
-
-- Matching is limited to recognized English wording and menu labels. Other languages, unfamiliar phrases, ambiguous options, or a handoff that has fallen out of the available transcript can require manual action.
-- The implementation was developed around the default Asobo Boeing 737 MAX 8 in MSFS 2024. This is not a guarantee of identical behavior with every aircraft, simulator update or ATC configuration.
-- It handles the radio dialogue only. It does not validate a clearance, decide when you are geographically inbound, enforce procedure timing, or change altitude, speed, autopilot settings or flight controls. You decide whether and when to follow ATC.
-- A new weather message or disabled menu is not proof that the previous response succeeded. If a submitted action produces no outgoing reply or frequency change, assistance pauses after 15 seconds of otherwise available radio data. Queued transmissions and incomplete data suspend that wait.
-- Disconnection, a changed conversation, a port change or an uncertain operation turns assistance off. An uncertain native operation requires a simulator/view restart before another attempt. Do not repeatedly reconnect to bypass that state. Turning the toggle off cannot recall an action already submitted.
-- Radio assist uses the experimental Coherent inspector integration. It cannot guarantee simulator stability or recover a simulator crash. Stay ready to handle the radios manually.
-
-Mission collection and new airport queries pause while the Career mission browser is inactive, including during flight. A lightweight browser-return check continues every ten seconds; active browsing scans every two seconds (ten when minimized). Radio monitoring is separate and polls once per second while enabled. The landing-clearance stop ends radio polling; it does not shut down the mission-browser return check. Requests already underway are allowed to finish.
-
-Pilot toggle artwork: [pilot icon](https://cdn-icons-png.magnific.com/256/13627/13627610.png?semt=ais_white_label), bundled locally.
+Developed around the default Asobo 737 MAX 8; other aircraft, wording and simulator updates may behave differently. Disconnections or uncertain actions turn assistance off. Follow the displayed recovery instructions; an uncertain operation requires a simulator/view restart. The experimental Coherent integration cannot guarantee simulator stability. Stay ready to take over manually.
 
 ## Screenshots
 
-Screenshots show the actual v0.1.8 interface with illustrative missions and representative airport data; they are not live mission availability or payouts.
+v0.1.8 with illustrative missions and airport data, not live availability or payouts.
 
-**Compare earnings and departure distance.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, **Credits/hour** sorts estimated hourly earnings highest first, with **From player (NM)** putting nearer departures first when rates tie. Hourly earnings use advertised payout and estimated duration; distance is measured from the Career pilot’s current airport (KSEA in these examples) to the mission’s departure.
+Sort by earnings and departure distance.
 
 ![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/v0.1.8/mission-sorting.png)
 
-**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Automatic scans add or update missions from the current area. The top **Refresh** button clears the collected list and cached airport details, then rescans the current map area. Approach, duration, player-distance and total-credit filters stay visible above the list.
-
-**Narrow the list before sorting.** Set Duration in 30-minute steps, Distance from player in 25 NM steps, and Total Credits in 500,000-credit steps. Drag either end of a range, type its bounds, or leave a side open. The filters combine and persist across restarts.
+Combine duration, distance and payout filters.
 
 ![Duration, Distance from player and Total Credits ranges narrowing the scanned mission list](assets/screenshots/v0.1.8/mission-filters.png)
 
-**Start with recommended flights.** The collapsible **Suggested flights** row shows up to three flights matching your search, ranges and selected approaches. Highest credits/hour ranks first; nearer departures break ties. Flights with unknown earnings, duration or player distance are excluded. **View flight** opens that mission’s runway details without changing your table sort. Compact cards show route, credits/hour, duration and distance. Collapse the row to keep only the best-flight summary; live updates preserve the collapsed state. Recommendations update as filters and scanned data change; stale snapshots are labeled.
+Compact, collapsible flight suggestions.
 
 ![Top three recommended flights ranked by hourly earnings and departure distance](assets/screenshots/v0.1.8/mission-recommendations.png)
 
-**Keep radio controls close without losing space.** The pilot toggle sits beside Refresh. Activity opens in a floating panel, and suggestions can collapse to a single summary row.
+Radio controls and floating activity panel.
 
 ![Header pilot button and radio activity with flight suggestions collapsed](assets/screenshots/v0.1.8/radio-activity.png)
 
-**Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
+Preview and pin mission routes.
 
 ![Pinned route map showing departure at MMQT and destination at CYVR](assets/screenshots/v0.1.8/mission-route-map.png)
 
-**Inspect individual runway ends.** Expand a mission to see physical and threshold-adjusted lengths, displaced thresholds, elevations, closure status, and available approaches. RNAV procedures distinguish LPV, LNAV/VNAV, LP and LNAV minima; circling procedures are labeled separately.
+Inspect runway lengths, elevations and approaches.
 
 ![Expanded CYVR runway ends with lengths, displaced thresholds, elevations, and ILS and RNAV minima including LPV and LNAV/VNAV](assets/screenshots/v0.1.8/runway-information.png)
 
-**Choose your look.** Flight deck, Field notes and Clear each support Light, Night, or following your system appearance. Display controls also include Compact and supported keep-on-top behavior.
+Flight deck, Field notes and Clear themes support Light, Night and system appearance.
 
 | Flight deck · Light | Field notes · Light | Clear · Night |
 | --- | --- | --- |
 | ![Flight deck theme in Light mode](assets/screenshots/v0.1.8/flight-deck-light.png) | ![Field notes theme in Light mode](assets/screenshots/v0.1.8/field-notes-light.png) | ![Clear theme in Night mode](assets/screenshots/v0.1.8/clear-night.png) |
 
-## Run on Linux
+## Troubleshooting
 
-Download the application ZIP and `SHA256SUMS` only from [Releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases). GitHub's source archives are not executable builds.
+- **No missions:** check that Career is outside briefing and the native Missions panel is expanded. Check inspector discovery with `curl --max-time 3 http://127.0.0.1:19999/pagelist.json` or PowerShell’s `Invoke-RestMethod`.
+- **Stale data or stalled queries:** follow the status message and let pending requests settle. Reconnecting does not cancel simulator-side work.
+- **In-flight scanning:** mission collection pauses outside the Career browser, with a return check every ten seconds. Radio polls separately while enabled; its landing-clearance stop does not stop the browser-return check.
+- **Linux libraries:** Electron requires NSS, GTK, GBM and ALSA. Debian 12/Ubuntu 22.04 use `libnss3 libgtk-3-0 libgbm1 libasound2`; Ubuntu 24.04 uses `libgtk-3-0t64 libasound2t64` for GTK/ALSA.
+- **Window behavior:** Linux defaults to X11/XWayland when available. Native Wayland has limited minimize reporting and desktop-managed pinning. Keep-on-top over exclusive fullscreen depends on the desktop.
+- **Old app after building:** replace the installed package and update its desktop shortcut, then restart it. A local build does not update an existing installation.
 
-1. Verify the download with `sha256sum --check --ignore-missing SHA256SUMS` and extract the ZIP into a writable folder. The combined release manifest also lists Windows files that need not be downloaded for this check. Keep the runtime files together.
-2. Start MSFS 2024 and enter Career, outside briefing. With the simulator focused, press **G** to expand the native Missions panel so the companion can scan for missions. Keep the panel expanded while scanning.
-3. From the extracted application folder, run `./career-companion`.
+## Development
 
-The bundle includes Electron and Node; users do not need a separate Node installation. Do not run it with sudo or disable its sandbox. It requires an x64 Linux desktop and Electron's system libraries, including NSS, GTK, GBM and ALSA. Debian 12/Ubuntu 22.04 package names include `libnss3 libgtk-3-0 libgbm1 libasound2`; Ubuntu 24.04 uses `libgtk-3-0t64 libasound2t64` for GTK/ALSA.
-
-## Run on Windows
-
-Download Windows packages only from [Releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases). Choose a release with the Windows setup EXE or portable ZIP. If a release has no Windows packages, use another release that includes them. GitHub's source archives are not executable builds.
-
-1. Download `msfs2024-mission-companion-windows-x64-setup.exe` and `SHA256SUMS` from the same release. Compare the installer's SHA-256 hash with its entry in the checksum file:
-
-   ```powershell
-   Get-FileHash -Algorithm SHA256 .\msfs2024-mission-companion-windows-x64-setup.exe
-   Select-String -Path .\SHA256SUMS -Pattern ' msfs2024-mission-companion-windows-x64-setup\.exe$'
-   ```
-
-2. Run the setup EXE under your normal Windows user account, then launch **MSFS Career Approach Companion** from its installed shortcut.
-3. Start MSFS 2024 and enter Career, outside briefing. With the simulator focused, press **G** to expand the native Missions panel so the companion can scan for missions. Keep the panel expanded while scanning. The local Coherent inspector must be available as described below.
-4. Use the companion's **Display & connection** footer to change the port or retry if it does not connect.
-
-For portable use, download `msfs2024-mission-companion-windows-x64.zip`, verify its hash against `SHA256SUMS`, extract the entire ZIP, and double-click `career-companion.exe` inside the extracted application folder. Keep its DLLs, resources and other runtime files together; the EXE cannot run on its own. Both distribution formats include Electron and Node, so users do not need a separate Node installation.
-
-Windows packages are unsigned, so Windows may show a trust prompt. Use windowed or borderless simulator mode when placing the companion alongside MSFS.
-
-## Simulator connection and controls
-
-The companion connects to the local Coherent inspector at `127.0.0.1:19999`. The inspector must expose the simulator's main UI and Electronic Flight Bag views. Inspector enablement varies by simulator setup; no automatic configuration changes are made. To check discovery without requesting simulator calculations:
-
-```sh
-curl --max-time 3 http://127.0.0.1:19999/pagelist.json
-```
-
-On Windows, use PowerShell:
-
-```powershell
-Invoke-RestMethod -Uri 'http://127.0.0.1:19999/pagelist.json' -TimeoutSec 3 |
-  Select-Object id, title
-```
-
-The page list should include `mainUi` and `Electronic Flight Bag`. Page IDs can change; the companion discovers them automatically. The endpoint is `/pagelist.json`, not `/json`. Successful discovery confirms that the inspector is reachable; mission retrieval also requires Career outside briefing with the native Missions panel expanded. If missions are not appearing, focus the simulator and press **G** to expand the panel if it is collapsed.
-
-Use the **Display & connection** footer to change the local port, retry connection, choose a theme/appearance or enable supported pinning. Use the top **Refresh** button to refresh airport data. Filters, search, sorting and Compact affect only the companion. Click a sortable column heading to cycle through descending, ascending, and off. Additional columns become tie-breakers in the order selected; numbered arrows show their priority. With every sort off, missions follow Simulator order. Distance (NM) measures straight-line distance from the Career pilot’s airport to each mission’s departure airport and updates with normal polling. It does not represent aircraft relocation distance or transfer fees. Hover a distance to see the pilot airport used; unavailable distances display “—”. Unknown sort values remain last. Missions scroll independently of the footer.
-
-Routine polling shows **Connected · updating** while retaining the previous observation. Disconnected, inactive and stalled results are marked stale. If a native query stalls, wait for it to settle and follow the displayed recovery guidance. Reconnecting a socket does not cancel simulator-side work; do not open additional clients to bypass a stall.
-
-Linux uses software rendering and defaults to X11/XWayland when `DISPLAY` is available. Explicit `--ozone-platform=x11` and `--ozone-platform=wayland` arguments are respected. Native Wayland has limited minimized-state reporting and uses desktop-managed pinning; the app displays that limitation. Keep-on-top behavior over exclusive-fullscreen games depends on the desktop.
-
-On Linux, preferences are stored under `$XDG_CONFIG_HOME/MSFS Career Approach Companion/preferences.json`, normally `~/.config/MSFS Career Approach Companion/preferences.json`. On Windows, preferences are stored in `%APPDATA%\MSFS Career Approach Companion\preferences.json` after a setting is saved. Mission snapshots and airport data are not persisted.
-
-RNAV labels show the simulator’s reported LPV, LNAV/VNAV, LP and LNAV minima. A runway number does not establish vertical guidance. RNAV procedures with no designated runway are labeled Circling; missing runway identity is labeled Runway unknown. “Minima unavailable” means the simulator did not report a recognized minima type. LPV and LNAV/VNAV filters require explicit simulator flags and a valid associated runway; circling-only procedures cannot satisfy them. These filters describe destination capability, not the mission’s assigned approach. Enable Matches only to hide missions that do not qualify.
-
-Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. The top **Refresh** button clears all collected missions and cached airport details, dismisses any open route map, then starts again from the current map area. If a native capture is still running, it settles before the new scan starts. It does not clear the browser’s OpenStreetMap image cache. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
-
-**Duration**, **Distance from player** and **Total Credits** have two draggable handles and From/To fields. Duration handles and numeric fields move by 30 minutes (0.5 hours); player-distance handles move by 25 NM; total-credit handles and numeric fields move by 500,000 credits. Exact nautical miles can be entered in the distance fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
-
-Ranges hide nonmatching and unknown values even when Matches only is off. They combine with search and approach filters. Total Credits uses the advertised mission payout, independently of Credits/hour. The runway-length slider has been removed; saved runway-length bounds are cleared on startup, while runway details and approach filtering remain available. The distance range uses the same straight-line player-airport-to-departure distance as the From player (NM) column and updates when the player location changes. The results count shows how many scanned missions are visible.
-
-## Mission route map
-
-Hover a mission route for 300 ms to preview its airports. Click, Enter or Space pins the map; **Pin map** also keeps a hover preview open. **Show route** frames both endpoints and **Focus departure** zooms to the departure region. Escape or the close button dismisses it. Pinned maps survive filtering, polling and Alt+Tab; stale or removed missions retain a clearly labeled snapshot. Use the existing keep-on-top control when supported by your desktop.
-
-Airport locations come from the simulator. “Route snapshot is stale” refers to simulator data or a changed connection, not the OpenStreetMap image cache. Routine scans retain the freshness of the last completed observation. Missing locations show the MSFS lookup reason and are never invented; the connecting line illustrates endpoints, not a flight plan. Companion helps you locate the departure on the simulator's Career map; mission selection still happens in MSFS.
-
-The basemap streams standard OpenStreetMap images and needs internet access. Only visible previews request imagery, using normal HTTP caching; there is no offline download or map archive. OSM receives image requests revealing the viewed region, not mission titles or GUIDs. If imagery is blocked or unavailable, airport labels and the route remain visible with **Retry imagery**; retry is explicit. Map failures do not interrupt simulator polling. Attribution buttons open the Leaflet and OSM credit pages in your system browser.
-
-## Build and test
-
-The dependency audit allows only exact build-tool exceptions listed in `scripts/audit-dependencies.cjs`. The legacy `minimatch@3.1.5` exception covers [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249): this callable-API version lacks the reported `firstPhasePreProcess`/`optimizationLevel` code path. Modern minimatch, glob, Electron and affected transitive dependencies are updated. Existing exact exceptions for `braces@3.0.3` and `sprintf-js@1.1.3` remain. New advisories, changed versions and runtime dependency findings fail the check; packaged artifacts exclude build dependencies.
-
-Use Node >=22.12.0 (CI uses 22.23.1) and npm. On Linux, install Info-ZIP `zip` for Forge's ZIP maker and `unzip` for distribution-library checks, plus the Electron system libraries listed above:
+Requires Node ≥22.12.0 and npm. Linux builds also need `zip`, `unzip` and the system libraries above.
 
 ```sh
 npm ci
@@ -175,42 +94,15 @@ CI=true npm run test:renderer
 npm run verify:artifact
 ```
 
-A local build does not automatically replace an installed copy. If you launch from a desktop shortcut, install the new packaged application and update the shortcut to its executable, then close and reopen the app.
+For Windows, build on x64 Windows with `--platform=win32`, set `$env:CI = 'true'` before renderer tests, and verify with `node scripts/verify-artifact.cjs --platform=win32 --arch=x64`.
 
-Renderer tests use synthetic data and never connect to MSFS. On minimal Linux systems, use `npx playwright install --with-deps chromium` to install browser dependencies. Run renderer tests before `npm start`, which replaces intermediate packaged assets with development assets.
+Renderer tests use synthetic data without connecting to MSFS. Run them before `npm start`, which replaces packaged intermediate assets with development assets. Build output is under `out/`; verified Windows packages are under `out/verified/windows-x64/`.
 
-Launch development with `npm start`, or run the packaged executable:
+CI checks tests, dependencies, UI behavior, package contents, Windows installation and Linux runtime libraries. Audit exceptions are listed in `scripts/audit-dependencies.cjs`. Release tags must match `package.json` with a `v` prefix; releases default to drafts unless `RELEASE_PUBLICATION_ENABLED=true`. Existing releases are never overwritten. Source is `UNLICENSED`.
 
-```sh
-./out/career-companion-linux-x64/career-companion
-```
+## Credits
 
-The portable ZIP and checksum are under `out/make/zip/linux/x64/`. CI checks dependencies, tests, builds, renderer behavior and artifact contents, then checks runtime libraries on Ubuntu 22.04/24.04 and Debian 12.
-
-For a native Windows build, use x64 Windows, PowerShell, Node and npm. Info-ZIP and Linux system libraries are not Windows prerequisites:
-
-```powershell
-npm ci
-npm run audit
-npm test
-npm run typecheck
-npx playwright install chromium
-npm run make -- --platform=win32 --arch=x64
-$env:CI = 'true'
-npm run test:renderer
-node scripts/verify-artifact.cjs --platform=win32 --arch=x64
-```
-
-The unpacked Windows runtime is under `out/career-companion-win32-x64/`; Forge writes the portable ZIP under `out/make/zip/win32/x64/` and the Squirrel setup files under `out/make/squirrel.windows/x64/`. Final verified Windows delivery files are copied to `out/verified/windows-x64/`.
-
-CI uploads two build artifacts: `linux-x64`, containing the Linux portable ZIP and its manifest, and `windows-x64`, containing the Windows portable ZIP, setup EXE, Squirrel verification inputs and its manifest. A matching version tag combines the public Linux ZIP, Windows ZIP, Windows setup EXE and a new `SHA256SUMS` into one GitHub release. Tag releases remain drafts by default; automatic public publication requires the repository variable `RELEASE_PUBLICATION_ENABLED=true`.
-
-Version tags must match `package.json` with a `v` prefix. Existing releases are never overwritten. The source is currently `UNLICENSED`.
-
-## Acknowledgements
-
-The mission route map uses [Leaflet](https://leafletjs.com/), the open-source mapping library created by Volodymyr Agafonkin and maintained by its contributors. Its BSD 2-Clause copyright notice and full license are reproduced in [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).
-
-Map data in the route preview is © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright). Use of the public map tiles follows the [OpenStreetMap tile usage policy](https://operations.osmfoundation.org/policies/tiles/).
-
-🇺🇦 [Support Ukraine](https://stand-with-ukraine.pp.ua/) — the resource linked by the Leaflet team in its [Leaflet 1.8 release announcement](https://leafletjs.com/2022/04/18/leaflet-1.8.0.html).
+- [Leaflet](https://leafletjs.com/) — license included in [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).
+- Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright); [tile usage policy](https://operations.osmfoundation.org/policies/tiles/).
+- [Pilot icon](https://cdn-icons-png.magnific.com/256/13627/13627610.png?semt=ais_white_label), bundled locally.
+- 🇺🇦 [Support Ukraine](https://stand-with-ukraine.pp.ua/), linked by the Leaflet team.
