@@ -1,5 +1,5 @@
 import { RadioWeatherRecovery } from '../domain/radio-weather';
-import { hasLandingClearance, RadioDecisions } from '../domain/radio';
+import { hasLandingClearance, radioActionProgress, RadioDecisions } from '../domain/radio';
 import type { RadioSimulator } from '../simulator/radio-adapter';
 import type { RadioAction, RadioSnapshot, RadioState } from '../shared/radio';
 
@@ -19,7 +19,7 @@ export class RadioController {
   private generation = 0;
   private connected = false;
   private previous: RadioSnapshot | null = null;
-  private awaiting: { state: RadioSnapshot; since: number; action: RadioAction } | null = null;
+  private awaiting: { state: RadioSnapshot; since: number; action: RadioAction; attempt: number; retryReady: boolean } | null = null;
   private observed = '';
   constructor(private readonly simulator: RadioSimulator, private port: number, private readonly clock: Clock = systemClock, private readonly diagnostics?: RadioDiagnostics) {
     if (diagnostics?.lastShutdown) this.state.lastShutdown = { ...diagnostics.lastShutdown };
@@ -101,18 +101,28 @@ export class RadioController {
       if (this.awaiting) {
         phase = 'awaiting-progress';
         const pending = this.awaiting;
-        // A broadcast, disabled menu or new incoming message is not confirmation.
-        const progressed = Math.abs(value.frequency - pending.state.frequency) >= 0.0005 ||
-          value.messages.some(m => m.index >= pending.state.count && m.outgoing && !m.queued);
-        if (progressed) { this.record({ type: 'action-progress', action: pending.action, snapshot: value, reason: 'Frequency changed or a completed outgoing transmission appeared; not proof that ATC accepted the response' }); this.awaiting = null; }
-        else if (!value.complete || value.messages.some(m => m.queued)) pending.since = this.clock.now();
-        else if (this.clock.now() - pending.since >= 15000) throw new Error('No progress after the last radio action. Check ATC manually before enabling again.');
+        const progressed = radioActionProgress(pending.state, value, pending.action);
+        if (progressed) {
+          this.record({ type: 'action-progress', action: pending.action, snapshot: value, attempt: pending.attempt,
+            reason: 'Requested frequency or outgoing transmission observed; may be manual, not proof that ATC accepted the response' });
+          this.awaiting = null;
+        } else if (!value.complete || value.messages.some(m => m.queued)) {
+          pending.since = this.clock.now(); pending.retryReady = false;
+        } else if (!pending.retryReady && this.clock.now() - pending.since >= Math.min(60000, 15000 * 2 ** Math.min(pending.attempt - 1, 2))) {
+          this.record({ type: 'action-unconfirmed', action: pending.action, snapshot: value, attempt: pending.attempt,
+            reason: 'No expected simulator effect observed; keeping assist enabled and revalidating the current conversation and option before retrying' });
+          this.decisions.notSent(pending.action);
+          pending.retryReady = true;
+        }
       }
       this.state.frequency = value.frequency;
       this.state.agent = value.agent;
       this.state.latestMessage = value.messages.at(-1)?.text ?? '';
       this.state.status = !this.awaiting && value.complete && !value.messages.some(m => m.queued) ? 'listening' : 'waiting';
-      this.state.message = this.state.status === 'waiting' ? 'Waiting for radio transmission or message data' : 'Listening for supported ATC calls · handoffs, instructions and approach';
+      const waitingForFrequency = this.awaiting?.retryReady && this.awaiting.action.kind !== 'tune' && Math.abs(value.frequency - this.awaiting.state.frequency) >= 0.0005;
+      this.state.message = waitingForFrequency ? 'Last response unconfirmed · waiting for its original radio frequency before retrying'
+        : this.awaiting?.retryReady ? 'Last action unconfirmed · waiting for a matching ATC option to retry'
+        : this.state.status === 'waiting' ? 'Waiting for radio transmission or message data' : 'Listening for supported ATC calls · handoffs, instructions and approach';
       if (repeatedWeather && this.simulator.recoverWeather) {
         this.state.status = 'acting'; this.state.message = 'Repeated weather broadcast · tuning away and back'; this.publish();
         if (!this.current(generation)) return;
@@ -129,26 +139,31 @@ export class RadioController {
         this.publish();
         return;
       }
-      if (this.awaiting) this.decisions.resetStability();
-      const action = this.awaiting ? null : this.decisions.next(value, this.clock.now());
+      if (this.awaiting && !this.awaiting.retryReady) this.decisions.resetStability();
+      const action = this.awaiting && !this.awaiting.retryReady ? null : this.decisions.next(value, this.clock.now());
       this.publish();
       if (!action || !this.current(generation)) return;
+      if (this.awaiting?.action.key === action.key && action.kind !== 'tune' && Math.abs(value.frequency - this.awaiting.state.frequency) >= 0.0005) {
+        this.decisions.resetStability();
+        return;
+      }
       this.decisions.attempted(action);
       this.state.status = 'acting'; this.state.message = `Sending ${action.option.text.replace(/^\s*\d+\s*-\s*/, '').trim()}`;
       this.publish();
       if (!this.current(generation)) { this.decisions.notSent(action); return; }
       phase = 'selecting-response';
-      this.record({ type: 'action-attempt', action, snapshot: value });
+      const attempt = this.awaiting?.action.key === action.key ? this.awaiting.attempt + 1 : 1;
+      this.record({ type: 'action-attempt', action, snapshot: value, attempt });
       const sent = await this.simulator.select(value, action);
-      this.record({ type: 'action-result', action, result: sent ? 'sent' : 'stale-not-sent' });
+      this.record({ type: 'action-result', action, attempt, result: sent ? 'command-dispatched' : 'stale-not-sent' });
       if (!sent) this.decisions.notSent(action);
       if (!this.current(generation)) return;
       if (sent) {
         this.state.lastAction = action.option.text.replace(/^\s*\d+\s*-\s*/, '').trim();
-        this.awaiting = { state: value, since: this.clock.now(), action };
+        this.awaiting = { state: value, since: this.clock.now(), action, attempt, retryReady: false };
       }
       this.state.status = 'waiting';
-      this.state.message = sent ? 'Action sent · waiting for simulator response' : 'Radio state changed · checking again';
+      this.state.message = sent ? 'Menu command dispatched · waiting for simulator confirmation' : 'Radio state changed · checking again';
       this.publish();
     } catch (error) {
       this.record({ type: 'operation-error', phase, reason: error instanceof Error ? error.message : String(error), snapshot: this.previous, pending: this.awaiting });

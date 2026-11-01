@@ -59,11 +59,15 @@ test('unchanged idle polls do not republish the mission state',async()=>{
   await clock.advance(10000);assert.equal(updates,initial);assert.equal(sim.reads,11);c.stop();
 });
 
-test('a submitted action with no observable simulator progress pauses instead of retrying',async()=>{
+test('an unconfirmed action retries with backoff while radio assist stays enabled',async()=>{
   const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
-  c.setEnabled(true);await flush();await clock.advance(18000);
-  assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,false);
-  assert.match(c.getState().message,/no progress/i);
+  c.setEnabled(true);await flush();await clock.advance(19000);
+  assert.equal(sim.sent.length,2);assert.equal(c.getState().enabled,true);
+  await clock.advance(31000);assert.equal(sim.sent.length,2);
+  await clock.advance(1000);assert.equal(sim.sent.length,3);
+  await clock.advance(62000);assert.equal(sim.sent.length,4);
+  await clock.advance(62000);assert.equal(sim.sent.length,5);
+  assert.equal(c.getState().enabled,true);assert.equal(c.getState().lastShutdown,undefined);c.stop();
 });
 
 test('normal app startup uses the default clock without dependency injection',async()=>{
@@ -107,9 +111,8 @@ test('a long queued weather broadcast does not time out or count as confirmation
   sim.data.count=2;
   await clock.advance(60000);assert.equal(c.getState().enabled,true);assert.equal(sim.sent.length,1);
   sim.data.messages[1].queued=false;
-  await clock.advance(16000);
-  assert.equal(c.getState().enabled,false);assert.match(c.getState().message,/no progress/i);
-  assert.equal(sim.sent.length,1,'Unconfirmed submission is never blindly retried');
+  await clock.advance(18000);
+  assert.equal(c.getState().enabled,true);assert.equal(sim.sent.length,2);c.stop();
 });
 
 
@@ -161,8 +164,8 @@ test('weather recovery does not mistake its round trip for confirmation of an ea
   const weather='Example airport information Alpha. Wind calm. Altimeter 2992.';
   sim.data.messages.push({index:1,text:weather,outgoing:false,queued:true},{index:2,text:weather,outgoing:false,queued:true});sim.data.count=3;
   await clock.advance(1000);assert.equal(cycles,1);assert.equal(sim.sent.length,1);
-  sim.data.messages.forEach(m=>m.queued=false);await clock.advance(16000);
-  assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,false);assert.match(c.getState().message,/no progress/i);
+  sim.data.messages.forEach(m=>m.queued=false);await clock.advance(18000);
+  assert.equal(sim.sent.length,2);assert.equal(c.getState().enabled,true);c.stop();
 });
 
 test('diagnostics retain the shutdown reason after re-enabling and capture changed calls and response outcomes',async()=>{
@@ -171,15 +174,15 @@ test('diagnostics retain the shutdown reason after re-enabling and capture chang
   c.setEnabled(true);await flush();await clock.advance(2000);
   assert.equal(events.filter(e=>e.type==='snapshot').length,1,'Idle polls must not flood disk');
   assert.equal(events.find(e=>e.type==='action-attempt').action.option.text,'1 - Acknowledge Handoff');
-  assert.equal(events.find(e=>e.type==='action-result').result,'sent');
-  await clock.advance(16000);
+  assert.equal(events.find(e=>e.type==='action-result').result,'command-dispatched');
+  sim.failure=Error('Socket closed');await clock.advance(1000);
   const shutdown=c.getState().lastShutdown;
-  assert.match(shutdown!.reason,/no progress/i);
-  assert.equal(shutdown!.at,17000);
+  assert.match(shutdown!.reason,/Socket closed/);
+  assert.equal(shutdown!.at,3000);
   const event=events.find(e=>e.type==='shutdown');
-  assert.equal(event.phase,'awaiting-progress');assert.equal(event.snapshot.messages[0].text,sim.data.messages[0].text);
+  assert.equal(event.phase,'reading');assert.equal(event.snapshot.messages[0].text,sim.data.messages[0].text);
   assert.equal(event.pending.action.kind,'acknowledge');
-  c.setEnabled(true);await flush();assert.deepEqual(c.getState().lastShutdown,shutdown);
+  sim.failure=null;c.setEnabled(true);await flush();assert.deepEqual(c.getState().lastShutdown,shutdown);
   sim.data.messages.push({index:1,text:'Going to 133.25, Example 123.',outgoing:true,queued:false});sim.data.count=2;
   await clock.advance(1000);
   assert.equal(events.at(-1).snapshot.messages.at(-1).outgoing,true);
@@ -230,4 +233,86 @@ test('an asynchronous log warning is published even when radio data stays unchan
   c.setEnabled(true);await flush();const initial=updates;
   diagnostics.warning='Radio log could not be saved: disk full';await clock.advance(1000);
   assert.ok(updates>initial);assert.match(c.getState().logWarning??'',/disk full/);c.stop();
+});
+
+const denver = ():RadioSnapshot => ({lifetime:1000,count:2,frequency:134.5,agent:'DENVER',complete:true,
+  options:[{id:0,text:'1 - Contact Denver Center',enabled:true}],messages:[
+    {index:0,text:'Boeing PAO1111  contact Denver Center on 134.5. Good day.',outgoing:false,queued:false},
+    {index:1,text:'Going to 134.5, Boeing PAO1111 . ',outgoing:true,queued:false},
+  ]});
+test('captured Denver contact retries a no-op and observes the subsequent check-in without duplicating it',async()=>{
+  const sim=new Simulator(),clock=new Clock(),events:any[]=[];sim.data=denver();
+  const c=new RadioController(sim,19999,clock,{record:e=>events.push(structuredClone(e))});
+  c.setEnabled(true);await flush();await clock.advance(19000);
+  assert.equal(sim.sent.length,2);assert.equal(c.getState().enabled,true);
+  assert.equal(events.filter(e=>e.type==='action-unconfirmed').length,1);
+  assert.equal(events.filter(e=>e.type==='action-progress').length,0);
+  sim.data.messages.push({index:2,text:'Denver Center, Boeing PAO1111 , FL350.',outgoing:true,queued:true});sim.data.count=3;
+  await clock.advance(60000);assert.equal(sim.sent.length,2);
+  sim.data.messages[2].queued=false;await clock.advance(1000);
+  assert.equal(events.filter(e=>e.type==='action-progress').length,1);
+  await clock.advance(120000);assert.equal(sim.sent.length,2);assert.equal(c.getState().enabled,true);c.stop();
+});
+test('manual check-in during retry stabilization prevents a duplicate command',async()=>{
+  const sim=new Simulator(),clock=new Clock();sim.data=denver();const c=new RadioController(sim,19999,clock);
+  c.setEnabled(true);await flush();await clock.advance(18000);
+  sim.data.messages.push({index:2,text:'Denver Center, Boeing PAO1111 , FL350.',outgoing:true,queued:false});sim.data.count=3;
+  await clock.advance(120000);assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,true);c.stop();
+});
+test('retries wait for complete data and the enabled matching option, then use its current ID',async()=>{
+  for(const mode of ['missing','disabled','incomplete','wrong-frequency']) {
+    const sim=new Simulator(),clock=new Clock();sim.data=denver();const c=new RadioController(sim,19999,clock);
+    c.setEnabled(true);await flush();await clock.advance(2000);
+    if(mode==='missing')sim.data.options=[];
+    if(mode==='disabled')sim.data.options[0].enabled=false;
+    if(mode==='incomplete')sim.data.complete=false;
+    if(mode==='wrong-frequency')sim.data.frequency=132.7;
+    await clock.advance(60000);assert.equal(sim.sent.length,1,mode);assert.equal(c.getState().enabled,true,mode);
+    sim.data={...denver(),options:[{id:7,text:'1 - Contact Denver Center',enabled:true}]};
+    await clock.advance(20000);assert.equal(sim.sent.length,2,mode);assert.equal(sim.sent[1].option.id,7,mode);c.stop();
+  }
+});
+test('frequency changes do not confirm speech and unrelated speech does not confirm a contact',async()=>{
+  for(const mode of ['frequency','unrelated-speech']) {
+    const sim=new Simulator(),clock=new Clock(),events:any[]=[];sim.data=denver();
+    const c=new RadioController(sim,19999,clock,{record:e=>events.push(structuredClone(e))});
+    c.setEnabled(true);await flush();await clock.advance(2000);
+    if(mode==='frequency')sim.data.frequency=132.7;
+    else {sim.data.messages.push({index:2,text:'Salt Lake Center, Boeing PAO1111 , FL350.',outgoing:true,queued:false});sim.data.count=3;}
+    await clock.advance(1000);assert.equal(events.filter(e=>e.type==='action-progress').length,0,mode);c.stop();
+  }
+});
+test('tuning is confirmed only by the requested frequency, not speech or a different frequency',async()=>{
+  const sim=new Simulator(),clock=new Clock(),events:any[]=[];
+  sim.data={...denver(),frequency:128.35,options:[{id:0,text:'1 - [ Tune Denver Center on 134.500 ]',enabled:true}]};
+  const c=new RadioController(sim,19999,clock,{record:e=>events.push(structuredClone(e))});
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  sim.data.frequency=132.7;sim.data.messages.push({index:2,text:'Going to 134.5, Boeing PAO1111.',outgoing:true,queued:false});sim.data.count=3;
+  await clock.advance(1000);assert.equal(events.filter(e=>e.type==='action-progress').length,0);
+  sim.data.frequency=134.5;await clock.advance(1000);assert.equal(events.filter(e=>e.type==='action-progress').length,1);
+  await clock.advance(60000);assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,true);c.stop();
+});
+test('a newer instruction replaces the timed-out action instead of retrying the old selection',async()=>{
+  const sim=new Simulator(),clock=new Clock();sim.data=denver();const c=new RadioController(sim,19999,clock);
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  sim.data.messages.push({index:2,text:'Boeing PAO1111, descend and maintain 8000 feet.',outgoing:false,queued:false});sim.data.count=3;
+  sim.data.options=[{id:4,text:'1 - Acknowledge Instruction',enabled:true}];
+  await clock.advance(17000);assert.deepEqual(sim.sent.map(a=>a.kind),['contact','acknowledge-instruction']);c.stop();
+});
+
+test('an old acknowledgment is not retried on a different frequency, and requires fresh stability after returning',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  sim.data.frequency=132.7;await clock.advance(60000);
+  assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,true);
+  sim.data.frequency=120.55;await clock.advance(2000);assert.equal(sim.sent.length,1);
+  await clock.advance(1000);assert.equal(sim.sent.length,2);c.stop();
+});
+test('a new instruction on the changed frequency can replace an old unconfirmed acknowledgment',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  sim.data.frequency=132.7;
+  sim.data.messages.push({index:1,text:'Example 123, descend and maintain 8000 feet.',outgoing:false,queued:false});sim.data.count=2;
+  sim.data.options=[{id:4,text:'1 - Acknowledge Instruction',enabled:true}];
+  await clock.advance(17000);assert.deepEqual(sim.sent.map(a=>a.kind),['acknowledge','acknowledge-instruction']);c.stop();
 });

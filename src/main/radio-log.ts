@@ -10,6 +10,7 @@ export interface RadioEvent {
   reason?: string;
   phase?: string;
   result?: string;
+  attempt?: number;
   action?: RadioAction;
   snapshot?: RadioSnapshot | null;
   before?: RadioSnapshot | null;

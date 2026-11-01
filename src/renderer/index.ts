@@ -285,7 +285,7 @@ function renderRadio(): void {
   radioActivity.title = radio?.message ?? 'Radio activity';
   radioFrequency.textContent = radio?.frequency ? `${radio.agent || 'Radio'} · ${radio.frequency.toFixed(3)} MHz` : '';
   radioLatest.textContent = radio?.latestMessage || 'No radio messages yet';
-  radioAction.textContent = radio?.lastAction ? `Last action sent: ${radio.lastAction}` : 'No action sent';
+  radioAction.textContent = radio?.lastAction ? `Last command dispatched: ${radio.lastAction}` : 'No command dispatched';
   const shutdown = required<HTMLElement>('radio-last-shutdown');
   shutdown.hidden = !radio?.lastShutdown;
   shutdown.textContent = radio?.lastShutdown ? `Last automatic shutoff · ${new Date(radio.lastShutdown.at).toLocaleString()}: ${radio.lastShutdown.reason}` : '';

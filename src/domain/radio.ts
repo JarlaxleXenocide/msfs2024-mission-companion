@@ -43,6 +43,18 @@ export function parseRadioSnapshot(input: unknown): RadioSnapshot {
 const clean = (value: string) => value.normalize('NFKC').replace(/^\s*\p{Nd}+\s*[-–—]\s*/u, '').trim();
 const sameFrequency = (a: number, b: number) => Math.abs(a - b) < 0.0005;
 
+/** Observed simulator effects, never proof of automation or ATC acceptance. */
+export function radioActionProgress(before: RadioSnapshot, current: RadioSnapshot, attempted: RadioAction): boolean {
+  if (before.lifetime !== current.lifetime) return false;
+  const target = localizedOption(clean(attempted.option.text));
+  if (attempted.kind === 'tune') return target?.kind === 'tune' && sameFrequency(current.frequency, target.frequency!);
+  const outgoing = current.messages.filter(m => m.index >= before.count && m.outgoing && !m.queued);
+  if (attempted.kind === 'contact') return target?.kind === 'contact' && outgoing.some(m => localizedCheckin(m.text, target.station));
+  // A completed outgoing reply ends an acknowledgment opportunity, including a
+  // manual reply. Frequency changes and incoming broadcasts do not confirm speech.
+  return outgoing.length > 0;
+}
+
 // Only clearly identified weather broadcasts are informational. Weather embedded
 // in a clearance or instruction must still supersede the previous call.
 export function weatherBroadcast(text: string): boolean {
@@ -97,7 +109,7 @@ export class RadioDecisions {
 
   next(state: RadioSnapshot, now: number): RadioAction | null {
     const candidate = this.candidate(state);
-    const key = candidate ? JSON.stringify([candidate.key, candidate.option.id, candidate.option.text]) : '';
+    const key = candidate ? JSON.stringify([candidate.key, candidate.option.id, candidate.option.text, state.frequency]) : '';
     if (key !== this.stable) { this.stable = key; this.stableSince = now; }
     return candidate && now - this.stableSince >= 2000 && !this.attempts.has(candidate.key) ? candidate : null;
   }
