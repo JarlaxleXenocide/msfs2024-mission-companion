@@ -19,9 +19,6 @@ const cases = [
   ['Acknowledge Approach Clearance','Example 123, Contact Example Tower on 118.7 when inbound on the approach.','acknowledge-approach'],
   ['Acknowledge Approach Clearance','Example 123, Cleared EXAMPLE1 arrival. Descend and maintain 10,000 ft Expect ILS runway 09 approach.','acknowledge-approach'],
   ['Acknowledge Pattern Entry Instructions','Example 123, Example Tower. Altimeter 2992, Cleared ILS Z runway 09 approach.','acknowledge-pattern-entry'],
-  ['Acknowledge Landing Clearance','Example 123, Wind calm, cleared to land runway 09.','acknowledge-landing'],
-  ['Acknowledge Ground Handoff','Example 123, contact ground on 121.9.','acknowledge-ground-handoff'],
-  ['Acknowledge Taxi Clearance','Example 123, taxi to general aviation parking via taxiway A cross runway 18 A B.','acknowledge-taxi'],
 ] as const;
 
 test('descent clearance requires descend-via route and altitude, leaving alternate selections alone',()=>{
@@ -114,27 +111,54 @@ const landed = [
 ];
 const taxiMenu=['1 - [ Tune Example ATIS on 135.800 ]','2 - Request Taxi to Parking','3 - Request Taxi to East Parking','4 - [ Taxi for Takeoff Options . . . ]','5 - [Ground Services]'];
 
-test('generic ground handoff matches named Ground, and default taxi request needs no separate contact call',()=>{
-  const tuneMenu=['1 - [ Tune Example Ground on 121.900 ]','2 - [ Tune Example ATIS on 135.800 ]'];
-  assert.equal(ready(state(landed,tuneMenu))?.kind,'tune');
-  assert.equal(ready(state(landed,['1 - [ Tune Example Ground on 120.900 ]'])),null);
-  assert.equal(ready(state(landed,[...tuneMenu,'3 - [ Tune Another Ground on 121.900 ]'])),null,'Ambiguous named Ground options');
-  const e=new RadioDecisions(),s=state(landed,taxiMenu,121.9);const taxi=ready(s,e)!;
-  assert.equal(taxi?.kind,'request-taxi-parking');assert.equal(taxi?.option.text,'2 - Request Taxi to Parking');e.attempted(taxi);
-  assert.equal(e.next(s,5000),null);
-  const afterContact=state([...landed,'>Example Ground, Example 123.'],taxiMenu,121.9);
-  assert.equal(ready(afterContact)?.kind,'request-taxi-parking','Explicit ground check-in, if present, does not preclude requesting taxi');
+test('ground and parking actions remain manual',()=>{
+  for (const labels of [taxiMenu, ['1 - [ Tune Example Ground on 121.900 ]'],
+    ['1 - Contact Ground'], ['1 - Acknowledge Ground Handoff'], ['1 - Acknowledge Taxi Clearance']]) {
+    assert.equal(ready(state(landed,labels,121.9)),null);
+    assert.equal(ready(state(landed.slice(2),labels,118.7)),null);
+  }
 });
 
-test('taxi request skips manual/automatic completion, departure context, wrong frequency, alternate parking and skipped taxi',()=>{
-  for(const extra of ['>Example Ground, Example 123, taxi to parking.',
-    'Example 123, taxi to general aviation parking via taxiway A.',
-    '>Taxiing to general aviation parking via taxiway A, Example 123.']) {
-    assert.equal(ready(state([...landed,extra],taxiMenu,121.9)),null,'Already requested/cleared, including a fresh controller');
+test('an ATIS broadcast delays but does not replace a pending tower handoff',()=>{
+  const handoff='Example 123, Contact Example Tower on 118.7 when inbound on the approach.';
+  const weather='Example airport information Alpha. 2000 Zulu. Wind 260 at 5. Visibility 10. Altimeter 2992.';
+  const lines=[handoff,'>Tower on 118.7, Example 123.',weather];
+  const s=state(lines,['1 - Contact Example Tower'],118.7),e=new RadioDecisions();
+  s.messages[2].queued=true;
+  assert.equal(ready(s,e),null);
+  s.messages[2].queued=false;
+  assert.equal(e.next(s,60000),null);
+  assert.equal(e.next(s,62000)?.kind,'contact');
+  assert.equal(ready(state(lines,['1 - [ Tune Example Tower on 118.700 ]'],126.3))?.kind,'tune');
+  assert.equal(ready(state([...lines,'>Example Tower, Example 123, inbound ILS runway 09.'],s.options.map(o=>o.text))),null);
+  for(const text of ['Example 123, wind 260 at 5, hold position.',
+    'Example 123, cleared ILS runway 09 approach. Wind calm. Altimeter 2992.',
+    'Example 123, contact Another Tower on 119.8.']) {
+    assert.equal(ready(state([...lines,text],s.options.map(o=>o.text))),null,text);
   }
-  assert.equal(ready(state(landed.slice(2),taxiMenu,121.9)),null,'No post-landing evidence');
-  assert.equal(ready(state(landed,taxiMenu,118.7)),null,'Ground is not tuned');
-  assert.equal(ready(state(landed,['1 - Request Taxi to East Parking'],121.9)),null);
-  assert.equal(ready(state(landed,[],121.9)),null,'Skipping taxi or changing screens never authorizes a request');
-  assert.equal(ready(state([...landed,'Example 123 contact Another Center on 130.5.'],taxiMenu,121.9)),null,'New handoff supersedes ground');
+});
+
+
+test('only tuning the explicit handoff may interrupt queued weather',()=>{
+  const s=state(['Example 123, Contact Example Tower on 118.7 when inbound on the approach.',
+    '>Tower on 118.7, Example 123.',
+    'Example airport information Alpha. Wind calm. Visibility 10. Altimeter 2992.'],
+    ['1 - [ Tune Example Tower on 118.700 ]'],126.3);
+  s.messages[2].queued=true;
+  assert.equal(ready(s)?.kind,'tune');
+  s.options[0].text='1 - [ Tune Other Tower on 118.700 ]';assert.equal(ready(s),null);
+  s.options[0].text='1 - Contact Example Tower';s.frequency=118.7;assert.equal(ready(s),null);
+  s.options[0].text='1 - [ Tune Example Tower on 118.700 ]';s.frequency=126.3;
+  s.messages[2].text='Example 123, maintain present altitude.';assert.equal(ready(s),null);
+});
+
+
+test('ATIS closing advice about initial contact is not a new handoff',()=>{
+  const s=state(['Example 123, contact Example Tower on 118.7.',
+    '>Tower on 118.7, Example 123.',
+    'Example information Bravo. Wind 260 at 5. Visibility 10. Altimeter 2992. Advise controller on initial contact you have Bravo.'],
+    ['1 - Contact Example Tower'],118.7);
+  assert.equal(ready(s)?.kind,'contact');
+  s.messages[2].text+=' Contact Other Tower on 119.8.';
+  assert.equal(ready(s),null);
 });

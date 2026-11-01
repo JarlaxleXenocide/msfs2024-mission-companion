@@ -18,7 +18,19 @@
           <h1>Mission comparison</h1>
         </div>
         <div class="title-actions">
-          <button id="refresh" type="button" title="Scan now instead of waiting for the next automatic scan (normally every 2 seconds). Keeps collected missions and cached airport data.">Scan now</button>
+          <section class="radio-assist" aria-label="Radio assistance">
+            <div class="radio-heading">
+              <label class="radio-toggle" title="Toggle automatic ATC radio responses">
+                <input id="radio-enabled" type="checkbox" role="switch" aria-label="Radio assist" aria-describedby="radio-status" disabled />
+                <span class="radio-pilot"><img id="radio-icon" alt="" width="32" height="32" /></span>
+                <span class="radio-label"><strong>Radio <span id="radio-power">Off</span></strong></span>
+              </label>
+              <button id="radio-activity" type="button" popovertarget="radio-activity-panel" aria-label="Radio activity">Activity</button>
+              <span id="radio-alert" hidden>Paused</span>
+            </div>
+            <p id="radio-error" class="field-error" role="alert" hidden></p>
+          </section>
+          <button id="refresh" type="button" title="Clear collected missions and cached airport data, then rescan the current map area">Refresh</button>
           <label class="check header-compact"><input id="compact" type="checkbox" /> Compact</label>
           <div class="connection" role="status" aria-live="polite">
             <span id="connection-mark" aria-hidden="true">●</span>
@@ -26,6 +38,15 @@
           </div>
         </div>
       </header>
+
+      <section id="radio-activity-panel" popover aria-label="Radio activity">
+        <div class="radio-activity-heading"><strong>Radio activity</strong><button id="radio-activity-close" type="button" popovertarget="radio-activity-panel" popovertargetaction="hide" aria-label="Close radio activity">×</button></div>
+        <p id="radio-status" role="status" aria-live="polite">Radio assist is off</p>
+        <p id="radio-frequency"></p>
+        <p id="radio-latest">No radio messages yet</p>
+        <p id="radio-action">No action sent</p>
+        <p class="radio-help">Acknowledges supported handoffs, altitude instructions and approach clearances. Tunes and checks in when offered. Repeated weather can trigger a brief tune-away-and-back cycle during high, level flight. Stops polling at “cleared to land”; read back the landing clearance and handle ground radio manually. Starts off each launch; flying stays with you.</p>
+      </section>
 
       <section class="message-strip" aria-labelledby="connection-detail-label">
         <div>
@@ -37,24 +58,6 @@
         <p id="minimize-help" class="desktop-help" hidden>On native Wayland, the desktop may not report minimization; background polling can remain at the visible-window rate.</p>
       <p id="preference-warning" class="warning" role="alert" hidden></p>
 
-      <section class="radio-assist" aria-label="Radio assistance">
-        <div class="radio-heading">
-          <label class="radio-toggle" title="Toggle automatic ATC radio responses">
-            <input id="radio-enabled" type="checkbox" role="switch" aria-label="Radio assist" aria-describedby="radio-status" disabled />
-            <span class="radio-pilot"><img id="radio-icon" alt="" width="44" height="44" /></span>
-            <span class="radio-label"><strong>Radio assist <span id="radio-power">Off</span></strong><small>Radio responses &amp; parking taxi</small></span>
-          </label>
-          <span id="radio-frequency"></span>
-        </div>
-        <p id="radio-status" role="status" aria-live="polite">Radio assist is off</p>
-        <details id="radio-activity">
-          <summary>Radio activity</summary>
-          <p id="radio-latest">No radio messages yet</p>
-          <p id="radio-action">No action sent</p>
-          <p class="radio-help">Acknowledges supported handoffs, altitude instructions, approach, landing and taxi clearances. Tunes, checks in and requests default parking taxi after a post-landing ground handoff. Other calls remain manual. Starts off each launch; flying stays with you.</p>
-        </details>
-        <p id="radio-error" class="field-error" role="alert" hidden></p>
-      </section>
 
       <section class="filters" aria-label="Mission filters">
         <fieldset>
@@ -78,11 +81,10 @@
         </div>
       </section>
 
-      <section class="recommendations" aria-labelledby="recommendations-heading">
-        <div class="recommendations-heading"><h2 id="recommendations-heading">Recommended flights</h2><span id="recommendations-freshness"></span></div>
-        <p class="recommendations-help">Highest credits/hour first; nearer departures break ties. Matches your search, ranges and selected approaches.</p>
+      <details id="recommendations" class="recommendations" open>
+        <summary class="recommendations-heading" title="Highest credits/hour first; nearer departures break ties. Matches your search, ranges and selected approaches."><strong id="recommendations-heading">Suggested flights</strong><span id="recommendations-count"></span><span id="recommendations-best"></span><span id="recommendations-freshness"></span></summary>
         <div id="recommendations-list" class="recommendations-list" tabindex="0" aria-label="Top recommended flights"></div>
-      </section>
+      </details>
 
       <section class="results" aria-labelledby="results-heading">
         <div class="result-head">
@@ -106,7 +108,7 @@
             <tbody id="mission-rows"></tbody>
           </table>
         </div>
-        <p class="scope-note">Missions stay until you use Refresh airport data or close the app; availability may change. Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. Mission comparison does not select missions in MSFS. Radio assist sends supported ATC responses only when enabled.</p>
+        <p class="scope-note">Missions stay until you use Refresh or close the app; availability may change. Airport capability does not establish the mission’s planned approach, filed IFR, aircraft suitability, or launchability. Mission comparison does not select missions in MSFS. Radio assist sends supported ATC responses only when enabled.</p>
       </section>
       </div>
       <footer class="settings-footer">
@@ -135,7 +137,6 @@
         </section>
         <div class="action-row">
           <button id="retry" type="button">Retry connection</button>
-          <button id="refresh-airports" type="button" title="Clear all scanned missions and cached airport data, then scan the current map area again">Refresh airport data</button>
         </div>
         <p id="desktop-help" class="desktop-help" hidden></p>
       </details>

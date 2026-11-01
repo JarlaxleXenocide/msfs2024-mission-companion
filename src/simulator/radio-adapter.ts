@@ -1,7 +1,9 @@
-import { CoherentClient, CoherentError } from './coherent';
+import { CoherentClient, CoherentError, discover } from './coherent';
 import type { Evaluator } from './adapter';
 import { lifetimeExpression } from './expressions';
-import { radioReadExpression, radioSelectExpression } from './radio-expressions';
+import { RadioWeatherRecovery } from '../domain/radio-weather';
+import { weatherCycleExpression } from './radio-weather-expressions';
+import { radioGuardExpression, radioReadExpression, radioSelectExpression } from './radio-expressions';
 import { parseRadioSnapshot } from '../domain/radio';
 import type { RadioAction, RadioSnapshot } from '../shared/radio';
 
@@ -9,6 +11,7 @@ export interface RadioSimulator {
   connect(): Promise<void>;
   read(): Promise<RadioSnapshot>;
   select(snapshot: RadioSnapshot, action: RadioAction): Promise<boolean>;
+  recoverWeather?(snapshot: RadioSnapshot): Promise<'restored' | 'unavailable' | 'stale'>;
   close(): void;
   setPort(port: number): void;
 }
@@ -25,12 +28,14 @@ export function discoverRadioPage(input: unknown): string {
   if (matches.length !== 1) throw new Error('Radio notification view unavailable');
   return String(matches[0].id);
 }
-interface Dependencies { discover(port: number): Promise<string>; createClient(port: number, id: string): Evaluator }
+interface Dependencies { discover(port: number): Promise<string>; discoverRecovery?(port: number): Promise<string>; createClient(port: number, id: string): Evaluator }
 export class RadioAdapter implements RadioSimulator {
   private client: Evaluator | null = null;
   private lifetime: number | null = null;
   private readonly uncertain = new Map<number, number | null>();
   private busy = false;
+  private readonly weather = new RadioWeatherRecovery();
+  private recoveryClient: Evaluator | null = null;
   constructor(private port: number, private readonly dependencies: Dependencies = {
     discover: async port => {
       const response = await fetch(`http://127.0.0.1:${port}/pagelist.json`, { signal: AbortSignal.timeout(5000) });
@@ -70,6 +75,7 @@ export class RadioAdapter implements RadioSimulator {
     const value = await this.evaluate(radioReadExpression(), false);
     const snapshot = parseRadioSnapshot(value);
     if (snapshot.lifetime !== this.lifetime) throw new Error('Radio view changed. Reconnect before handling radios.');
+    this.weather.next(snapshot);
     return snapshot;
   }
   async select(snapshot: RadioSnapshot, action: RadioAction): Promise<boolean> {
@@ -81,7 +87,28 @@ export class RadioAdapter implements RadioSimulator {
     }
     return result;
   }
-  close(): void { this.client?.close(); this.client = null; this.lifetime = null; }
+  async recoverWeather(snapshot: RadioSnapshot): Promise<'restored' | 'unavailable' | 'stale'> {
+    if (snapshot.lifetime !== this.lifetime || !this.weather.next(snapshot)) return 'unavailable';
+    if (!await this.evaluate(radioGuardExpression(snapshot), false)) return 'stale';
+    let submitted = false;
+    try {
+      const id = this.dependencies.discoverRecovery ? await this.dependencies.discoverRecovery(this.port) : (await discover(this.port)).efbId;
+      const client = this.dependencies.createClient(this.port, id);
+      this.recoveryClient = client;
+      await this.deadline(client.connect(), client);
+      if (!await this.evaluate(radioGuardExpression(snapshot), false)) return 'stale';
+      this.weather.attempted(); this.busy = true; submitted = true;
+      const result = await this.deadline(client.evaluate(weatherCycleExpression(snapshot.frequency)), client);
+      if (result !== 'restored' && result !== 'unavailable') throw new Error('Radio recovery outcome is uncertain. Check radios manually.');
+      return result;
+    } catch (error) {
+      if (submitted) this.uncertain.set(this.port, this.lifetime);
+      throw error;
+    } finally {
+      this.busy = false; this.recoveryClient?.close(); this.recoveryClient = null;
+    }
+  }
+  close(): void { this.recoveryClient?.close(); this.recoveryClient = null; this.client?.close(); this.client = null; this.lifetime = null; }
 
   private async evaluate(expression: string, action: boolean): Promise<unknown> {
     const client = this.client;

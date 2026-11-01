@@ -44,6 +44,24 @@ const radioFrequency = required<HTMLElement>('radio-frequency');
 const radioLatest = required<HTMLElement>('radio-latest');
 const radioAction = required<HTMLElement>('radio-action');
 const radioError = required<HTMLElement>('radio-error');
+const radioActivity = required<HTMLButtonElement>('radio-activity');
+const radioPanel = required<HTMLElement>('radio-activity-panel');
+radioPanel.addEventListener('beforetoggle', event => {
+  if ((event as ToggleEvent).newState !== 'open') return;
+  const anchor = radioActivity.getBoundingClientRect();
+  const width = Math.min(380, window.innerWidth - 24);
+  radioPanel.style.left = `${Math.max(12, Math.min(anchor.right - width, window.innerWidth - width - 12))}px`;
+  const top = Math.min(anchor.bottom + 8, window.innerHeight - 120);
+  radioPanel.style.top = `${top}px`;
+  radioPanel.style.maxHeight = `${window.innerHeight - top - 12}px`;
+});
+radioPanel.addEventListener('keydown', event => {
+  if (event.key === 'Escape') { event.preventDefault(); radioPanel.hidePopover(); radioActivity.focus(); }
+});
+required('radio-activity-close').addEventListener('click', () => radioActivity.focus());
+const dismissRadioActivity = () => { if (radioPanel.matches(':popover-open')) radioPanel.hidePopover(); };
+window.addEventListener('resize', dismissRadioActivity);
+required('app').querySelector('.workspace')!.addEventListener('scroll', dismissRadioActivity);
 let radioPending = false;
 let stateVersion = 0;
 const warning = required<HTMLElement>('preference-warning');
@@ -194,9 +212,8 @@ for (const button of sortControls) {
   });
 }
 
-bindAction('refresh', () => window.companion.refresh());
 bindAction('retry', () => window.companion.retry());
-bindAction('refresh-airports', () => {
+bindAction('refresh', () => {
   routeMap.dismiss();
   return window.companion.refreshAirports();
 });
@@ -262,6 +279,10 @@ function renderRadio(): void {
   required<HTMLElement>('radio-power').textContent = radioEnabled.checked ? 'On' : 'Off';
   radioStatus.textContent = radio?.message ?? 'Radio assist is off';
   radioStatus.dataset.state = radio?.status ?? 'off';
+  const alert = required<HTMLElement>('radio-alert');
+  alert.hidden = radio?.status !== 'paused';
+  alert.title = radio?.message ?? '';
+  radioActivity.title = radio?.message ?? 'Radio activity';
   radioFrequency.textContent = radio?.frequency ? `${radio.agent || 'Radio'} · ${radio.frequency.toFixed(3)} MHz` : '';
   radioLatest.textContent = radio?.latestMessage || 'No radio messages yet';
   radioAction.textContent = radio?.lastAction ? `Last action sent: ${radio.lastAction}` : 'No action sent';
@@ -328,6 +349,10 @@ function renderRecommendations(rows: Row[]): void {
   const signature = JSON.stringify(recommendations);
   if (signature === recommendationSignature) return;
   recommendationSignature = signature;
+  required('recommendations-count').textContent = String(recommendations.length);
+  const best = recommendations[0];
+  required('recommendations-best').textContent = best
+    ? `Best: ${best.mission.departure} → ${best.mission.destination} · ${displayCreditsPerHour(best.mission)} Cr./h` : '';
   if (!recommendations.length) {
     recommendationsList.replaceChildren(element('p', 'recommendations-empty',
       'No qualifying flights with known credits/hour and player distance. Adjust filters or scan more missions.'));
@@ -336,11 +361,11 @@ function renderRecommendations(rows: Row[]): void {
   recommendationsList.replaceChildren(...recommendations.map((row, index) => {
     const card = element('article', 'recommendation-card');
     card.dataset.guid = row.mission.guid;
-    card.append(element('strong', 'recommendation-title', `${index + 1}. ${row.mission.title}`),
-      element('div', 'recommendation-route', `${row.mission.departure} → ${row.mission.destination}`),
+    card.title = row.mission.title;
+    card.append(element('strong', 'recommendation-route', `${index + 1}. ${row.mission.departure} → ${row.mission.destination}`),
       element('div', 'recommendation-rate', `${displayCreditsPerHour(row.mission)} Cr./h`),
-      element('div', 'secondary', `${row.distanceNm!.toLocaleString('en-US', { maximumFractionDigits: 1 })} NM from player · ${row.mission.durationText}`));
-    const view = element('button', '', 'View flight');
+      element('div', 'secondary', `${row.mission.durationText} · ${row.distanceNm!.toLocaleString('en-US', { maximumFractionDigits: 1 })} NM away`));
+    const view = element('button', '', 'View flight ↗');
     view.type = 'button';
     view.ariaLabel = `View recommended flight ${row.mission.title}`;
     view.addEventListener('click', () => {

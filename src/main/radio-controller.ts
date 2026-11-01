@@ -1,4 +1,5 @@
-import { RadioDecisions } from '../domain/radio';
+import { RadioWeatherRecovery } from '../domain/radio-weather';
+import { hasLandingClearance, RadioDecisions } from '../domain/radio';
 import type { RadioSimulator } from '../simulator/radio-adapter';
 import type { RadioSnapshot, RadioState } from '../shared/radio';
 
@@ -10,12 +11,13 @@ export class RadioController {
   private published = JSON.stringify(this.state);
   private readonly listeners = new Set<() => void>();
   private readonly decisions = new RadioDecisions();
+  private readonly weather = new RadioWeatherRecovery();
   private work: Promise<void> | null = null;
   private timer: unknown;
   private generation = 0;
   private connected = false;
   private previous: RadioSnapshot | null = null;
-  private awaiting: { state: RadioSnapshot; optionId: number; since: number } | null = null;
+  private awaiting: { state: RadioSnapshot; since: number } | null = null;
   constructor(private readonly simulator: RadioSimulator, private port: number, private readonly clock: Clock = systemClock) {}
 
   getState(): RadioState { return { ...this.state }; }
@@ -70,21 +72,45 @@ export class RadioController {
         value.messages.some(n => n.index === m.index && !n.outgoing && n.text !== m.text)))) {
         throw new Error('The radio conversation changed session. Enable Radio assist again for this flight.');
       }
+      if (hasLandingClearance(value)) {
+        this.awaiting = null;
+        this.state.enabled = false; this.state.status = 'off'; this.generation++;
+        this.state.frequency = value.frequency; this.state.agent = value.agent;
+        this.state.latestMessage = value.messages.at(-1)?.text ?? '';
+        this.state.message = 'Landing clearance received · Radio assist off. Read back and handle ground radio manually.';
+        this.publish();
+        return;
+      }
+      const repeatedWeather = this.weather.next(value);
       if (this.awaiting) {
         const pending = this.awaiting;
-        const before = pending.state.options.find(o => o.id === pending.optionId);
-        const current = value.options.find(o => o.id === pending.optionId);
-        const progressed = Math.abs(value.frequency - pending.state.frequency) >= 0.0005 || value.count !== pending.state.count ||
-          !current || current.text !== before?.text || !current.enabled;
+        // A broadcast, disabled menu or new incoming message is not confirmation.
+        const progressed = Math.abs(value.frequency - pending.state.frequency) >= 0.0005 ||
+          value.messages.some(m => m.index >= pending.state.count && m.outgoing && !m.queued);
         if (progressed) this.awaiting = null;
+        else if (!value.complete || value.messages.some(m => m.queued)) pending.since = this.clock.now();
         else if (this.clock.now() - pending.since >= 15000) throw new Error('No progress after the last radio action. Check ATC manually before enabling again.');
       }
       this.state.frequency = value.frequency;
       this.state.agent = value.agent;
       this.state.latestMessage = value.messages.at(-1)?.text ?? '';
-      this.state.status = value.complete && !value.messages.some(m => m.queued) ? 'listening' : 'waiting';
-      this.state.message = this.state.status === 'waiting' ? 'Waiting for radio transmission or message data' : 'Listening for supported ATC calls · handoffs, instructions, approach, landing and parking taxi';
-      const action = this.decisions.next(value, this.clock.now());
+      this.state.status = !this.awaiting && value.complete && !value.messages.some(m => m.queued) ? 'listening' : 'waiting';
+      this.state.message = this.state.status === 'waiting' ? 'Waiting for radio transmission or message data' : 'Listening for supported ATC calls · handoffs, instructions and approach';
+      if (repeatedWeather && this.simulator.recoverWeather) {
+        this.state.status = 'acting'; this.state.message = 'Repeated weather broadcast · tuning away and back'; this.publish();
+        if (!this.current(generation)) return;
+        const result = await this.simulator.recoverWeather(value);
+        if (result !== 'stale') this.weather.attempted();
+        if (!this.current(generation)) return;
+        this.decisions.resetStability();
+        this.state.status = 'waiting';
+        this.state.message = result === 'restored' ? 'Original frequency restored · checking pending ATC response'
+          : result === 'unavailable' ? 'Weather recovery unavailable here · handle the weather loop manually' : 'Radio state changed · checking again';
+        this.publish();
+        return;
+      }
+      if (this.awaiting) this.decisions.resetStability();
+      const action = this.awaiting ? null : this.decisions.next(value, this.clock.now());
       this.publish();
       if (!action || !this.current(generation)) return;
       this.decisions.attempted(action);
@@ -96,7 +122,7 @@ export class RadioController {
       if (!this.current(generation)) return;
       if (sent) {
         this.state.lastAction = action.option.text.replace(/^\s*\d+\s*-\s*/, '').trim();
-        this.awaiting = { state: value, optionId: action.option.id, since: this.clock.now() };
+        this.awaiting = { state: value, since: this.clock.now() };
       }
       this.state.status = 'waiting';
       this.state.message = sent ? 'Action sent · waiting for simulator response' : 'Radio state changed · checking again';

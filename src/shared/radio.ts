@@ -11,8 +11,7 @@ export interface RadioSnapshot {
 }
 export interface RadioAction {
   kind: 'acknowledge' | 'acknowledge-instruction' | 'acknowledge-descent' | 'acknowledge-assigned-approach' | 'acknowledge-approach' | 'acknowledge-pattern-entry'
-    | 'acknowledge-landing' | 'acknowledge-ground-handoff' | 'acknowledge-taxi'
-    | 'tune' | 'contact' | 'request-taxi-parking';
+    | 'tune' | 'contact';
   option: RadioOption;
   key: string;
 }

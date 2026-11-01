@@ -54,8 +54,17 @@ export function radioSelectExpression(expected: RadioSnapshot, action: RadioActi
   return `(async function() { ${prelude}
     var current = snapshot();
     if (!current.complete || fingerprint(current) !== ${JSON.stringify(fingerprint(state))}) return false;
-    if (current.messages.some(function(m) { return m.queued; })) return false;
+    ${action.kind === 'tune' ? '// Exact fingerprint and decision allowlist above permit tuning away from queued weather.' : 'if (current.messages.some(function(m) { return m.queued; })) return false;'}
     await lib.b.Game.Communication.Atc.SelectOption.request(${JSON.stringify(String(option.id))});
     return true;
+  })()`;
+}
+
+/** Read-only guard used immediately before an optional weather recovery cycle. */
+export function radioGuardExpression(expected: RadioSnapshot): string {
+  const state = parseRadioSnapshot(expected);
+  return `(async function() { ${prelude}
+    var current = snapshot();
+    return current.complete && fingerprint(current) === ${JSON.stringify(fingerprint(state))};
   })()`;
 }

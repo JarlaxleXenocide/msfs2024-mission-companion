@@ -76,3 +76,91 @@ test('normal app startup uses the default clock without dependency injection',as
     assert.equal(c.getState().status,'listening');
   } finally {c.stop();}
 });
+
+
+test('landing clearance stops polling and closes the connection before any further action',async()=>{
+  for(const queued of [false,true]) {
+    const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+    sim.data.options=[];c.setEnabled(true);await flush();
+    sim.data.messages.push({index:1,outgoing:false,queued,text:'Example 123, wind calm, cleared to land runway 25R.'});
+    sim.data.count=2;sim.data.options=[{id:0,text:'1 - Acknowledge Landing Clearance',enabled:true}];
+    await clock.advance(1000);
+    assert.equal(c.getState().enabled,false);assert.equal(c.getState().status,'off');
+    assert.match(c.getState().message,/landing clearance/i);assert.equal(sim.closes,1);
+    const reads=sim.reads;await clock.advance(60000);
+    assert.equal(sim.reads,reads);assert.equal(sim.sent.length,0);assert.equal(clock.timers.size,0);
+  }
+});
+
+test('approach clearance does not stop radio assist',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+  sim.data.messages[0].text='Example 123, cleared ILS runway 25R approach.';
+  sim.data.options[0].text='1 - Acknowledge Pattern Entry Instructions';
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  assert.equal(c.getState().enabled,true);assert.equal(sim.sent[0]?.kind,'acknowledge-pattern-entry');c.stop();
+});
+
+test('a long queued weather broadcast does not time out or count as confirmation of a submitted action',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+  c.setEnabled(true);await flush();await clock.advance(2000);assert.equal(sim.sent.length,1);
+  sim.data.messages.push({index:1,outgoing:false,queued:true,text:'Example airport information Alpha. Wind calm. Visibility 10. Altimeter 2992.'});
+  sim.data.count=2;
+  await clock.advance(60000);assert.equal(c.getState().enabled,true);assert.equal(sim.sent.length,1);
+  sim.data.messages[1].queued=false;
+  await clock.advance(16000);
+  assert.equal(c.getState().enabled,false);assert.match(c.getState().message,/no progress/i);
+  assert.equal(sim.sent.length,1,'Unconfirmed submission is never blindly retried');
+});
+
+
+test('tower tune escapes looping weather, then contact waits for a quiet radio and is sent once',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+  sim.data={...sample(),count:3,frequency:126.3,options:[{id:0,text:'1 - [ Tune Example Tower on 118.700 ]',enabled:true}],messages:[
+    {index:0,text:'Example 123, contact Example Tower on 118.7.',outgoing:false,queued:false},
+    {index:1,text:'Tower on 118.7, Example 123.',outgoing:true,queued:false},
+    {index:2,text:'Example airport information Alpha. Wind calm. Altimeter 2992.',outgoing:false,queued:true},
+  ]};
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  assert.deepEqual(sim.sent.map(a=>a.kind),['tune']);
+  sim.data.frequency=118.7;sim.data.options[0].text='1 - Contact Example Tower';
+  await clock.advance(30000);assert.deepEqual(sim.sent.map(a=>a.kind),['tune']);
+  sim.data.messages[2].queued=false;await clock.advance(3000);
+  assert.deepEqual(sim.sent.map(a=>a.kind),['tune','contact']);
+  sim.data.messages.push({index:3,text:'Example Tower, Example 123, inbound ILS runway 25R.',outgoing:true,queued:false});sim.data.count=4;
+  await clock.advance(20000);assert.equal(sim.sent.length,2);assert.equal(c.getState().enabled,true);c.stop();
+});
+
+test('repeated weather cycles the radio before pending acknowledgment and the real handoff',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock),events:string[]=[];
+  const weather='Example airport information Alpha. Wind calm. Altimeter 2992.';
+  Object.assign(sim,{recoverWeather:async()=>{events.push('out-and-back');return 'restored';}});
+  const select=sim.select.bind(sim);sim.select=async(s,a)=>{events.push(a.kind);return select(s,a);};
+  sim.data.messages.push({index:1,text:weather,outgoing:false,queued:true},{index:2,text:weather,outgoing:false,queued:true});sim.data.count=3;
+  c.setEnabled(true);await flush();await clock.advance(1000);
+  assert.deepEqual(events,['out-and-back']);
+  sim.data.messages.forEach(m=>m.queued=false);await clock.advance(3000);
+  assert.deepEqual(events,['out-and-back','acknowledge']);
+  sim.data.messages.push({index:3,text:'Going to 133.25, Example 123.',outgoing:true,queued:false});sim.data.count=4;
+  sim.data.options[0].text='1 - [ Tune Example Center on 133.250 ]';await clock.advance(3000);
+  assert.deepEqual(events,['out-and-back','acknowledge','tune']);c.stop();
+});
+
+test('an ineligible weather cycle leaves ordinary ATC handling enabled',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);
+  Object.assign(sim,{recoverWeather:async()=> 'unavailable'});
+  const weather='Example airport information Alpha. Wind calm. Altimeter 2992.';
+  sim.data.messages.push({index:1,text:weather,outgoing:false,queued:false},{index:2,text:weather,outgoing:false,queued:false});sim.data.count=3;
+  c.setEnabled(true);await flush();await clock.advance(4000);
+  assert.equal(c.getState().enabled,true);assert.equal(sim.sent[0]?.kind,'acknowledge');c.stop();
+});
+
+test('weather recovery does not mistake its round trip for confirmation of an earlier response',async()=>{
+  const sim=new Simulator(),clock=new Clock(),c=new RadioController(sim,19999,clock);let cycles=0;
+  Object.assign(sim,{recoverWeather:async()=>{cycles++;return 'restored';}});
+  c.setEnabled(true);await flush();await clock.advance(2000);assert.equal(sim.sent.length,1);
+  const weather='Example airport information Alpha. Wind calm. Altimeter 2992.';
+  sim.data.messages.push({index:1,text:weather,outgoing:false,queued:true},{index:2,text:weather,outgoing:false,queued:true});sim.data.count=3;
+  await clock.advance(1000);assert.equal(cycles,1);assert.equal(sim.sent.length,1);
+  sim.data.messages.forEach(m=>m.queued=false);await clock.advance(16000);
+  assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,false);assert.match(c.getState().message,/no progress/i);
+});

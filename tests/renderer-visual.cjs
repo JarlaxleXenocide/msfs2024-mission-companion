@@ -26,7 +26,7 @@ fs.mkdirSync(output, { recursive: true });
    let state={session:'SYNTHETIC',revision:1,observedAt:'2026-09-05T19:00:00Z',connection:'ready',stale:false,message:'SYNTHETIC QA — not live simulator data',rows};
    let listener;
    window.visualTest={push:patch=>{state={...state,...patch};listener(state)},rows,calls:0};
-   window.companion={getState:async()=>state,getPreferences:async()=>preferences,setPreferences:async p=>(preferences=p),refresh:async()=>{window.visualTest.calls++;if(window.visualTest.failRefresh)throw Error('Synthetic refresh failure')},refreshAirports:async()=>{window.visualTest.calls++},retry:async()=>{window.visualTest.calls++},subscribe:fn=>{listener=fn;return()=>{}}};
+   window.companion={getState:async()=>state,getPreferences:async()=>preferences,setPreferences:async p=>(preferences=p),refresh:async()=>{window.visualTest.calls++;if(window.visualTest.failRefresh)throw Error('Synthetic refresh failure')},refreshAirports:async()=>{window.visualTest.calls++;if(window.visualTest.failRefresh)throw Error('Synthetic refresh failure')},retry:async()=>{window.visualTest.calls++},subscribe:fn=>{listener=fn;return()=>{}}};
   });
   await page.goto(pathToFileURL(resolve('.webpack/x64/renderer/main_window/index.html')).href);
   await page.waitForFunction(()=>document.querySelector('#app').ariaBusy==='false');

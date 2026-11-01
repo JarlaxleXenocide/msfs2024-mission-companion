@@ -217,7 +217,7 @@ const endpoint = (ident, latitude, longitude) => ({ ident, status: 'ready', posi
     await routes.nth(1).click();
     await page.evaluate(route => window.routeTest.push({ route: { session: 'session-a', ...route } }), secondRoute);
     await page.locator('.settings-disclosure').evaluate(el => { el.open = true; });
-    await page.locator('#refresh-airports').click();
+    await page.locator('#refresh').click();
     assert.equal(await page.locator('#route-map-popup').isVisible(), false, 'Explicit airport reset dismisses the pinned snapshot');
     assert.equal(await page.evaluate(() => window.routeTest.selections.at(-1)), null);
     await page.locator('.settings-disclosure').evaluate(el => { el.open = false; });

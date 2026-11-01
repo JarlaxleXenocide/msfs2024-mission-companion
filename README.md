@@ -2,39 +2,77 @@
 
 A native Linux and Windows x64 desktop companion for comparing Microsoft Flight Simulator 2024 Career missions by duration, distance from the player, advertised total payout, and destination approach capability. Supports ILS, RNAV (LPV and LNAV/VNAV), LOC and VOR, with expandable runway-end details, advertised payout and estimated duration.
 
-Airport capability does not determine a mission's assigned approach or aircraft suitability. Mission comparison reads simulator data without selecting missions, changing simulator filters, editing routes or modifying Career saves. Optional Radio assist can send native ATC handoff and altitude-instruction responses.
+Airport capability does not determine a mission's assigned approach or aircraft suitability. Mission comparison reads simulator data without selecting missions, changing simulator filters, editing routes or modifying Career saves. Optional Radio assist can send supported native ATC responses and change COM frequencies.
 
 ## Radio assist (experimental)
 
-Click the pilot icon to enable automatic ATC radio responses. It glows when enabled and is muted when off. Radio assist starts **off** each launch. It uses the simulator’s own ATC conversation; no model, microphone or cloud service is needed, and the Communications panel can stay closed.
+Click the pilot button in the header to turn Radio assist on or off. It starts **off** every time you launch the app and glows while enabled. **Activity** opens the current frequency, latest message and last submitted response without moving the mission list. Close it with Escape or a click outside. A paused indicator stays visible in the header when attention is needed.
 
-Supported English response options cover center/tower handoffs, climb/descend-and-maintain instructions (including accompanying speed restrictions), maintain-present-altitude instructions, descend-via clearances with a route and altitude under **Acknowledge Descent Clearance**, assigned approaches ("Expect … approach … Cleared to …" under **Acknowledge Assigned Approach**), approach clearance, the observed ILS clearance under **Acknowledge Pattern Entry Instructions**, landing clearance, ground handoff, and parking taxi clearance. It acknowledges the latest unanswered matching call once, including after ATC reminders. Frequency changes and check-ins follow the matching native menu options; the companion does not determine approach geometry or enforce procedure timing.
+Radio assist reads the simulator’s ATC transcript and response menu. It does not use a microphone, speech recognition, a language model or a cloud service, and the Communications panel can stay closed. Unlike mission comparison, it **can send radio responses and change COM frequencies** when enabled.
 
-After a post-landing ground handoff, it tunes the requested Ground frequency and selects **Request Taxi to Parking** when offered, using recent landing-clearance or runway-exit messages as arrival evidence. It does not require a separate Contact Ground option. It leaves alternate parking, takeoff options and ground services alone, and skips requests already made or cleared. If you skip taxi or the relevant options disappear, it sends nothing further.
+### Supported calls
 
-You keep control of the aircraft and whether to follow ATC instructions. Radio responses never change aircraft altitude, speed, autopilot settings or flight controls, even if instructions conflict. Departure procedures and unseen labels or message contexts remain manual. Expand **Radio activity** to see the latest message and last submitted action. A disconnected or changed conversation, port change or uncertain operation turns assistance off. An uncertain native operation requires the simulator/view to restart before another attempt; already-sent actions cannot be recalled by turning the toggle off.
+It recognizes these English call/menu combinations:
 
-Mission collection and new airport queries pause when the Career mission browser is inactive, including during flight. The companion checks for the browser returning every ten seconds; active browsing scans every two seconds (ten when minimized). Radio monitoring has its own one-second cadence while enabled. Existing airport requests are allowed to finish.
+- Center and tower handoffs: acknowledge, tune the requested frequency if needed, and check in.
+- Climb/descend-and-maintain and maintain-present/current-altitude instructions, including calls with accompanying speed restrictions.
+- Descend-via clearances that specify both a route and altitude, under **Acknowledge Descent Clearance**.
+- Assigned approaches ("Expect … approach … Cleared to …"), approach clearances, and the observed ILS clearance labeled **Acknowledge Pattern Entry Instructions**.
 
-Pilot toggle artwork: [user-selected pilot icon](https://cdn-icons-png.magnific.com/256/13627/13627610.png?semt=ais_white_label), bundled locally.
+The offered response must match the current unanswered call. Reminders keep the original call’s identity so they do not cause another submission. Normal spoken replies wait while transcript messages are queued.
+
+**At “cleared to land,” Radio assist switches off and closes its radio connection.** Approach clearance does not trigger this stop. Read back the landing clearance yourself. Ground handoffs, taxi-to-parking requests, departure procedures, alternate approaches/runways and unrecognized calls remain manual.
+
+### Repeated weather broadcasts
+
+Recognized ATIS/automated weather text does not replace a pending handoff. A matching handoff tune option can leave a weather station without transmitting over its broadcast.
+
+When the same weather text appears in two separate transcript entries, the assistant can try one tune-away-and-back cycle for that recently tracked report. Repeated polling or a queued/unqueued update to the same entry does not count as a repeat. It temporarily uses the transmitting COM radio’s existing standby frequency, restores the original active frequency, and checks both changes. It does not write the standby frequency. It then checks for a pending acknowledgment before continuing the handoff; the temporary changes do not confirm an earlier ATC response.
+
+This recovery requires:
+
+- Airborne flight at or above **18,000 ft**, within **300 ft/min** of level flight, with no active GPS approach.
+- No observed descent, approach, arrival, tower, ground/taxi or landing cue in the current tracked conversation. Missing transcript history also blocks recovery.
+- One transmitting COM radio (COM1 or COM2), a different valid standby frequency, and the simulator’s EFB frequency API.
+
+These are conservative checks, **not an FMC flight-phase reading**. If they are not met, ordinary supported ATC handling continues and the weather loop remains manual. If a manual frequency change is detected during recovery, the assistant stops rather than restoring over it.
+
+**The weather-recovery sequence has automated test coverage but has not yet been verified as an in-flight workaround.** It may not clear every weather loop. Check the active frequency if recovery fails or the connection is lost partway through it.
+
+### Limitations and manual takeover
+
+- Matching is limited to recognized English wording and menu labels. Other languages, unfamiliar phrases, ambiguous options, or a handoff that has fallen out of the available transcript can require manual action.
+- The implementation was developed around the default Asobo Boeing 737 MAX 8 in MSFS 2024. This is not a guarantee of identical behavior with every aircraft, simulator update or ATC configuration.
+- It handles the radio dialogue only. It does not validate a clearance, decide when you are geographically inbound, enforce procedure timing, or change altitude, speed, autopilot settings or flight controls. You decide whether and when to follow ATC.
+- A new weather message or disabled menu is not proof that the previous response succeeded. If a submitted action produces no outgoing reply or frequency change, assistance pauses after 15 seconds of otherwise available radio data. Queued transmissions and incomplete data suspend that wait.
+- Disconnection, a changed conversation, a port change or an uncertain operation turns assistance off. An uncertain native operation requires a simulator/view restart before another attempt. Do not repeatedly reconnect to bypass that state. Turning the toggle off cannot recall an action already submitted.
+- Radio assist uses the experimental Coherent inspector integration. It cannot guarantee simulator stability or recover a simulator crash. Stay ready to handle the radios manually.
+
+Mission collection and new airport queries pause while the Career mission browser is inactive, including during flight. A lightweight browser-return check continues every ten seconds; active browsing scans every two seconds (ten when minimized). Radio monitoring is separate and polls once per second while enabled. The landing-clearance stop ends radio polling; it does not shut down the mission-browser return check. Requests already underway are allowed to finish.
+
+Pilot toggle artwork: [pilot icon](https://cdn-icons-png.magnific.com/256/13627/13627610.png?semt=ais_white_label), bundled locally.
 
 ## Screenshots
 
-Screenshots show v0.1.7 of the actual app with example missions and representative airport data.
+Screenshots show the actual v0.1.8 interface with illustrative missions and representative airport data; they are not live mission availability or payouts.
 
 **Compare earnings and departure distance.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, **Credits/hour** sorts estimated hourly earnings highest first, with **From player (NM)** putting nearer departures first when rates tie. Hourly earnings use advertised payout and estimated duration; distance is measured from the Career pilot’s current airport (KSEA in these examples) to the mission’s departure.
 
 ![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/mission-sorting.png)
 
-**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Scan now adds or updates missions from the current area; Refresh airport data clears the collected list and cached airport details. Approach, duration, player-distance and total-credit filters stay visible above the list.
+**Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Automatic scans add or update missions from the current area. The top **Refresh** button clears the collected list and cached airport details, then rescans the current map area. Approach, duration, player-distance and total-credit filters stay visible above the list.
 
 **Narrow the list before sorting.** Set Duration in 30-minute steps, Distance from player in 25 NM steps, and Total Credits in 500,000-credit steps. Drag either end of a range, type its bounds, or leave a side open. The filters combine and persist across restarts.
 
 ![Duration, Distance from player and Total Credits ranges narrowing the scanned mission list](assets/screenshots/mission-filters.png)
 
-**Start with recommended flights.** The top pane shows up to three flights matching your search, ranges and selected approaches. Highest credits/hour ranks first; nearer departures break ties. Flights with unknown earnings, duration or player distance are excluded. **View flight** opens that mission’s runway details without changing your table sort. Recommendations update as filters and scanned data change; stale snapshots are labeled.
+**Start with recommended flights.** The collapsible **Suggested flights** row shows up to three flights matching your search, ranges and selected approaches. Highest credits/hour ranks first; nearer departures break ties. Flights with unknown earnings, duration or player distance are excluded. **View flight** opens that mission’s runway details without changing your table sort. Compact cards show route, credits/hour, duration and distance. Collapse the row to keep only the best-flight summary; live updates preserve the collapsed state. Recommendations update as filters and scanned data change; stale snapshots are labeled.
 
 ![Top three recommended flights ranked by hourly earnings and departure distance](assets/screenshots/mission-recommendations.png)
+
+**Keep radio controls close without losing space.** The pilot toggle sits beside Refresh. Activity opens in a floating panel, and suggestions can collapse to a single summary row.
+
+![Header pilot button and radio activity with flight suggestions collapsed](assets/screenshots/radio-activity.png)
 
 **Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
 
@@ -96,7 +134,7 @@ Invoke-RestMethod -Uri 'http://127.0.0.1:19999/pagelist.json' -TimeoutSec 3 |
 
 The page list should include `mainUi` and `Electronic Flight Bag`. Page IDs can change; the companion discovers them automatically. The endpoint is `/pagelist.json`, not `/json`. Successful discovery confirms that the inspector is reachable; mission retrieval also requires Career outside briefing with the native Missions panel expanded. If missions are not appearing, focus the simulator and press **G** to expand the panel if it is collapsed.
 
-Use the **Display & connection** footer to change the local port, retry connection, refresh airport data, choose a theme/appearance or enable supported pinning. Filters, search, sorting and Compact affect only the companion. Click a sortable column heading to cycle through descending, ascending, and off. Additional columns become tie-breakers in the order selected; numbered arrows show their priority. With every sort off, missions follow Simulator order. Distance (NM) measures straight-line distance from the Career pilot’s airport to each mission’s departure airport and updates with normal polling. It does not represent aircraft relocation distance or transfer fees. Hover a distance to see the pilot airport used; unavailable distances display “—”. Unknown sort values remain last. Missions scroll independently of the footer.
+Use the **Display & connection** footer to change the local port, retry connection, choose a theme/appearance or enable supported pinning. Use the top **Refresh** button to refresh airport data. Filters, search, sorting and Compact affect only the companion. Click a sortable column heading to cycle through descending, ascending, and off. Additional columns become tie-breakers in the order selected; numbered arrows show their priority. With every sort off, missions follow Simulator order. Distance (NM) measures straight-line distance from the Career pilot’s airport to each mission’s departure airport and updates with normal polling. It does not represent aircraft relocation distance or transfer fees. Hover a distance to see the pilot airport used; unavailable distances display “—”. Unknown sort values remain last. Missions scroll independently of the footer.
 
 Routine polling shows **Connected · updating** while retaining the previous observation. Disconnected, inactive and stalled results are marked stale. If a native query stalls, wait for it to settle and follow the displayed recovery guidance. Reconnecting a socket does not cancel simulator-side work; do not open additional clients to bypass a stall.
 
@@ -106,7 +144,7 @@ On Linux, preferences are stored under `$XDG_CONFIG_HOME/MSFS Career Approach Co
 
 RNAV labels show the simulator’s reported LPV, LNAV/VNAV, LP and LNAV minima. A runway number does not establish vertical guidance. RNAV procedures with no designated runway are labeled Circling; missing runway identity is labeled Runway unknown. “Minima unavailable” means the simulator did not report a recognized minima type. LPV and LNAV/VNAV filters require explicit simulator flags and a valid associated runway; circling-only procedures cannot satisfy them. These filters describe destination capability, not the mission’s assigned approach. Enable Matches only to hide missions that do not qualify.
 
-Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. **Scan now** starts a scan immediately instead of waiting for the next automatic scan (normally every two seconds, or ten seconds while minimized). It retains collected missions and cached airport data; if a scan is already running, it joins that scan. **Refresh airport data** clears all collected missions and cached airport details, dismisses any open route map, then starts again from the current map area. It does not clear the browser’s OpenStreetMap image cache. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
+Pan the Career map to collect missions across multiple areas. Scans keep previously found missions in memory, update missions seen again, and avoid duplicates. The top **Refresh** button clears all collected missions and cached airport details, dismisses any open route map, then starts again from the current map area. If a native capture is still running, it settles before the new scan starts. It does not clear the browser’s OpenStreetMap image cache. Collected missions remain through reconnects until you clear them or close the app; their availability in MSFS may change.
 
 **Duration**, **Distance from player** and **Total Credits** have two draggable handles and From/To fields. Duration handles and numeric fields move by 30 minutes (0.5 hours); player-distance handles move by 25 NM; total-credit handles and numeric fields move by 500,000 credits. Exact nautical miles can be entered in the distance fields. Both limits are inclusive: 2–3 hours includes 2h, 2h30min and 3h. Leave a field blank for no limit, or use Clear to remove that range. The rightmost upper handle means no maximum. Type a larger bound to extend the slider scale. Settings persist across restarts.
 

@@ -35,3 +35,28 @@ test('a replaced view cannot supply an action under the old connection lifetime'
   await assert.rejects(adapter.select(state,{kind:'acknowledge',option:{id:0,text:'1 - Acknowledge Handoff',enabled:true},key:''}),/view changed/i);
   assert.equal(evaluations,2);adapter.close();
 });
+
+test('weather recovery validates repeated messages and current radio state before opening its write path',async()=>{
+  const weather='Example airport information Alpha. Wind calm. Altimeter 2992.';
+  for(const mode of ['single','stale','restored','uncertain']) {
+    let writes=0,closed=0;
+    const state={lifetime:1000,count:mode==='single'?1:2,frequency:133.25,agent:'EXAMPLE',complete:true,options:[],
+      messages:[{index:0,text:weather,outgoing:false,queued:false},...(mode==='single'?[]:[{index:1,text:weather,outgoing:false,queued:true}])]};
+    const adapter=new RadioAdapter(19999,{discover:async()=> '3',discoverRecovery:async()=> '6',createClient:(_port,id)=>({
+      connect:async()=>{},close:()=>{if(id==='6')closed++;},evaluate:async(source:string)=>{
+        if(id==='6'){writes++;if(mode==='uncertain')throw new CoherentError('transport-loss','lost');return 'restored';}
+        if(source.includes("var count = get('Messages');"))return state;
+        if(source.includes('fingerprint(current)'))return mode!=='stale';
+        return 1000;
+      },
+    })});
+    await adapter.connect();const s=await adapter.read();
+    if(mode==='uncertain'){
+      await assert.rejects(adapter.recoverWeather(s),/lost/);adapter.close();await assert.rejects(adapter.connect(),/uncertain/i);
+    }else{
+      assert.equal(await adapter.recoverWeather(s),mode==='single'?'unavailable':mode==='stale'?'stale':'restored');
+      assert.equal(writes,mode==='restored'?1:0);adapter.close();
+    }
+    if(mode==='restored'||mode==='uncertain')assert.ok(closed>=1);
+  }
+});

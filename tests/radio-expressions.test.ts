@@ -90,9 +90,6 @@ test('captured clearance labels submit only their option and reject a concurrent
     ['Acknowledge Assigned Approach','Example 123,Maintain present heading and altitude Expect ILS runway 10 approach via FIXIT transition. Cleared to  FIXIT.'],
     ['Acknowledge Approach Clearance','Example 123, Contact Example Tower on 118.7 when inbound on the approach.'],
     ['Acknowledge Pattern Entry Instructions','Example 123, Cleared ILS runway 09 approach.'],
-    ['Acknowledge Landing Clearance','Example 123, cleared to land runway 09.'],
-    ['Acknowledge Ground Handoff','Example 123, contact ground on 121.9.'],
-    ['Acknowledge Taxi Clearance','Example 123, taxi to general aviation parking via taxiway A.'],
   ]) {
     const f=setup();f.data.Options[0].content=`1 - ${label}`;f.messages[0].messageContent=text;
     const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));const e=new RadioDecisions();e.next(s,0);const action=e.next(s,2000)!;
@@ -102,13 +99,25 @@ test('captured clearance labels submit only their option and reject a concurrent
   }
 });
 
-test('post-landing taxi request is guarded against a changed frequency before submission',async()=>{
-  const f=setup();f.messages.splice(0,1,
-    {messageContent:'Example 123, turn next taxiway.',outgoing:false,isQueued:false},
-    {messageContent:'Example 123, contact ground on 121.9.',outgoing:false,isQueued:false},
-    {messageContent:'Going to 121.9, Example 123.',outgoing:true,isQueued:false});
-  f.data.Messages=3;f.data.Frequency.value=121.9;f.data.Options=[{id:1,content:'2 - Request Taxi to Parking',enabled:true}];
-  const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));const e=new RadioDecisions();e.next(s,0);const action=e.next(s,2000)!;
-  assert.equal(action?.kind,'request-taxi-parking');assert.equal(await f.evaluate(radioSelectExpression(s,action)),true);assert.deepEqual(f.sent,['1']);
-  f.data.Frequency.value=118.7;assert.equal(await f.evaluate(radioSelectExpression(s,action)),false);assert.deepEqual(f.sent,['1']);
+test('native action builder refuses ground and parking options',async()=>{
+  const f=setup();f.messages[0].messageContent='Example 123, contact ground on 121.9.';
+  for(const label of ['Request Taxi to Parking','Acknowledge Ground Handoff','Acknowledge Taxi Clearance','[ Tune Ground on 121.900 ]']) {
+    f.data.Options[0].content=label;
+    const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+    assert.throws(()=>radioSelectExpression(s,{kind:'tune',option:s.options[0],key:'forged'}),/Invalid radio action/);
+    assert.deepEqual(f.sent,[]);
+  }
+});
+
+
+test('native tune can leave queued weather but refuses a new queued instruction',async()=>{
+  const f=setup();f.data.Options[0].content='1 - [ Tune Example Center on 133.250 ]';
+  f.messages.push({messageContent:'Example airport information Alpha. Wind calm. Visibility 10. Altimeter 2992.',outgoing:false,isQueued:true});
+  f.data.Messages=2;
+  const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));
+  const e=new RadioDecisions();e.next(s,0);const action=e.next(s,2000)!;
+  assert.equal(action?.kind,'tune');
+  assert.equal(await f.evaluate(radioSelectExpression(s,action)),true);assert.deepEqual(f.sent,['0']);
+  f.messages[1].messageContent='Example 123, maintain present altitude.';
+  assert.equal(await f.evaluate(radioSelectExpression(s,action)),false);assert.deepEqual(f.sent,['0']);
 });

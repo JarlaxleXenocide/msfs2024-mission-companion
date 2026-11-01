@@ -42,12 +42,24 @@ export function parseRadioSnapshot(input: unknown): RadioSnapshot {
 const clean = (value: string) => value.replace(/^\s*\d+\s*-\s*/, '').trim();
 const sameFrequency = (a: number, b: number) => Math.abs(a - b) < 0.0005;
 
+// Only clearly identified weather broadcasts are informational. Weather embedded
+// in a clearance or instruction must still supersede the previous call.
+export function weatherBroadcast(text: string): boolean {
+  return /\b(?:airport information [a-z]+|information (?:alpha|alfa|bravo|charlie|delta|echo|foxtrot|golf|hotel|india|juliett?|kilo|lima|mike|november|oscar|papa|quebec|romeo|sierra|tango|uniform|victor|whiskey|x-ray|yankee|zulu)|automatic terminal information service|automated weather (?:observation|observing) system)\b/i.test(text) &&
+    /\bwind\b/i.test(text) && /\b(?:altimeter|QNH)\b/i.test(text) &&
+    !/\b(?:contact|cleared|climb|descend|maintain|hold|taxi|go around)\b/i.test(text.replace(/\bon initial contact\b/gi, ''));
+}
+export function hasLandingClearance(state: RadioSnapshot): boolean {
+  return state.messages.some(m => !m.outgoing && /\bcleared to land\b/i.test(m.text));
+}
+
 // Reminders retain the original instruction identity. An outgoing reply or any
 // unrelated newer instruction ends the prior acknowledgment opportunity.
 function latestUnanswered(messages: RadioMessage[]): RadioMessage | null {
   for (let i = messages.length - 1; i >= 0; i--) {
     const message = messages[i];
     if (message.outgoing) return null;
+    if (weatherBroadcast(message.text)) continue;
     if (/^(?:[^,]+,\s*)?(?:please acknowledge|acknowledge last transmission|did you hear my last transmission)[.!?]?\s*$/i.test(message.text.trim())) continue;
     return message;
   }
@@ -67,8 +79,6 @@ function sameStation(name: string, target: Handoff): boolean {
 }
 const altitudeInstruction = (text: string) => /\b(?:(?:climb|descend) and maintain (?:FL\s*\d{1,3}|\d[\d,]*\s*(?:ft|feet))|maintain (?:present|current) altitude)\b/i.test(text);
 const approachClearance = (text: string) => /\bcleared\b.*\b(?:arrival|approach)\b/i.test(text);
-const landingClearance = (text: string) => /\bcleared to land\b/i.test(text);
-const parkingTaxi = (text: string) => /\btaxi(?:ing)? to\b.*\bparking\b/i.test(text);
 const acknowledgments = new Map<string, RadioAction['kind']>([
   ['acknowledge handoff','acknowledge'],
   ['acknowledge instruction','acknowledge-instruction'],
@@ -76,9 +86,6 @@ const acknowledgments = new Map<string, RadioAction['kind']>([
   ['acknowledge assigned approach','acknowledge-assigned-approach'],
   ['acknowledge approach clearance','acknowledge-approach'],
   ['acknowledge pattern entry instructions','acknowledge-pattern-entry'],
-  ['acknowledge landing clearance','acknowledge-landing'],
-  ['acknowledge ground handoff','acknowledge-ground-handoff'],
-  ['acknowledge taxi clearance','acknowledge-taxi'],
 ]);
 function matchesAcknowledgment(kind: RadioAction['kind'], message: RadioMessage): boolean {
   const target = handoff(message);
@@ -89,9 +96,6 @@ function matchesAcknowledgment(kind: RadioAction['kind'], message: RadioMessage)
     case 'acknowledge-assigned-approach': return /\bexpect\b.*\bapproach\b/i.test(message.text) && /\bcleared to\s+\S+/i.test(message.text);
     case 'acknowledge-approach': return approachClearance(message.text) || !!target && /\btower$/i.test(target.name);
     case 'acknowledge-pattern-entry': return /\bcleared\b.*\bapproach\b/i.test(message.text);
-    case 'acknowledge-landing': return landingClearance(message.text);
-    case 'acknowledge-ground-handoff': return !!target?.ground;
-    case 'acknowledge-taxi': return parkingTaxi(message.text);
     default: return false;
   }
 }
@@ -119,12 +123,16 @@ export class RadioDecisions {
   resetStability(): void { this.stable = ''; }
 
   private candidate(state: RadioSnapshot): RadioAction | null {
-    if (!state.complete || state.messages.some(m => m.queued)) return null;
+    if (hasLandingClearance(state) || !state.complete) return null;
+    const queued = state.messages.filter(m => m.queued);
+    // Tuning away from a looping weather station is not a spoken transmission.
+    // Every queued entry must be a recognized incoming broadcast for this exception.
+    if (queued.some(m => m.outgoing || !weatherBroadcast(m.text))) return null;
     const unanswered = latestUnanswered(state.messages);
     const offeredAcks = state.options.filter(o => acknowledgments.has(clean(o.text).toLowerCase()));
     if (offeredAcks.length) {
       const enabled = offeredAcks.filter(o => o.enabled);
-      if (!unanswered || enabled.length !== 1 || state.options.some(o => o.enabled &&
+      if (queued.length || !unanswered || enabled.length !== 1 || state.options.some(o => o.enabled &&
           /^(?:Contact .+|\[\s*Tune .+\]|Request Taxi to Parking)$/i.test(clean(o.text)))) return null;
       const option = enabled[0], kind = acknowledgments.get(clean(option.text).toLowerCase())!;
       return matchesAcknowledgment(kind, unanswered) ? action(state, unanswered, kind, option) : null;
@@ -132,28 +140,22 @@ export class RadioDecisions {
 
     let target: Handoff | null = null;
     for (const message of state.messages) target = handoff(message) ?? target;
-    if (!target || unanswered && unanswered.index !== target.message.index) return null;
+    if (!target || target.ground || unanswered && unanswered.index !== target.message.index) return null;
     const selected = target;
     const later = state.messages.filter(m => m.index > selected.message.index);
     const contacted = later.some(m => m.outgoing && sameStation(m.text.split(',')[0], selected));
-    const taxiStarted = target.ground && later.some(m => parkingTaxi(m.text));
-    const postLanding = target.ground && state.messages.some(m => !m.outgoing && m.index < selected.message.index &&
-      (landingClearance(m.text) || /\bturn next taxiway\b/i.test(m.text)));
     const tuned = sameFrequency(state.frequency, target.frequency);
     const candidates: RadioAction[] = [];
     for (const option of state.options) {
       if (!option.enabled) continue;
       const label = clean(option.text);
       const tune = label.match(/^\[\s*Tune (.+?) on (\d{3}\.\d{1,3})\s*\]$/i);
-      if (!contacted && !taxiStarted && tune && sameStation(tune[1], target) && sameFrequency(Number(tune[2]), target.frequency) && !tuned) {
+      if (!contacted && tune && sameStation(tune[1], target) && sameFrequency(Number(tune[2]), target.frequency) && !tuned) {
         candidates.push(action(state, target.message, 'tune', option));
       }
       const contact = label.match(/^Contact (.+)$/i);
-      if (!contacted && !taxiStarted && contact && sameStation(contact[1], target) && tuned) {
+      if (!queued.length && !contacted && contact && sameStation(contact[1], target) && tuned) {
         candidates.push(action(state, target.message, 'contact', option));
-      }
-      if (/^Request Taxi to Parking$/i.test(label) && postLanding && tuned && !taxiStarted) {
-        candidates.push(action(state, target.message, 'request-taxi-parking', option));
       }
     }
     return candidates.length === 1 ? candidates[0] : null;
