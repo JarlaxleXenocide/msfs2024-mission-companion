@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { attributionURLs, installMapPolicy } from './main/map-policy';
 import { Controller } from './main/controller';
 import { RadioController } from './main/radio-controller';
+import { RadioLog } from './main/radio-log';
 import { RadioAdapter } from './simulator/radio-adapter';
 import { registerCompanionIPC } from './main/ipc';
 import { readPreferences, writePreferences } from './main/preferences';
@@ -49,6 +50,7 @@ function startApplication(): void {
   const wayland = backend === 'wayland';
   let controller: Controller | undefined;
   let radio: RadioController | undefined;
+  let radioLog: RadioLog | undefined;
   let window: BrowserWindow | null = null;
   let preferences: Preferences;
   let preferencesPath: string;
@@ -134,7 +136,7 @@ function startApplication(): void {
       refreshAirports: () => controller!.refreshAirports(),
       retry: () => controller!.retry(),
     });
-    const unsubscribe = controller!.subscribe(pushState);
+    const unsubscribe = controller!.subscribe(state => { radioLog?.observeMissionState(state); pushState(); });
     const unsubscribeRadio = radio!.subscribe(pushState);
     disposeWindow = () => { unsubscribe(); unsubscribeRadio(); removeIPC(); removeMapPolicy(); };
     created.on('minimize', () => controller!.setMinimized(true));
@@ -158,7 +160,9 @@ function startApplication(): void {
     preferencesPath = join(app.getPath('userData'), 'preferences.json');
     preferences = await readPreferences(preferencesPath, message => { desktop.preferenceWarning = message; });
     controller = new Controller(new SimulatorAdapter(preferences.port), preferences);
-    radio = new RadioController(new RadioAdapter(preferences.port), preferences.port);
+    radioLog = new RadioLog(join(app.getPath('userData'), 'radio-logs'), app.getVersion());
+    await radioLog.initialize();
+    radio = new RadioController(new RadioAdapter(preferences.port), preferences.port, undefined, radioLog);
     createWindow();
     app.on('activate', () => {
       if (!quitting && BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -173,7 +177,8 @@ function startApplication(): void {
     controller?.stop();
     radio?.stop();
     disposeWindow?.(); disposeWindow = undefined;
-    void Promise.all([...pendingWrites]).then(() => app.quit());
+    radioLog?.record({ at: Date.now(), type: 'app-stop' });
+    void Promise.all([...pendingWrites, radioLog?.flush()]).then(() => app.quit());
   });
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();

@@ -157,6 +157,7 @@ async function mainHarness(write: (path: string, value: unknown) => Promise<void
   }
   const modules: Record<string, unknown> = {
     './main/radio-controller': { RadioController: FakeRadioController },
+    './main/radio-log': { RadioLog: class { async initialize() {} record() {} observeMissionState() {} async flush() {} } },
     './simulator/radio-adapter': { RadioAdapter: class {} },
     electron: { shell: { openExternal: async (url: string) => { links.push(url); } }, app, BrowserWindow: FakeWindow, ipcMain: { handle: (name: string, fn: any) => handlers.set(name, fn), removeHandler: (name: string) => handlers.delete(name) }, screen: { getAllDisplays: () => [{ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }], getPrimaryDisplay: () => ({ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }) } },
     './main/controller': { Controller: FakeController }, './simulator/adapter': { SimulatorAdapter: class {} },

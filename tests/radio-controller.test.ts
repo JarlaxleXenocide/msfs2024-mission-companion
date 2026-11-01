@@ -164,3 +164,70 @@ test('weather recovery does not mistake its round trip for confirmation of an ea
   sim.data.messages.forEach(m=>m.queued=false);await clock.advance(16000);
   assert.equal(sim.sent.length,1);assert.equal(c.getState().enabled,false);assert.match(c.getState().message,/no progress/i);
 });
+
+test('diagnostics retain the shutdown reason after re-enabling and capture changed calls and response outcomes',async()=>{
+  const sim=new Simulator(),clock=new Clock(),events:any[]=[];
+  const c=new RadioController(sim,19999,clock,{record:(event:any)=>events.push(structuredClone(event))});
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  assert.equal(events.filter(e=>e.type==='snapshot').length,1,'Idle polls must not flood disk');
+  assert.equal(events.find(e=>e.type==='action-attempt').action.option.text,'1 - Acknowledge Handoff');
+  assert.equal(events.find(e=>e.type==='action-result').result,'sent');
+  await clock.advance(16000);
+  const shutdown=c.getState().lastShutdown;
+  assert.match(shutdown!.reason,/no progress/i);
+  assert.equal(shutdown!.at,17000);
+  const event=events.find(e=>e.type==='shutdown');
+  assert.equal(event.phase,'awaiting-progress');assert.equal(event.snapshot.messages[0].text,sim.data.messages[0].text);
+  assert.equal(event.pending.action.kind,'acknowledge');
+  c.setEnabled(true);await flush();assert.deepEqual(c.getState().lastShutdown,shutdown);
+  sim.data.messages.push({index:1,text:'Going to 133.25, Example 123.',outgoing:true,queued:false});sim.data.count=2;
+  await clock.advance(1000);
+  assert.equal(events.at(-1).snapshot.messages.at(-1).outgoing,true);
+  c.stop();
+});
+
+test('diagnostic write failures never disable or duplicate radio actions',async()=>{
+  const sim=new Simulator(),clock=new Clock();
+  const c=new RadioController(sim,19999,clock,{record:()=>{throw Error('Disk full');}});
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  assert.equal(c.getState().enabled,true);assert.equal(sim.sent.length,1);
+  assert.match(c.getState().logWarning??'',/Disk full/);c.stop();
+});
+
+test('shutdown diagnostics distinguish landing, read failure and session changes, and restore previous reason',async()=>{
+  for(const mode of ['landing','read','session']) {
+    const events:any[]=[],sim=new Simulator(),clock=new Clock();
+    const c=new RadioController(sim,19999,clock,{lastShutdown:{at:1,reason:'Earlier shutdown'},record:e=>events.push(structuredClone(e))});
+    assert.equal(c.getState().lastShutdown?.reason,'Earlier shutdown');
+    c.setEnabled(true);await flush();
+    // A new landing message must have its own index, not overwrite the old call.
+    if(mode==='landing'){sim.data.messages[0]=sample().messages[0];sim.data.messages.push({index:1,text:'Example 123, cleared to land runway 25R.',outgoing:false,queued:false});sim.data.count=2;}
+    if(mode==='read')sim.failure=Error('Socket closed');
+    if(mode==='session')sim.data.lifetime=2000;
+    await clock.advance(1000);
+    const shutdown=events.find(e=>e.type==='shutdown');
+    assert.equal(shutdown.phase,mode==='landing'?'landing-clearance':mode==='read'?'reading':'session-check');
+    assert.equal(shutdown.before.lifetime,1000);
+    assert.notEqual(c.getState().lastShutdown?.reason,'Earlier shutdown');
+    const copy=c.getState();copy.lastShutdown!.reason='tampered';assert.notEqual(c.getState().lastShutdown?.reason,'tampered');
+  }
+});
+test('logs track queued text changes and observed progress without claiming a manual response was automated',async()=>{
+  const events:any[]=[],sim=new Simulator(),clock=new Clock();
+  const c=new RadioController(sim,19999,clock,{record:e=>events.push(structuredClone(e))});
+  c.setEnabled(true);await flush();await clock.advance(2000);
+  sim.data.messages.push({index:1,text:'Going to 133.25, Example 123.',outgoing:true,queued:true});sim.data.count=2;
+  await clock.advance(1000);assert.equal(events.filter(e=>e.type==='action-progress').length,0);
+  sim.data.messages[1].queued=false;await clock.advance(1000);
+  assert.equal(events.filter(e=>e.type==='action-progress').length,1);
+  assert.equal(events.filter(e=>e.type==='snapshot').length,3);
+  assert.match(events.find(e=>e.type==='action-progress').reason,/not proof/);c.stop();
+});
+
+test('an asynchronous log warning is published even when radio data stays unchanged',async()=>{
+  const sim=new Simulator(),clock=new Clock(),diagnostics={record:()=>{},warning:''};sim.data.options=[];
+  const c=new RadioController(sim,19999,clock,diagnostics);let updates=0;c.subscribe(()=>updates++);
+  c.setEnabled(true);await flush();const initial=updates;
+  diagnostics.warning='Radio log could not be saved: disk full';await clock.advance(1000);
+  assert.ok(updates>initial);assert.match(c.getState().logWarning??'',/disk full/);c.stop();
+});

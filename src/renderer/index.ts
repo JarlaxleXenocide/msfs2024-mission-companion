@@ -286,6 +286,15 @@ function renderRadio(): void {
   radioFrequency.textContent = radio?.frequency ? `${radio.agent || 'Radio'} · ${radio.frequency.toFixed(3)} MHz` : '';
   radioLatest.textContent = radio?.latestMessage || 'No radio messages yet';
   radioAction.textContent = radio?.lastAction ? `Last action sent: ${radio.lastAction}` : 'No action sent';
+  const shutdown = required<HTMLElement>('radio-last-shutdown');
+  shutdown.hidden = !radio?.lastShutdown;
+  shutdown.textContent = radio?.lastShutdown ? `Last automatic shutoff · ${new Date(radio.lastShutdown.at).toLocaleString()}: ${radio.lastShutdown.reason}` : '';
+  const logPath = required<HTMLElement>('radio-log-path');
+  logPath.hidden = !radio?.logPath;
+  logPath.textContent = radio?.logPath ? `Local radio log: ${radio.logPath}` : '';
+  const logWarning = required<HTMLElement>('radio-log-warning');
+  logWarning.hidden = !radio?.logWarning;
+  logWarning.textContent = radio?.logWarning ?? '';
 }
 
 function renderTable(force = false): void {

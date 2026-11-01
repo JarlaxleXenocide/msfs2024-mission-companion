@@ -15,7 +15,11 @@ export interface RadioAction {
   option: RadioOption;
   key: string;
 }
+export interface RadioShutdown { at: number; reason: string }
 export interface RadioState {
+  lastShutdown?: RadioShutdown;
+  logPath?: string;
+  logWarning?: string;
   enabled: boolean;
   status: 'off' | 'connecting' | 'listening' | 'waiting' | 'acting' | 'paused';
   message: string;
