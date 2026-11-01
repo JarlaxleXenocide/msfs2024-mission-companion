@@ -20,7 +20,8 @@ const squirrelAdditionalFiles = { additionalFiles: [
 const config: ForgeConfig = {
   packagerConfig: {
     name: 'career-companion', asar: true, executableName: 'career-companion',
-    extraResource: ['THIRD-PARTY-LICENSES.md'],
+    icon: 'src/renderer/assets/radio-assist',
+    extraResource: ['THIRD-PARTY-LICENSES.md', 'src/renderer/assets/radio-assist.png'],
     win32metadata: {
       FileDescription: packageMetadata.productName,
       ProductName: packageMetadata.productName,
@@ -34,6 +35,7 @@ const config: ForgeConfig = {
       title: packageMetadata.productName,
       exe: 'career-companion.exe',
       setupExe: 'msfs2024-mission-companion-windows-x64-setup.exe',
+      setupIcon: 'src/renderer/assets/radio-assist.ico',
       authors: packageMetadata.author,
       description: packageMetadata.description,
       ...squirrelAdditionalFiles,

@@ -101,6 +101,8 @@ function startApplication(): void {
     const bounds = restoreBounds(preferences, displays, wayland);
     const created = new BrowserWindow({
       ...bounds,
+      icon: app.isPackaged ? join(process.resourcesPath, 'radio-assist.png')
+        : join(__dirname, '../../src/renderer/assets/radio-assist.png'),
       webPreferences: {
         preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
         contextIsolation: true,

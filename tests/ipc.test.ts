@@ -167,7 +167,7 @@ async function mainHarness(write: (path: string, value: unknown) => Promise<void
   const processContext = {
     platform: platform.name ?? 'linux', env: platform.env ?? { WAYLAND_DISPLAY: 'wayland-test', DISPLAY: ':0' },
     argv: platform.argv ?? ['companion', `--ozone-platform=${platform.requestedBackend ?? 'x11'}`],
-    execPath: '/installed/app/career-companion.exe',
+    execPath: '/installed/app/career-companion.exe', resourcesPath: '/installed/app/resources',
   };
   const updater = Object.assign(new EventEmitter(), { stdout: new EventEmitter(), stderr: new EventEmitter() });
   const diagnosticWrites: string[] = [];
@@ -419,4 +419,11 @@ test('main connects radio toggle/state and disables it on window closure', async
   win.emit('closed');h.app.emit('activate');
   const reopened=h.windows.at(-1)!;const e={sender:reopened.webContents,senderFrame:reopened.webContents.mainFrame};
   assert.equal((await h.handlers.get('companion:get-state')!(e)).radio.enabled,false);
+});
+
+test('packaged Linux and Windows windows use the bundled pilot icon', async () => {
+  for (const name of ['linux', 'win32']) {
+    const h = await mainHarness(undefined, { name });
+    assert.equal((h.windows[0].options as { icon?: string }).icon, join('/installed/app/resources', 'radio-assist.png'));
+  }
 });

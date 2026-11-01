@@ -25,6 +25,7 @@ async function fixture(t, platform, extraAsar) {
   const files = [...common, ...platformFiles[platform]].map(name => ({ name, data: name.endsWith('.exe') ? pe() : 'runtime' }));
   files.push({ name: 'resources/THIRD-PARTY-LICENSES.md', data: readFileSync(join(__dirname, '../THIRD-PARTY-LICENSES.md')) });
   files.push({ name: 'resources/app.asar', data: readFileSync(archive) });
+  files.push({ name: 'resources/radio-assist.png', data: readFileSync(join(__dirname, '../src/renderer/assets/radio-assist.png')) });
   const root = platform === 'win32' ? '' : `career-companion-${platform}-x64/`;
   const zip = join(dir, 'package.zip');
   const pack = (entries = files, separator = '/') => writeZip(zip, entries.map(e => ({ ...e, name: (root + e.name).replaceAll('/', separator) })));
@@ -152,3 +153,14 @@ test('Squirrel self-update log is installed-only and must be an exact root file'
   rmSync(join(installed, 'icudtl.dat'));
   assert.throws(() => verifyInstalledRuntime(installed, verified), /Missing installed runtime asset: icudtl.dat/);
 });
+
+for (const platform of ['linux', 'win32']) {
+  test(`${platform}: packaged pilot icon must be present and match the source artwork`, async t => {
+    const f = await fixture(t, platform);
+    await verifyArchive(f.zip, '0.1.0', platform);
+    await f.pack(f.files.filter(e => e.name !== 'resources/radio-assist.png'));
+    await assert.rejects(verifyArchive(f.zip, '0.1.0', platform), /Missing runtime asset/);
+    await f.pack(f.files.map(e => e.name === 'resources/radio-assist.png' ? {...e,data:'wrong icon'} : e));
+    await assert.rejects(verifyArchive(f.zip, '0.1.0', platform), /pilot icon/);
+  });
+}

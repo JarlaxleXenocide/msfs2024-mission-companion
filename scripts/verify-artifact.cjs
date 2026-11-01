@@ -5,7 +5,7 @@ const { tmpdir } = require('node:os');
 const { join, basename, relative } = require('node:path');
 const asar = require('@electron/asar');
 const { withArchive } = require('./archive-tools.cjs');
-const common = ['v8_context_snapshot.bin', 'snapshot_blob.bin', 'vk_swiftshader_icd.json', 'icudtl.dat', 'chrome_100_percent.pak', 'chrome_200_percent.pak', 'resources.pak', 'LICENSE', 'LICENSES.chromium.html', 'version', 'resources/app.asar', 'resources/THIRD-PARTY-LICENSES.md'];
+const common = ['v8_context_snapshot.bin', 'snapshot_blob.bin', 'vk_swiftshader_icd.json', 'icudtl.dat', 'chrome_100_percent.pak', 'chrome_200_percent.pak', 'resources.pak', 'LICENSE', 'LICENSES.chromium.html', 'version', 'resources/app.asar', 'resources/THIRD-PARTY-LICENSES.md', 'resources/radio-assist.png'];
 const runtime = {
   linux: new Set([...common, 'career-companion', 'chrome-sandbox', 'chrome_crashpad_handler', 'libvulkan.so.1', 'libffmpeg.so', 'libvk_swiftshader.so']),
   // Electron 44.2.0 win32 x64 output. New runtime DLLs require explicit review.
@@ -70,6 +70,7 @@ async function verifyArchive(zip, version, platform = 'linux') {
         assert(bytes.toString().replaceAll('\r\n', '\n').includes(readFileSync(require.resolve('leaflet/LICENSE'), 'utf8').replaceAll('\r\n', '\n').trim()), 'Missing upstream Leaflet notice');
       }
       if (local === 'resources/app.asar') verifyAsar(bytes, version);
+      if (local === 'resources/radio-assist.png') assert(bytes.equals(readFileSync(join(__dirname, '../src/renderer/assets/radio-assist.png'))), 'Packaged pilot icon must match source artwork');
       if (platform === 'win32' && local === 'career-companion.exe') verifyPe(bytes, true);
       files.set(local, hash(bytes));
     }
