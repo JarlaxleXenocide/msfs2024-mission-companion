@@ -58,35 +58,35 @@ Screenshots show the actual v0.1.8 interface with illustrative missions and repr
 
 **Compare earnings and departure distance.** Click column headings to build an ordered sort: descending, ascending, then off. Numbered arrows show priority. Here, **Credits/hour** sorts estimated hourly earnings highest first, with **From player (NM)** putting nearer departures first when rates tie. Hourly earnings use advertised payout and estimated duration; distance is measured from the Career pilot’s current airport (KSEA in these examples) to the mission’s departure.
 
-![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/mission-sorting.png)
+![Flight deck in Night mode with Credits/hour descending as priority 1 and From player (NM) ascending as priority 2](assets/screenshots/v0.1.8/mission-sorting.png)
 
 **Keep missions as you explore.** The Scanned missions list retains discoveries as you pan the Career map. Automatic scans add or update missions from the current area. The top **Refresh** button clears the collected list and cached airport details, then rescans the current map area. Approach, duration, player-distance and total-credit filters stay visible above the list.
 
 **Narrow the list before sorting.** Set Duration in 30-minute steps, Distance from player in 25 NM steps, and Total Credits in 500,000-credit steps. Drag either end of a range, type its bounds, or leave a side open. The filters combine and persist across restarts.
 
-![Duration, Distance from player and Total Credits ranges narrowing the scanned mission list](assets/screenshots/mission-filters.png)
+![Duration, Distance from player and Total Credits ranges narrowing the scanned mission list](assets/screenshots/v0.1.8/mission-filters.png)
 
 **Start with recommended flights.** The collapsible **Suggested flights** row shows up to three flights matching your search, ranges and selected approaches. Highest credits/hour ranks first; nearer departures break ties. Flights with unknown earnings, duration or player distance are excluded. **View flight** opens that mission’s runway details without changing your table sort. Compact cards show route, credits/hour, duration and distance. Collapse the row to keep only the best-flight summary; live updates preserve the collapsed state. Recommendations update as filters and scanned data change; stale snapshots are labeled.
 
-![Top three recommended flights ranked by hourly earnings and departure distance](assets/screenshots/mission-recommendations.png)
+![Top three recommended flights ranked by hourly earnings and departure distance](assets/screenshots/v0.1.8/mission-recommendations.png)
 
 **Keep radio controls close without losing space.** The pilot toggle sits beside Refresh. Activity opens in a floating panel, and suggestions can collapse to a single summary row.
 
-![Header pilot button and radio activity with flight suggestions collapsed](assets/screenshots/radio-activity.png)
+![Header pilot button and radio activity with flight suggestions collapsed](assets/screenshots/v0.1.8/radio-activity.png)
 
 **Find your mission on the map.** Hover a route to preview both airports; click to pin it while switching to MSFS. Focus on the departure or frame the whole route. Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
 
-![Pinned route map showing departure at MMQT and destination at CYVR](assets/screenshots/mission-route-map.png)
+![Pinned route map showing departure at MMQT and destination at CYVR](assets/screenshots/v0.1.8/mission-route-map.png)
 
 **Inspect individual runway ends.** Expand a mission to see physical and threshold-adjusted lengths, displaced thresholds, elevations, closure status, and available approaches. RNAV procedures distinguish LPV, LNAV/VNAV, LP and LNAV minima; circling procedures are labeled separately.
 
-![Expanded CYVR runway ends with lengths, displaced thresholds, elevations, and ILS and RNAV minima including LPV and LNAV/VNAV](assets/screenshots/runway-information.png)
+![Expanded CYVR runway ends with lengths, displaced thresholds, elevations, and ILS and RNAV minima including LPV and LNAV/VNAV](assets/screenshots/v0.1.8/runway-information.png)
 
 **Choose your look.** Flight deck, Field notes and Clear each support Light, Night, or following your system appearance. Display controls also include Compact and supported keep-on-top behavior.
 
 | Flight deck · Light | Field notes · Light | Clear · Night |
 | --- | --- | --- |
-| ![Flight deck theme in Light mode](assets/screenshots/flight-deck-light.png) | ![Field notes theme in Light mode](assets/screenshots/field-notes-light.png) | ![Clear theme in Night mode](assets/screenshots/clear-night.png) |
+| ![Flight deck theme in Light mode](assets/screenshots/v0.1.8/flight-deck-light.png) | ![Field notes theme in Light mode](assets/screenshots/v0.1.8/field-notes-light.png) | ![Clear theme in Night mode](assets/screenshots/v0.1.8/clear-night.png) |
 
 ## Run on Linux
 
