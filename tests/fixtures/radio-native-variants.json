@@ -1,0 +1,506 @@
+[
+  {
+    "locale": "cs-CZ",
+    "instructionMenu": "Potvrďte pokyn",
+    "descentMenu": "Potvrďte povolení k sestupu",
+    "nativeClimb": "Boeing PAO4511, Stoupejte a udržujte 1 000 ft.",
+    "nativeDescent": "Boeing PAO4511, sestupte přes TMBRS4 na 1 000 ft. Očekávejte přiblížení Kurzový maják opačným směrem dráha  10R  prostřednictvím MUS přechodu.",
+    "localizerInstruction": "Boeing PAO4511, Sklesejte a udržujte FL210,  Udržujte FL210 až do dosažení lokalizátoru..",
+    "arrivalMenu": "Potvrďte povolení k příletu",
+    "arrivalVariants": [
+      "Boeing PAO4511, schváleno přiblížení TMBRS4. Stoupejte a udržujte FL210 Očekávejte přiblížení Kurzový maják opačným směrem dráha  10R  prostřednictvím MUS přechodu Uhnout dráha 10R..",
+      "Boeing PAO4511, schváleno přiblížení TMBRS4. Stoupejte a udržujte FL210 Očekávejte přiblížení Kurzový maják opačným směrem dráha  10R  prostřednictvím MUS přechodu Okruh pro přistání dráha 10R.."
+    ],
+    "approachMenu": "Potvrďte povolení přiblížení",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Udržujte FL210 až do dosažení lokalizátoru. Povoleno ILS dráha  10R přiblížení.",
+      "Boeing PAO4511, Povoleno ILS dráha  10R přiblížení.  Udržujte FL210 až do dosažení lokalizátoru.."
+    ]
+  },
+  {
+    "locale": "da-DK",
+    "instructionMenu": "Anerkend instruktion",
+    "descentMenu": "Bekræft nedstigningstilladelse",
+    "nativeClimb": "Boeing PAO4511, Stig, og vedligehold 1.000 fod.",
+    "nativeDescent": "Boeing PAO4511, dyk via TMBRS4 til 1.000 fod. Forvent Localizer Backcourse landingsbane 10R tilgang via MUS overgang.",
+    "localizerInstruction": "Boeing PAO4511, Sænk og vedligehold FL210,  Vedligehold FL210 indtil etablering på localizer..",
+    "arrivalMenu": "Bekræft ankomsttilladelse",
+    "arrivalVariants": [
+      "Boeing PAO4511, godkendte TMBRS4s ankomst. Stig, og vedligehold FL210 Forvent Localizer Backcourse landingsbane 10R indflyvning via MUS overgang Sidestep landingsbane 10R..",
+      "Boeing PAO4511, godkendte TMBRS4s ankomst. Stig, og vedligehold FL210 Forvent Localizer Backcourse landingsbane 10R indflyvning via MUS overgang Cirkel til landing landingsbane 10R.."
+    ],
+    "approachMenu": "Bekræft indflyvningsgodkendelse",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Vedligehold FL210 indtil etablering på localizer. Godkendt ILS landingsbane 10R indflyvning.",
+      "Boeing PAO4511, Godkendt ILS landingsbane 10R indflyvning.  Vedligehold FL210 indtil etablering på localizer.."
+    ]
+  },
+  {
+    "locale": "de-DE",
+    "instructionMenu": "Anweisung bestätigen",
+    "descentMenu": "Sinkflugfreigabe bestätigen",
+    "nativeClimb": "Boeing PAO4511, Steigen Sie auf und halten Sie 1000 ft.",
+    "nativeDescent": "Boeing PAO4511Sinkflug über TMBRS4 zu 1000 ft. Erwarten Sie Landekurssender für Gegenkurs Piste 10R Landeanflug via MUS Transition.",
+    "localizerInstruction": "Boeing PAO4511, sinken und halten Sie FL210,  Halten Sie FL210, bis Sie Kontakt zum Landekurssender haben..",
+    "arrivalMenu": "Ankunftsfreigabe bestätigen",
+    "arrivalVariants": [
+      "Boeing PAO4511, Freigegeben TMBRS4 Ankunft. Steigen Sie auf und halten Sie FL210 Erwartet Landekurssender für Gegenkurs Piste 10R Landeanflug via MUS Transition Ausweichen auf Piste 10R..",
+      "Boeing PAO4511, Freigegeben TMBRS4 Ankunft. Steigen Sie auf und halten Sie FL210 Erwartet Landekurssender für Gegenkurs Piste 10R Landeanflug via MUS Transition Platzrunde für Landung Piste 10R.."
+    ],
+    "approachMenu": "Freigabe für Anflug bestätigen",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Halten Sie FL210, bis Sie Kontakt zum Landekurssender haben. Freigabe für Landeanflug ILS Piste 10R erteilt..",
+      "Boeing PAO4511, Freigabe für Landeanflug ILS Piste 10R erteilt..  Halten Sie FL210, bis Sie Kontakt zum Landekurssender haben.."
+    ]
+  },
+  {
+    "locale": "el-GR",
+    "instructionMenu": "Αναγνώριση οδηγίας",
+    "descentMenu": "Αναγνώριση άδειας καθόδου",
+    "nativeClimb": "Boeing PAO4511, Ανεβείτε και διατηρήστε ύψος 1.000 πόδια.",
+    "nativeDescent": "Boeing PAO4511, κατεβείτε μέσω TMBRS4 στα 1.000 πόδια. Αναμένετε Backcourse Εντοπιστή διάδρομος 10R προσέγγιση μέσω μετάβασης από MUS.",
+    "localizerInstruction": "Boeing PAO4511, Κατεβείτε και διατηρήστε ύψος FL210,  Διατηρήστε ύψος FL210 μέχρι να εμφανιστεί στον εντοπιστή..",
+    "arrivalMenu": "Αναγνώριση άδειας άφιξης",
+    "arrivalVariants": [
+      "Boeing PAO4511, άδεια TMBRS4 για άφιξη. Ανεβείτε και διατηρήστε ύψος FL210 Αναμένετε Backcourse Εντοπιστή διάδρομος 10R προσέγγιση μέσω μετάβασης από MUS Παράκαμψη διάδρομος 10R..",
+      "Boeing PAO4511, άδεια TMBRS4 για άφιξη. Ανεβείτε και διατηρήστε ύψος FL210 Αναμένετε Backcourse Εντοπιστή διάδρομος 10R προσέγγιση μέσω μετάβασης από MUS Κάντε κύκλο για προσγείωση διάδρομος 10R.."
+    ],
+    "approachMenu": "Αναγνώριση άδειας προσέγγισης",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Διατηρήστε ύψος FL210 μέχρι να εμφανιστεί στον εντοπιστή. Ελεύθερη ILS διάδρομος 10R προσέγγιση.",
+      "Boeing PAO4511, Ελεύθερη ILS διάδρομος 10R προσέγγιση.  Διατηρήστε ύψος FL210 μέχρι να εμφανιστεί στον εντοπιστή.."
+    ]
+  },
+  {
+    "locale": "en-US",
+    "instructionMenu": "Acknowledge Instruction",
+    "descentMenu": "Acknowledge Descent Clearance",
+    "nativeClimb": "Boeing PAO4511, Climb and maintain 1,000 ft.",
+    "nativeDescent": "Boeing PAO4511, descend via TMBRS4 to 1,000 ft. Expect Localizer Backcourse runway 10R approach via MUS transition.",
+    "localizerInstruction": "Boeing PAO4511, Descend and maintain FL210,  Maintain FL210 until established on the localizer..",
+    "arrivalMenu": "Acknowledge Arrival Clearance",
+    "arrivalVariants": [
+      "Boeing PAO4511, Cleared TMBRS4 arrival. Climb and maintain FL210 Expect Localizer Backcourse runway 10R approach via MUS transition Sidestep runway 10R..",
+      "Boeing PAO4511, Cleared TMBRS4 arrival. Climb and maintain FL210 Expect Localizer Backcourse runway 10R approach via MUS transition Circle to land runway 10R.."
+    ],
+    "approachMenu": "Acknowledge Approach Clearance",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Maintain FL210 until established on the localizer. Cleared ILS runway 10R approach.",
+      "Boeing PAO4511, Cleared ILS runway 10R approach.  Maintain FL210 until established on the localizer.."
+    ]
+  },
+  {
+    "locale": "es-ES",
+    "instructionMenu": "Confirmar instrucción",
+    "descentMenu": "Confirmar autorización de descenso",
+    "nativeClimb": "Boeing PAO4511, Ascienda y manténgase a 1000 pies.",
+    "nativeDescent": "Boeing PAO4511, desciendar por TMBRS4 a 1000 pies. Espera aproximación a Rumbo posterior del localizador pista 10R  a través de transición MUS  .",
+    "localizerInstruction": "Boeing PAO4511, Descienda y manténgase a FL210,  Mantenga FL210 hasta que esté en el localizador..",
+    "arrivalMenu": "Confirmar autorización de llegada",
+    "arrivalVariants": [
+      "Boeing PAO4511, autorizada llegada a TMBRS4. Ascienda y manténgase a FL210 Espera aproximación a Rumbo posterior del localizador pista 10R a través de transición MUS Realice desplazamiento lateral a pista 10R..",
+      "Boeing PAO4511, autorizada llegada a TMBRS4. Ascienda y manténgase a FL210 Espera aproximación a Rumbo posterior del localizador pista 10R a través de transición MUS Vuele en círculos para aterrizar en pista 10R.."
+    ],
+    "approachMenu": "Confirmar autorización para aproximación",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Mantenga FL210 hasta que esté en el localizador. Aproximación ILS pista 10R despejada.",
+      "Boeing PAO4511, Aproximación ILS pista 10R despejada.  Mantenga FL210 hasta que esté en el localizador.."
+    ]
+  },
+  {
+    "locale": "es-MX",
+    "instructionMenu": "Confirmar instrucción",
+    "descentMenu": "Confirmar autorización de descenso",
+    "nativeClimb": "Boeing PAO4511, Ascienda y manténgase a 1000 pies.",
+    "nativeDescent": "Boeing PAO4511, desciende por TMBRS4 a 1000 pies. Espera aproximación a Rumbo posterior del localizador pista 10R  a través de transición MUS  .",
+    "localizerInstruction": "Boeing PAO4511, Descienda y manténgase a FL210,  Mantenga FL210 hasta que esté en el localizador..",
+    "arrivalMenu": "Confirmar autorización de llegada",
+    "arrivalVariants": [
+      "Boeing PAO4511, autorizada llegada a TMBRS4. Ascienda y manténgase a FL210 Espera aproximación a Rumbo posterior del localizador pista 10R a través de transición MUS Realice desplazamiento lateral a pista 10R..",
+      "Boeing PAO4511, autorizada llegada a TMBRS4. Ascienda y manténgase a FL210 Espera aproximación a Rumbo posterior del localizador pista 10R a través de transición MUS Vuele en círculos para aterrizar en pista 10R.."
+    ],
+    "approachMenu": "Confirmar autorización para aproximación",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Mantenga FL210 hasta que esté en el localizador. Aproximación ILS pista 10R despejada.",
+      "Boeing PAO4511, Aproximación ILS pista 10R despejada.  Mantenga FL210 hasta que esté en el localizador.."
+    ]
+  },
+  {
+    "locale": "fi-FI",
+    "instructionMenu": "Kuittaa ohje",
+    "descentMenu": "Kuittaa laskeutumisselvitys",
+    "nativeClimb": "Boeing PAO4511, Nouse korkeuteen 1 000 jalkaa ja pidä se.",
+    "nativeDescent": "Boeing PAO4511, laskeutuminen kohteen TMBRS4 kautta korkeuteen 1 000 jalkaa. Odotettavissa lähestyminen Suuntasäteen päinvastainen suunta kiitotie 10R  siirtymän MUS kautta.",
+    "localizerInstruction": "Boeing PAO4511, Laskeudu korkeuteen FL210 ja pidä se,  Säilytä korkeus FL210, kunnes se on määritetty suuntalähettimessä..",
+    "arrivalMenu": "Kuittaa saapumislupa",
+    "arrivalVariants": [
+      "Boeing PAO4511, lupa saapumiseen TMBRS4. Nouse korkeuteen FL210 ja pidä se Odotettavissa lähestyminen Suuntasäteen päinvastainen suunta kiitotie 10R  siirtymän MUS kautta Laskeudu viereiselle kiitotielle kiitotie 10R..",
+      "Boeing PAO4511, lupa saapumiseen TMBRS4. Nouse korkeuteen FL210 ja pidä se Odotettavissa lähestyminen Suuntasäteen päinvastainen suunta kiitotie 10R  siirtymän MUS kautta Kaarra ja laskeudu kiitotielle kiitotie 10R.."
+    ],
+    "approachMenu": "Kuittaa lähestymislupa",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Säilytä korkeus FL210, kunnes se on määritetty suuntalähettimessä. Lupa lähestyä ILS kiitotie 10R.",
+      "Boeing PAO4511, Lupa lähestyä ILS kiitotie 10R.  Säilytä korkeus FL210, kunnes se on määritetty suuntalähettimessä.."
+    ]
+  },
+  {
+    "locale": "fr-FR",
+    "instructionMenu": "Accepter consignes",
+    "descentMenu": "Accepter l'autorisation de descente",
+    "nativeClimb": "Boeing PAO4511, Montez à 1 000 pieds.",
+    "nativeDescent": "Boeing PAO4511, descente via TMBRS4 à 1 000 pieds. Prévoyez approche Localiseur alignement arrière piste 10R  en transit MUS.",
+    "localizerInstruction": "Boeing PAO4511, Descendez à FL210,  Maintenez FL210 jusqu'à interception du LOC..",
+    "arrivalMenu": "Accepter l'autorisation d'arrivée",
+    "arrivalVariants": [
+      "Boeing PAO4511, autorisé arrivée TMBRS4. Montez à FL210 Prévoyez approche Localiseur alignement arrière piste 10R  en transit MUS Manœuvre piste 10 R..",
+      "Boeing PAO4511, autorisé arrivée TMBRS4. Montez à FL210 Prévoyez approche Localiseur alignement arrière piste 10R  en transit MUS Effectuez un tour pour atterrir sur piste 10 R.."
+    ],
+    "approachMenu": "Accepter autorisation d'approche",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Maintenez FL210 jusqu'à interception du LOC. Approche autorisée ILS piste 10R.",
+      "Boeing PAO4511, Approche autorisée ILS piste 10R.  Maintenez FL210 jusqu'à interception du LOC.."
+    ]
+  },
+  {
+    "locale": "hi-IN",
+    "instructionMenu": "निर्देश स्वीकार करें",
+    "descentMenu": "हमले की मंज़ूरी स्वीकार करें",
+    "nativeClimb": "Boeing PAO4511, चढ़ें और 1,000 फ़ीट बनाए रखें.",
+    "nativeDescent": "Boeing PAO4511, TMBRS4 से होते हुए 1,000 फ़ीट तक उतरें। लोकलाइज़र बैककोर्स रनवे 10R दृष्टिकोण MUS ट्रांज़िशन के माध्यम से की अपेक्षा करें।",
+    "localizerInstruction": "Boeing PAO4511, उतरे और FL210 बनाए रखें,  लोकलाइज़र पर स्थापित होने तक FL210 बनाए रखें..",
+    "arrivalMenu": "आगमन मंज़ूरी स्वीकार करें",
+    "arrivalVariants": [
+      "Boeing PAO4511, आगमन TMBRS4 मंजूरी दे दी। चढ़ें और FL210 बनाए रखें लोकलाइज़र बैककोर्स रनवे 10R दृष्टिकोण MUS ट्रांज़िशन के माध्यम से साइडस्टेप रनवे 10R. की अपेक्षा करें।",
+      "Boeing PAO4511, आगमन TMBRS4 मंजूरी दे दी। चढ़ें और FL210 बनाए रखें लोकलाइज़र बैककोर्स रनवे 10R दृष्टिकोण MUS ट्रांज़िशन के माध्यम से रनवे 10R को लैंड करने के लिए सर्कल. की अपेक्षा करें।"
+    ],
+    "approachMenu": "अप्रोच क्लीयरेंस स्वीकार करें",
+    "localizerApproaches": [
+      "Boeing PAO4511,  लोकलाइज़र पर स्थापित होने तक FL210 बनाए रखें. ILS रनवे 10R अप्रोच के लिए तैयार किया गया.",
+      "Boeing PAO4511, ILS रनवे 10R अप्रोच के लिए तैयार किया गया.  लोकलाइज़र पर स्थापित होने तक FL210 बनाए रखें.."
+    ]
+  },
+  {
+    "locale": "hu-HU",
+    "instructionMenu": "Utasítás nyugtázása",
+    "descentMenu": "Ereszkedési engedély nyugtázása",
+    "nativeClimb": "Boeing PAO4511, Emelkedjen 1000 láb magasságba és tartsa meg.",
+    "nativeDescent": "Boeing PAO4511, ereszkedés TMBRS4 eljárással 1000 láb magasságra. Várható Fordított iránysáv 10R futópálya megközelítés MUS átmeneti eljárással.",
+    "localizerInstruction": "Boeing PAO4511, Süllyedjen FL210 magasságra és tartsa meg,  Tartson FL210 magasságot, amíg az iránysávhoz helyezkedik..",
+    "arrivalMenu": "Érkezési engedély nyugtázása",
+    "arrivalVariants": [
+      "Boeing PAO4511, Jóváhagyott érkezés TMBRS4 eljárással. Emelkedjen FL210 magasságba és tartsa meg Várható Fordított iránysáv 10R futópálya megközelítés MUS átmeneti eljárással Kerülje el 10R futópálya futópályát..",
+      "Boeing PAO4511, Jóváhagyott érkezés TMBRS4 eljárással. Emelkedjen FL210 magasságba és tartsa meg Várható Fordított iránysáv 10R futópálya megközelítés MUS átmeneti eljárással Körözzön 10R futópálya futópályán való leszálláshoz.."
+    ],
+    "approachMenu": "Megközelítési engedély nyugtázása",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Tartson FL210 magasságot, amíg az iránysávhoz helyezkedik. ILS 10R futópálya megközelítés jóváhagyva.",
+      "Boeing PAO4511, ILS 10R futópálya megközelítés jóváhagyva.  Tartson FL210 magasságot, amíg az iránysávhoz helyezkedik.."
+    ]
+  },
+  {
+    "locale": "id-ID",
+    "instructionMenu": "Terima Instruksi",
+    "descentMenu": "Terima Izin Pendaratan",
+    "nativeClimb": "Boeing PAO4511, Naik dan pertahankan 1.000 kaki.",
+    "nativeDescent": "Boeing PAO4511, turun melalui TMBRS4 ke 1.000 kaki. Tunggu approach Jalur Balik Localizer landasan pacu 10R  lewat transisi MUS.",
+    "localizerInstruction": "Boeing PAO4511, Turun dan pertahankan FL210,  Pertahankan FL210 sampai mantap di localizer..",
+    "arrivalMenu": "Terima Izin Kedatangan",
+    "arrivalVariants": [
+      "Boeing PAO4511, Diizinkan kedatangan TMBRS4. Naik dan pertahankan FL210 Tunggu approach Jalur Balik Localizer landasan pacu 10R  lewat transisi MUS Bergeser landasan pacu 10R..",
+      "Boeing PAO4511, Diizinkan kedatangan TMBRS4. Naik dan pertahankan FL210 Tunggu approach Jalur Balik Localizer landasan pacu 10R  lewat transisi MUS Berputar untuk mendarat landasan pacu 10R.."
+    ],
+    "approachMenu": "Terima Izin Approach",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Pertahankan FL210 sampai mantap di localizer. Approach ILS landasan pacu 10R diizinkan.",
+      "Boeing PAO4511, Approach ILS landasan pacu 10R diizinkan.  Pertahankan FL210 sampai mantap di localizer.."
+    ]
+  },
+  {
+    "locale": "it-IT",
+    "instructionMenu": "Conferma istruzione",
+    "descentMenu": "Conferma autorizzazione discesa",
+    "nativeClimb": "Boeing PAO4511, Salire e mantenere quota 1.000 piedi..",
+    "nativeDescent": "Boeing PAO4511, discesa via TMBRS4 a 1.000 piedi. Avvicinamento previsto: Localizzatore rotta di ritorno pista 10R  via transizione MUS.",
+    "localizerInstruction": "Boeing PAO4511, Scendere e mantenere quota FL210,  Mantenere quota FL210 fino a stabilizzarsi sul localizzatore..",
+    "arrivalMenu": "Conferma autorizzazione arrivo",
+    "arrivalVariants": [
+      "Boeing PAO4511, arrivo TMBRS4 autorizzato. Salire e mantenere quota FL210. Avvicinamento previsto: Localizzatore rotta di ritorno pista 10R  via transizione MUS Sidestep sulla pista 10R..",
+      "Boeing PAO4511, arrivo TMBRS4 autorizzato. Salire e mantenere quota FL210. Avvicinamento previsto: Localizzatore rotta di ritorno pista 10R  via transizione MUS Circuitare per atterraggio sulla pista 10R.."
+    ],
+    "approachMenu": "Conferma autorizzazione avvicinamento",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Mantenere quota FL210 fino a stabilizzarsi sul localizzatore. Autorizzato avvicinamento ILS pista 10R.",
+      "Boeing PAO4511, Autorizzato avvicinamento ILS pista 10R.  Mantenere quota FL210 fino a stabilizzarsi sul localizzatore.."
+    ]
+  },
+  {
+    "locale": "ja-JP",
+    "instructionMenu": "指示の確認",
+    "descentMenu": "降下許可の確認",
+    "nativeClimb": "Boeing PAO4511、上昇して、1,000 フィート を維持。",
+    "nativeDescent": "Boeing PAO4511、TMBRS4 にて 1,000 フィート まで降下。ローカライザー バックコース 滑走路 10R アプローチ  MUS トランジション経由   の見込み。",
+    "localizerInstruction": "Boeing PAO4511、降下して、FL210 を維持,  ローカライザーに捕捉されるまで FL210 を維持せよ。。",
+    "arrivalMenu": "到着許可の確認",
+    "arrivalVariants": [
+      "Boeing PAO4511、TMBRS4 での到着を許可。上昇して、FL210 を維持 ローカライザー バックコース 滑走路 10R アプローチ  MUS トランジション経由  滑走路 10R にサイドステップ  の見込み。",
+      "Boeing PAO4511、TMBRS4 での到着を許可。上昇して、FL210 を維持 ローカライザー バックコース 滑走路 10R アプローチ  MUS トランジション経由   滑走路 10R にサークリングで着陸 の見込み。"
+    ],
+    "approachMenu": "アプローチ許可の確認",
+    "localizerApproaches": [
+      "Boeing PAO4511、 ローカライザーに捕捉されるまで FL210 を維持せよ。 ILS 滑走路 10R アプローチを許可。",
+      "Boeing PAO4511、ILS 滑走路 10R アプローチを許可.  ローカライザーに捕捉されるまで FL210 を維持せよ。。"
+    ]
+  },
+  {
+    "locale": "ko-KR",
+    "instructionMenu": "지시 응답",
+    "descentMenu": "하강 허가 응답",
+    "nativeClimb": "Boeing PAO4511, 1,000ft 상승 및 유지.",
+    "nativeDescent": "Boeing PAO4511, TMBRS4 통해 1,000ft으로 하강하세요. 로컬라이저 후방 코스 10R 활주로 경로로  MUS 전환을 통해 접근 예상하세요.",
+    "localizerInstruction": "Boeing PAO4511, FL210 하강 및 유지,  로컬라이저에 일치할 때까지 FL210 유지하세요..",
+    "arrivalMenu": "도착 허가 응답",
+    "arrivalVariants": [
+      "Boeing PAO4511, TMBRS4 도착 허가합니다. FL210 상승 및 유지 로컬라이저 후방 코스 10R 활주로 경로에서  MUS 전환을 통해 10R 활주로 회피하십시오. 접근 방식을 예상하세요.",
+      "Boeing PAO4511, TMBRS4 도착 허가합니다. FL210 상승 및 유지 로컬라이저 후방 코스 10R 활주로 경로에서  MUS 전환을 통해 10R 활주로 착륙을 위해 선회하십시오. 접근 방식을 예상하세요."
+    ],
+    "approachMenu": "접근 허가 응답",
+    "localizerApproaches": [
+      "Boeing PAO4511,  로컬라이저에 일치할 때까지 FL210 유지하세요. ILS 10R 활주로 접근 허가.",
+      "Boeing PAO4511, ILS 10R 활주로 접근 허가.  로컬라이저에 일치할 때까지 FL210 유지하세요.."
+    ]
+  },
+  {
+    "locale": "ms-MY",
+    "instructionMenu": "Akui Arahan",
+    "descentMenu": "Akui Kebenaran Penurunan",
+    "nativeClimb": "Boeing PAO4511, Mendaki dan kekalkan 1,000 kaki.",
+    "nativeDescent": "Boeing PAO4511, turun melalui TMBRS4 ke 1,000 kaki. Jangkakan lintasan tuju Arah Belakang Penempat landasan 10R melalui peralihan MUS.",
+    "localizerInstruction": "Boeing PAO4511, Turun dan kekalkan FL210,  Mengekalkan FL210 sehingga mantap pada penempat..",
+    "arrivalMenu": "Akui Kebenaran Ketibaan",
+    "arrivalVariants": [
+      "Boeing PAO4511, Dibenarkan ketibaan TMBRS4. Mendaki dan kekalkan FL210 Jangkakan lintasan tuju Arah Belakang Penempat landasan 10R melalui peralihan MUS Langkah sisi landasan 10R..",
+      "Boeing PAO4511, Dibenarkan ketibaan TMBRS4. Mendaki dan kekalkan FL210 Jangkakan lintasan tuju Arah Belakang Penempat landasan 10R melalui peralihan MUS Mengelilingi untuk mendarat landasan 10R.."
+    ],
+    "approachMenu": "Akui Kebenaran Lintasan Tuju",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Mengekalkan FL210 sehingga mantap pada penempat. Lintasan tuju ILS landasan 10R dibenarkan.",
+      "Boeing PAO4511, Lintasan tuju ILS landasan 10R dibenarkan.  Mengekalkan FL210 sehingga mantap pada penempat.."
+    ]
+  },
+  {
+    "locale": "nb-NO",
+    "instructionMenu": "Bekreft instruksjon",
+    "descentMenu": "Bekreft klarering for nedstigning",
+    "nativeClimb": "Boeing PAO4511, Klatre og oppretthold 1000 fot.",
+    "nativeDescent": "Boeing PAO4511, gå ned via TMBRS4 til 1000 fot. Forvent Lokalisator backcourse rullebane 10R innflyvning via MUS-overgang.",
+    "localizerInstruction": "Boeing PAO4511, Foreta nedstigning og oppretthold FL210,  Oppretthold FL210 frem til du er etablert på lokalisator..",
+    "arrivalMenu": "Bekreft klarering for landing",
+    "arrivalVariants": [
+      "Boeing PAO4511, klarert TMBRS4 ankomst. Klatre og oppretthold FL210 Forvent Lokalisator backcourse rullebane 10R innflyvning  via MUS-overgang Unnvik rullebane 10R..",
+      "Boeing PAO4511, klarert TMBRS4 ankomst. Klatre og oppretthold FL210 Forvent Lokalisator backcourse rullebane 10R innflyvning  via MUS-overgang Sirkle for å lande på rullebane 10R.."
+    ],
+    "approachMenu": "Bekreft klarering for innflyvning",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Oppretthold FL210 frem til du er etablert på lokalisator. Klarert for ILS rullebane 10R-innflyvning.",
+      "Boeing PAO4511, Klarert for ILS rullebane 10R-innflyvning.  Oppretthold FL210 frem til du er etablert på lokalisator.."
+    ]
+  },
+  {
+    "locale": "nl-NL",
+    "instructionMenu": "Instructie bevestigen",
+    "descentMenu": "Klaring afdaling bevestigen",
+    "nativeClimb": "Boeing PAO4511, Klim en houd een hoogte van 1000 ft.",
+    "nativeDescent": "Boeing PAO4511, dalen via TMBRS4 naar 1000 ft. Verwacht Koerslijnbaken backcourse baan 10R nadering via overgang MUS.",
+    "localizerInstruction": "Boeing PAO4511, Daal en houd een hoogte van FL210,  Houd FL210 totdat je bent gedetecteerd door het koerslijnbaken..",
+    "arrivalMenu": "Klaring nadering bevestigen",
+    "arrivalVariants": [
+      "Boeing PAO4511, geklaard voor TMBRS4 aankomst.Klim en houd een hoogte van FL210 Verwacht Koerslijnbaken backcourse baan 10R nadering via overgang MUS Ontwijk baan 10R..",
+      "Boeing PAO4511, geklaard voor TMBRS4 aankomst.Klim en houd een hoogte van FL210 Verwacht Koerslijnbaken backcourse baan 10R nadering via overgang MUS Draai rond om te landen op baan 10R.."
+    ],
+    "approachMenu": "Naderingsklaring bevestigen",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Houd FL210 totdat je bent gedetecteerd door het koerslijnbaken. Goedgekeurde nadering ILS baan 10R.",
+      "Boeing PAO4511, Goedgekeurde nadering ILS baan 10R.  Houd FL210 totdat je bent gedetecteerd door het koerslijnbaken.."
+    ]
+  },
+  {
+    "locale": "pl-PL",
+    "instructionMenu": "Potwierdź przyjęcie instrukcji",
+    "descentMenu": "Potwierdź przyjęcie pozwolenia na zniżanie",
+    "nativeClimb": "Boeing PAO4511, Wznieś się i zachowaj 1000 stóp.",
+    "nativeDescent": "Boeing PAO4511, zniżaj się w procedurze TMBRS4 do 1000 stóp. Spodziewaj się podejścia Kurs odwrotny do localizera droga startowa 10R  przez przejście MUS.",
+    "localizerInstruction": "Boeing PAO4511, Zniż się i zachowaj FL210,  Utrzymuj FL210, aż do ustabilizowania w localizerze..",
+    "arrivalMenu": "Potwierdź przyjęcie pozwolenia na przylot",
+    "arrivalVariants": [
+      "Boeing PAO4511, masz zezwolenie na przylot w procedurze TMBRS4. Wznieś się i zachowaj FL210 Spodziewaj się podejścia Kurs odwrotny do localizera droga startowa 10R  przez przejście MUS Zmiana pasa na równoległy droga startowa 10R..",
+      "Boeing PAO4511, masz zezwolenie na przylot w procedurze TMBRS4. Wznieś się i zachowaj FL210 Spodziewaj się podejścia Kurs odwrotny do localizera droga startowa 10R  przez przejście MUS Podejście z okrążeniem droga startowa 10R.."
+    ],
+    "approachMenu": "Potwierdź przyjęcie zgody na podejście",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Utrzymuj FL210, aż do ustabilizowania w localizerze. Zgoda na podejście ILS droga startowa 10R.",
+      "Boeing PAO4511, Zgoda na podejście ILS droga startowa 10R.  Utrzymuj FL210, aż do ustabilizowania w localizerze.."
+    ]
+  },
+  {
+    "locale": "pt-BR",
+    "instructionMenu": "Confirmar Instrução",
+    "descentMenu": "Confirmar Permissão para Descida",
+    "nativeClimb": "Boeing PAO4511, Suba para 1.000 pés e mantenha.",
+    "nativeDescent": "Boeing PAO4511, desça via TMBRS4 até 1.000 pés. Espere Curso Inverso de Localizador pista 10R aproximação via transição MUS.",
+    "localizerInstruction": "Boeing PAO4511, Desça para FL210 e mantenha,  Mantenha FL210 até que o localizador esteja estabilizado..",
+    "arrivalMenu": "Confirmar Permissão para Chegada",
+    "arrivalVariants": [
+      "Boeing PAO4511, Liberada chegada em TMBRS4. Suba para FL210 e mantenha Esperar Curso Inverso de Localizador pista 10R aproximação via transição MUS Desvie de pista 10R..",
+      "Boeing PAO4511, Liberada chegada em TMBRS4. Suba para FL210 e mantenha Esperar Curso Inverso de Localizador pista 10R aproximação via transição MUS Circule para pousar em pista 10R.."
+    ],
+    "approachMenu": "Confirmar Permissão para Aproximação",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Mantenha FL210 até que o localizador esteja estabilizado. Aproximação ILS pista 10R liberada.",
+      "Boeing PAO4511, Aproximação ILS pista 10R liberada.  Mantenha FL210 até que o localizador esteja estabilizado.."
+    ]
+  },
+  {
+    "locale": "pt-PT",
+    "instructionMenu": "Confirmar instrução",
+    "descentMenu": "Confirmar Permissão para Descida",
+    "nativeClimb": "Boeing PAO4511, Suba para 1000 pés e mantenha.",
+    "nativeDescent": "Boeing PAO4511, desça via TMBRS4 para 1000 pés. Espere uma aproximação Curso inverso de localizador pista 10R,  via transição MUS.",
+    "localizerInstruction": "Boeing PAO4511, Desça para FL210 e mantenha,  Mantenha FL210 até que o localizador esteja estabilizado..",
+    "arrivalMenu": "Confirmar Permissão para Chegada",
+    "arrivalVariants": [
+      "Boeing PAO4511, permitida chegada TMBRS4. Suba para FL210 e mantenha Espere uma aproximação Curso inverso de localizador pista 10R,  via transição MUS Desvie-se da pista pista 10R..",
+      "Boeing PAO4511, permitida chegada TMBRS4. Suba para FL210 e mantenha Espere uma aproximação Curso inverso de localizador pista 10R,  via transição MUS Borregue para aterrar em pista 10R.."
+    ],
+    "approachMenu": "Confirmar permissão para aproximação",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Mantenha FL210 até que o localizador esteja estabilizado. Aproximação ILS pista 10R autorizada.",
+      "Boeing PAO4511, Aproximação ILS pista 10R autorizada.  Mantenha FL210 até que o localizador esteja estabilizado.."
+    ]
+  },
+  {
+    "locale": "ru-RU",
+    "instructionMenu": "Подтвердить получение указания",
+    "descentMenu": "Подтвердить получение разрешения на снижение",
+    "nativeClimb": "Boeing PAO4511, Наберите и удерживайте высоту 1000 фут..",
+    "nativeDescent": "Boeing PAO4511, снижайтесь к TMBRS4 до 1000 фут..Ожидайте Обратный луч курсового маяка полоса 10 R заход на посадку через MUS вход.",
+    "localizerInstruction": "Boeing PAO4511, Снижайтесь и удерживайте высоту FL210,  Сохраняйте высоту FL210 до установления контакта с курсовым радиомаяком..",
+    "arrivalMenu": "Подтвердить получение разрешения на прибытие",
+    "arrivalVariants": [
+      "Boeing PAO4511, разрешено прибытие к TMBRS4. Наберите и удерживайте высоту FL210 Ожидайте Обратный луч курсового маяка полоса 10 R заход на посадку  через MUS вход Сместитесь, полоса 10R..",
+      "Boeing PAO4511, разрешено прибытие к TMBRS4. Наберите и удерживайте высоту FL210 Ожидайте Обратный луч курсового маяка полоса 10 R заход на посадку  через MUS вход Выполните заход, полоса 10R с круга.."
+    ],
+    "approachMenu": "Подтвердить получение разрешения на заход",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Сохраняйте высоту FL210 до установления контакта с курсовым радиомаяком. Заход разрешён — ILS полоса 10 R.",
+      "Boeing PAO4511, Заход разрешён — ILS полоса 10 R.  Сохраняйте высоту FL210 до установления контакта с курсовым радиомаяком.."
+    ]
+  },
+  {
+    "locale": "sv-SE",
+    "instructionMenu": "Kvittera instruktion",
+    "descentMenu": "Bekräfta nedstigningstillstånd",
+    "nativeClimb": "Boeing PAO4511, Stig och bibehåll 300 meter.",
+    "nativeDescent": "Boeing PAO4511, gå ner via TMBRS4 till 300 meter. Räkna med Bakkurs för lokaliserare bana 10R inflygning  via övergången MUS.",
+    "localizerInstruction": "Boeing PAO4511, Plané och bibehåll FL210,  Bibehåll FL210 tills etablerad på localizer..",
+    "arrivalMenu": "Bekräfta ankomsttillstånd",
+    "arrivalVariants": [
+      "Boeing PAO4511, klarerad TMBRS4 ankomst. Stig och bibehåll FL210 Räkna med Bakkurs för lokaliserare bana 10R inflygning  via övergången MUS Hoppa över bana 10R..",
+      "Boeing PAO4511, klarerad TMBRS4 ankomst. Stig och bibehåll FL210 Räkna med Bakkurs för lokaliserare bana 10R inflygning  via övergången MUS Cirkla och landa bana 10R.."
+    ],
+    "approachMenu": "Kvittera inflygningsklarering",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Bibehåll FL210 tills etablerad på localizer. Klar ILS bana 10R inflygning.",
+      "Boeing PAO4511, Klar ILS bana 10R inflygning.  Bibehåll FL210 tills etablerad på localizer.."
+    ]
+  },
+  {
+    "locale": "th-TH",
+    "instructionMenu": "รับทราบคําแนะนํา",
+    "descentMenu": "รับทราบการอนุญาตให้ลดระดับความสูง",
+    "nativeClimb": "Boeing PAO4511 ไต่ระดับและรักษาไว้ที่ 1,000 ฟุต",
+    "nativeDescent": "Boeing PAO4511 ลดระดับตามเส้นทาง TMBRS4 จนถึงระดับความสูง 1,000 ฟุต รอ การบินด้านหลังโลคอลไลเซอร์ รันเวย์ 10R ร่อนลงจอด  ผ่านการแวะพัก MUS",
+    "localizerInstruction": "Boeing PAO4511 ลดระดับความสูงและคงไว้ที่ FL210,  รักษาไว้ที่ FL210 จนกว่าจะพบบนโลคอลไลเซอร์",
+    "arrivalMenu": "รับทราบการอนุญาตให้เข้าสนามบิน",
+    "arrivalVariants": [
+      "Boeing PAO4511 ได้รับอนุญาตให้ใช้เส้นทางเข้าสนามบิน TMBRS4 ไต่ระดับและรักษาไว้ที่ FL210 รอ การบินด้านหลังโลคอลไลเซอร์ รันเวย์ 10R ร่อนลงจอด  ผ่านการแวะพัก MUS Sidestep รันเวย์ 10R",
+      "Boeing PAO4511 ได้รับอนุญาตให้ใช้เส้นทางเข้าสนามบิน TMBRS4 ไต่ระดับและรักษาไว้ที่ FL210 รอ การบินด้านหลังโลคอลไลเซอร์ รันเวย์ 10R ร่อนลงจอด  ผ่านการแวะพัก MUS ตีวงเพื่อลงจอดที่ รันเวย์ 10R"
+    ],
+    "approachMenu": "รับทราบการอนุญาตร่อนลงจอด",
+    "localizerApproaches": [
+      "Boeing PAO4511  รักษาไว้ที่ FL210 จนกว่าจะพบบนโลคอลไลเซอร์ ร่อนลงจอด ILS รันเวย์ 10R เคลียร์",
+      "Boeing PAO4511 ร่อนลงจอด ILS รันเวย์ 10R เคลียร์.  รักษาไว้ที่ FL210 จนกว่าจะพบบนโลคอลไลเซอร์"
+    ]
+  },
+  {
+    "locale": "tr-TR",
+    "instructionMenu": "Talimatı Kabul Edin",
+    "descentMenu": "İniş İznini Onaylayın",
+    "nativeClimb": "Boeing PAO4511, 304,8 m irtifaya yükselin ve koruyun.",
+    "nativeDescent": "Boeing PAO4511, TMBRS4 ile 304,8 m irtifasına alçalın. Lokalizer Ters Yayın pist 10R yaklaşma yapabilirsiniz MUS geçişiyle.",
+    "localizerInstruction": "Boeing PAO4511, Alçalın ve FL210 irtifayı koruyun,  Lokalizer üzerinde kurulana kadar FL210 irtifasını koruyun..",
+    "arrivalMenu": "Varış İznini Onaylayın",
+    "arrivalVariants": [
+      "Boeing PAO4511, TMBRS4 varış rotası serbest. FL210 irtifaya yükselin ve koruyun Lokalizer Ters Yayın pist 10R yaklaşma yapabilirsiniz MUS geçişiyle Yandaki pist 10R pistine inin..",
+      "Boeing PAO4511, TMBRS4 varış rotası serbest. FL210 irtifaya yükselin ve koruyun Lokalizer Ters Yayın pist 10R yaklaşma yapabilirsiniz MUS geçişiyle pist 10R pistine iniş için havalimanı çevresinde daire çizin.."
+    ],
+    "approachMenu": "Yaklaşma İznini Kabul Edin",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Lokalizer üzerinde kurulana kadar FL210 irtifasını koruyun. ILS pist 10R yaklaşma izni verildi.",
+      "Boeing PAO4511, ILS pist 10R yaklaşma izni verildi.  Lokalizer üzerinde kurulana kadar FL210 irtifasını koruyun.."
+    ]
+  },
+  {
+    "locale": "vi-VN",
+    "instructionMenu": "Ghi nhận hướng dẫn",
+    "descentMenu": "Ghi nhận huấn lệnh hạ độ cao",
+    "nativeClimb": "Boeing PAO4511, Nâng độ cao và duy trì ở mức 1,000 ft.",
+    "nativeDescent": "Boeing PAO4511, hạ độ cao qua TMBRS4 xuống 1,000 ft. Dự kiến tiếp cận Dải tần số hạ cánh sau của đài xác định hướng đường băng 10R bằng thông qua chuyển tiếp MUS.",
+    "localizerInstruction": "Boeing PAO4511, Hạ độ cao và duy trì ở mức FL210,  Duy trì FL210 cho đến khi được thiết lập trên đài xác định hướng..",
+    "arrivalMenu": "Ghi nhận huấn lệnh bay đến",
+    "arrivalVariants": [
+      "Boeing PAO4511, được phép bay đến qua TMBRS4. Nâng độ cao và duy trì ở mức FL210 Dự kiến tiếp cận Dải tần số hạ cánh sau của đài xác định hướng đường băng 10R bằng thông qua chuyển tiếp MUS Tiếp cận song song đường băng 10R..",
+      "Boeing PAO4511, được phép bay đến qua TMBRS4. Nâng độ cao và duy trì ở mức FL210 Dự kiến tiếp cận Dải tần số hạ cánh sau của đài xác định hướng đường băng 10R bằng thông qua chuyển tiếp MUS Bay vòng để hạ cánh trên đường băng 10R.."
+    ],
+    "approachMenu": "Ghi nhận huấn lệnh tiếp cận",
+    "localizerApproaches": [
+      "Boeing PAO4511,  Duy trì FL210 cho đến khi được thiết lập trên đài xác định hướng. Được phép tiếp cận ILS đường băng 10R.",
+      "Boeing PAO4511, Được phép tiếp cận ILS đường băng 10R.  Duy trì FL210 cho đến khi được thiết lập trên đài xác định hướng.."
+    ]
+  },
+  {
+    "locale": "zh-CN",
+    "instructionMenu": "确认指示",
+    "descentMenu": "答复确认下降许可",
+    "nativeClimb": "Boeing PAO4511，爬升至1000 英尺并保持高度。",
+    "nativeDescent": "Boeing PAO4511，通过TMBRS4下降至1000 英尺。预期航向信标台回航 跑道10R进近 过渡点MUS。",
+    "localizerInstruction": "Boeing PAO4511，下降至FL210保持,  保持FL210高度，直到与航向信标台建立联系。。",
+    "arrivalMenu": "答复确认到达许可",
+    "arrivalVariants": [
+      "Boeing PAO4511，允许TMBRS4到达。爬升至FL210并保持高度预计航向信标台回航 跑道10R进近 过渡点MUS 旁侧进近至跑道10R。。",
+      "Boeing PAO4511，允许TMBRS4到达。爬升至FL210并保持高度预计航向信标台回航 跑道10R进近 过渡点MUS 盘旋进近至跑道10R。。"
+    ],
+    "approachMenu": "确认进近许可",
+    "localizerApproaches": [
+      "Boeing PAO4511， 保持FL210高度，直到与航向信标台建立联系。 继续仪表着陆系统 跑道10R进近。",
+      "Boeing PAO4511，继续仪表着陆系统 跑道10R进近.  保持FL210高度，直到与航向信标台建立联系。。"
+    ]
+  },
+  {
+    "locale": "zh-TW",
+    "instructionMenu": "確認指示",
+    "descentMenu": "確認降落許可",
+    "nativeClimb": "Boeing PAO4511，攀升並保持 1,000 英尺。",
+    "nativeDescent": "Boeing PAO4511，請依循 TMBRS4 下降至 1,000 英尺。預期採用 航向定位台反航道 跑道 10R 進場程序  經由 MUS 轉換點。",
+    "localizerInstruction": "Boeing PAO4511，下降並保持 FL210,  保持 FL210 高度，直到建立在航向定位台上。。",
+    "arrivalMenu": "確認進場許可",
+    "arrivalVariants": [
+      "Boeing PAO4511，許可依 TMBRS4 到場程序進場。攀升並保持 FL210，預期採用 航向定位台反航道 跑道 10R 進場程序  經由 MUS 轉換點 側飛 跑道 10R 跑道。。",
+      "Boeing PAO4511，許可依 TMBRS4 到場程序進場。攀升並保持 FL210，預期採用 航向定位台反航道 跑道 10R 進場程序  經由 MUS 轉換點 盤旋降落在 跑道 10R。。"
+    ],
+    "approachMenu": "確認進場許可",
+    "localizerApproaches": [
+      "Boeing PAO4511， 保持 FL210 高度，直到建立在航向定位台上。 准許 儀降系統 跑道 10R 進場。",
+      "Boeing PAO4511，准許 儀降系統 跑道 10R 進場.  保持 FL210 高度，直到建立在航向定位台上。。"
+    ]
+  }
+]

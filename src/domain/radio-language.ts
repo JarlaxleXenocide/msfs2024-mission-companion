@@ -39,7 +39,7 @@ function grammar(l: Locale, key: string): string {
     number, frequency, aircraft:name, leg:name, compass:name,
   };
   if(primitives[key])return primitives[key];
-  if(key==='altitude')return union([alt, `${grammar(l,'flightlevel')}[0-9]{1,3}`, `[0-9]{1,6}(?:[,.][0-9]{3})?${grammar(l,'altitudeunit')}`]);
+  if(key==='altitude')return union([alt, `${grammar(l,'flightlevel')}[0-9]{1,3}`, `${number}${grammar(l,'altitudeunit')}`]);
   let result: string;
   if(key==='centerhandoffmessage') {
     result=`${name},?${grammar(l,'handoff')}(?:${grammar(l,'human')})?`;

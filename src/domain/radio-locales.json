@@ -32,7 +32,8 @@
         "Sklesejte a udržujte {altitude}",
         "Udržujte tuto výšku",
         "Udržujte tento kurz a výšku",
-        "Udržujte tento kurz"
+        "Udržujte tento kurz",
+        "Udržujte {altitude} až do dosažení lokalizátoru"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -247,7 +248,8 @@
         "Sænk og vedligehold {altitude}",
         "Oprethold nuværende flyvehøjde",
         "Oprethold nuværende kurs og højde",
-        "Bevar nuværende kurs"
+        "Bevar nuværende kurs",
+        "Vedligehold {altitude} indtil etablering på localizer"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -401,7 +403,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "fod"
       ],
       "handoffCall": [
         "Kontakt {station} på {frequency}. {human}"
@@ -463,7 +466,8 @@
         "sinken und halten Sie {altitude}",
         "Halten Sie die aktuelle Höhe",
         "Halten Sie den aktuellen Kurs und die Höhe",
-        "Halten Sie den aktuellen Kurs"
+        "Halten Sie den aktuellen Kurs",
+        "Halten Sie {altitude}, bis Sie Kontakt zum Landekurssender haben"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -678,7 +682,8 @@
         "Κατεβείτε και διατηρήστε ύψος {altitude}",
         "Διατηρήστε το τρέχον ύψος",
         "Διατηρήστε την τρέχουσα πορεία και το ύψος",
-        "Διατήρηση της τρέχουσας πορείας"
+        "Διατήρηση της τρέχουσας πορείας",
+        "Διατηρήστε ύψος {altitude} μέχρι να εμφανιστεί στον εντοπιστή"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -832,7 +837,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "πόδια"
       ],
       "handoffCall": [
         "επικοινωνήστε με {station} στο {frequency}. {human}"
@@ -895,7 +901,8 @@
         "Maintain present altitude",
         "Maintain present heading and altitude",
         "Maintain present heading",
-        "Maintain current altitude"
+        "Maintain current altitude",
+        "Maintain {altitude} until established on the localizer"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -1111,7 +1118,8 @@
         "Descienda y manténgase a {altitude}",
         "Mantenga la altitud actual",
         "Mantenga el rumbo y la altitud actuales",
-        "Mantenga el rumbo actual"
+        "Mantenga el rumbo actual",
+        "Mantenga {altitude} hasta que esté en el localizador"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -1325,7 +1333,8 @@
         "Descienda y manténgase a {altitude}",
         "Mantenga la altitud actual",
         "Mantenga el rumbo y la altitud actuales",
-        "Mantenga el rumbo actual"
+        "Mantenga el rumbo actual",
+        "Mantenga {altitude} hasta que esté en el localizador"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -1540,7 +1549,8 @@
         "Laskeudu korkeuteen {altitude} ja pidä se",
         "Pidä nykyinen korkeus",
         "Pidä nykyinen ohjaussuunta ja korkeus",
-        "Pidä nykyinen ohjaussuunta"
+        "Pidä nykyinen ohjaussuunta",
+        "Säilytä korkeus {altitude}, kunnes se on määritetty suuntalähettimessä"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -1756,7 +1766,8 @@
         "Descendez à {altitude}",
         "Maintenez votre altitude",
         "Maintenez votre cap et votre altitude",
-        "Maintenez votre cap"
+        "Maintenez votre cap",
+        "Maintenez {altitude} jusqu'à interception du LOC"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -1909,7 +1920,8 @@
         "Pieds",
         "ft",
         "feet",
-        "m"
+        "m",
+        "pieds"
       ],
       "handoffCall": [
         "contactez {station} sur {frequency}. {human}"
@@ -1970,7 +1982,8 @@
         "उतरे और {altitude} बनाए रखें",
         "वर्तमान ऊंचाई बनाए रखें",
         "वर्तमान हेडिंग और ऊंचाई बनाए रखें",
-        "मौजूदा हेडिंग बनाए रखें"
+        "मौजूदा हेडिंग बनाए रखें",
+        "लोकलाइज़र पर स्थापित होने तक {altitude} बनाए रखें"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -2124,7 +2137,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "फ़ीट"
       ],
       "handoffCall": [
         "{frequency} पर {station} संपर्क करें. {human}"
@@ -2186,7 +2200,8 @@
         "Süllyedjen {altitude} magasságra és tartsa meg",
         "Tartsa a jelenlegi magasságot",
         "Tartsa a jelenlegi géptengelyirányszöget és magasságot",
-        "Tartsa a jelenlegi géptengelyirányszöget"
+        "Tartsa a jelenlegi géptengelyirányszöget",
+        "Tartson {altitude} magasságot, amíg az iránysávhoz helyezkedik"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -2286,7 +2301,8 @@
       ],
       "circle": [
         "",
-        " {runway} leszállási kör."
+        " {runway} leszállási kör.",
+        " Körözzön {runway} futópályán való leszálláshoz."
       ],
       "altimeter": [
         "QNH",
@@ -2339,7 +2355,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "láb"
       ],
       "handoffCall": [
         "vegye fel az összeköttetést {station} ügynökkel {frequency} frekvencián. {human}"
@@ -2401,7 +2418,8 @@
         "Turun dan pertahankan {altitude}",
         "Pertahankan ketinggian saat ini",
         "Pertahankan haluan dan ketinggian saat ini",
-        "Pertahankan haluan saat ini"
+        "Pertahankan haluan saat ini",
+        "Pertahankan {altitude} sampai mantap di localizer"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -2555,7 +2573,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "kaki"
       ],
       "handoffCall": [
         "hubungi {station} di {frequency}. {human}"
@@ -2617,7 +2636,8 @@
         "Scendere e mantenere quota {altitude}",
         "Mantenere altitudine attuale",
         "Mantenere rotta e altitudine attuale",
-        "Mantenere rotta attuale"
+        "Mantenere rotta attuale",
+        "Mantenere quota {altitude} fino a stabilizzarsi sul localizzatore"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -2769,7 +2789,8 @@
         "ft",
         "Piedi",
         "feet",
-        "m"
+        "m",
+        "piedi"
       ],
       "handoffCall": [
         "contattare {station} su {frequency}. {human}"
@@ -2830,7 +2851,8 @@
         "降下して、{altitude} を維持",
         "現在の高度を維持",
         "現在の針路と高度を維持",
-        "現在の針路を維持"
+        "現在の針路を維持",
+        "ローカライザーに捕捉されるまで {altitude} を維持せよ"
       ],
       "instructionMessage": [
         "{callsign}、{vector}。",
@@ -2924,7 +2946,8 @@
       ],
       "circle": [
         "",
-        " {runway} にサークリングで着陸する。"
+        " {runway} にサークリングで着陸する。",
+        " {runway} にサークリングで着陸"
       ],
       "altimeter": [
         "QNH",
@@ -3040,7 +3063,8 @@
         "{altitude} 하강 및 유지",
         "현재 고도 유지",
         "현재 기수방향, 고도 유지",
-        "현재 기수방향 유지"
+        "현재 기수방향 유지",
+        "로컬라이저에 일치할 때까지 {altitude} 유지하세요"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -3136,7 +3160,8 @@
       ],
       "sidestep": [
         "",
-        " {runway}에서 벗어나십시오."
+        " {runway}에서 벗어나십시오.",
+        " {runway} 회피하십시오."
       ],
       "circle": [
         "",
@@ -3255,7 +3280,8 @@
         "Turun dan kekalkan {altitude}",
         "Kekalkan altitud semasa",
         "Kekalkan hala tuju dan altitud semasa",
-        "Kekalkan hala tuju semasa"
+        "Kekalkan hala tuju semasa",
+        "Mengekalkan {altitude} sehingga mantap pada penempat"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -3409,7 +3435,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "kaki"
       ],
       "handoffCall": [
         "hubungi {station} pada {frequency}. {human}"
@@ -3471,7 +3498,8 @@
         "Foreta nedstigning og oppretthold {altitude}",
         "Oppretthold nåværende høyde",
         "Oppretthold nåværende kurs og høyde",
-        "Oppretthold nåværende kurs"
+        "Oppretthold nåværende kurs",
+        "Oppretthold {altitude} frem til du er etablert på lokalisator"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -3687,7 +3715,8 @@
         "Daal en houd een hoogte van {altitude}",
         "Houd de huidige hoogte vast",
         "Houd de huidige koers en hoogte",
-        "Houd de huidige koers"
+        "Houd de huidige koers",
+        "Houd {altitude} totdat je bent gedetecteerd door het koerslijnbaken"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -3903,7 +3932,8 @@
         "Zniż się i zachowaj {altitude}",
         "Utrzymuj obecną wysokość",
         "Utrzymuj obecny kurs i wysokość",
-        "Utrzymuj obecny kurs"
+        "Utrzymuj obecny kurs",
+        "Utrzymuj {altitude}, aż do ustabilizowania w localizerze"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -4056,7 +4086,8 @@
         "Stopy",
         "ft",
         "feet",
-        "m"
+        "m",
+        "stóp"
       ],
       "handoffCall": [
         "nawiąż kontakt z {station} na {frequency}. {human}"
@@ -4118,7 +4149,8 @@
         "Desça para {altitude} e mantenha",
         "Mantenha a altitude atual",
         "Mantenha proa e altitude atuais",
-        "Mantenha a proa atual"
+        "Mantenha a proa atual",
+        "Mantenha {altitude} até que o localizador esteja estabilizado"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -4218,7 +4250,8 @@
       ],
       "circle": [
         "",
-        " Arremeta para aterrissar em {runway}."
+        " Arremeta para aterrissar em {runway}.",
+        " Circule para pousar em {runway}."
       ],
       "altimeter": [
         "QNH",
@@ -4272,7 +4305,8 @@
         "Pés",
         "ft",
         "feet",
-        "m"
+        "m",
+        "pés"
       ],
       "handoffCall": [
         "contate {station} em {frequency}. {human}"
@@ -4334,7 +4368,8 @@
         "Desça para {altitude} e mantenha",
         "Mantenha a altitude atual",
         "Mantenha o rumo e a altitude atuais",
-        "Mantenha o rumo atual"
+        "Mantenha o rumo atual",
+        "Mantenha {altitude} até que o localizador esteja estabilizado"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -4430,7 +4465,8 @@
       ],
       "sidestep": [
         "",
-        " Desvie de {runway}."
+        " Desvie de {runway}.",
+        " Desvie-se da pista {runway}."
       ],
       "circle": [
         "",
@@ -4487,7 +4523,8 @@
         "Pés",
         "ft",
         "feet",
-        "m"
+        "m",
+        "pés"
       ],
       "handoffCall": [
         "contacte {station} em {frequency}. {human}"
@@ -4549,7 +4586,8 @@
         "Снижайтесь и удерживайте высоту {altitude}",
         "Удерживайте текущую высоту",
         "Удерживайте текущие курс и высоту",
-        "Удерживайте текущий курс"
+        "Удерживайте текущий курс",
+        "Сохраняйте высоту {altitude} до установления контакта с курсовым радиомаяком"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -4703,7 +4741,8 @@
         "Футы",
         "ft",
         "feet",
-        "m"
+        "m",
+        "фут."
       ],
       "handoffCall": [
         "свяжитесь — {station} на частоте {frequency}. {human}"
@@ -4765,7 +4804,8 @@
         "Plané och bibehåll {altitude}",
         "Bibehåll nuvarande höjd",
         "Bibehåll nuvarande kurs och höjd",
-        "Bibehåll nuvarande kurs"
+        "Bibehåll nuvarande kurs",
+        "Bibehåll {altitude} tills etablerad på localizer"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -4918,7 +4958,8 @@
         "Meter",
         "ft",
         "feet",
-        "m"
+        "m",
+        "meter"
       ],
       "handoffCall": [
         "kontakta {station} på {frequency}. {human}"
@@ -4979,7 +5020,8 @@
         "ลดระดับความสูงและคงไว้ที่ {altitude}",
         "รักษาอัลติจูดปัจจุบัน",
         "รักษาทิศทางหัวเครื่องบินและอัลติจูดปัจจุบัน",
-        "คงทิศทางหัวเครื่องบินปัจจุบัน"
+        "คงทิศทางหัวเครื่องบินปัจจุบัน",
+        "รักษาไว้ที่ {altitude} จนกว่าจะพบบนโลคอลไลเซอร์"
       ],
       "instructionMessage": [
         "{callsign} {vector}",
@@ -5074,7 +5116,8 @@
       ],
       "sidestep": [
         "",
-        " Sidestep ไปที่ {runway}"
+        " Sidestep ไปที่ {runway}",
+        " Sidestep {runway}"
       ],
       "circle": [
         "",
@@ -5132,7 +5175,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "ฟุต"
       ],
       "handoffCall": [
         "ติดต่อ {station} ที่ {frequency} {human}"
@@ -5194,7 +5238,8 @@
         "Alçalın ve {altitude} irtifayı koruyun",
         "Mevcut irtifayı koruyun",
         "Mevcut istikameti ve irtifayı koruyun",
-        "Mevcut istikameti koruyun"
+        "Mevcut istikameti koruyun",
+        "Lokalizer üzerinde kurulana kadar {altitude} irtifasını koruyun"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -5404,7 +5449,8 @@
         "Hạ độ cao và duy trì ở mức {altitude}",
         "Duy trì độ cao hiện tại",
         "Duy trì hướng bay và độ cao hiện tại",
-        "Duy trì hướng bay hiện tại"
+        "Duy trì hướng bay hiện tại",
+        "Duy trì {altitude} cho đến khi được thiết lập trên đài xác định hướng"
       ],
       "instructionMessage": [
         "{callsign}, {vector}.",
@@ -5617,7 +5663,8 @@
         "下降至{altitude}保持",
         "保持当前高度",
         "保持当前航向和高度",
-        "保持当前航向"
+        "保持当前航向",
+        "保持{altitude}高度，直到与航向信标台建立联系"
       ],
       "instructionMessage": [
         "{callsign}，{vector}。",
@@ -5709,7 +5756,8 @@
       ],
       "circle": [
         "",
-        " 目视盘旋进近至{runway}。"
+        " 目视盘旋进近至{runway}。",
+        " 盘旋进近至{runway}。"
       ],
       "altimeter": [
         "修正海压",
@@ -5824,7 +5872,8 @@
         "下降並保持 {altitude}",
         "保持目前高度",
         "保持目前的航向和高度",
-        "保持目前航向"
+        "保持目前航向",
+        "保持 {altitude} 高度，直到建立在航向定位台上"
       ],
       "instructionMessage": [
         "{callsign}，{vector}。",
@@ -5922,7 +5971,8 @@
       ],
       "circle": [
         "",
-        " 盤旋降落 {runway}。"
+        " 盤旋降落 {runway}。",
+        " 盤旋降落在 {runway}。"
       ],
       "altimeter": [
         "QNH",
@@ -5976,7 +6026,8 @@
         "Feet",
         "ft",
         "feet",
-        "m"
+        "m",
+        "英尺"
       ],
       "handoffCall": [
         "聯絡 {station}，頻道 {frequency}。{human}"
