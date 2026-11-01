@@ -78,6 +78,7 @@ function sameStation(name: string, target: Handoff): boolean {
     : name.trim().toLowerCase() === target.name.toLowerCase();
 }
 const altitudeInstruction = (text: string) => /\b(?:(?:climb|descend) and maintain (?:FL\s*\d{1,3}|\d[\d,]*\s*(?:ft|feet))|maintain (?:present|current) altitude)\b/i.test(text);
+const speedInstruction = (text: string) => /\bkeep speed not above\s+\d+\s+knots\b/i.test(text);
 const approachClearance = (text: string) => /\bcleared\b.*\b(?:arrival|approach)\b/i.test(text);
 const acknowledgments = new Map<string, RadioAction['kind']>([
   ['acknowledge handoff','acknowledge'],
@@ -91,7 +92,7 @@ function matchesAcknowledgment(kind: RadioAction['kind'], message: RadioMessage)
   const target = handoff(message);
   switch (kind) {
     case 'acknowledge': return !!target && !target.ground;
-    case 'acknowledge-instruction': return altitudeInstruction(message.text);
+    case 'acknowledge-instruction': return altitudeInstruction(message.text) || speedInstruction(message.text);
     case 'acknowledge-descent': return /\bdescend via\s+[^\s.!?][^.!?]*?\s+to\s+(?:FL\s*\d{1,3}|\d[\d,]*\s*(?:ft|feet))\b/i.test(message.text);
     case 'acknowledge-assigned-approach': return /\bexpect\b.*\bapproach\b/i.test(message.text) && /\bcleared to\s+\S+/i.test(message.text);
     case 'acknowledge-approach': return approachClearance(message.text) || !!target && /\btower$/i.test(target.name);

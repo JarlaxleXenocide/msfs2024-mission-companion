@@ -14,12 +14,25 @@ function ready(s: RadioSnapshot, engine = new RadioDecisions(), at = 0) {
 const cases = [
   ['Acknowledge Instruction','Example 123, Climb and maintain FL260, Keep speed not above 280 knots.','acknowledge-instruction'],
   ['Acknowledge Instruction','Example 123, Climb and maintain 15,000 ft.','acknowledge-instruction'],
+  ['Acknowledge Instruction','Example 123, Keep speed not above 250 knots.','acknowledge-instruction'],
   ['Acknowledge Descent Clearance','Example 123, descend via EXAMPLE2 to 5,000 ft. Expect ILS runway 25R approach via FIXIT transition.','acknowledge-descent'],
   ['Acknowledge Assigned Approach','Example 123,Maintain present heading and altitude Expect ILS runway 10 approach via FIXIT transition. Cleared to  FIXIT.','acknowledge-assigned-approach'],
   ['Acknowledge Approach Clearance','Example 123, Contact Example Tower on 118.7 when inbound on the approach.','acknowledge-approach'],
   ['Acknowledge Approach Clearance','Example 123, Cleared EXAMPLE1 arrival. Descend and maintain 10,000 ft Expect ILS runway 09 approach.','acknowledge-approach'],
   ['Acknowledge Pattern Entry Instructions','Example 123, Example Tower. Altimeter 2992, Cleared ILS Z runway 09 approach.','acknowledge-pattern-entry'],
 ] as const;
+
+test('standalone speed limits require the captured wording, numeric speed and knots',()=>{
+  const menu=['1 - Acknowledge Instruction','2 - Say Again'];
+  assert.equal(ready(state(['Example 123, Keep speed not above 210 knots.'],menu))?.option.id,0);
+  for(const text of ['Example 123, Keep speed not above knots.',
+    'Example 123, Keep speed not above 250.',
+    'Example 123, Keep speed not above 250 feet.',
+    'Example 123, Keep speed not below 250 knots.',
+    'Example 123, please expedite your climb FL320.']) {
+    assert.equal(ready(state([text],menu)),null,text);
+  }
+});
 
 test('descent clearance requires descend-via route and altitude, leaving alternate selections alone',()=>{
   const menu=['1 - Acknowledge Descent Clearance','2 - Standby -- [ Select Another Runway for Landing ]','3 - Standby -- [ Select Another Approach ]','4 - Say Again'];

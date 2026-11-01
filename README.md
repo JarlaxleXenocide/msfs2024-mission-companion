@@ -28,7 +28,7 @@ The local Coherent inspector must expose `mainUi` and `Electronic Flight Bag` at
 
 Use the header’s pilot button to enable it; **Activity** shows the frequency, latest message and last action. It starts **off** each launch and uses the simulator’s ATC menu, without a microphone or cloud service.
 
-Supported English calls include handoffs, climb/descend-and-maintain instructions, descend-via clearances and approach acknowledgments. It can send responses and change COM frequencies, but does not fly the aircraft, validate clearances or decide when you are inbound.
+Supported English calls include handoffs, climb/descend-and-maintain instructions, “Keep speed not above … knots” instructions, descend-via clearances and approach acknowledgments. It can send responses and change COM frequencies, but does not fly the aircraft, validate clearances or decide when you are inbound.
 
 **It switches off at “cleared to land.” Read back that clearance and handle ground/taxi calls yourself.** Departure procedures, alternate approaches and unrecognized calls also remain manual.
 

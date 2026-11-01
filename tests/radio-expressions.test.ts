@@ -86,6 +86,7 @@ test('altitude acknowledgment uses only native SelectOption and refuses a change
 
 test('captured clearance labels submit only their option and reject a concurrent manual readback',async()=>{
   for(const [label,text] of [
+    ['Acknowledge Instruction','Example 123, Keep speed not above 250 knots.'],
     ['Acknowledge Descent Clearance','Example 123, descend via EXAMPLE2 to 5,000 ft. Expect ILS runway 25R approach via FIXIT transition.'],
     ['Acknowledge Assigned Approach','Example 123,Maintain present heading and altitude Expect ILS runway 10 approach via FIXIT transition. Cleared to  FIXIT.'],
     ['Acknowledge Approach Clearance','Example 123, Contact Example Tower on 118.7 when inbound on the approach.'],
