@@ -114,7 +114,7 @@ test('an unanswered instruction survives a reminder, but never a readback or an 
     const s=instruction();addMessage(s,reminder);
     assert.equal(ready(new RadioDecisions(),s)?.kind,'acknowledge-instruction');
   }
-  for(const [text,outgoing] of [['Descend and maintain FL290, Example 123.',true],['Example 123, turn left heading 030.',false]]) {
+  for(const [text,outgoing] of [['Descend and maintain FL290, Example 123.',true],['Example 123, hold position.',false]]) {
     const s=instruction();addMessage(s,text as string,outgoing as boolean);addMessage(s,'Example 123, please acknowledge.');
     assert.equal(ready(new RadioDecisions(),s),null);
   }

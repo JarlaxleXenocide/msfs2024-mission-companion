@@ -1,3 +1,4 @@
+import { localizedEnrouteHandoff } from './radio-language';
 import { hasLandingClearance, weatherBroadcast } from './radio';
 import type { RadioSnapshot } from '../shared/radio';
 
@@ -21,7 +22,9 @@ export class RadioWeatherRecovery {
     if (this.count && state.count - this.count > state.messages.length) this.blocked = true;
     for (const message of state.messages) {
       if (message.index < this.count || message.outgoing) continue;
-      if (!weatherBroadcast(message.text) && /\b(?:descend|descent|approach|arrival|tower|ground|taxi|land|landing)\b/i.test(message.text)) this.blocked = true;
+      // Unknown or translated traffic may be an arrival instruction. Latch the
+      // block unless the entire call is a recognized enroute center handoff.
+      if (!weatherBroadcast(message.text) && !localizedEnrouteHandoff(message.text)) this.blocked = true;
       if (!weatherBroadcast(message.text)) continue;
       const text = message.text.trim().replace(/\s+/g, ' ').toLowerCase();
       if (this.seen.has(text)) this.repeats.add(text);

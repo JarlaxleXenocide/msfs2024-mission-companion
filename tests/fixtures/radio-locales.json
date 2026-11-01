@@ -1,0 +1,1206 @@
+[
+  {
+    "locale": "cs-CZ",
+    "handoff": "Example 123 kontaktujte Example Centrum na 133.250. Hezký den.",
+    "ack": "Potvrďte předání",
+    "tune": "[ Nalaďte Example Centrum na 133.250 ]",
+    "contact": "Kontaktujte Example centrum",
+    "checkin": "Example Centrum, Example 123, FL210.",
+    "instruction": "Example 123, Udržujte rychlost do 230 uzlů.",
+    "instructionMenu": "Potvrďte pokyn",
+    "reminder": "Example 123, potvrďte prosím.",
+    "landing": "Example 123       , povoleno přistát dráha 09R.",
+    "descent": "Example 123, sestupte přes EXAMPLE2 na FL210. Očekávejte přiblížení ILS .",
+    "descentMenu": "Potvrďte povolení k sestupu",
+    "assigned": "Example 123,  Očekávejte vektory ILS přiblížení.",
+    "assignedMenu": "Potvrďte přidělený přístup",
+    "arrival": "Example 123, schváleno přiblížení EXAMPLE2.  Očekávejte přiblížení ILS .",
+    "arrivalMenu": "Potvrďte povolení k příletu",
+    "approach": "Example 123, Povoleno ILS přiblížení.",
+    "approachMenu": "Potvrďte povolení přiblížení",
+    "heading": "Example 123, Točte vlevo do kurzu 085.",
+    "pattern": "Example 123, Example Věž. Výškoměr 2992 , Pokračujte vpravo po větru. ",
+    "patternMenu": "Potvrďte pokyny pro vstup do okruhu",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 kontaktujte Example Centrum na 133.250. Hezký den.",
+        "tune": "[ Nalaďte Example Centrum na 133.250 ]",
+        "contact": "Kontaktujte Example centrum"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 kontaktujte Example Přiblížení na 133.250. Hezký den.",
+        "tune": "[ Nalaďte Example Přiblížení na 133.250 ]",
+        "contact": "Kontaktujte Example přiblížení"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 kontaktujte Example Věž na 133.250. Hezký den.",
+        "tune": "[ Nalaďte Example Věž na 133.250 ]",
+        "contact": "Kontaktujte věž Example"
+      }
+    ]
+  },
+  {
+    "locale": "da-DK",
+    "handoff": "Example 123 Kontakt Example Center på 133.250. Goddag.",
+    "ack": "Bekræft Handoff",
+    "tune": "[ Indstil Example Center til 133.250 ]",
+    "contact": "Kontakt Example Center",
+    "checkin": "Example Center, Example 123, FL210.",
+    "instruction": "Example 123, Hold hastighed ikke over 230 knob.",
+    "instructionMenu": "Anerkend instruktion",
+    "reminder": "Example 123, anerkend.",
+    "landing": "Example 123.      , klar til landing landingsbane 09R.",
+    "descent": "Example 123, dyk via EXAMPLE2 til FL210. Forvent ILS tilgang.",
+    "descentMenu": "Bekræft nedstigningstilladelse",
+    "assigned": "Example 123, Forvent vektorer ILS indflyvning.",
+    "assignedMenu": "Bekræft tildelt indflyvning",
+    "arrival": "Example 123, godkendte EXAMPLE2s ankomst.  Forvent ILS indflyvning.",
+    "arrivalMenu": "Bekræft ankomsttilladelse",
+    "approach": "Example 123, Godkendt ILS indflyvning.",
+    "approachMenu": "Bekræft indflyvningsgodkendelse",
+    "heading": "Example 123, Drej venstre retning 085.",
+    "pattern": "Example 123, Example Tårn. Højdemåler 2992 , Start højre medvindsdrej. ",
+    "patternMenu": "Anerkend instruktioner til start af indgangsmønster",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 Kontakt Example Center på 133.250. Goddag.",
+        "tune": "[ Indstil Example Center til 133.250 ]",
+        "contact": "Kontakt Example Center"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 Kontakt Example Indflyvning på 133.250. Goddag.",
+        "tune": "[ Indstil Example Indflyvning til 133.250 ]",
+        "contact": "Kontakt Example indflyvning"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 Kontakt Example Tårn på 133.250. Goddag.",
+        "tune": "[ Indstil Example Tårn til 133.250 ]",
+        "contact": "Kontakt Example tårn"
+      }
+    ]
+  },
+  {
+    "locale": "de-DE",
+    "handoff": "Example 123 , rufen Sie Example Center auf 133.250. Guten Tag.",
+    "ack": "Übergabe bestätigen",
+    "tune": "[ Example einstellen Center auf 133.250 ]",
+    "contact": "Example Center kontaktieren",
+    "checkin": "Example Center, Example 123, FL210.",
+    "instruction": "Example 123, Geschwindigkeit unter 230 Knoten halten..",
+    "instructionMenu": "Anweisung bestätigen",
+    "reminder": "Example 123, bitte bestätigen.",
+    "landing": "Example 123,      , Freigabe für  Landung Piste 09R.",
+    "descent": "Example 123Sinkflug über EXAMPLE2 zu FL210. Erwarten Sie ILS Landeanflug.",
+    "descentMenu": "Sinkflugfreigabe bestätigen",
+    "assigned": "Example 123, Vektor ILS-Landeanflug.",
+    "assignedMenu": "Zugewiesenen Anflug bestätigen",
+    "arrival": "Example 123, Freigegeben EXAMPLE2 Ankunft.  Erwartet ILS Landeanflug.",
+    "arrivalMenu": "Ankunftsfreigabe bestätigen",
+    "approach": "Example 123, Freigabe für Landeanflug ILS erteilt..",
+    "approachMenu": "Freigabe für Anflug bestätigen",
+    "heading": "Example 123, Drehen Sie nach links, Kurs 085.",
+    "pattern": "Example 123, Example Tower. Höhenmesser 2992 , Einflug in rechts Gegenanflug. ",
+    "patternMenu": "Anweisungen für Einflug in Platzrunde bestätigen",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 , rufen Sie Example Center auf 133.250. Guten Tag.",
+        "tune": "[ Example einstellen Center auf 133.250 ]",
+        "contact": "Example Center kontaktieren"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 , rufen Sie Example Anflug auf 133.250. Guten Tag.",
+        "tune": "[ Example einstellen Anflug auf 133.250 ]",
+        "contact": "Example Anflug kontaktieren"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 , rufen Sie Example Tower auf 133.250. Guten Tag.",
+        "tune": "[ Example einstellen Tower auf 133.250 ]",
+        "contact": "Example Tower kontaktieren"
+      }
+    ]
+  },
+  {
+    "locale": "el-GR",
+    "handoff": "Example 123 επικοινωνήστε με Example Κέντρο στο 133.250. Καλή σας μέρα.",
+    "ack": "Αναγνώριση παράδοσης",
+    "tune": "[ Συντονιστείτε Example Κέντρο στο 133.250 ]",
+    "contact": "Επικοινωνία με το Κέντρο Example",
+    "checkin": "Example Κέντρο, Example 123, FL210.",
+    "instruction": "Example 123, Διατηρήστε την ταχύτητα όχι πάνω από 230 κόμβους.",
+    "instructionMenu": "Αναγνώριση οδηγίας",
+    "reminder": "Example 123, αναγνωρίστε.",
+    "landing": "Example 123.      , άδεια για  για προσγείωση διάδρομος 09R.",
+    "descent": "Example 123, κατεβείτε μέσω EXAMPLE2 στα FL210. Αναμένετε ILS προσέγγιση.",
+    "descentMenu": "Αναγνώριση άδειας καθόδου",
+    "assigned": "Example 123, Αναμένετε διανύσματα για προσέγγιση ILS.",
+    "assignedMenu": "Αναγνώριση εκχωρημένης προσέγγισης",
+    "arrival": "Example 123, άδεια EXAMPLE2 για άφιξη.  Αναμένετε ILS προσέγγιση.",
+    "arrivalMenu": "Αναγνώριση άδειας άφιξης",
+    "approach": "Example 123, Ελεύθερη ILS προσέγγιση.",
+    "approachMenu": "Αναγνώριση άδειας προσέγγισης",
+    "heading": "Example 123, Στροφή αριστερά για πορεία 085.",
+    "pattern": "Example 123, Example Τάουερ. Αλτίμετρο 2992 , Είσοδος δεξιά υπήνεμα. ",
+    "patternMenu": "Αναγνώριση οδηγιών καταχώρισης μοτίβου",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 επικοινωνήστε με Example Κέντρο στο 133.250. Καλή σας μέρα.",
+        "tune": "[ Συντονιστείτε Example Κέντρο στο 133.250 ]",
+        "contact": "Επικοινωνία με το Κέντρο Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 επικοινωνήστε με Example Προσέγγιση στο 133.250. Καλή σας μέρα.",
+        "tune": "[ Συντονιστείτε Example Προσέγγιση στο 133.250 ]",
+        "contact": "Επικοινωνία Example Προσέγγιση"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 επικοινωνήστε με Example Τάουερ στο 133.250. Καλή σας μέρα.",
+        "tune": "[ Συντονιστείτε Example Τάουερ στο 133.250 ]",
+        "contact": "Επικοινωνία με τον Πύργο Example"
+      }
+    ]
+  },
+  {
+    "locale": "en-US",
+    "handoff": "Example 123 contact Example Center on 133.250. Good day.",
+    "ack": "Acknowledge Handoff",
+    "tune": "[ Tune Example Center on 133.250 ]",
+    "contact": "Contact Example Center",
+    "checkin": "Example Center, Example 123, FL210.",
+    "instruction": "Example 123, Keep speed not above 230 knots.",
+    "instructionMenu": "Acknowledge Instruction",
+    "reminder": "Example 123, please acknowledge.",
+    "landing": "Example 123,      , cleared to land runway 09R.",
+    "descent": "Example 123, descend via EXAMPLE2 to FL210. Expect ILS approach.",
+    "descentMenu": "Acknowledge Descent Clearance",
+    "assigned": "Example 123, Expect vectors ILS approach.",
+    "assignedMenu": "Acknowledge Assigned Approach",
+    "arrival": "Example 123, Cleared EXAMPLE2 arrival.  Expect ILS approach.",
+    "arrivalMenu": "Acknowledge Arrival Clearance",
+    "approach": "Example 123, Cleared ILS approach.",
+    "approachMenu": "Acknowledge Approach Clearance",
+    "heading": "Example 123, Turn left heading 085.",
+    "pattern": "Example 123, Example Tower. Altimeter 2992 , Enter right downwind. ",
+    "patternMenu": "Acknowledge Pattern Entry Instructions",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contact Example Center on 133.250. Good day.",
+        "tune": "[ Tune Example Center on 133.250 ]",
+        "contact": "Contact Example Center"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contact Example Approach on 133.250. Good day.",
+        "tune": "[ Tune Example Approach on 133.250 ]",
+        "contact": "Contact Example Approach"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contact Example Tower on 133.250. Good day.",
+        "tune": "[ Tune Example Tower on 133.250 ]",
+        "contact": "Contact Example Tower"
+      }
+    ]
+  },
+  {
+    "locale": "es-ES",
+    "handoff": "Example 123 contacte con Example Centro en 133.250. Buen día.",
+    "ack": "Confirmar transferencia",
+    "tune": "[ Sintonizar Example Centro en 133.250 ]",
+    "contact": "Contactar centro Example",
+    "checkin": "Example Centro, Example 123, FL210.",
+    "instruction": "Example 123, Mantenga la velocidad por debajo de 230 nudos.",
+    "instructionMenu": "Confirmar instrucción",
+    "reminder": "Example 123, confirme.",
+    "landing": "Example 123,      , tiene autorización para para aterrizar pista 09R.",
+    "descent": "Example 123, desciendar por EXAMPLE2 a FL210. Espera aproximación a ILS   .",
+    "descentMenu": "Confirmar autorización de descenso",
+    "assigned": "Example 123, Espere vectores de aproximación ILS.",
+    "assignedMenu": "Confirmar aproximación asignada",
+    "arrival": "Example 123, autorizada llegada a EXAMPLE2.  Espera aproximación a ILS.",
+    "arrivalMenu": "Confirmar autorización de llegada",
+    "approach": "Example 123, Aproximación ILS despejada.",
+    "approachMenu": "Confirmar autorización para aproximación",
+    "heading": "Example 123, Gire a la izquierda rumbo 085.",
+    "pattern": "Example 123, Example Torre de control. Altímetro 2992 , Entre por el tramo a favor del viento a la derecha. ",
+    "patternMenu": "Confirmar instrucciones de entrada al circuito",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contacte con Example Centro en 133.250. Buen día.",
+        "tune": "[ Sintonizar Example Centro en 133.250 ]",
+        "contact": "Contactar centro Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contacte con Example Aproximación en 133.250. Buen día.",
+        "tune": "[ Sintonizar Example Aproximación en 133.250 ]",
+        "contact": "Contactar aproximación Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contacte con Example Torre de control en 133.250. Buen día.",
+        "tune": "[ Sintonizar Example Torre de control en 133.250 ]",
+        "contact": "Contactar torre de control Example"
+      }
+    ]
+  },
+  {
+    "locale": "es-MX",
+    "handoff": "Example 123 contacte con Example Centro en 133.250. Good day.",
+    "ack": "Confirmar transferencia",
+    "tune": "[ Sintonizar Example Centro en 133.250 ]",
+    "contact": "Contactar centro Example",
+    "checkin": "Example Centro, Example 123, FL210.",
+    "instruction": "Example 123, Mantenga la velocidad por debajo de 230 nudos.",
+    "instructionMenu": "Confirmar instrucción",
+    "reminder": "Example 123, confirme.",
+    "landing": "Example 123,      , tiene autorización para para aterrizar pista 09R.",
+    "descent": "Example 123, desciende por EXAMPLE2 a FL210. Espera aproximación a ILS   .",
+    "descentMenu": "Confirmar autorización de descenso",
+    "assigned": "Example 123, Espere vectores de aproximación ILS.",
+    "assignedMenu": "Confirmar aproximación asignada",
+    "arrival": "Example 123, autorizada llegada a EXAMPLE2.  Espera aproximación a ILS.",
+    "arrivalMenu": "Confirmar autorización de llegada",
+    "approach": "Example 123, Aproximación ILS despejada.",
+    "approachMenu": "Confirmar autorización para aproximación",
+    "heading": "Example 123, Gire a la izquierda rumbo 085.",
+    "pattern": "Example 123, Example Torre de control. Altímetro 2992 , Entre por el tramo a favor del viento a la derecha. ",
+    "patternMenu": "Confirmar instrucciones de entrada al circuito",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contacte con Example Centro en 133.250. Good day.",
+        "tune": "[ Sintonizar Example Centro en 133.250 ]",
+        "contact": "Contactar centro Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contacte con Example Aproximación en 133.250. Good day.",
+        "tune": "[ Sintonizar Example Aproximación en 133.250 ]",
+        "contact": "Contactar aproximación Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contacte con Example Torre de control en 133.250. Good day.",
+        "tune": "[ Sintonizar Example Torre de control en 133.250 ]",
+        "contact": "Contactar torre de control Example"
+      }
+    ]
+  },
+  {
+    "locale": "fi-FI",
+    "handoff": "Example 123 ota yhteyttä tahoon Example Keskiosa taajuudella 133.250. Hyvää päivänjatkoa.",
+    "ack": "Kuittaa luovuttaminen",
+    "tune": "[ Viritä Example Keskiosa on 133.250 ]",
+    "contact": "Ota yhteys Example keskukseen",
+    "checkin": "Example Keskiosa, Example 123, FL210.",
+    "instruction": "Example 123, Pidä nopeus korkeintaan 230 solmussa.",
+    "instructionMenu": "Kuittaa ohje",
+    "reminder": "Example 123, kuittaa.",
+    "landing": "Example 123,      , lupa laskeutumiseen  laskeutuu kiitotie 09R.",
+    "descent": "Example 123, laskeutuminen kohteen EXAMPLE2 kautta korkeuteen FL210. Odotettavissa lähestyminen ILS .",
+    "descentMenu": "Kuittaa laskeutumisselvitys",
+    "assigned": "Example 123, . Odota vektorien ILS lähestymistä.",
+    "assignedMenu": "Kuittaa määrätty lähestyminen",
+    "arrival": "Example 123, lupa saapumiseen EXAMPLE2.  Odotettavissa lähestyminen ILS .",
+    "arrivalMenu": "Kuittaa saapumislupa",
+    "approach": "Example 123, Lupa lähestyä ILS.",
+    "approachMenu": "Kuittaa lähestymislupa",
+    "heading": "Example 123, Käännä suuntaan vasen ohjaussuuntaan 085.",
+    "pattern": "Example 123, Example Lennonjohtotorni. Korkeusmittari 2992 , Aloita myötätuulikierros oikea. ",
+    "patternMenu": "Kuittaa kierrokseen tulon ohjeet",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 ota yhteyttä tahoon Example Keskiosa taajuudella 133.250. Hyvää päivänjatkoa.",
+        "tune": "[ Viritä Example Keskiosa on 133.250 ]",
+        "contact": "Ota yhteys Example keskukseen"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 ota yhteyttä tahoon Example Lähestyminen taajuudella 133.250. Hyvää päivänjatkoa.",
+        "tune": "[ Viritä Example Lähestyminen on 133.250 ]",
+        "contact": "Ota yhteys Example lähestymiseen"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 ota yhteyttä tahoon Example Lennonjohtotorni taajuudella 133.250. Hyvää päivänjatkoa.",
+        "tune": "[ Viritä Example Lennonjohtotorni on 133.250 ]",
+        "contact": "Ota yhteys Example lennonjohtotorniin"
+      }
+    ]
+  },
+  {
+    "locale": "fr-FR",
+    "handoff": "Example 123 contactez Example Centre sur 133.250. Bonne journée.",
+    "ack": "Accepter le transfert de responsabilités",
+    "tune": "[ Régler Example Centre sur 133.250 ]",
+    "contact": "Contacter Example centre",
+    "checkin": "Example Centre, Example 123, FL210.",
+    "instruction": "Example 123, Ne dépassez pas la vitesse de 230 nœuds..",
+    "instructionMenu": "Accepter consignes",
+    "reminder": "Example 123, veuillez accuser réception.",
+    "landing": "Example 123,      ,  atterrissage piste 09 R autorisé.",
+    "descent": "Example 123, descente via EXAMPLE2 à FL210. Prévoyez approche ILS .",
+    "descentMenu": "Accepter l'autorisation de descente",
+    "assigned": "Example 123, Prévoyez les vecteurs ILS une approche.",
+    "assignedMenu": "Accepter approche attribuée",
+    "arrival": "Example 123, autorisé arrivée EXAMPLE2.  Prévoyez approche ILS .",
+    "arrivalMenu": "Accepter l'autorisation d'arrivée",
+    "approach": "Example 123, Approche autorisée ILS.",
+    "approachMenu": "Accepter autorisation d'approche",
+    "heading": "Example 123, Virez par la gauche au 085.",
+    "pattern": "Example 123, Example Tour. Altimètre 2992 , Intégrez le circuit en vent arrière, tour de piste main droite. ",
+    "patternMenu": "Accepter les consignes d'entrée sur le circuit",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contactez Example Centre sur 133.250. Bonne journée.",
+        "tune": "[ Régler Example Centre sur 133.250 ]",
+        "contact": "Contacter Example centre"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contactez Example Approche sur 133.250. Bonne journée.",
+        "tune": "[ Régler Example Approche sur 133.250 ]",
+        "contact": "Contacter Example approche"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contactez Example Tour sur 133.250. Bonne journée.",
+        "tune": "[ Régler Example Tour sur 133.250 ]",
+        "contact": "Contacter Example tour"
+      }
+    ]
+  },
+  {
+    "locale": "hi-IN",
+    "handoff": "Example 123 133.250 पर Example सेंटर संपर्क करें. दिन अच्छा हो.",
+    "ack": "हैंडऑफ़ को स्वीकार करें",
+    "tune": "[133.250 पर Example सेंटर ट्यून करें]",
+    "contact": "Example सेंटर पर संपर्क करें",
+    "checkin": "Example सेंटर, Example 123, FL210.",
+    "instruction": "Example 123, गति 230 समुद्री मील से ऊपर न रखें.",
+    "instructionMenu": "निर्देश स्वीकार करें",
+    "reminder": "Example 123, कृपया स्वीकार करें.",
+    "landing": "Example 123,      , लैंड करने के लिए रनवे 09R को मंज़ूरी दे दी.",
+    "descent": "Example 123, EXAMPLE2 से होते हुए FL210 तक उतरें। ILS दृष्टिकोण की अपेक्षा करें।",
+    "descentMenu": "हमले की मंज़ूरी स्वीकार करें",
+    "assigned": "Example 123, वैक्टर ILS अप्रोच की अपेक्षा करें.",
+    "assignedMenu": "असाइन किए गए अप्रोच को स्वीकार करें",
+    "arrival": "Example 123, आगमन EXAMPLE2 मंजूरी दे दी।  ILS दृष्टिकोण की अपेक्षा करें।",
+    "arrivalMenu": "आगमन मंज़ूरी स्वीकार करें",
+    "approach": "Example 123, ILS अप्रोच के लिए तैयार किया गया.",
+    "approachMenu": "अप्रोच क्लीयरेंस स्वीकार करें",
+    "heading": "Example 123, बाएं हेडिंग 085 मोड़ें.",
+    "pattern": "Example 123, Example टॉवर. एल्टिमीटर 2992 , डाउनविंड दाएं में जाएं। ",
+    "patternMenu": "पैटर्न एंट्री निर्देश स्वीकार करें",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 133.250 पर Example सेंटर संपर्क करें. दिन अच्छा हो.",
+        "tune": "[133.250 पर Example सेंटर ट्यून करें]",
+        "contact": "Example सेंटर पर संपर्क करें"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 133.250 पर Example अप्रोच संपर्क करें. दिन अच्छा हो.",
+        "tune": "[133.250 पर Example अप्रोच ट्यून करें]",
+        "contact": "संपर्क Example अप्रोच करें"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 133.250 पर Example टॉवर संपर्क करें. दिन अच्छा हो.",
+        "tune": "[133.250 पर Example टॉवर ट्यून करें]",
+        "contact": "Example टावर से संपर्क करें"
+      }
+    ]
+  },
+  {
+    "locale": "hu-HU",
+    "handoff": "Example 123 vegye fel az összeköttetést Example Központ ügynökkel 133.250 frekvencián. Üdvözlöm.",
+    "ack": "Átadás nyugtázása",
+    "tune": "[ Example Központ hangolása erre: 133.250 ]",
+    "contact": "Kapcsolatfelvétel a következővel: Example központ",
+    "checkin": "Example Központ, Example 123, FL210.",
+    "instruction": "Example 123, Tartson legfeljebb 230 csomó sebességet.",
+    "instructionMenu": "Utasítás nyugtázása",
+    "reminder": "Example 123, nyugtázást kérek.",
+    "landing": "Example 123,      , engedélyezve,  leszállás 09R futópálya.",
+    "descent": "Example 123, ereszkedés EXAMPLE2 eljárással FL210 magasságra. Várható ILS megközelítés.",
+    "descentMenu": "Ereszkedési engedély nyugtázása",
+    "assigned": "Example 123, Vektorok következnek ILS megközelítéshez.",
+    "assignedMenu": "Kijelölt  megközelítés nyugtázása",
+    "arrival": "Example 123, Jóváhagyott érkezés EXAMPLE2 eljárással.  Várható ILS megközelítés.",
+    "arrivalMenu": "Érkezési engedély nyugtázása",
+    "approach": "Example 123, ILS megközelítés jóváhagyva.",
+    "approachMenu": "Megközelítési engedély nyugtázása",
+    "heading": "Example 123, Forduljon bal irányba 085 géptengelyirányszögben.",
+    "pattern": "Example 123, Example Torony. Magasságmérő 2992 , jobb belépés a hosszú falon. ",
+    "patternMenu": "Forgalmi körbe való belépési utasítások nyugtázása",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 vegye fel az összeköttetést Example Központ ügynökkel 133.250 frekvencián. Üdvözlöm.",
+        "tune": "[ Example Központ hangolása erre: 133.250 ]",
+        "contact": "Kapcsolatfelvétel a következővel: Example központ"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 vegye fel az összeköttetést Example Megközelítés ügynökkel 133.250 frekvencián. Üdvözlöm.",
+        "tune": "[ Example Megközelítés hangolása erre: 133.250 ]",
+        "contact": "Kapcsolatfelvétel a következővel: Example – megközelítés"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 vegye fel az összeköttetést Example Torony ügynökkel 133.250 frekvencián. Üdvözlöm.",
+        "tune": "[ Example Torony hangolása erre: 133.250 ]",
+        "contact": "Kapcsolatfelvétel a következő toronnyal: Example"
+      }
+    ]
+  },
+  {
+    "locale": "id-ID",
+    "handoff": "Example 123 hubungi Example Center di 133.250. Halo.",
+    "ack": "Terima Penyerahan",
+    "tune": "[Setel Example Center di 133.250]",
+    "contact": "Kontak Pusat Example",
+    "checkin": "Example Center, Example 123, FL210.",
+    "instruction": "Example 123, Jaga kecepatan tidak melebihi 230 knot.",
+    "instructionMenu": "Terima Instruksi",
+    "reminder": "Example 123, nyatakan diterima.",
+    "landing": "Example 123,      , keluar dari untuk mendarat landasan pacu 09R.",
+    "descent": "Example 123, turun melalui EXAMPLE2 ke FL210. Tunggu approach ILS .",
+    "descentMenu": "Terima Izin Pendaratan",
+    "assigned": "Example 123, Tunggu vektor approach ILS.",
+    "assignedMenu": "Terima Approach yang Ditetapkan",
+    "arrival": "Example 123, Diizinkan kedatangan EXAMPLE2.  Tunggu approach ILS .",
+    "arrivalMenu": "Terima Izin Kedatangan",
+    "approach": "Example 123, Approach ILS diizinkan.",
+    "approachMenu": "Terima Izin Approach",
+    "heading": "Example 123, Belok kiri haluan 085.",
+    "pattern": "Example 123, Example Tower. Altimeter 2992 , Masuk kanan searah angin. ",
+    "patternMenu": "Terima Instruksi Entri Sirkuit",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 hubungi Example Center di 133.250. Halo.",
+        "tune": "[Setel Example Center di 133.250]",
+        "contact": "Kontak Pusat Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 hubungi Example Approach di 133.250. Halo.",
+        "tune": "[Setel Example Approach di 133.250]",
+        "contact": "Kontak Approach Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 hubungi Example Tower di 133.250. Halo.",
+        "tune": "[Setel Example Tower di 133.250]",
+        "contact": "Hubungi Menara Example"
+      }
+    ]
+  },
+  {
+    "locale": "it-IT",
+    "handoff": "Example 123 contattare Example Centro su 133.250. Buona giornata.",
+    "ack": "Conferma passaggio",
+    "tune": "[ Regola Example Centro su 133.250 ]",
+    "contact": "Contatta centro Example",
+    "checkin": "Example Centro, Example 123, FL210.",
+    "instruction": "Example 123, Mantieni la velocità in modo che non superi i 230 nodi.",
+    "instructionMenu": "Conferma istruzione",
+    "reminder": "Example 123, confermare prego.",
+    "landing": "Example 123,      , autorizzati a  per atterraggio sulla pista 09R.",
+    "descent": "Example 123, discesa via EXAMPLE2 a FL210. Avvicinamento previsto: ILS .",
+    "descentMenu": "Conferma autorizzazione discesa",
+    "assigned": "Example 123, Previsto avvicinamento vettori ILS.",
+    "assignedMenu": "Conferma avvicinamento assegnato",
+    "arrival": "Example 123, arrivo EXAMPLE2 autorizzato.  Avvicinamento previsto: ILS .",
+    "arrivalMenu": "Conferma autorizzazione arrivo",
+    "approach": "Example 123, Autorizzato avvicinamento ILS.",
+    "approachMenu": "Conferma autorizzazione avvicinamento",
+    "heading": "Example 123, Virare a sinistra per rotta 085.",
+    "pattern": "Example 123, Example Torre. Altimetro 2992 , Entrare nel tratto sottovento destra. ",
+    "patternMenu": "Conferma istruzioni immissione circuito",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contattare Example Centro su 133.250. Buona giornata.",
+        "tune": "[ Regola Example Centro su 133.250 ]",
+        "contact": "Contatta centro Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contattare Example Avvicinamento su 133.250. Buona giornata.",
+        "tune": "[ Regola Example Avvicinamento su 133.250 ]",
+        "contact": "Contatta avvicinamento Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contattare Example Torre su 133.250. Buona giornata.",
+        "tune": "[ Regola Example Torre su 133.250 ]",
+        "contact": "Contatta torre Example"
+      }
+    ]
+  },
+  {
+    "locale": "ja-JP",
+    "handoff": "Example 123 133.250 でExample センターと交信せよ。よい日を。",
+    "ack": "ハンドオフの確認",
+    "tune": "[Example センター (133250) に合わせる]",
+    "contact": "Example センターにコンタクト",
+    "checkin": "Example センター、こちら Example 123、FL210。",
+    "instruction": "Example 123、速度を 230 ノット以下に維持する。",
+    "instructionMenu": "指示の確認",
+    "reminder": "Example 123、確認せよ。",
+    "landing": "Example 123、滑走路 09R への 着陸するを許可する。",
+    "descent": "Example 123、EXAMPLE2 にて FL210 まで降下。ILS アプローチ    の見込み。",
+    "descentMenu": "降下許可の確認",
+    "assigned": "Example 123、 針路誘導で ILS アプローチを予期せよ。",
+    "assignedMenu": "割り当てられたアプローチの確認",
+    "arrival": "Example 123、EXAMPLE2 での到着を許可。 ILS アプローチ    の見込み。",
+    "arrivalMenu": "到着許可の確認",
+    "approach": "Example 123、ILS アプローチを許可。",
+    "approachMenu": "アプローチ許可の確認",
+    "heading": "Example 123、左に旋回して、針路を 085 に変更。",
+    "pattern": "Example 123、Example 管制塔。高度計 2992 、右ダウンウィンドを使用。 ",
+    "patternMenu": "パターン進入指示の確認",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 133.250 でExample センターと交信せよ。よい日を。",
+        "tune": "[Example センター (133250) に合わせる]",
+        "contact": "Example センターにコンタクト"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 133.250 でExample アプローチと交信せよ。よい日を。",
+        "tune": "[Example アプローチ (133250) に合わせる]",
+        "contact": "Example アプローチにコンタクト"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 133.250 でExample 管制塔と交信せよ。よい日を。",
+        "tune": "[Example 管制塔 (133250) に合わせる]",
+        "contact": "Example 管制塔にコンタクト"
+      }
+    ]
+  },
+  {
+    "locale": "ko-KR",
+    "handoff": "Example 123 133.250 주파수로 Example 센터 교신하십시오. 좋은 하루.",
+    "ack": "이관 응답",
+    "tune": "[ 133.250에서 Example 센터 동조 ]",
+    "contact": "Example 중심 문의",
+    "checkin": "Example 센터, Example 123 으로부터, 현 고도 FL210.",
+    "instruction": "Example 123, 속도를 230 이하로 유지..",
+    "instructionMenu": "지시 응답",
+    "reminder": "Example 123, 응답해 주십시오.",
+    "landing": "Example 123,      , 09R 활주로  이후 착륙 허가합니다.",
+    "descent": "Example 123, EXAMPLE2 통해 FL210으로 하강하세요. ILS 경로로  접근 예상하세요.",
+    "descentMenu": "하강 허가 응답",
+    "assigned": "Example 123, ILS 접근 레이더 유도 예정.",
+    "assignedMenu": "지정된 접근 응답",
+    "arrival": "Example 123, EXAMPLE2 도착 허가합니다.  ILS 경로에서  접근 방식을 예상하세요.",
+    "arrivalMenu": "도착 허가 응답",
+    "approach": "Example 123, ILS 접근 허가.",
+    "approachMenu": "접근 허가 응답",
+    "heading": "Example 123, 왼쪽 085 방향 선회.",
+    "pattern": "Example 123, Example 관제탑. 고도계 2992 , 오른쪽 배풍 경로 진입. ",
+    "patternMenu": "장주 진입 지시 응답",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 133.250 주파수로 Example 센터 교신하십시오. 좋은 하루.",
+        "tune": "[ 133.250에서 Example 센터 동조 ]",
+        "contact": "Example 중심 문의"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 133.250 주파수로 Example 접근 교신하십시오. 좋은 하루.",
+        "tune": "[ 133.250에서 Example 접근 동조 ]",
+        "contact": "Example 접근 문의"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 133.250 주파수로 Example 관제탑 교신하십시오. 좋은 하루.",
+        "tune": "[ 133.250에서 Example 관제탑 동조 ]",
+        "contact": "Example 타워 문의"
+      }
+    ]
+  },
+  {
+    "locale": "ms-MY",
+    "handoff": "Example 123 hubungi Example Pusat pada 133.250. Selamat sejahtera.",
+    "ack": "Akui Penyerahan",
+    "tune": "[ Tala Example Pusat pada 133.250 ]",
+    "contact": "Hubungi Pusat Example",
+    "checkin": "Example Pusat, Example 123, FL210.",
+    "instruction": "Example 123, Pastikan kelajuan tidak melebihi 230 knot.",
+    "instructionMenu": "Akui Arahan",
+    "reminder": "Example 123, sila akui.",
+    "landing": "Example 123,      , dibenarkan untuk mendarat landasan 09R.",
+    "descent": "Example 123, turun melalui EXAMPLE2 ke FL210. Jangkakan lintasan tuju ILS.",
+    "descentMenu": "Akui Kebenaran Penurunan",
+    "assigned": "Example 123, Jangkakan lintasan tuju vektor ILS.",
+    "assignedMenu": "Akui Lintasan Tuju yang Ditugaskan",
+    "arrival": "Example 123, Dibenarkan ketibaan EXAMPLE2.  Jangkakan lintasan tuju ILS.",
+    "arrivalMenu": "Akui Kebenaran Ketibaan",
+    "approach": "Example 123, Lintasan tuju ILS dibenarkan.",
+    "approachMenu": "Akui Kebenaran Lintasan Tuju",
+    "heading": "Example 123, Pusing kiri hala tuju 085.",
+    "pattern": "Example 123, Example Menara. Meter tinggi 2992 , Masuk kanan ikut angin. ",
+    "patternMenu": "Akui Arahan Kemasukan Pola",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 hubungi Example Pusat pada 133.250. Selamat sejahtera.",
+        "tune": "[ Tala Example Pusat pada 133.250 ]",
+        "contact": "Hubungi Pusat Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 hubungi Example Lintasan tuju pada 133.250. Selamat sejahtera.",
+        "tune": "[ Tala Example Lintasan tuju pada 133.250 ]",
+        "contact": "Hubungi Example Lintasan tuju"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 hubungi Example Menara pada 133.250. Selamat sejahtera.",
+        "tune": "[ Tala Example Menara pada 133.250 ]",
+        "contact": "Hubungi Menara Example"
+      }
+    ]
+  },
+  {
+    "locale": "nb-NO",
+    "handoff": "Example 123 kontakt Example Senter på 133.250. Goddag.",
+    "ack": "Bekreft overlevering",
+    "tune": "[ Still inn Example Senter på 133.250 ]",
+    "contact": "Kontakt Example senter",
+    "checkin": "Example Senter, Example 123, FL210.",
+    "instruction": "Example 123, Hold hastigheten under 230 knop.",
+    "instructionMenu": "Bekreft instruksjon",
+    "reminder": "Example 123, vennligst bekreft.",
+    "landing": "Example 123,      , klarert for å lande rullebane 09R.",
+    "descent": "Example 123, gå ned via EXAMPLE2 til FL210. Forvent ILS innflyvning.",
+    "descentMenu": "Bekreft klarering for nedstigning",
+    "assigned": "Example 123, Forvent vektorer for ILS innflyvning.",
+    "assignedMenu": "Bekreft tildelt innflyvning",
+    "arrival": "Example 123, klarert EXAMPLE2 ankomst.  Forvent ILS innflyvning .",
+    "arrivalMenu": "Bekreft klarering for landing",
+    "approach": "Example 123, Klarert for ILS-innflyvning.",
+    "approachMenu": "Bekreft klarering for innflyvning",
+    "heading": "Example 123, Sving venstre med kurs 085.",
+    "pattern": "Example 123, Example Tårn. Høydemåler 2992 , Ankom høyre i medvind. ",
+    "patternMenu": "Bekreft instruksjoner for innled mønster",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 kontakt Example Senter på 133.250. Goddag.",
+        "tune": "[ Still inn Example Senter på 133.250 ]",
+        "contact": "Kontakt Example senter"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 kontakt Example Innflyvning på 133.250. Goddag.",
+        "tune": "[ Still inn Example Innflyvning på 133.250 ]",
+        "contact": "Kontakt Example innflyvning"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 kontakt Example Tårn på 133.250. Goddag.",
+        "tune": "[ Still inn Example Tårn på 133.250 ]",
+        "contact": "Kontakt Example tårn"
+      }
+    ]
+  },
+  {
+    "locale": "nl-NL",
+    "handoff": "Example 123 contact Example Midden op 133.250. Goedendag.",
+    "ack": "Overdracht bevestigen",
+    "tune": "[ Afstemmen op Example Midden op 133.250 ]",
+    "contact": "Contact opnemen met Example – Centreren",
+    "checkin": "Example Midden, Example 123, FL210.",
+    "instruction": "Example 123, Houd de snelheid niet boven 230 knopen.",
+    "instructionMenu": "Instructie bevestigen",
+    "reminder": "Example 123, graag bevestigen.",
+    "landing": "Example 123,      , toestemming voor om te landen baan 09R.",
+    "descent": "Example 123, dalen via EXAMPLE2 naar FL210. Verwacht ILS nadering.",
+    "descentMenu": "Klaring afdaling bevestigen",
+    "assigned": "Example 123,  Verwachte naderingsvectoren ILS.",
+    "assignedMenu": "Toegewezen nadering bevestigen",
+    "arrival": "Example 123, geklaard voor EXAMPLE2 aankomst. Verwacht ILS nadering.",
+    "arrivalMenu": "Klaring nadering bevestigen",
+    "approach": "Example 123, Goedgekeurde nadering ILS.",
+    "approachMenu": "Naderingsklaring bevestigen",
+    "heading": "Example 123, Draai naar links voor koers 085.",
+    "pattern": "Example 123, Example Toren. Hoogtemeter 2992 , Begin met benedenwinds rechts. ",
+    "patternMenu": "Instructies voor patroonstart bevestigen",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contact Example Midden op 133.250. Goedendag.",
+        "tune": "[ Afstemmen op Example Midden op 133.250 ]",
+        "contact": "Contact opnemen met Example – Centreren"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contact Example Naderen op 133.250. Goedendag.",
+        "tune": "[ Afstemmen op Example Naderen op 133.250 ]",
+        "contact": "Contact opnemen met Example – Nadering"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contact Example Toren op 133.250. Goedendag.",
+        "tune": "[ Afstemmen op Example Toren op 133.250 ]",
+        "contact": "Contact opnemen met Example – Toren"
+      }
+    ]
+  },
+  {
+    "locale": "pl-PL",
+    "handoff": "Example 123 nawiąż kontakt z Example Centrum na 133.250. Dobrego dnia.",
+    "ack": "Potwierdź przyjęcie komunikatu o przekazaniu kontroli",
+    "tune": "[ Nastaw Example Centrum na 133.250 ]",
+    "contact": "Nawiąż łączność z centrum Example",
+    "checkin": "Example Centrum, Example 123, FL210.",
+    "instruction": "Example 123, Utrzymuj prędkość nie wyższą niż 230 węzłów.",
+    "instructionMenu": "Potwierdź przyjęcie instrukcji",
+    "reminder": "Example 123, potwierdź.",
+    "landing": "Example 123,      . Masz zgodę,  na lądowanie droga startowa 09R.",
+    "descent": "Example 123, zniżaj się w procedurze EXAMPLE2 do FL210. Spodziewaj się podejścia ILS .",
+    "descentMenu": "Potwierdź przyjęcie pozwolenia na zniżanie",
+    "assigned": "Example 123,  Spodziewaj się wektorowania podejścia ILS.",
+    "assignedMenu": "Potwierdź przyjęcie komunikatu o przydzielonym podejściu",
+    "arrival": "Example 123, masz zezwolenie na przylot w procedurze EXAMPLE2.  Spodziewaj się podejścia ILS .",
+    "arrivalMenu": "Potwierdź przyjęcie pozwolenia na przylot",
+    "approach": "Example 123, Zgoda na podejście ILS.",
+    "approachMenu": "Potwierdź przyjęcie zgody na podejście",
+    "heading": "Example 123, Skręć w lewo na kurs 085.",
+    "pattern": "Example 123, Example Wieża. Wysokościomierz 2992 , Wejdź na odcinek z wiatrem, prawo krąg. ",
+    "patternMenu": "Potwierdź przyjęcie instrukcji dotyczących wejścia w krąg nadlotniskowy",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 nawiąż kontakt z Example Centrum na 133.250. Dobrego dnia.",
+        "tune": "[ Nastaw Example Centrum na 133.250 ]",
+        "contact": "Nawiąż łączność z centrum Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 nawiąż kontakt z Example Podejście na 133.250. Dobrego dnia.",
+        "tune": "[ Nastaw Example Podejście na 133.250 ]",
+        "contact": "Nawiąż łączność z kontrolą zbliżania Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 nawiąż kontakt z Example Wieża na 133.250. Dobrego dnia.",
+        "tune": "[ Nastaw Example Wieża na 133.250 ]",
+        "contact": "Nawiąż łączność z wieżą Example"
+      }
+    ]
+  },
+  {
+    "locale": "pt-BR",
+    "handoff": "Example 123 contate Example Centro em 133.250. Bom dia.",
+    "ack": "Confirmar Transferência",
+    "tune": "[ Ajustar Example Centro em 133.250 ]",
+    "contact": "Contatar Example Centralizar",
+    "checkin": "Example Centro, Example 123, FL210.",
+    "instruction": "Example 123, Mantenha a velocidade não acima de 230 nós.",
+    "instructionMenu": "Confirmar Instrução",
+    "reminder": "Example 123, responda.",
+    "landing": "Example 123,      , liberado para  para pousar pista 09R.",
+    "descent": "Example 123, desça via EXAMPLE2 até FL210. Espere ILS aproximação.",
+    "descentMenu": "Confirmar Permissão para Descida",
+    "assigned": "Example 123, Aguarde vetores ILS na aproximação.",
+    "assignedMenu": "Confirmar Aproximação Atribuída",
+    "arrival": "Example 123, Liberada chegada em EXAMPLE2.  Esperar ILS aproximação.",
+    "arrivalMenu": "Confirmar Permissão para Chegada",
+    "approach": "Example 123, Aproximação ILS liberada.",
+    "approachMenu": "Confirmar Permissão para Aproximação",
+    "heading": "Example 123, Vire esquerdo para a proa 085.",
+    "pattern": "Example 123, Example Torre. Altímetro 2992 , Entre perna do vento a direito. ",
+    "patternMenu": "Confirmar Instruções de Entrada Padrão",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contate Example Centro em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Centro em 133.250 ]",
+        "contact": "Contatar Example Centralizar"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contate Example Aproximação em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Aproximação em 133.250 ]",
+        "contact": "Contatar Example Aproximação"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contate Example Torre em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Torre em 133.250 ]",
+        "contact": "Contatar Example Torre"
+      }
+    ]
+  },
+  {
+    "locale": "pt-PT",
+    "handoff": "Example 123 contacte Example Centro em 133.250. Bom dia.",
+    "ack": "Confirmar transferência",
+    "tune": "[ Ajustar Example Centro em 133.250 ]",
+    "contact": "Contactar Example Centrar",
+    "checkin": "Example Centro, Example 123, FL210.",
+    "instruction": "Example 123, Mantenha a velocidade não acima de 230 nós.",
+    "instructionMenu": "Confirmar instrução",
+    "reminder": "Example 123, responda.",
+    "landing": "Example 123,      , libertado para  para aterrar pista 09R.",
+    "descent": "Example 123, desça via EXAMPLE2 para FL210. Espere uma aproximação ILS, .",
+    "descentMenu": "Confirmar Permissão para Descida",
+    "assigned": "Example 123, Espere vetores na aproximação ILS.",
+    "assignedMenu": "Confirmar permissão atribuída",
+    "arrival": "Example 123, permitida chegada EXAMPLE2.  Espere uma aproximação ILS, .",
+    "arrivalMenu": "Confirmar Permissão para Chegada",
+    "approach": "Example 123, Aproximação ILS autorizada.",
+    "approachMenu": "Confirmar permissão para aproximação",
+    "heading": "Example 123, Vire esquerdo para o rumo 085.",
+    "pattern": "Example 123, Example Torre. Altímetro 2992 , Entre na perna do vento de cauda a direito. ",
+    "patternMenu": "Confirmar instruções de entrada padrão",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 contacte Example Centro em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Centro em 133.250 ]",
+        "contact": "Contactar Example Centrar"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 contacte Example Aproximação em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Aproximação em 133.250 ]",
+        "contact": "Contactar Example Aproximação"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 contacte Example Torre em 133.250. Bom dia.",
+        "tune": "[ Ajustar Example Torre em 133.250 ]",
+        "contact": "Contactar Example Torre"
+      }
+    ]
+  },
+  {
+    "locale": "ru-RU",
+    "handoff": "Example 123 свяжитесь — Example Центр на частоте 133.250. Хорошего дня.",
+    "ack": "Подтвердить передачу управления",
+    "tune": "[ Настроить Example Центр на 133.250 ]",
+    "contact": "Связаться с районным диспетчерским пунктом Example",
+    "checkin": "Example Центр, Example 123, FL210",
+    "instruction": "Example 123, Удерживайте скорость не выше 230 узл..",
+    "instructionMenu": "Подтвердить получение указания",
+    "reminder": "Example 123, подтвердите.",
+    "landing": "Example 123, , . , , , . Разрешена посадка:  для приземления, полоса 09R.",
+    "descent": "Example 123, снижайтесь к EXAMPLE2 до FL210.Ожидайте ILS заход на посадку.",
+    "descentMenu": "Подтвердить получение разрешения на снижение",
+    "assigned": "Example 123,  Ожидайте векторов ILS, заход.",
+    "assignedMenu": "Подтвердить получение присвоенного захода",
+    "arrival": "Example 123, разрешено прибытие к EXAMPLE2.  Ожидайте ILS заход на посадку .",
+    "arrivalMenu": "Подтвердить получение разрешения на прибытие",
+    "approach": "Example 123, Заход разрешён — ILS.",
+    "approachMenu": "Подтвердить получение разрешения на заход",
+    "heading": "Example 123, Разворот на влево, курс 085.",
+    "pattern": "Example 123, Example Диспетчерская. Высотомер 2992 , Войдите в полёт по ветру вправо. ",
+    "patternMenu": "Подтвердить получение указаний по входу в круг",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 свяжитесь — Example Центр на частоте 133.250. Хорошего дня.",
+        "tune": "[ Настроить Example Центр на 133.250 ]",
+        "contact": "Связаться с районным диспетчерским пунктом Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 свяжитесь — Example Заход на посадку на частоте 133.250. Хорошего дня.",
+        "tune": "[ Настроить Example Заход на посадку на 133.250 ]",
+        "contact": "Связаться с диспетчерским пунктом захода Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 свяжитесь — Example Диспетчерская на частоте 133.250. Хорошего дня.",
+        "tune": "[ Настроить Example Диспетчерская на 133.250 ]",
+        "contact": "Связаться с диспетчерским пунктом Example"
+      }
+    ]
+  },
+  {
+    "locale": "sv-SE",
+    "handoff": "Example 123 kontakta Example Center på 133.250. Goddag.",
+    "ack": "Bekräfta överlämning",
+    "tune": "[ Ställ in Example Center på 133.250 ]",
+    "contact": "Kontakta Example center",
+    "checkin": "Example Center, Example 123, FL210.",
+    "instruction": "Example 123, Håll farten under 230 knop.",
+    "instructionMenu": "Kvittera instruktion",
+    "reminder": "Example 123, kvittera.",
+    "landing": "Example 123       , klart att landa bana 09R.",
+    "descent": "Example 123, gå ner via EXAMPLE2 till FL210. Räkna med ILS inflygning .",
+    "descentMenu": "Bekräfta nedstigningstillstånd",
+    "assigned": "Example 123,  räkna med vektorer ILS inflygning.",
+    "assignedMenu": "Kvittera tilldelad inflygning",
+    "arrival": "Example 123, klarerad EXAMPLE2 ankomst.  Räkna med ILS inflygning .",
+    "arrivalMenu": "Bekräfta ankomsttillstånd",
+    "approach": "Example 123, Klar ILS inflygning.",
+    "approachMenu": "Kvittera inflygningsklarering",
+    "heading": "Example 123, Sväng vänster kurs 085.",
+    "pattern": "Example 123, Example Tornet. Höjdmätare 2992 , Inpassera höger medvind. ",
+    "patternMenu": "Kvittera instruktioner för mönsterstart",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 kontakta Example Center på 133.250. Goddag.",
+        "tune": "[ Ställ in Example Center på 133.250 ]",
+        "contact": "Kontakta Example center"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 kontakta Example Inflygning på 133.250. Goddag.",
+        "tune": "[ Ställ in Example Inflygning på 133.250 ]",
+        "contact": "Kontakta Example inflygning"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 kontakta Example Tornet på 133.250. Goddag.",
+        "tune": "[ Ställ in Example Tornet på 133.250 ]",
+        "contact": "Kontakta tornet i Example"
+      }
+    ]
+  },
+  {
+    "locale": "th-TH",
+    "handoff": "Example 123 ติดต่อ Example เซ็นเตอร์ ที่ 133.250 สวัสดี",
+    "ack": "รับทราบการส่งมอบการควบคุม",
+    "tune": "[ จูน Example เซ็นเตอร์ บน 133.250 ]",
+    "contact": "ติดต่อศูนย์ Example",
+    "checkin": "Example เซ็นเตอร์, Example 123, FL210",
+    "instruction": "Example 123 รักษาความเร็วไม่เกิน 230 น็อต",
+    "instructionMenu": "รับทราบคําแนะนํา",
+    "reminder": "Example 123 ทราบแล้วเปลี่ยน",
+    "landing": "Example 123,      ,  ลงจอด อนุมัติ รันเวย์ 09R",
+    "descent": "Example 123 ลดระดับตามเส้นทาง EXAMPLE2 จนถึงระดับความสูง FL210 รอ ILS ร่อนลงจอด",
+    "descentMenu": "รับทราบการอนุญาตให้ลดระดับความสูง",
+    "assigned": "Example 123, ให้ร่อนลงจอด ILS ด้วยเวคเตอร์",
+    "assignedMenu": "รับทราบการร่อนลงจอดที่ได้รับมอบหมาย",
+    "arrival": "Example 123 ได้รับอนุญาตให้ใช้เส้นทางเข้าสนามบิน EXAMPLE2  รอ ILS ร่อนลงจอด",
+    "arrivalMenu": "รับทราบการอนุญาตให้เข้าสนามบิน",
+    "approach": "Example 123 ร่อนลงจอด ILS เคลียร์",
+    "approachMenu": "รับทราบการอนุญาตร่อนลงจอด",
+    "heading": "Example 123 หันทิศทางหัวเครื่องบิน ซ้าย ไป 085",
+    "pattern": "Example 123, Example หอบังคับ. อัลติมิเตอร์ 2992 , เข้า Downwind ขวา ",
+    "patternMenu": "รับทราบคําสั่งเข้ารูปแบบการบิน",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 ติดต่อ Example เซ็นเตอร์ ที่ 133.250 สวัสดี",
+        "tune": "[ จูน Example เซ็นเตอร์ บน 133.250 ]",
+        "contact": "ติดต่อศูนย์ Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 ติดต่อ Example ร่อนลงจอด ที่ 133.250 สวัสดี",
+        "tune": "[ จูน Example ร่อนลงจอด บน 133.250 ]",
+        "contact": "ติดต่อ Example ร่อนลงจอด"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 ติดต่อ Example หอบังคับ ที่ 133.250 สวัสดี",
+        "tune": "[ จูน Example หอบังคับ บน 133.250 ]",
+        "contact": "ติดต่อ Example หอบังคับ"
+      }
+    ]
+  },
+  {
+    "locale": "tr-TR",
+    "handoff": "Example 123 133.250 frekansı üzerinden Example Merkez ile iletişime geçin. İyi günler.",
+    "ack": "Transferi Kabul Edin",
+    "tune": "[ 133.250 konumunda Example Merkez ayarı yapın ]",
+    "contact": "Merkezle Example İletişime Geçin",
+    "checkin": "Example Merkez, Example 123, FL210.",
+    "instruction": "Example 123, Hızınızı 230 knotun üzerine çıkarmayın.",
+    "instructionMenu": "Talimatı Kabul Edin",
+    "reminder": "Example 123, lütfen onaylayın.",
+    "landing": "Example 123,      , pist 09R pistine  iniş için izni verildi.",
+    "descent": "Example 123, EXAMPLE2 ile FL210 irtifasına alçalın. ILS yaklaşma yapabilirsiniz.",
+    "descentMenu": "İniş İznini Onaylayın",
+    "assigned": "Example 123, Vektör ILS yaklaşması bekleniyor.",
+    "assignedMenu": "Atanan Yaklaşmayı Kabul Edin",
+    "arrival": "Example 123, EXAMPLE2 varış rotası serbest.  ILS yaklaşma yapabilirsiniz.",
+    "arrivalMenu": "Varış İznini Onaylayın",
+    "approach": "Example 123, ILS yaklaşma izni verildi.",
+    "approachMenu": "Yaklaşma İznini Kabul Edin",
+    "heading": "Example 123, sol yönüne ve 085 istikametine dönün.",
+    "pattern": "Example 123, Example Kule. Altimeter 2992 , sağ yönü rüzgâraltına girin. ",
+    "patternMenu": "Patern Giriş Talimatlarını Kabul Edin",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 133.250 frekansı üzerinden Example Merkez ile iletişime geçin. İyi günler.",
+        "tune": "[ 133.250 konumunda Example Merkez ayarı yapın ]",
+        "contact": "Merkezle Example İletişime Geçin"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 133.250 frekansı üzerinden Example Yaklaşma ile iletişime geçin. İyi günler.",
+        "tune": "[ 133.250 konumunda Example Yaklaşma ayarı yapın ]",
+        "contact": "Yaklaşma İle Example İletişime Geçin"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 133.250 frekansı üzerinden Example Kule ile iletişime geçin. İyi günler.",
+        "tune": "[ 133.250 konumunda Example Kule ayarı yapın ]",
+        "contact": "Kuleyle Example İletişime Geçin"
+      }
+    ]
+  },
+  {
+    "locale": "vi-VN",
+    "handoff": "Example 123 Liên hệ với Example Trung tâm ở tần số 133.250. Chúc ngày tốt lành.",
+    "ack": "Ghi nhận chuyển giao",
+    "tune": "[Điều chỉnh Example Trung tâm trên 133.250]",
+    "contact": "Liên hệ trung tâm Example",
+    "checkin": "Example Trung tâm, Example 123, FL210.",
+    "instruction": "Example 123, Giữ tốc độ không quá 230 hải lý.",
+    "instructionMenu": "Ghi nhận hướng dẫn",
+    "reminder": "Example 123, vui lòng ghi nhận.",
+    "landing": "Example 123.      , được phép hạ cánh đường băng 09R.",
+    "descent": "Example 123, hạ độ cao qua EXAMPLE2 xuống FL210. Dự kiến tiếp cận ILS bằng.",
+    "descentMenu": "Ghi nhận huấn lệnh hạ độ cao",
+    "assigned": "Example 123,  Dự kiến tiếp cận theo véc-tơ ILS.",
+    "assignedMenu": "Ghi nhận cách tiếp cận được chỉ định",
+    "arrival": "Example 123, được phép bay đến qua EXAMPLE2.  Dự kiến tiếp cận ILS bằng.",
+    "arrivalMenu": "Ghi nhận huấn lệnh bay đến",
+    "approach": "Example 123, Được phép tiếp cận ILS.",
+    "approachMenu": "Ghi nhận huấn lệnh tiếp cận",
+    "heading": "Example 123, Rẽ sang trái theo hướng 085.",
+    "pattern": "Example 123, Example Đài kiểm soát không lưu. Cao độ kế 2992 , Vào xuôi gió phải. ",
+    "patternMenu": "Ghi nhận hướng dẫn vào vòng chờ",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 Liên hệ với Example Trung tâm ở tần số 133.250. Chúc ngày tốt lành.",
+        "tune": "[Điều chỉnh Example Trung tâm trên 133.250]",
+        "contact": "Liên hệ trung tâm Example"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 Liên hệ với Example Tiếp cận ở tần số 133.250. Chúc ngày tốt lành.",
+        "tune": "[Điều chỉnh Example Tiếp cận trên 133.250]",
+        "contact": "Liên hệ tiếp cận Example"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 Liên hệ với Example Đài kiểm soát không lưu ở tần số 133.250. Chúc ngày tốt lành.",
+        "tune": "[Điều chỉnh Example Đài kiểm soát không lưu trên 133.250]",
+        "contact": "Liên hệ đài kiểm soát không lưu Example"
+      }
+    ]
+  },
+  {
+    "locale": "zh-CN",
+    "handoff": "Example 123联系Example森特133.250，你好！",
+    "ack": "确认管制移交",
+    "tune": "[联络133.250，调频至Example 森特]",
+    "contact": "联络Example中心",
+    "checkin": "Example森特，Example 123，FL210。",
+    "instruction": "Example 123，表速不大于230。",
+    "instructionMenu": "确认指示",
+    "reminder": "Example 123，Example 塔台,复述指令。",
+    "landing": "Example 123，，已准许 以着陆跑道09R。",
+    "descent": "Example 123，通过EXAMPLE2下降至FL210。预期ILS进近。",
+    "descentMenu": "答复确认下降许可",
+    "assigned": "Example 123，预计矢量ILS进近。",
+    "assignedMenu": "确认进近安排",
+    "arrival": "Example 123，允许EXAMPLE2到达。预计ILS进近。",
+    "arrivalMenu": "答复确认到达许可",
+    "approach": "Example 123，继续ILS进近。",
+    "approachMenu": "确认进近许可",
+    "heading": "Example 123，左转航向085。",
+    "pattern": "Example 123，Example 塔台。高度表 2992，进入右转弯三边。 ",
+    "patternMenu": "确认进入起落航线指示",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123联系Example森特133.250，你好！",
+        "tune": "[联络133.250，调频至Example 森特]",
+        "contact": "联络Example中心"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123联系Example进近133.250，你好！",
+        "tune": "[联络133.250，调频至Example 进近]",
+        "contact": "联络Example进近"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123联系Example塔台133.250，你好！",
+        "tune": "[联络133.250，调频至Example 塔台]",
+        "contact": "联络Example塔台"
+      }
+    ]
+  },
+  {
+    "locale": "zh-TW",
+    "handoff": "Example 123 聯絡 Example 中心，頻道 133.250。日安。",
+    "ack": "確認移交",
+    "tune": "[ 調整 Example 中心 在 133.250 ]",
+    "contact": "聯絡 Example 區域管制中心",
+    "checkin": "Example 中心，Example 123，FL210。",
+    "instruction": "Example 123，保持速度不超過 230 節。",
+    "instructionMenu": "確認指示",
+    "reminder": "Example 123，請確認。",
+    "landing": "Example 123，     ，准許  以降落 跑道 09R。",
+    "descent": "Example 123，請依循 EXAMPLE2 下降至 FL210。預期採用 ILS 進場程序 。",
+    "descentMenu": "確認降落許可",
+    "assigned": "Example 123， 預計向量 ILS 進場。",
+    "assignedMenu": "確認指定的進場程序",
+    "arrival": "Example 123，許可依 EXAMPLE2 到場程序進場。，預期採用 ILS 進場程序 。",
+    "arrivalMenu": "確認進場許可",
+    "approach": "Example 123，准許 ILS 進場。",
+    "approachMenu": "確認進場許可",
+    "heading": "Example 123，轉 左 航向 085。",
+    "pattern": "Example 123，Example 塔。高度計 2992 ，進入 右 側順風航程。 ",
+    "patternMenu": "確認航線進入指示",
+    "stations": [
+      {
+        "role": "center",
+        "handoff": "Example 123 聯絡 Example 中心，頻道 133.250。日安。",
+        "tune": "[ 調整 Example 中心 在 133.250 ]",
+        "contact": "聯絡 Example 區域管制中心"
+      },
+      {
+        "role": "approach",
+        "handoff": "Example 123 聯絡 Example 進場，頻道 133.250。日安。",
+        "tune": "[ 調整 Example 進場 在 133.250 ]",
+        "contact": "聯絡 Example 進場"
+      },
+      {
+        "role": "tower",
+        "handoff": "Example 123 聯絡 Example 塔，頻道 133.250。日安。",
+        "tune": "[ 調整 Example 塔 在 133.250 ]",
+        "contact": "聯絡 Example 塔台"
+      }
+    ]
+  }
+]

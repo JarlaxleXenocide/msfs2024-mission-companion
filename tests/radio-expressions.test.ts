@@ -122,3 +122,16 @@ test('native tune can leave queued weather but refuses a new queued instruction'
   f.messages[1].messageContent='Example 123, maintain present altitude.';
   assert.equal(await f.evaluate(radioSelectExpression(s,action)),false);assert.deepEqual(f.sent,['0']);
 });
+
+test('localized native selection keeps the exact frequency and transcript guard',async()=>{
+  for(const change of ['none','frequency','transcript']){
+    const f=setup();f.data.Options[0].content='1 - [Example センター (133250) に合わせる]';
+    f.messages[0].messageContent='Example 123 133.250 でExample センターと交信せよ。';
+    const s=parseRadioSnapshot(await f.evaluate(radioReadExpression()));const e=new RadioDecisions();e.next(s,0);const action=e.next(s,2000)!;
+    assert.equal(action?.kind,'tune');
+    if(change==='frequency')f.data.Frequency.value=133.25;
+    if(change==='transcript')f.messages[0].messageContent='Example 123 134.250 でExample センターと交信せよ。';
+    assert.equal(await f.evaluate(radioSelectExpression(s,action)),change==='none');
+    assert.deepEqual(f.sent,change==='none'?['0']:[]);
+  }
+});

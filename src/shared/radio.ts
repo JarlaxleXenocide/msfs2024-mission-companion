@@ -11,7 +11,7 @@ export interface RadioSnapshot {
 }
 export interface RadioAction {
   kind: 'acknowledge' | 'acknowledge-instruction' | 'acknowledge-descent' | 'acknowledge-assigned-approach' | 'acknowledge-approach' | 'acknowledge-pattern-entry'
-    | 'tune' | 'contact';
+    | 'acknowledge-arrival' | 'tune' | 'contact';
   option: RadioOption;
   key: string;
 }

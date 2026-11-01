@@ -1,0 +1,5980 @@
+[
+  {
+    "locale": "cs-CZ",
+    "menus": {
+      "acknowledge": "Potvrďte předání",
+      "acknowledge-instruction": "Potvrďte pokyn",
+      "acknowledge-descent": "Potvrďte povolení k sestupu",
+      "acknowledge-assigned-approach": "Potvrďte přidělený přístup",
+      "acknowledge-approach": "Potvrďte povolení přiblížení",
+      "acknowledge-pattern-entry": "Potvrďte pokyny pro vstup do okruhu",
+      "acknowledge-arrival": "Potvrďte povolení k příletu"
+    },
+    "contact": {
+      "center": "Kontaktujte {name} centrum",
+      "approach": "Kontaktujte {name} přiblížení",
+      "tower": "Kontaktujte věž {name}"
+    },
+    "tune": "[ Nalaďte {name} {role} na {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centrum",
+      "approach": "Přiblížení",
+      "tower": "Věž",
+      "ground": "Pozemní",
+      "departure": "Odlet"
+    },
+    "grammar": {
+      "instruction": [
+        "Udržujte rychlost do {speed} uzlů",
+        "Točte {direction} do kurzu {heading}",
+        "Stoupejte a udržujte {altitude}",
+        "Sklesejte a udržujte {altitude}",
+        "Udržujte tuto výšku",
+        "Udržujte tento kurz a výšku",
+        "Udržujte tento kurz"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign} jste {altitude} nad přidělenou výškou. {vector} {optionalAltimeter}",
+        "{callsign} nacházíte se {altitude} pod přidělenou výškou. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "kontaktujte {station} na {frequency}.",
+        "Kontaktujte {station} na {frequency}.",
+        "Kontaktujte {station} na {frequency} před zahájením přiblížení.",
+        "Kontaktujte {station} na {frequency} při letu k letišti."
+      ],
+      "descent": [
+        "{callsign}, sestupte přes {route} na {altitude}. Očekávejte přiblížení {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, schváleno přiblížení {route}. {vector} Očekávejte přiblížení {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Očekávejte {approach} přiblížení{approachMethod}.{sidestep}{circle} Máte povolení {fix}.",
+        "{callsign}, {vector} Očekávejte vektory {approach} přiblížení.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Povoleno {approach} přiblížení"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Povoleno {approach} přiblížení",
+        "Leťte do {direction} čtvrté zatáčky",
+        "Pokračujte do {direction} čtvrté zatáčky",
+        "Pokračujte {direction} po větru",
+        "Vstupte do {direction} okruhu",
+        "Leťte {direction} po větru",
+        "Leťte v {direction} okruhu",
+        "Vydejte se {direction} po větru",
+        "Pokračujte v {direction} okruhu",
+        "Leťte přímo dovnitř",
+        "Pokračujte přímo"
+      ],
+      "reminder": [
+        "{callsign} potvrďte poslední vysílání.",
+        "{callsign}, rozuměl jste?",
+        "{callsign}, slyšeli jste mé poslední vysílání?",
+        "{callsign}, potvrďte prosím."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Kurzový maják opačným směrem",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Kurzový maják",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Za vidu",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " dráha  {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " po {fix} {heading} radiále, {number} oblouku DME",
+        " prostřednictvím {fix} přechodu",
+        ""
+      ],
+      "runway": [
+        "dráha {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " voda",
+        ""
+      ],
+      "direction": [
+        "vlevo",
+        "vpravo"
+      ],
+      "sidestep": [
+        "",
+        " Uhnout {runway}."
+      ],
+      "circle": [
+        "",
+        " Okruh pro přistání {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Výškoměr"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Letoun je {aircraft} na {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} je na {altitude} a stoupá {altitude}. ",
+        "{station} {callsign} prolétává {altitude} a stoupá {altitude}.",
+        "{station}, {callsign} je na {altitude} a klesá {altitude}{viaStar}.",
+        "{station}, {callsign} prolétává {altitude} a klesá {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, letím k vám {approach} přiblížení{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mil {compass}"
+      ],
+      "viaStar": [
+        "přes přiblížení {route}",
+        ""
+      ],
+      "human": [
+        "Hezký den.",
+        "Nashledanou."
+      ],
+      "landing": [
+        "letiště je v režimu IFR. Přistání povoleno",
+        "jsme v režimu IFR. Přistání povoleno",
+        "povoleno{landingType} {runway}",
+        "máte povolení k přistání na heliportu {runwayNumber}"
+      ],
+      "landingType": [
+        " přistát",
+        " pro letmé přistání",
+        " letmé přistání",
+        " letmé přistání, {direction} letoun"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "kontaktujte {station} na {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Kontaktujte {station} na {frequency}.",
+        " Kontaktujte {station} na {frequency} před zahájením přiblížení.",
+        " Kontaktujte {station} na {frequency} při letu k letišti."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Očekávejte {altitude}",
+        " pokračujte tímto kurzem",
+        " navigujte samostaně"
+      ],
+      "heavy": [
+        "těžký"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "da-DK",
+    "menus": {
+      "acknowledge": "Bekræft Handoff",
+      "acknowledge-instruction": "Anerkend instruktion",
+      "acknowledge-descent": "Bekræft nedstigningstilladelse",
+      "acknowledge-assigned-approach": "Bekræft tildelt indflyvning",
+      "acknowledge-approach": "Bekræft indflyvningsgodkendelse",
+      "acknowledge-pattern-entry": "Anerkend instruktioner til start af indgangsmønster",
+      "acknowledge-arrival": "Bekræft ankomsttilladelse"
+    },
+    "contact": {
+      "center": "Kontakt {name} Center",
+      "approach": "Kontakt {name} indflyvning",
+      "tower": "Kontakt {name} tårn"
+    },
+    "tune": "[ Indstil {name} {role} til {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Center",
+      "approach": "Indflyvning",
+      "tower": "Tårn",
+      "ground": "Jord",
+      "departure": "Afgang"
+    },
+    "grammar": {
+      "instruction": [
+        "Hold hastighed ikke over {speed} knob",
+        "Drej {direction} retning {heading}",
+        "Stig, og vedligehold {altitude}",
+        "Sænk og vedligehold {altitude}",
+        "Oprethold nuværende flyvehøjde",
+        "Oprethold nuværende kurs og højde",
+        "Bevar nuværende kurs"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, du er {altitude} over din tildelte højde. {vector} {optionalAltimeter}",
+        "{callsign}, du er {altitude} under din tildelte højde. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "Kontakt {station} på {frequency}.",
+        "Kontakt {station} på {frequency}.",
+        "Kontakt {station} på {frequency} ved indflyvning.",
+        "Kontakt {station} på {frequency} ved inbound."
+      ],
+      "descent": [
+        "{callsign}, dyk via {route} til {altitude}. Forvent {approach} tilgang{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, godkendte {route}s ankomst. {vector} Forvent {approach} indflyvning{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Forvent {approach} indflyvning{approachMethod}.{sidestep}{circle} Godkendt til {fix}.",
+        "{callsign},{vector} Forvent vektorer {approach} indflyvning.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Godkendt {approach} indflyvning"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Godkendt {approach} indflyvning",
+        "Igangsæt {direction} base",
+        "Flyv {direction} base",
+        "Foretag {direction} base",
+        "Start {direction} medvindsdrej",
+        "Start {direction} trafik",
+        "Flyv {direction} medvindsdrej",
+        "Flyv {direction} trafik",
+        "Foretag {direction} medvindsdrej",
+        "Skab {direction} trafik",
+        "Flyv lige ind",
+        "Begynd direkte ind"
+      ],
+      "reminder": [
+        "{callsign}, anerkend sidste transmission.",
+        "{callsign}, hørte I?",
+        "{callsign}, hørte I min sidste transmission?",
+        "{callsign}, anerkend."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Localizer Backcourse",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizer",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visuel",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " landingsbane {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} {heading} radial, {number} DME-bue",
+        " via {fix} overgang",
+        ""
+      ],
+      "runway": [
+        "landingsbane {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " vand",
+        ""
+      ],
+      "direction": [
+        "venstre",
+        "højre"
+      ],
+      "sidestep": [
+        "",
+        " Sidestep {runway}."
+      ],
+      "circle": [
+        "",
+        " Cirkel til landing {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Højdemåler"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Traffic er {aircraft} på {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} er på {altitude} og stiger til {altitude}. ",
+        "{station}, {callsign} passerer {altitude} og stiger til {altitude}.",
+        "{station}, {callsign} er på {altitude} og dykker til {altitude}{viaStar}.",
+        "{station}, {callsign} flyver ved {altitude} og dykker til {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, indgående {approach} indflyvning{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mil {compass}"
+      ],
+      "viaStar": [
+        "via {route} ankomst",
+        ""
+      ],
+      "human": [
+        "Goddag.",
+        "Farvel."
+      ],
+      "landing": [
+        "lufthavnen er nu IFR. Klar til fuld landing",
+        "vi er IFR. Klar til fuld landing",
+        "klar{landingType} {runway}",
+        "tilladelse til at lande på helipad {runwayNumber}"
+      ],
+      "landingType": [
+        " til landing",
+        " til touch and go",
+        " touch and go",
+        " touch and go, {direction} trafik"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "Kontakt {station} på {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Kontakt {station} på {frequency}.",
+        " Kontakt {station} på {frequency} ved indflyvning.",
+        " Kontakt {station} på {frequency} ved inbound."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Forvent {altitude}",
+        " fortsæt denne kurs",
+        " genoptag egen navigation"
+      ],
+      "heavy": [
+        "tung"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "de-DE",
+    "menus": {
+      "acknowledge": "Übergabe bestätigen",
+      "acknowledge-instruction": "Anweisung bestätigen",
+      "acknowledge-descent": "Sinkflugfreigabe bestätigen",
+      "acknowledge-assigned-approach": "Zugewiesenen Anflug bestätigen",
+      "acknowledge-approach": "Freigabe für Anflug bestätigen",
+      "acknowledge-pattern-entry": "Anweisungen für Einflug in Platzrunde bestätigen",
+      "acknowledge-arrival": "Ankunftsfreigabe bestätigen"
+    },
+    "contact": {
+      "center": "{name} Center kontaktieren",
+      "approach": "{name} Anflug kontaktieren",
+      "tower": "{name} Tower kontaktieren"
+    },
+    "tune": "[ {name} einstellen {role} auf {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Center",
+      "approach": "Anflug",
+      "tower": "Tower",
+      "ground": "Ground",
+      "departure": "Departure"
+    },
+    "grammar": {
+      "instruction": [
+        "Geschwindigkeit unter {speed} Knoten halten.",
+        "Drehen Sie nach {direction}, Kurs {heading}",
+        "Steigen Sie auf und halten Sie {altitude}",
+        "sinken und halten Sie {altitude}",
+        "Halten Sie die aktuelle Höhe",
+        "Halten Sie den aktuellen Kurs und die Höhe",
+        "Halten Sie den aktuellen Kurs"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, Sie befinden sich {altitude} über Ihrer zugewiesenen Höhe. {vector} {optionalAltimeter}",
+        "{callsign}, Sie befinden sich {altitude} unter Ihrer zugewiesenen Höhe. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        ", rufen Sie {station} auf {frequency}.",
+        "Rufen Sie {station} auf {frequency}.",
+        "Rufen Sie {station} auf {frequency}, wenn Sie sich auf Anflugkurs befinden.",
+        "Rufen Sie {station} auf {frequency}, wenn auf Anflugkurs."
+      ],
+      "descent": [
+        "{callsign}Sinkflug über {route} zu {altitude}. Erwarten Sie {approach} Landeanflug{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, Freigegeben {route} Ankunft. {vector} Erwartet {approach} Landeanflug{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Erwarteter {approach}-Landeanflug{approachMethod}.{sidestep}{circle} Freigabe für {fix}.",
+        "{callsign},{vector} Vektor {approach}-Landeanflug.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Freigabe für Landeanflug {approach} erteilt."
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Freigabe für Landeanflug {approach} erteilt.",
+        "Einflug in Querabschnitt {direction}",
+        "Fliegen Sie Querabschnitt {direction}",
+        "Platzrunde in Querabschnitt {direction}",
+        "Einflug in {direction} Gegenanflug",
+        "Einflug in Platzrunde {direction}",
+        "Fliegen Sie Gegenanflug {direction}",
+        "Fliegen Sie Platzrunde {direction}",
+        "Platzrunde in Gegenanflug {direction}",
+        "Fliegen Sie eine Platzrunde {direction}",
+        "Fliegen Sie direkten Einflug",
+        "Direkter Anflug"
+      ],
+      "reminder": [
+        "{callsign}, bestätigen Sie letzte Übertragung.",
+        "{callsign}, haben Sie verstanden?",
+        "{callsign}, haben Sie meine letzte Übertragung mitgehört?",
+        "{callsign}, bitte bestätigen."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Landekurssender für Gegenkurs",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Landekurssender",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Sichtflug",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " Piste {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} {heading} Radial, {number} DME-Arc",
+        " via {fix} Transition",
+        ""
+      ],
+      "runway": [
+        "Piste {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " Wasser",
+        ""
+      ],
+      "direction": [
+        "links",
+        "rechts"
+      ],
+      "sidestep": [
+        "",
+        " Ausweichen auf {runway}."
+      ],
+      "circle": [
+        "",
+        " Platzrunde für Landung {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Höhenmesser"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Verkehr {aircraft} im {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} ist auf {altitude}, steigt auf {altitude}. ",
+        "{station}, {callsign} ist auf {altitude}, steigt auf {altitude}.",
+        "{station}, {callsign} ist auf {altitude}, sinkt auf {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, auf Anflugkurs {approach} Anflug{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} Meilen {compass}"
+      ],
+      "viaStar": [
+        "über die {route} Anreise",
+        ""
+      ],
+      "human": [
+        "Guten Tag.",
+        "Tschüss."
+      ],
+      "landing": [
+        "der Flughafen ist jetzt IFR. Freigabe für die vollständige Landung",
+        "wir sind auf IFR. Freigabe für die vollständige Landung",
+        "Freigabe für {landingType} {runway}",
+        "Landeerlaubnis für Helipad {runwayNumber}"
+      ],
+      "landingType": [
+        " Landung",
+        " für Touch-and-go",
+        " Touch-and-go",
+        " Touch-and-go, Platzrunde {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Fuß",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        ", rufen Sie {station} auf {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Rufen Sie {station} auf {frequency}.",
+        " Rufen Sie {station} auf {frequency}, wenn Sie sich auf Anflugkurs befinden.",
+        " Rufen Sie {station} auf {frequency}, wenn auf Anflugkurs."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "{altitude} erwartet",
+        " halten Sie Kurs",
+        " übernehmen Sie die Navigation"
+      ],
+      "heavy": [
+        "Heavy"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "el-GR",
+    "menus": {
+      "acknowledge": "Αναγνώριση παράδοσης",
+      "acknowledge-instruction": "Αναγνώριση οδηγίας",
+      "acknowledge-descent": "Αναγνώριση άδειας καθόδου",
+      "acknowledge-assigned-approach": "Αναγνώριση εκχωρημένης προσέγγισης",
+      "acknowledge-approach": "Αναγνώριση άδειας προσέγγισης",
+      "acknowledge-pattern-entry": "Αναγνώριση οδηγιών καταχώρισης μοτίβου",
+      "acknowledge-arrival": "Αναγνώριση άδειας άφιξης"
+    },
+    "contact": {
+      "center": "Επικοινωνία με το Κέντρο {name}",
+      "approach": "Επικοινωνία {name} Προσέγγιση",
+      "tower": "Επικοινωνία με τον Πύργο {name}"
+    },
+    "tune": "[ Συντονιστείτε {name} {role} στο {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Κέντρο",
+      "approach": "Προσέγγιση",
+      "tower": "Τάουερ",
+      "ground": "Έδαφος",
+      "departure": "Αναχώρηση"
+    },
+    "grammar": {
+      "instruction": [
+        "Διατηρήστε την ταχύτητα όχι πάνω από {speed} κόμβους",
+        "Στροφή {direction} για πορεία {heading}",
+        "Ανεβείτε και διατηρήστε ύψος {altitude}",
+        "Κατεβείτε και διατηρήστε ύψος {altitude}",
+        "Διατηρήστε το τρέχον ύψος",
+        "Διατηρήστε την τρέχουσα πορεία και το ύψος",
+        "Διατήρηση της τρέχουσας πορείας"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, βρίσκεστε {altitude} πάνω από το ύψος που σας έχει ανατεθεί. {vector} {optionalAltimeter}",
+        "{callsign}, βρίσκεστε {altitude} κάτω από το ύψος που σας έχει ανατεθεί. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "επικοινωνήστε με {station} στο {frequency}.",
+        "Επικοινωνήστε με {station} στο {frequency}.",
+        "Επικοινωνήστε με {station} στο {frequency} κατά την είσοδο στην προσέγγιση.",
+        "Επικοινωνήστε με {station} στο {frequency} κατά την είσοδο."
+      ],
+      "descent": [
+        "{callsign}, κατεβείτε μέσω {route} στα {altitude}. Αναμένετε {approach} προσέγγιση{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, άδεια {route} για άφιξη. {vector} Αναμένετε {approach} προσέγγιση{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Αναμένεται {approach} προσέγγιση{approachMethod}.{sidestep}{circle} Άδεια για {fix}.",
+        "{callsign},{vector} Αναμένετε διανύσματα για προσέγγιση {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Ελεύθερη {approach} προσέγγιση"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Ελεύθερη {approach} προσέγγιση",
+        "Μπείτε στη {direction} βάση",
+        "Πετάξτε προς τη {direction} βάση",
+        "Κάντε προς τη {direction} βάση",
+        "Είσοδος {direction} υπήνεμα",
+        "Είσοδος {direction} κυκλοφορία",
+        "Πετάξτε {direction} υπήνεμα",
+        "Πετάξτε {direction} κυκλοφορία",
+        "Κάντε {direction} υπήνεμα",
+        "Κάντε {direction} κυκλοφορία",
+        "Πετάξτε κατ'ευθείαν μέσα",
+        "Πηγαίνετε κατ'ευθείαν μέσα"
+      ],
+      "reminder": [
+        "{callsign}, αναγνωρίστε την τελευταία μετάδοση.",
+        "{callsign}, λαμβάνεις;",
+        "{callsign}, ακούσατε την τελευταία μου μετάδοση;",
+        "{callsign}, αναγνωρίστε."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Backcourse Εντοπιστή",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Εντοπιστής",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Οπτικό",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " διάδρομος {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " μέσω ακτινικού {fix} {heading}, DME τόξου {number}",
+        " μέσω μετάβασης από {fix}",
+        ""
+      ],
+      "runway": [
+        "διάδρομος {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " νερό",
+        ""
+      ],
+      "direction": [
+        "αριστερά",
+        "δεξιά"
+      ],
+      "sidestep": [
+        "",
+        " Παράκαμψη {runway}."
+      ],
+      "circle": [
+        "",
+        " Κάντε κύκλο για προσγείωση {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Αλτίμετρο"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Η κυκλοφορία είναι {aircraft} στο {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} είναι σε {altitude} απογείωση {altitude}. ",
+        "{station}, {callsign} περνά {altitude} σε απογείωση {altitude}.",
+        "{station}, {callsign} είναι στα {altitude} με κάθοδο στα {altitude}{viaStar}.",
+        "{station}, {callsign} περνά τα {altitude} με κάθοδο στα {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, εισερχόμενη {approach} προσέγγιση{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} μίλια {compass}"
+      ],
+      "viaStar": [
+        "μέσω της άφιξης {route}",
+        ""
+      ],
+      "human": [
+        "Καλή σας μέρα.",
+        "Αντίο."
+      ],
+      "landing": [
+        "το αεροδρόμιο είναι τώρα IFR. Εκκαθαρίστηκε για πλήρη προσγείωση στον διάδρομο",
+        "είμαστε IFR. Εκκαθαρίστηκε για πλήρη προσγείωση στον διάδρομο",
+        "άδεια για {landingType} {runway}",
+        "άδεια για προσγείωση στο ελικοδρόμιο {runwayNumber}"
+      ],
+      "landingType": [
+        " για προσγείωση",
+        " για προσγείωση και άμεση απογείωση",
+        " προσγείωση και άμεση απογείωση",
+        " αγγίξτε και ξεκινήστε, {direction} κυκλοφορία"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "επικοινωνήστε με {station} στο {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Επικοινωνήστε με {station} στο {frequency}.",
+        " Επικοινωνήστε με {station} στο {frequency} κατά την είσοδο στην προσέγγιση.",
+        " Επικοινωνήστε με {station} στο {frequency} κατά την είσοδο."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Αναμείνατε {altitude}",
+        " προχωρήστε στην πορεία",
+        " συνεχίσετε τη δική σας πλοήγηση"
+      ],
+      "heavy": [
+        "βαρύ"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "en-US",
+    "menus": {
+      "acknowledge": "Acknowledge Handoff",
+      "acknowledge-instruction": "Acknowledge Instruction",
+      "acknowledge-descent": "Acknowledge Descent Clearance",
+      "acknowledge-assigned-approach": "Acknowledge Assigned Approach",
+      "acknowledge-approach": "Acknowledge Approach Clearance",
+      "acknowledge-pattern-entry": "Acknowledge Pattern Entry Instructions",
+      "acknowledge-arrival": "Acknowledge Arrival Clearance"
+    },
+    "contact": {
+      "center": "Contact {name} Center",
+      "approach": "Contact {name} Approach",
+      "tower": "Contact {name} Tower"
+    },
+    "tune": "[ Tune {name} {role} on {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Center",
+      "approach": "Approach",
+      "tower": "Tower",
+      "ground": "Ground",
+      "departure": "Departure"
+    },
+    "grammar": {
+      "instruction": [
+        "Keep speed not above {speed} knots",
+        "Turn {direction} heading {heading}",
+        "Climb and maintain {altitude}",
+        "Descend and maintain {altitude}",
+        "Maintain present altitude",
+        "Maintain present heading and altitude",
+        "Maintain present heading",
+        "Maintain current altitude"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, you are {altitude} above your assigned altitude. {vector} {optionalAltimeter}",
+        "{callsign}, you are {altitude} below your assigned altitude. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contact {station} on {frequency}.",
+        "Contact {station} on {frequency}.",
+        "Contact {station} on {frequency} when inbound on the approach.",
+        "Contact {station} on {frequency} when inbound."
+      ],
+      "descent": [
+        "{callsign}, descend via {route} to {altitude}. Expect {approach} approach{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, Cleared {route} arrival. {vector} Expect {approach} approach{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Expect {approach} approach{approachMethod}.{sidestep}{circle} Cleared to {fix}.",
+        "{callsign},{vector} Expect vectors {approach} approach.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Cleared {approach} approach"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Cleared {approach} approach",
+        "Enter {direction} base",
+        "Fly {direction} base",
+        "Make {direction} base",
+        "Enter {direction} downwind",
+        "Enter {direction} traffic",
+        "Fly {direction} downwind",
+        "Fly {direction} traffic",
+        "Make {direction} downwind",
+        "Make {direction} traffic",
+        "Fly straight in",
+        "Make straight in"
+      ],
+      "reminder": [
+        "{callsign}, acknowledge last transmission.",
+        "{callsign}, did you copy?",
+        "{callsign}, did you hear my last transmission?",
+        "{callsign}, please acknowledge."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Localizer Backcourse",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizer",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " runway {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} {heading} radial, {number} DME arc",
+        " via {fix} transition",
+        ""
+      ],
+      "runway": [
+        "runway {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " water",
+        ""
+      ],
+      "direction": [
+        "left",
+        "right"
+      ],
+      "sidestep": [
+        "",
+        " Sidestep {runway}."
+      ],
+      "circle": [
+        "",
+        " Circle to land {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altimeter"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Traffic is {aircraft} on {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} is at {altitude} climbing {altitude}. ",
+        "{station}, {callsign} is passing {altitude} climbing {altitude}.",
+        "{station}, {callsign} is at {altitude} descending {altitude}{viaStar}.",
+        "{station}, {callsign} is passing {altitude} descending {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, inbound {approach} approach{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} miles {compass}"
+      ],
+      "viaStar": [
+        "via the {route} arrival",
+        ""
+      ],
+      "human": [
+        "Good day.",
+        "Bye bye."
+      ],
+      "landing": [
+        "the airport is now IFR. Cleared to land full stop",
+        "we're IFR. Cleared to land full stop",
+        "cleared{landingType} {runway}",
+        "cleared to land helipad {runwayNumber}"
+      ],
+      "landingType": [
+        " to land",
+        " for touch and go",
+        " touch and go",
+        " touch and go, {direction} traffic"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contact {station} on {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contact {station} on {frequency}.",
+        " Contact {station} on {frequency} when inbound on the approach.",
+        " Contact {station} on {frequency} when inbound."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Expect {altitude}",
+        " proceed on course",
+        " resume own navigation"
+      ],
+      "heavy": [
+        "heavy"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "es-ES",
+    "menus": {
+      "acknowledge": "Confirmar transferencia",
+      "acknowledge-instruction": "Confirmar instrucción",
+      "acknowledge-descent": "Confirmar autorización de descenso",
+      "acknowledge-assigned-approach": "Confirmar aproximación asignada",
+      "acknowledge-approach": "Confirmar autorización para aproximación",
+      "acknowledge-pattern-entry": "Confirmar instrucciones de entrada al circuito",
+      "acknowledge-arrival": "Confirmar autorización de llegada"
+    },
+    "contact": {
+      "center": "Contactar centro {name}",
+      "approach": "Contactar aproximación {name}",
+      "tower": "Contactar torre de control {name}"
+    },
+    "tune": "[ Sintonizar {name} {role} en {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centro",
+      "approach": "Aproximación",
+      "tower": "Torre de control",
+      "ground": "Suelo",
+      "departure": "Salida"
+    },
+    "grammar": {
+      "instruction": [
+        "Mantenga la velocidad por debajo de {speed} nudos",
+        "Gire a la {direction} rumbo {heading}",
+        "Ascienda y manténgase a {altitude}",
+        "Descienda y manténgase a {altitude}",
+        "Mantenga la altitud actual",
+        "Mantenga el rumbo y la altitud actuales",
+        "Mantenga el rumbo actual"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, está a {altitude} por encima de la altitud asignada. {vector} {optionalAltimeter}",
+        "{callsign}, está a {altitude} por debajo de la altitud asignada. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contacte con {station} en {frequency}.",
+        "Contacte con {station} en {frequency}.",
+        "Contacte con {station} en {frequency} en el tramo de entrada de la aproximación.",
+        "Contacte con {station} en {frequency} al entrar."
+      ],
+      "descent": [
+        "{callsign}, desciendar por {route} a {altitude}. Espera aproximación a {approach} {approachMethod} {sidestep} {circle}."
+      ],
+      "arrival": [
+        "{callsign}, autorizada llegada a {route}. {vector} Espera aproximación a {approach}{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector}. Espere aproximación a {approach}{approachMethod}.{sidestep}{circle}. Tiene autorización para {fix}.",
+        "{callsign},{vector} Espere vectores de aproximación {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Aproximación {approach} despejada"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Aproximación {approach} despejada",
+        "Entre por la {direction} de la base",
+        "Vuele a la {direction} de la base",
+        "Siga la {direction} de la base",
+        "Entre por el tramo a favor del viento a la {direction}",
+        "Entre por la {direction} del tránsito",
+        "Vuele en dirección {direction} por el tramo a favor del viento",
+        "Vuele a la {direction} del tránsito",
+        "Siga la {direction} por el tramo a favor del viento",
+        "Siga la {direction} del tránsito",
+        "Vuele en aproximación directa",
+        "Siga aproximación directa"
+      ],
+      "reminder": [
+        "{callsign}, confirme última transmisión.",
+        "{callsign}, ¿me ha recibido?",
+        "{callsign}, ¿ha escuchado mi última transmisión?",
+        "{callsign}, confirme."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Rumbo posterior del localizador",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizador",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " pista {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " a través de {fix} {heading} radial, arco DME {number}",
+        " a través de transición {fix}",
+        ""
+      ],
+      "runway": [
+        "pista {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " agua",
+        ""
+      ],
+      "direction": [
+        "izquierda",
+        "derecha"
+      ],
+      "sidestep": [
+        "",
+        " Realice desplazamiento lateral a {runway}."
+      ],
+      "circle": [
+        "",
+        " Vuele en círculos para aterrizar en {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altímetro"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Hay un {aircraft} en {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} está a {altitude} ascendiendo a {altitude}.",
+        "{station}, {callsign} está a {altitude} descendiendo a {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, en aproximación {approach} de entrada{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} millas {compass}"
+      ],
+      "viaStar": [
+        "por la llegada {route}",
+        ""
+      ],
+      "human": [
+        "Buen día.",
+        "Adiós."
+      ],
+      "landing": [
+        "ahora el aeropuerto está en IFR. Autorizado a aterrizar con parada total",
+        "estamos en IFR. Autorizado a aterrizar con parada total",
+        "tiene autorización para{landingType} {runway}",
+        "autorizado a aterrizar en helipuertos {runwayNumber}"
+      ],
+      "landingType": [
+        " para aterrizar",
+        " para toma y despegue",
+        " toma y despegue",
+        " toma y despegue, tránsito {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "pies",
+        "Pies",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contacte con {station} en {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contacte con {station} en {frequency}.",
+        " Contacte con {station} en {frequency} en el tramo de entrada de la aproximación.",
+        " Contacte con {station} en {frequency} al entrar."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Espere {altitude}",
+        " mantenga el rumbo",
+        " reanude su navegación"
+      ],
+      "heavy": [
+        "pesado"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "es-MX",
+    "menus": {
+      "acknowledge": "Confirmar transferencia",
+      "acknowledge-instruction": "Confirmar instrucción",
+      "acknowledge-descent": "Confirmar autorización de descenso",
+      "acknowledge-assigned-approach": "Confirmar aproximación asignada",
+      "acknowledge-approach": "Confirmar autorización para aproximación",
+      "acknowledge-pattern-entry": "Confirmar instrucciones de entrada al circuito",
+      "acknowledge-arrival": "Confirmar autorización de llegada"
+    },
+    "contact": {
+      "center": "Contactar centro {name}",
+      "approach": "Contactar aproximación {name}",
+      "tower": "Contactar torre de control {name}"
+    },
+    "tune": "[ Sintonizar {name} {role} en {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centro",
+      "approach": "Aproximación",
+      "tower": "Torre de control",
+      "ground": "Suelo",
+      "departure": "Salida"
+    },
+    "grammar": {
+      "instruction": [
+        "Mantenga la velocidad por debajo de {speed} nudos",
+        "Gire a la {direction} rumbo {heading}",
+        "Ascienda y manténgase a {altitude}",
+        "Descienda y manténgase a {altitude}",
+        "Mantenga la altitud actual",
+        "Mantenga el rumbo y la altitud actuales",
+        "Mantenga el rumbo actual"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, está a {altitude} por encima de la altitud asignada. {vector} {optionalAltimeter}",
+        "{callsign}, está a {altitude} por debajo de la altitud asignada. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contacte con {station} en {frequency}.",
+        "Contacte con {station} en {frequency}.",
+        "Contacte con {station} en {frequency} en el tramo de entrada de la aproximación.",
+        "Contacte con {station} en {frequency} al entrar."
+      ],
+      "descent": [
+        "{callsign}, desciende por {route} a {altitude}. Espera aproximación a {approach} {approachMethod} {sidestep} {circle}."
+      ],
+      "arrival": [
+        "{callsign}, autorizada llegada a {route}. {vector} Espera aproximación a {approach}{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector}. Espere aproximación a {approach}{approachMethod}.{sidestep}{circle}. Tiene autorización para {fix}.",
+        "{callsign},{vector} Espere vectores de aproximación {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Aproximación {approach} despejada"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Aproximación {approach} despejada",
+        "Entre por la {direction} de la base",
+        "Vuele a la {direction} de la base",
+        "Siga la {direction} de la base",
+        "Entre por el tramo a favor del viento a la {direction}",
+        "Entre por la {direction} del tránsito",
+        "Vuele en dirección {direction} por el tramo a favor del viento",
+        "Vuele a la {direction} del tránsito",
+        "Siga la {direction} por el tramo a favor del viento",
+        "Siga la {direction} del tránsito",
+        "Vuele en aproximación directa",
+        "Siga aproximación directa"
+      ],
+      "reminder": [
+        "{callsign}, confirme última transmisión.",
+        "{callsign}, ¿me recibe?",
+        "{callsign}, ¿escuchó mi última transmisión?",
+        "{callsign}, confirme."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Rumbo posterior del localizador",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizador",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " pista {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " a través de {fix} {heading} radial, arco DME {number}",
+        " a través de transición {fix}",
+        ""
+      ],
+      "runway": [
+        "pista {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " agua",
+        ""
+      ],
+      "direction": [
+        "izquierda",
+        "derecha"
+      ],
+      "sidestep": [
+        "",
+        " Realice desplazamiento lateral a {runway}."
+      ],
+      "circle": [
+        "",
+        " Vuele en círculos para aterrizar en {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altímetro"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Hay un {aircraft} en {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} está a {altitude} ascendiendo a {altitude}. ",
+        "{station}, {callsign} está a {altitude} ascendiendo a {altitude}.",
+        "{station}, {callsign} está a {altitude} descendiendo a {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, en aproximación {approach} de entrada{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} millas {compass}"
+      ],
+      "viaStar": [
+        "por la llegada {route}",
+        ""
+      ],
+      "human": [
+        "Good day.",
+        "Adiós."
+      ],
+      "landing": [
+        "ahora el aeropuerto está en IFR. Autorizado a aterrizar con parada total",
+        "estamos en IFR. Autorizado a aterrizar con parada total",
+        "tiene autorización para{landingType} {runway}",
+        "autorizado a aterrizar en helipuerto {runwayNumber}"
+      ],
+      "landingType": [
+        " para aterrizar",
+        " para toma y despegue",
+        " toma y despegue",
+        " toma y despegue, tránsito {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "pies",
+        "Pies",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contacte con {station} en {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contacte con {station} en {frequency}.",
+        " Contacte con {station} en {frequency} en el tramo de entrada de la aproximación.",
+        " Contacte con {station} en {frequency} al entrar."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Espere {altitude}",
+        " mantenga el rumbo",
+        " reanude su navegación"
+      ],
+      "heavy": [
+        "pesado"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "fi-FI",
+    "menus": {
+      "acknowledge": "Kuittaa luovuttaminen",
+      "acknowledge-instruction": "Kuittaa ohje",
+      "acknowledge-descent": "Kuittaa laskeutumisselvitys",
+      "acknowledge-assigned-approach": "Kuittaa määrätty lähestyminen",
+      "acknowledge-approach": "Kuittaa lähestymislupa",
+      "acknowledge-pattern-entry": "Kuittaa kierrokseen tulon ohjeet",
+      "acknowledge-arrival": "Kuittaa saapumislupa"
+    },
+    "contact": {
+      "center": "Ota yhteys {name} keskukseen",
+      "approach": "Ota yhteys {name} lähestymiseen",
+      "tower": "Ota yhteys {name} lennonjohtotorniin"
+    },
+    "tune": "[ Viritä {name} {role} on {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Keskiosa",
+      "approach": "Lähestyminen",
+      "tower": "Lennonjohtotorni",
+      "ground": "Maa",
+      "departure": "Lähtö"
+    },
+    "grammar": {
+      "instruction": [
+        "Pidä nopeus korkeintaan {speed} solmussa",
+        "Käännä suuntaan {direction} ohjaussuuntaan {heading}",
+        "Nouse korkeuteen {altitude} ja pidä se",
+        "Laskeudu korkeuteen {altitude} ja pidä se",
+        "Pidä nykyinen korkeus",
+        "Pidä nykyinen ohjaussuunta ja korkeus",
+        "Pidä nykyinen ohjaussuunta"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, olet {altitude} määrätyn korkeuden yläpuolella {vector} {optionalAltimeter}",
+        "{callsign} olet {altitude} määrätyn korkeuden alapuolella {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "ota yhteyttä tahoon {station} taajuudella {frequency}.",
+        "Ota yhteyttä kohteeseen {station} taajuudella {frequency}.",
+        "Ota yhteyttä kohteeseen {station} taajuudella {frequency}, kun olet lähestymässä.",
+        "Ota yhteyttä kohteeseen {station} taajuudella {frequency} lähestyessäsi."
+      ],
+      "descent": [
+        "{callsign}, laskeutuminen kohteen {route} kautta korkeuteen {altitude}. Odotettavissa lähestyminen {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, lupa saapumiseen {route}. {vector} Odotettavissa lähestyminen {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign}, {vector}. Odota {approach} lähestymistä {approachMethod}.{sidestep}{circle} Lupa {fix}.",
+        "{callsign}, {vector}. Odota vektorien {approach} lähestymistä.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Lupa lähestyä {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Lupa lähestyä {approach}",
+        "Aloita peruskierros {direction}",
+        "Lennä peruskierros {direction}",
+        "Tee peruskierros {direction}",
+        "Aloita myötätuulikierros {direction}",
+        "Aloita liikennekierros {direction}",
+        "Lennä myötätuulikierros {direction}",
+        "Lennä liikennekierros {direction}",
+        "Tee {direction} myötätuulikierros",
+        "Tee liikennekierros {direction}",
+        "Lennä suoraan sisään",
+        "Tee suoraan sisään"
+      ],
+      "reminder": [
+        "{callsign}, kuittaa viimeinen lähetys.",
+        "{callsign}, kuulitko?",
+        "{callsign}, kuulitko viimeisen lähetykseni?",
+        "{callsign}, kuittaa."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Suuntasäteen päinvastainen suunta",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Suuntasäde",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visuaalinen",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " kiitotie {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " {fix} kautta radiaali {heading}, {number} DME-kaari",
+        " siirtymän {fix} kautta",
+        ""
+      ],
+      "runway": [
+        "kiitotie {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " vesi",
+        ""
+      ],
+      "direction": [
+        "vasen",
+        "oikea"
+      ],
+      "sidestep": [
+        "",
+        " Laskeudu viereiselle kiitotielle {runway}."
+      ],
+      "circle": [
+        "",
+        " Kaarra ja laskeudu kiitotielle {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Korkeusmittari"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Liikenne {aircraft} kierroksella {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} on korkeudessa {altitude} ja nousee korkeuteen {altitude}. ",
+        "{station}, {callsign} on ohittamassa korkeuden {altitude} ja nousee korkeuteen {altitude}.",
+        "{station}, {callsign} on korkeudessa {altitude} ja laskeutuu korkeuteen {altitude}{viaStar}.",
+        "{station}, {callsign} on ohittamassa korkeuden {altitude} ja laskeutuu korkeuteen {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, saapuva {approach} lähestyminen{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mailia suuntaan {compass}"
+      ],
+      "viaStar": [
+        "{route} kautta saapuminen",
+        ""
+      ],
+      "human": [
+        "Hyvää päivänjatkoa.",
+        "Hei, hei."
+      ],
+      "landing": [
+        "lentoasema on nyt IFR-tilassa. Lupa täyden pysähdyksen laskeutumiselle",
+        "olemme IFR-tilassa. Lupa täyden pysähdyksen laskeutumiselle",
+        "lupa laskeutumiseen {landingType} {runway}",
+        "lupa laskeutumiseen helikopterikentälle {runwayNumber}"
+      ],
+      "landingType": [
+        " laskeutuu",
+        " läpilaskun tekevää",
+        " läpilasku",
+        " läpilasku, {direction} kierros"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "jalkaa",
+        "Jalkaa",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "ota yhteyttä tahoon {station} taajuudella {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Ota yhteyttä kohteeseen {station} taajuudella {frequency}.",
+        " Ota yhteyttä kohteeseen {station} taajuudella {frequency}, kun olet lähestymässä.",
+        " Ota yhteyttä kohteeseen {station} taajuudella {frequency} lähestyessäsi."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign}, {vector} {towerContact}."
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Odota korkeutta {altitude}",
+        " jatka kurssilla",
+        " jatka omaa navigointia"
+      ],
+      "heavy": [
+        "raskasta"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "fr-FR",
+    "menus": {
+      "acknowledge": "Accepter le transfert de responsabilités",
+      "acknowledge-instruction": "Accepter consignes",
+      "acknowledge-descent": "Accepter l'autorisation de descente",
+      "acknowledge-assigned-approach": "Accepter approche attribuée",
+      "acknowledge-approach": "Accepter autorisation d'approche",
+      "acknowledge-pattern-entry": "Accepter les consignes d'entrée sur le circuit",
+      "acknowledge-arrival": "Accepter l'autorisation d'arrivée"
+    },
+    "contact": {
+      "center": "Contacter {name} centre",
+      "approach": "Contacter {name} approche",
+      "tower": "Contacter {name} tour"
+    },
+    "tune": "[ Régler {name} {role} sur {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centre",
+      "approach": "Approche",
+      "tower": "Tour",
+      "ground": "Sol",
+      "departure": "Départ"
+    },
+    "grammar": {
+      "instruction": [
+        "Ne dépassez pas la vitesse de {speed} nœuds.",
+        "Virez par la {direction} au {heading}",
+        "Montez à {altitude}",
+        "Descendez à {altitude}",
+        "Maintenez votre altitude",
+        "Maintenez votre cap et votre altitude",
+        "Maintenez votre cap"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, vous êtes {altitude} au-dessus de l'altitude qui vous a été attribuée. {vector} {optionalAltimeter}",
+        "{callsign}, vous êtes {altitude} en dessous de l'altitude qui vous a été attribuée. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contactez {station} sur {frequency}.",
+        "Contactez {station} sur {frequency}.",
+        "Contactez {station} sur {frequency} en trajectoire d'entrée."
+      ],
+      "descent": [
+        "{callsign}, descente via {route} à {altitude}. Prévoyez approche {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, autorisé arrivée {route}. {vector} Prévoyez approche {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Prévoyez {approach} une approche{approachMethod}.{sidestep}{circle} Autorisé pour {fix}.",
+        "{callsign},{vector} Prévoyez les vecteurs {approach} une approche.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Approche autorisée {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Approche autorisée {approach}",
+        "Intégrez le circuit en base main {direction}",
+        "Intégration base main {direction}",
+        "Intégrez en base main {direction}",
+        "Intégrez le circuit en vent arrière, tour de piste main {direction}",
+        "Intégration tour de piste main {direction}",
+        "Intégration vent arrière, tour de piste main {direction}",
+        "Tour de piste main {direction}",
+        "Intégrez en vent arrière, tour de piste main {direction}",
+        "Intégrez en tour de piste main {direction}",
+        "Intégrez en approche directe",
+        "Faites une approche directe"
+      ],
+      "reminder": [
+        "{callsign}, accusez réception de ma dernière transmission.",
+        "{callsign}, avez-vous bien noté ?",
+        "{callsign}, avez-vous reçu ma dernière transmission ?",
+        "{callsign}, veuillez accuser réception."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Localiseur alignement arrière",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localiseur",
+        "NDB",
+        "DME NDB",
+        "RNAV",
+        "SDF",
+        "Vol à vue",
+        "VOR",
+        "DME VOR"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " piste {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " par la radiale {fix} {heading}, arc DME {number}",
+        " en transit {fix}",
+        ""
+      ],
+      "runway": [
+        "piste {runwayNumber} {runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " eau",
+        ""
+      ],
+      "direction": [
+        "gauche",
+        "droite"
+      ],
+      "sidestep": [
+        "",
+        " Manœuvre {runway}."
+      ],
+      "circle": [
+        "",
+        " Effectuez un tour pour atterrir sur {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altimètre"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Trafic {aircraft} en étape de {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} à {altitude}, en montée vers {altitude}. ",
+        "{station}, {callsign} franchit {altitude}, en montée vers {altitude}.",
+        "{station}, {callsign} à {altitude}, en descente vers {altitude}{viaStar}.",
+        "{station}, {callsign} franchit {altitude}, en descente vers {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, en trajectoire d'approche {approach} {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} nautiques {compass}"
+      ],
+      "viaStar": [
+        "via arrivée {route}",
+        ""
+      ],
+      "human": [
+        "Bonne journée.",
+        "Ciao."
+      ],
+      "landing": [
+        "l'aéroport est maintenant IFR. Autorisation d'atterrir",
+        "aéroport IFR. Autorisation d'atterrir",
+        "{landingType} {runway} autorisé",
+        "atterrissage autorisé sur l'héliport {runwayNumber}"
+      ],
+      "landingType": [
+        " atterrissage",
+        " pour un posé-décollé",
+        " posé-décollé",
+        " posé-décollé, trafic {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Pi",
+        "Pieds",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contactez {station} sur {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contactez {station} sur {frequency}.",
+        " Contactez {station} sur {frequency} en trajectoire d'entrée."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Prévoyez {altitude}",
+        " continuez au track",
+        " reprenez votre navigation"
+      ],
+      "heavy": [
+        "forte"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "hi-IN",
+    "menus": {
+      "acknowledge": "हैंडऑफ़ को स्वीकार करें",
+      "acknowledge-instruction": "निर्देश स्वीकार करें",
+      "acknowledge-descent": "हमले की मंज़ूरी स्वीकार करें",
+      "acknowledge-assigned-approach": "असाइन किए गए अप्रोच को स्वीकार करें",
+      "acknowledge-approach": "अप्रोच क्लीयरेंस स्वीकार करें",
+      "acknowledge-pattern-entry": "पैटर्न एंट्री निर्देश स्वीकार करें",
+      "acknowledge-arrival": "आगमन मंज़ूरी स्वीकार करें"
+    },
+    "contact": {
+      "center": "{name} सेंटर पर संपर्क करें",
+      "approach": "संपर्क {name} अप्रोच करें",
+      "tower": "{name} टावर से संपर्क करें"
+    },
+    "tune": "[{mhz}{decimal}{khz} पर {name} {role} ट्यून करें]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "सेंटर",
+      "approach": "अप्रोच",
+      "tower": "टॉवर",
+      "ground": "ग्राउंड",
+      "departure": "प्रस्थान"
+    },
+    "grammar": {
+      "instruction": [
+        "गति {speed} समुद्री मील से ऊपर न रखें",
+        "{direction} हेडिंग {heading} मोड़ें",
+        "चढ़ें और {altitude} बनाए रखें",
+        "उतरे और {altitude} बनाए रखें",
+        "वर्तमान ऊंचाई बनाए रखें",
+        "वर्तमान हेडिंग और ऊंचाई बनाए रखें",
+        "मौजूदा हेडिंग बनाए रखें"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, आप अपनी निर्धारित ऊंचाई से {altitude} ऊपर हैं. {vector} {optionalAltimeter}",
+        "{callsign}, आप अपनी निर्धारित ऊंचाई से {altitude} नीचे हैं. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "{frequency} पर {station} संपर्क करें.",
+        "{frequency} पर {station} संपर्क करें.",
+        "जब इनबाउंड अप्रोच पर हो तो {frequency} पर {station} को संपर्क करें.",
+        "इनबाउंड होने पर {frequency} पर {station} को संपर्क करें."
+      ],
+      "descent": [
+        "{callsign}, {route} से होते हुए {altitude} तक उतरें। {approach} दृष्टिकोण{approachMethod}{sidestep}{circle} की अपेक्षा करें।"
+      ],
+      "arrival": [
+        "{callsign}, आगमन {route} मंजूरी दे दी। {vector} {approach} दृष्टिकोण{approachMethod}{sidestep}{circle} की अपेक्षा करें।"
+      ],
+      "assigned": [
+        "{callsign},{vector} अप्रोच{approach} की उम्मीद करें{approachMethod}.{sidestep}{circle} को मंज़ूरी दे दी{fix}.",
+        "{callsign},{vector} वैक्टर {approach} अप्रोच की अपेक्षा करें.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "{approach} अप्रोच के लिए तैयार किया गया"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}। "
+      ],
+      "entry": [
+        "{approach} अप्रोच के लिए तैयार किया गया",
+        "{direction} बेस पर जाएं",
+        "{direction} बेस से उड़ान भरें",
+        "{direction} बेस बनाएं",
+        "डाउनविंड {direction} में जाएं",
+        "{direction} ट्रैफ़िक में जाएं",
+        "डाउनविंड की ओर {direction} उड़ान भरें",
+        "ट्रैफ़िक की ओर {direction} उड़ान भरें",
+        "{direction} डाउनविंड की ओर",
+        "{direction} ट्रैफ़िक की ओर",
+        "में सीधे उड़ान भरें",
+        "में सीधे अंदर जाएं"
+      ],
+      "reminder": [
+        "{callsign}, आखिरी ट्रांसमिशन को स्वीकार करें.",
+        "{callsign}, क्या आपने प्रतिलिपि बनाई?",
+        "{callsign}, क्या आपने मेरा आखिरी ट्रांसमिशन सुना?",
+        "{callsign}, कृपया स्वीकार करें."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "लोकलाइज़र बैककोर्स",
+        "GPS",
+        "ILS",
+        "LDA",
+        "लोकलाइज़र",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "विज़ुअल",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " रनवे {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " {fix} {heading} रेडियल, {number} DME आर्क के माध्यम से",
+        " {fix} ट्रांज़िशन के माध्यम से",
+        ""
+      ],
+      "runway": [
+        "रनवे {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " पानी",
+        ""
+      ],
+      "direction": [
+        "बाएं",
+        "दाएं"
+      ],
+      "sidestep": [
+        "",
+        " साइडस्टेप {runway}."
+      ],
+      "circle": [
+        "",
+        " {runway} को लैंड करने के लिए सर्कल."
+      ],
+      "altimeter": [
+        "QNH",
+        "एल्टिमीटर"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " {leg} पर ट्रैफ़िक {aircraft} है."
+      ],
+      "checkin": [
+        "{station}, {callsign} {altitude} चढ़ाई पर है {altitude}. ",
+        "{station}, {callsign} चढ़ाई से {altitude} {altitude} गुज़र रहा है.",
+        "{station}, {callsign} {altitude} गिरावट {altitude} पर है{viaStar}.",
+        "{station}, {callsign}गिरावट {altitude} से गुज़र रहा है {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, इनबाउंड {approach} अप्रोच{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} मील {compass}"
+      ],
+      "viaStar": [
+        "{route} आगमन के माध्यम से",
+        ""
+      ],
+      "human": [
+        "दिन अच्छा हो.",
+        "अलविदा।"
+      ],
+      "landing": [
+        "हवाई अड्डा अब IFR है. फ़ुल स्टॉप पर लैंड करने के लिए मंज़ूरी दे दी",
+        "हम IFR हैं. फ़ुल स्टॉप पर लैंड करने के लिए मंज़ूरी दे दी",
+        "{landingType} {runway} को मंज़ूरी दे दी",
+        "को हेलीपैड {runwayNumber} उतरने के लिए मंजूरी दे दी गई।"
+      ],
+      "landingType": [
+        " लैंड करने के लिए",
+        " टच एंड गो के लिए",
+        " टच एंड गो",
+        " टच एंड गो, {direction} ट्रैफ़िक"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "{frequency} पर {station} संपर्क करें. {human}"
+      ],
+      "towerContact": [
+        " {frequency} पर {station} संपर्क करें.",
+        " जब इनबाउंड अप्रोच पर हो तो {frequency} पर {station} को संपर्क करें.",
+        " इनबाउंड होने पर {frequency} पर {station} को संपर्क करें."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "{altitude} की अपेक्षा करें",
+        " कोर्स पर आगे बढ़ें",
+        " खुद का नेविगेशन फिर से शुरू करें"
+      ],
+      "heavy": [
+        "भारी"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "hu-HU",
+    "menus": {
+      "acknowledge": "Átadás nyugtázása",
+      "acknowledge-instruction": "Utasítás nyugtázása",
+      "acknowledge-descent": "Ereszkedési engedély nyugtázása",
+      "acknowledge-assigned-approach": "Kijelölt  megközelítés nyugtázása",
+      "acknowledge-approach": "Megközelítési engedély nyugtázása",
+      "acknowledge-pattern-entry": "Forgalmi körbe való belépési utasítások nyugtázása",
+      "acknowledge-arrival": "Érkezési engedély nyugtázása"
+    },
+    "contact": {
+      "center": "Kapcsolatfelvétel a következővel: {name} központ",
+      "approach": "Kapcsolatfelvétel a következővel: {name} – megközelítés",
+      "tower": "Kapcsolatfelvétel a következő toronnyal: {name}"
+    },
+    "tune": "[ {name} {role} hangolása erre: {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Központ",
+      "approach": "Megközelítés",
+      "tower": "Torony",
+      "ground": "Föld",
+      "departure": "Indulás"
+    },
+    "grammar": {
+      "instruction": [
+        "Tartson legfeljebb {speed} csomó sebességet",
+        "Forduljon {direction} irányba {heading} géptengelyirányszögben",
+        "Emelkedjen {altitude} magasságba és tartsa meg",
+        "Süllyedjen {altitude} magasságra és tartsa meg",
+        "Tartsa a jelenlegi magasságot",
+        "Tartsa a jelenlegi géptengelyirányszöget és magasságot",
+        "Tartsa a jelenlegi géptengelyirányszöget"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, {altitude} értékkel magasabban van a kijelölt magasságnál. {vector} {optionalAltimeter}",
+        "{callsign}, {altitude} értékkel alacsonyabban van a kijelölt magasságnál. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "vegye fel az összeköttetést {station} ügynökkel {frequency} frekvencián.",
+        "Vegye fel az összeköttetést {station} ügynökkel {frequency} frekvencián.",
+        "Vegye fel a kapcsolatot a következővel: {station} {frequency} frekvencián, amikor a megközelítéshez érkezik.",
+        "Vegye fel a kapcsolatot a következővel: {station} {frequency} frekvencián érkezéskor."
+      ],
+      "descent": [
+        "{callsign}, ereszkedés {route} eljárással {altitude} magasságra. Várható {approach} megközelítés{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, Jóváhagyott érkezés {route} eljárással. {vector} Várható {approach} megközelítés{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Várható {approach} megközelítés{approachMethod}.{sidestep}{circle} Jóváhagyva: {fix}.",
+        "{callsign},{vector} Vektorok következnek {approach} megközelítéshez.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "{approach} megközelítés jóváhagyva"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "{approach} megközelítés jóváhagyva",
+        "Belépés {direction} rövid falon",
+        "Repülés {direction} rövid falon",
+        "{direction} rövid fal követése",
+        "{direction} belépés a hosszú falon",
+        "Belépés {direction} irányú forgalomba",
+        "{direction} repülése a hosszú falon",
+        "Repülés {direction} irányú forgalomban",
+        "{direction} végrehajtása a hosszú falon",
+        "{direction} irányú forgalom követése",
+        "Belépés egyenesen",
+        "Egyenes belépés végrehajtása"
+      ],
+      "reminder": [
+        "{callsign}, nyugtázza a legutóbbi üzenetet.",
+        "{callsign}, vette az üzenetemet?",
+        "{callsign}, hallotta a legutóbbi üzenetemet?",
+        "{callsign}, nyugtázást kérek."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Fordított iránysáv",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Iránysáv",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Vizuális",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " {runwayNumber}{runwayPosition} futópálya"
+      ],
+      "approachMethod": [
+        " {fix} {heading} radiállal, {number} DME-ív",
+        " {fix} átmeneti eljárással",
+        ""
+      ],
+      "runway": [
+        "{runwayNumber}{runwayPosition} futópálya"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " víz",
+        ""
+      ],
+      "direction": [
+        "bal",
+        "jobb"
+      ],
+      "sidestep": [
+        "",
+        " Kerülje el {runway} futópályát."
+      ],
+      "circle": [
+        "",
+        " {runway} leszállási kör."
+      ],
+      "altimeter": [
+        "QNH",
+        "Magasságmérő"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " {aircraft} forgalom {leg} eljárás szerint."
+      ],
+      "checkin": [
+        "{station}, {callsign} {altitude} magasságon van, {altitude} magasságra emelkedik. ",
+        "{station}, {callsign} {altitude} magasságot elhagyva {altitude} magasságra emelkedik.",
+        "{station}, {callsign} {altitude} magasságon van, {altitude}{viaStar} magasságra ereszkedik.",
+        "{station}, {callsign} {altitude} magasságot elhagyva {altitude}{viaStar} magasságra ereszkedik.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, érkező {approach} megközelítés {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mérföld {compass} irányban"
+      ],
+      "viaStar": [
+        "{route} érkezéssel",
+        ""
+      ],
+      "human": [
+        "Üdvözlöm.",
+        "Viszontlátásra."
+      ],
+      "landing": [
+        "a repülőtér jelenleg IFR. Teljes leszállás leállással engedélyezve",
+        "itt IFR. Teljes leszállás leállással engedélyezve",
+        "engedélyezve, {landingType} {runway}",
+        "leszállás engedélyezve {runwayNumber} helikopter-leszállópályán"
+      ],
+      "landingType": [
+        " leszállás",
+        " futópályát érintő átstartolás",
+        " futópályát érintő átstartolás, {direction} forgalom"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "vegye fel az összeköttetést {station} ügynökkel {frequency} frekvencián. {human}"
+      ],
+      "towerContact": [
+        " Vegye fel az összeköttetést {station} ügynökkel {frequency} frekvencián.",
+        " Vegye fel a kapcsolatot a következővel: {station} {frequency} frekvencián, amikor a megközelítéshez érkezik.",
+        " Vegye fel a kapcsolatot a következővel: {station} {frequency} frekvencián érkezéskor."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "{altitude} várható",
+        " álljon rá az útvonalra",
+        " folytassa saját navigációval"
+      ],
+      "heavy": [
+        "nehéz"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "id-ID",
+    "menus": {
+      "acknowledge": "Terima Penyerahan",
+      "acknowledge-instruction": "Terima Instruksi",
+      "acknowledge-descent": "Terima Izin Pendaratan",
+      "acknowledge-assigned-approach": "Terima Approach yang Ditetapkan",
+      "acknowledge-approach": "Terima Izin Approach",
+      "acknowledge-pattern-entry": "Terima Instruksi Entri Sirkuit",
+      "acknowledge-arrival": "Terima Izin Kedatangan"
+    },
+    "contact": {
+      "center": "Kontak Pusat {name}",
+      "approach": "Kontak Approach {name}",
+      "tower": "Hubungi Menara {name}"
+    },
+    "tune": "[Setel {name} {role} di {mhz}{decimal}{khz}]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Center",
+      "approach": "Approach",
+      "tower": "Tower",
+      "ground": "Darat",
+      "departure": "Keberangkatan"
+    },
+    "grammar": {
+      "instruction": [
+        "Jaga kecepatan tidak melebihi {speed} knot",
+        "Belok {direction} haluan {heading}",
+        "Naik dan pertahankan {altitude}",
+        "Turun dan pertahankan {altitude}",
+        "Pertahankan ketinggian saat ini",
+        "Pertahankan haluan dan ketinggian saat ini",
+        "Pertahankan haluan saat ini"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, Anda berada {altitude} di atas ketinggian yang ditentukan. {vector} {optionalAltimeter}",
+        "{callsign}, Anda berada {altitude} di bawah ketinggian yang ditentukan. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "hubungi {station} di {frequency}.",
+        "Kontak {station} di {frequency}.",
+        "Hubungi {station} di {frequency} saat masuk di approach.",
+        "Hubungi {station} di {frequency} saat masuk."
+      ],
+      "descent": [
+        "{callsign}, turun melalui {route} ke {altitude}. Tunggu approach {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, Diizinkan kedatangan {route}. {vector} Tunggu approach {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Tunggu approach {approach}{approachMethod}.{sidestep}{circle} Diizinkan untuk {fix}.",
+        "{callsign},{vector} Tunggu vektor approach {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Approach {approach} diizinkan"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Approach {approach} diizinkan",
+        "Masuk {direction} pangkalan",
+        "Terbang {direction} pangkalan",
+        "Lakukan {direction} pangkalan",
+        "Masuk {direction} searah angin",
+        "Masuk {direction} lalu lintas",
+        "Terbang {direction} searah angin",
+        "Terbang {direction} lalu lintas",
+        "Lakukan {direction} searah angin",
+        "Lakukan {direction} lalu lintas",
+        "Terbang masuk langsung",
+        "Lakukan masuk langsung"
+      ],
+      "reminder": [
+        "{callsign}, terima transmisi terakhir.",
+        "{callsign}, apakah Anda mendengar saya?",
+        "{callsign}, apakah Anda mendengar transmisi terakhir saya?",
+        "{callsign}, nyatakan diterima."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Jalur Balik Localizer",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizer",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " landasan pacu {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " lewat radial {fix} {heading}, busur DME {number}",
+        " lewat transisi {fix}",
+        ""
+      ],
+      "runway": [
+        "landasan pacu {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " air",
+        ""
+      ],
+      "direction": [
+        "kiri",
+        "kanan"
+      ],
+      "sidestep": [
+        "",
+        " Bergeser {runway}."
+      ],
+      "circle": [
+        "",
+        " Berputar untuk mendarat {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altimeter"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Lalu lintas {aircraft} di {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} sedang {altitude} mendaki {altitude}. ",
+        "{station}, {callsign} melewati {altitude} mendaki {altitude}.",
+        "{station}, {callsign} berada di {altitude} menurun {altitude}{viaStar}.",
+        "{station}, {callsign} melewati {altitude} menurun {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, approach {approach} masuk{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mil {compass}"
+      ],
+      "viaStar": [
+        "melalui kedatangan {route}",
+        ""
+      ],
+      "human": [
+        "Halo.",
+        "Dah."
+      ],
+      "landing": [
+        "bandara sekarang menjadi IFR. Diizinkan untuk mendarat penuh",
+        "kami IFR. Diizinkan untuk mendarat penuh",
+        "keluar dari{landingType} {runway}",
+        "diizinkan mendarat di helipad {runwayNumber}"
+      ],
+      "landingType": [
+        " untuk mendarat",
+        " untuk touch and go",
+        " touch and go",
+        " touch and go, lalu lintas {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "hubungi {station} di {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Kontak {station} di {frequency}.",
+        " Hubungi {station} di {frequency} saat masuk di approach.",
+        " Hubungi {station} di {frequency} saat masuk."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Tunggu {altitude}",
+        " lanjutkan sesuai dengan rute",
+        " lanjutkan navigasi mandiri"
+      ],
+      "heavy": [
+        "berat"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "it-IT",
+    "menus": {
+      "acknowledge": "Conferma passaggio",
+      "acknowledge-instruction": "Conferma istruzione",
+      "acknowledge-descent": "Conferma autorizzazione discesa",
+      "acknowledge-assigned-approach": "Conferma avvicinamento assegnato",
+      "acknowledge-approach": "Conferma autorizzazione avvicinamento",
+      "acknowledge-pattern-entry": "Conferma istruzioni immissione circuito",
+      "acknowledge-arrival": "Conferma autorizzazione arrivo"
+    },
+    "contact": {
+      "center": "Contatta centro {name}",
+      "approach": "Contatta avvicinamento {name}",
+      "tower": "Contatta torre {name}"
+    },
+    "tune": "[ Regola {name} {role} su {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centro",
+      "approach": "Avvicinamento",
+      "tower": "Torre",
+      "ground": "Suolo",
+      "departure": "Partenza"
+    },
+    "grammar": {
+      "instruction": [
+        "Mantieni la velocità in modo che non superi i {speed} nodi",
+        "Virare a {direction} per rotta {heading}",
+        "Salire e mantenere quota {altitude}.",
+        "Scendere e mantenere quota {altitude}",
+        "Mantenere altitudine attuale",
+        "Mantenere rotta e altitudine attuale",
+        "Mantenere rotta attuale"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, siete a {altitude} sopra l'altitudine assegnata. {vector} {optionalAltimeter}",
+        "{callsign}, siete a {altitude} sotto l'altitudine assegnata. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contattare {station} su {frequency}.",
+        "Contattare {station} su {frequency}.",
+        "Contattare {station} su {frequency} in fase di avvicinamento."
+      ],
+      "descent": [
+        "{callsign}, discesa via {route} a {altitude}. Avvicinamento previsto: {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, arrivo {route} autorizzato. {vector} Avvicinamento previsto: {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Previsto avvicinamento {approach} {approachMethod}.{sidestep}{circle} Autorizzazione per {fix}.",
+        "{callsign},{vector} Previsto avvicinamento vettori {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Autorizzato avvicinamento {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Autorizzato avvicinamento {approach}",
+        "Entrare nel tratto base {direction}",
+        "Volare nel tratto base {direction}",
+        "Percorrere il tratto base {direction}",
+        "Entrare nel tratto sottovento {direction}",
+        "Entrare nel circuito di traffico {direction}",
+        "Volare nel tratto di sottovento {direction}",
+        "Volare nel circuito di traffico {direction}",
+        "Percorrere tratto di sottovento {direction}",
+        "Percorrere circuito di traffico {direction}",
+        "Volo in avvicinamento diretto",
+        "Effettuare avvicinamento diretto"
+      ],
+      "reminder": [
+        "{callsign}, confermare ultima trasmissione.",
+        "{callsign}, ricevuto?",
+        "{callsign}, ultima trasmissione ricevuta?",
+        "{callsign}, confermare prego."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Localizzatore rotta di ritorno",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizzatore",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visuale",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " pista {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} radiale {heading}, arco DME {number}",
+        " via transizione {fix}",
+        ""
+      ],
+      "runway": [
+        "pista {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " acqua",
+        ""
+      ],
+      "direction": [
+        "sinistra",
+        "destra"
+      ],
+      "sidestep": [
+        "",
+        " Sidestep sulla {runway}."
+      ],
+      "circle": [
+        "",
+        " Circuitare per atterraggio sulla {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altimetro"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Traffico {aircraft} su {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} a quota {altitude} in salita per quota {altitude}. ",
+        "{station}, {callsign} sta passando {altitude} in salita per quota {altitude}.",
+        "{station}, {callsign} a quota {altitude} in discesa per quota {altitude}{viaStar}.",
+        "{station}, {callsign} sta passando {altitude} in discesa per quota {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, in avvicinamento {approach}{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} miglia {compass}"
+      ],
+      "viaStar": [
+        "tramite arrivo {route}",
+        ""
+      ],
+      "human": [
+        "Buona giornata.",
+        "Arrivederci."
+      ],
+      "landing": [
+        "l'aeroporto ora è IFR. Autorizzazione all'atterraggio con arresto completo",
+        "condizione IFR. Autorizzazione all'atterraggio con arresto completo",
+        "autorizzati a {landingType} sulla {runway}",
+        "autorizzati all'atterraggio sull'elisuperficie {runwayNumber}"
+      ],
+      "landingType": [
+        " per atterraggio",
+        " per touch and go",
+        " tocca e va",
+        " touch and go, traffico {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "ft",
+        "Piedi",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contattare {station} su {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contattare {station} su {frequency}.",
+        " Contattare {station} su {frequency} in fase di avvicinamento."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Previsione {altitude}",
+        " procedere sulla rotta",
+        " riprendi la normale navigazione"
+      ],
+      "heavy": [
+        "pesante"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "ja-JP",
+    "menus": {
+      "acknowledge": "ハンドオフの確認",
+      "acknowledge-instruction": "指示の確認",
+      "acknowledge-descent": "降下許可の確認",
+      "acknowledge-assigned-approach": "割り当てられたアプローチの確認",
+      "acknowledge-approach": "アプローチ許可の確認",
+      "acknowledge-pattern-entry": "パターン進入指示の確認",
+      "acknowledge-arrival": "到着許可の確認"
+    },
+    "contact": {
+      "center": "{name} センターにコンタクト",
+      "approach": "{name} アプローチにコンタクト",
+      "tower": "{name} 管制塔にコンタクト"
+    },
+    "tune": "[{name} {role} ({mhz}{khz}) に合わせる]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "センター",
+      "approach": "アプローチ",
+      "tower": "管制塔",
+      "ground": "地上",
+      "departure": "デパーチャー"
+    },
+    "grammar": {
+      "instruction": [
+        "速度を {speed} ノット以下に維持する",
+        "{direction}に旋回して、針路を {heading} に変更",
+        "上昇して、{altitude} を維持",
+        "降下して、{altitude} を維持",
+        "現在の高度を維持",
+        "現在の針路と高度を維持",
+        "現在の針路を維持"
+      ],
+      "instructionMessage": [
+        "{callsign}、{vector}。",
+        "{callsign}、指定高度より {altitude} 高い。{vector} {optionalAltimeter}",
+        "{callsign}、指定高度より {altitude} 低い。{vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "{frequency} で{station}と交信せよ。",
+        "{frequency} で{station}と交信する。",
+        "アプローチ接近時は {frequency} で{station}と交信せよ。",
+        "接近時は {frequency} で{station}と交信せよ。"
+      ],
+      "descent": [
+        "{callsign}、{route} にて {altitude} まで降下。{approach} アプローチ {approachMethod} {sidestep} {circle} の見込み。"
+      ],
+      "arrival": [
+        "{callsign}、{route} での到着を許可。{vector} {approach} アプローチ {approachMethod} {sidestep} {circle} の見込み。"
+      ],
+      "assigned": [
+        "{callsign}、{vector} {approach} アプローチ{approachMethod}を予期せよ。{sidestep}{circle}{fix}を承認。",
+        "{callsign}、{vector} 針路誘導で {approach} アプローチ{sidestep}{circle}を予期せよ。"
+      ],
+      "approachClearance": [
+        "{approach} アプローチを許可"
+      ],
+      "patternMessage": [
+        "{callsign}、{station}。{altimeterClause} {traffic}、{entry}。 "
+      ],
+      "entry": [
+        "{approach} アプローチを許可",
+        "{direction}ベースを使用",
+        "{direction}ダウンウィンドを使用",
+        "{direction}トラフィックを使用",
+        "じかにアプローチ",
+        "まっすぐアプローチ"
+      ],
+      "reminder": [
+        "{callsign}、直近の交信を確認。",
+        "{callsign}、聞こえたか?",
+        "{callsign}、直近の交信は聞こえたか?",
+        "{callsign}、確認せよ。"
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "ローカライザー バックコース",
+        "GPS",
+        "ILS",
+        "LDA",
+        "ローカライザー",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "視認",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " 滑走路 {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " {fix} {heading} ラジアル経由、{number} DME アーク",
+        " {fix} トランジション経由",
+        ""
+      ],
+      "runway": [
+        "滑走路 {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " 水上",
+        ""
+      ],
+      "direction": [
+        "左",
+        "右"
+      ],
+      "sidestep": [
+        "",
+        " {runway} にサイドステップ"
+      ],
+      "circle": [
+        "",
+        " {runway} にサークリングで着陸する。"
+      ],
+      "altimeter": [
+        "QNH",
+        "高度計"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " トラフィックは {leg} で {aircraft}。"
+      ],
+      "checkin": [
+        "{station}、こちら {callsign}、現在 {altitude}、{altitude} へ上昇中。 ",
+        "{station}、こちら {callsign}、現在 {altitude} を通過、{altitude} へ上昇中。",
+        "{station}、こちら {callsign}、現在 {altitude}、{altitude}{viaStar} へ降下中。",
+        "{station}、こちら {callsign}、現在 {altitude} を通過、{altitude}{viaStar} へ降下中。",
+        "{station}、こちら {callsign}、{altitude}。",
+        "{station}、こちら {callsign}、{location}、{approach} アプローチで、{sidestep}{circle}で接近。"
+      ],
+      "location": [
+        "",
+        " {compass}の方向 {number} マイル"
+      ],
+      "viaStar": [
+        "{route} の到着を経由",
+        ""
+      ],
+      "human": [
+        "よい日を。",
+        "さようなら。"
+      ],
+      "landing": [
+        "、、空港は現在 IFR。完全停止着陸を許可",
+        "、、こちらは IFR。完全停止着陸を許可",
+        "、{runway} への{landingType}を許可する",
+        "、      、ヘリポート {runwayNumber} への着陸を許可します"
+      ],
+      "landingType": [
+        " 着陸する",
+        " タッチ アンド ゴーを行う",
+        " タッチ アンド ゴー",
+        " タッチ アンド ゴー、{direction} トラフィック"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "フィート",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "{frequency} で{station}と交信せよ。{human}"
+      ],
+      "towerContact": [
+        " {frequency} で{station}と交信する。",
+        " アプローチ接近時は {frequency} で{station}と交信せよ。",
+        " 接近時は {frequency} で{station}と交信せよ。"
+      ],
+      "towerHandoffMessage": [
+        "{callsign} 、 {towerContact}",
+        "{callsign}、{vector}。{towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "{altitude} を予期",
+        " コースに従い飛行",
+        " 自身のナビゲーションを再開"
+      ],
+      "heavy": [
+        "ヘビー"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "ko-KR",
+    "menus": {
+      "acknowledge": "이관 응답",
+      "acknowledge-instruction": "지시 응답",
+      "acknowledge-descent": "하강 허가 응답",
+      "acknowledge-assigned-approach": "지정된 접근 응답",
+      "acknowledge-approach": "접근 허가 응답",
+      "acknowledge-pattern-entry": "장주 진입 지시 응답",
+      "acknowledge-arrival": "도착 허가 응답"
+    },
+    "contact": {
+      "center": "{name} 중심 문의",
+      "approach": "{name} 접근 문의",
+      "tower": "{name} 타워 문의"
+    },
+    "tune": "[ {mhz}{decimal}{khz}에서 {name} {role} 동조 ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "센터",
+      "approach": "접근",
+      "tower": "관제탑",
+      "ground": "지상",
+      "departure": "출발"
+    },
+    "grammar": {
+      "instruction": [
+        "속도를 {speed} 이하로 유지.",
+        "{direction} {heading} 방향 선회",
+        "{altitude} 상승 및 유지",
+        "{altitude} 하강 및 유지",
+        "현재 고도 유지",
+        "현재 기수방향, 고도 유지",
+        "현재 기수방향 유지"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, 할당된 고도보다 {altitude} 더 높습니다. {vector} {optionalAltimeter}",
+        "{callsign}, 할당된 고도보다 {altitude} 더 낮습니다. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "{frequency} 주파수로 {station} 교신하십시오.",
+        "{frequency} 주파수로 {station} 측에 교신하십시오.",
+        "진입 경로 진입 시 {frequency} 주파수로 {station} 측에 교신하십시오.",
+        "접근 시 {frequency} 주파수로 {station}측에 교신하세요."
+      ],
+      "descent": [
+        "{callsign}, {route} 통해 {altitude}으로 하강하세요. {approach} 경로로 {approachMethod}{sidestep}{circle} 접근 예상하세요."
+      ],
+      "arrival": [
+        "{callsign}, {route} 도착 허가합니다. {vector} {approach} 경로에서 {approachMethod}{sidestep}{circle} 접근 방식을 예상하세요."
+      ],
+      "assigned": [
+        "{callsign},{vector}{approachMethod}로 {approach} 접근 예정.{sidestep}{circle} {fix} 허가됨.",
+        "{callsign},{vector} {approach} 접근 레이더 유도 예정.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "{approach} 접근 허가"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "{approach} 접근 허가",
+        "{direction} 기초 경로 진입",
+        "{direction} 기초 경로 비행",
+        "{direction} 기초 경로 형성",
+        "{direction} 배풍 경로 진입",
+        "{direction} 장주 진입",
+        "{direction} 배풍 경로 비행",
+        "{direction} 장주 비행",
+        "{direction} 배풍 경로 형성",
+        "{direction} 장주 형성",
+        "직선 비행",
+        "직선으로 진입"
+      ],
+      "reminder": [
+        "{callsign}, 마지막 교신에 응답하십시오.",
+        "{callsign}, 이해했습니까?",
+        "{callsign}, 마지막 교신 들었습니까?",
+        "{callsign}, 응답해 주십시오."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "로컬라이저 후방 코스",
+        "GPS",
+        "ILS",
+        "LDA",
+        "로컬라이저",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "시각",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " {runwayNumber}{runwayPosition} 활주로"
+      ],
+      "approachMethod": [
+        " {fix}을(를) 통해 {heading} 레디얼, {number} DME 호.",
+        " {fix} 전환을 통해",
+        ""
+      ],
+      "runway": [
+        "{runwayNumber}{runwayPosition} 활주로"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " 수상",
+        ""
+      ],
+      "direction": [
+        "왼쪽",
+        "오른쪽"
+      ],
+      "sidestep": [
+        "",
+        " {runway}에서 벗어나십시오."
+      ],
+      "circle": [
+        "",
+        " {runway} 착륙을 위해 선회하십시오."
+      ],
+      "altimeter": [
+        "QNH",
+        "고도계"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " {aircraft} 유형 교통이 {leg}에 있습니다."
+      ],
+      "checkin": [
+        "{station}, {callsign} 으로부터, {altitude}에서 {altitude} 상승합니다. ",
+        "{station}, {callsign} 으로부터, {altitude} 통과, {altitude} 상승합니다.",
+        "{station}, {callsign}, {altitude}에서 {viaStar} 통해 {altitude}으로 하강합니다.",
+        "{station}, {callsign}, {altitude} 통과 중, {viaStar} 통해 {altitude}으로 하강합니다.",
+        "{station}, {callsign} 으로부터, 현 고도 {altitude}.",
+        "{station}, {callsign}, {location}, {approach} 진입 접근합니다. {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} 마일, {compass} 방향입니다."
+      ],
+      "viaStar": [
+        "{route} 도착을 통해",
+        ""
+      ],
+      "human": [
+        "좋은 하루.",
+        "잘가요."
+      ],
+      "landing": [
+        "으로부터, 공항은 IFR 사용 입니다. 착륙 종료가 허가되었습니다",
+        "으로부터, 현재 IFR 사용 중입니다. 착륙 종료가 허가되었습니다",
+        "{runway} {landingType} 허가합니다",
+        "헬리패드 {runwayNumber} 착륙 허가"
+      ],
+      "landingType": [
+        " 이후 착륙",
+        " 이후 접지 후 이륙",
+        " 접지 후 이륙",
+        " 접지 후 이륙, {direction} 교통"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "피트",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "{frequency} 주파수로 {station} 교신하십시오. {human}"
+      ],
+      "towerContact": [
+        " {frequency} 주파수로 {station} 측에 교신하십시오.",
+        " 진입 경로 진입 시 {frequency} 주파수로 {station} 측에 교신하십시오.",
+        " 접근 시 {frequency} 주파수로 {station}측에 교신하세요."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "{altitude} 예상",
+        " 항로 진행",
+        " 자체 항법 지속"
+      ],
+      "heavy": [
+        "중형"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "ms-MY",
+    "menus": {
+      "acknowledge": "Akui Penyerahan",
+      "acknowledge-instruction": "Akui Arahan",
+      "acknowledge-descent": "Akui Kebenaran Penurunan",
+      "acknowledge-assigned-approach": "Akui Lintasan Tuju yang Ditugaskan",
+      "acknowledge-approach": "Akui Kebenaran Lintasan Tuju",
+      "acknowledge-pattern-entry": "Akui Arahan Kemasukan Pola",
+      "acknowledge-arrival": "Akui Kebenaran Ketibaan"
+    },
+    "contact": {
+      "center": "Hubungi Pusat {name}",
+      "approach": "Hubungi {name} Lintasan tuju",
+      "tower": "Hubungi Menara {name}"
+    },
+    "tune": "[ Tala {name} {role} pada {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Pusat",
+      "approach": "Lintasan tuju",
+      "tower": "Menara",
+      "ground": "Tanah",
+      "departure": "Berlepas"
+    },
+    "grammar": {
+      "instruction": [
+        "Pastikan kelajuan tidak melebihi {speed} knot",
+        "Pusing {direction} hala tuju {heading}",
+        "Mendaki dan kekalkan {altitude}",
+        "Turun dan kekalkan {altitude}",
+        "Kekalkan altitud semasa",
+        "Kekalkan hala tuju dan altitud semasa",
+        "Kekalkan hala tuju semasa"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, anda {altitude} melebihi altitud yang anda tetapkan. {vector} {optionalAltimeter}",
+        "{callsign}, anda berada {altitude} di bawah altitud yang anda tetapkan. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "hubungi {station} pada {frequency}.",
+        "Hubungi {station} pada {frequency}.",
+        "Hubungi {station} pada {frequency} apabila masuk dalam lintasan tuju.",
+        "Hubungi {station} pada {frequency} semasa masuk."
+      ],
+      "descent": [
+        "{callsign}, turun melalui {route} ke {altitude}. Jangkakan lintasan tuju {approach}{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, Dibenarkan ketibaan {route}. {vector} Jangkakan lintasan tuju {approach}{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Jangkakan lintasan tuju {approach} {approachMethod}.{sidestep}{circle} Dibenarkan untuk {fix}.",
+        "{callsign},{vector} Jangkakan lintasan tuju vektor {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Lintasan tuju {approach} dibenarkan"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Lintasan tuju {approach} dibenarkan",
+        "Masuk {direction} pangkalan",
+        "Terbang {direction} pangkalan",
+        "Buat {direction} pangkalan",
+        "Masuk {direction} ikut angin",
+        "Masuk {direction} lalu lintas",
+        "Terbang {direction} ikut angin",
+        "Terbang {direction} lalu lintas",
+        "Buat {direction} ikut angin",
+        "Buat {direction} lalu lintas",
+        "Terbang terus masuk",
+        "Terus masuk"
+      ],
+      "reminder": [
+        "{callsign}, akui transmisi terakhir.",
+        "{callsign}, adakah anda terima?",
+        "{callsign}, adakah anda mendengar transmisi terakhir saya?",
+        "{callsign}, sila akui."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Arah Belakang Penempat",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Penempat",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " landasan {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " melalui {fix} {heading} jejari, {number} arka DME",
+        " melalui peralihan {fix}",
+        ""
+      ],
+      "runway": [
+        "landasan {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " air",
+        ""
+      ],
+      "direction": [
+        "kiri",
+        "kanan"
+      ],
+      "sidestep": [
+        "",
+        " Langkah sisi {runway}."
+      ],
+      "circle": [
+        "",
+        " Mengelilingi untuk mendarat {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Meter tinggi"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Lalu lintas {aircraft} pada {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} berada pada {altitude} mendaki {altitude}. ",
+        "{station}, {callsign} melepasi {altitude} mendaki {altitude}.",
+        "{station}, {callsign} berada di {altitude} menurun {altitude}{viaStar}.",
+        "{station}, {callsign} melepasi {altitude} menurun {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, masuk {approach} lintasan tuju{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} batu {compass}"
+      ],
+      "viaStar": [
+        "melalui ketibaan {route}",
+        ""
+      ],
+      "human": [
+        "Selamat sejahtera.",
+        "Selamat tinggal."
+      ],
+      "landing": [
+        "lapangan terbang kini IFR. Dibenarkan untuk mendarat hentian penuh",
+        "kami IFR. Dibenarkan untuk mendarat hentian penuh",
+        "dibenarkan{landingType} {runway}",
+        "dibenarkan untuk mendarat helipad {runwayNumber}"
+      ],
+      "landingType": [
+        " untuk mendarat",
+        " untuk cecah dan terbang",
+        " cecah dan terbang",
+        " cecah dan terbang, {direction} lalu lintas"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "hubungi {station} pada {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Hubungi {station} pada {frequency}.",
+        " Hubungi {station} pada {frequency} apabila masuk dalam lintasan tuju.",
+        " Hubungi {station} pada {frequency} semasa masuk."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Jangkakan {altitude}",
+        " meneruskan perjalanan",
+        " sambung semula navigasi sendiri"
+      ],
+      "heavy": [
+        "berat"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "nb-NO",
+    "menus": {
+      "acknowledge": "Bekreft overlevering",
+      "acknowledge-instruction": "Bekreft instruksjon",
+      "acknowledge-descent": "Bekreft klarering for nedstigning",
+      "acknowledge-assigned-approach": "Bekreft tildelt innflyvning",
+      "acknowledge-approach": "Bekreft klarering for innflyvning",
+      "acknowledge-pattern-entry": "Bekreft instruksjoner for innled mønster",
+      "acknowledge-arrival": "Bekreft klarering for landing"
+    },
+    "contact": {
+      "center": "Kontakt {name} senter",
+      "approach": "Kontakt {name} innflyvning",
+      "tower": "Kontakt {name} tårn"
+    },
+    "tune": "[ Still inn {name} {role} på {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Senter",
+      "approach": "Innflyvning",
+      "tower": "Tårn",
+      "ground": "Bakke",
+      "departure": "Avgang"
+    },
+    "grammar": {
+      "instruction": [
+        "Hold hastigheten under {speed} knop",
+        "Sving {direction} med kurs {heading}",
+        "Klatre og oppretthold {altitude}",
+        "Foreta nedstigning og oppretthold {altitude}",
+        "Oppretthold nåværende høyde",
+        "Oppretthold nåværende kurs og høyde",
+        "Oppretthold nåværende kurs"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, du er {altitude} over den tildelte høyde din. {vector} {optionalAltimeter}",
+        "{callsign}, du er {altitude} under den tildelte høyden din. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "kontakt {station} på {frequency}.",
+        "Kontakt {station} på {frequency}.",
+        "Kontakt {station} på {frequency} når innkommende under innflyvningen.",
+        "Kontakt {station} på {frequency} når innkommende."
+      ],
+      "descent": [
+        "{callsign}, gå ned via {route} til {altitude}. Forvent {approach} innflyvning{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, klarert {route} ankomst. {vector} Forvent {approach} innflyvning {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} forvent {approach} for innflyvning {approachMethod}.{sidestep}{circle} Klarert for {fix}.",
+        "{callsign},{vector} Forvent vektorer for {approach} innflyvning.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Klarert for {approach}-innflyvning"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Klarert for {approach}-innflyvning",
+        "Innled {direction} baselegg",
+        "Fly {direction} baselegg",
+        "Gjør deg klar for {direction} baselegg",
+        "Ankom {direction} i medvind",
+        "Ankom {direction} trafikk",
+        "Fly {direction} i medvind",
+        "Fly {direction} trafikk",
+        "Gjør deg klar for {direction} i medvind",
+        "Gjør deg klar for {direction} trafikk",
+        "Fly rett inn",
+        "Gjør deg klar for rett inn"
+      ],
+      "reminder": [
+        "{callsign}, bekreft siste overføring.",
+        "{callsign}, mottok du?",
+        "{callsign}, hørte du min siste overføring?",
+        "{callsign}, vennligst bekreft."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Lokalisator backcourse",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Lokalisator",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visuell",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " rullebane {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} {heading} radial, {number} DME-bue",
+        " via {fix}-overgang",
+        ""
+      ],
+      "runway": [
+        "rullebane {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " vann",
+        ""
+      ],
+      "direction": [
+        "venstre",
+        "høyre"
+      ],
+      "sidestep": [
+        "",
+        " Unnvik {runway}."
+      ],
+      "circle": [
+        "",
+        " Sirkle for å lande på {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Høydemåler"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Trafikk er {aircraft} på {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} er på {altitude} stiger til {altitude}. ",
+        "{station}, {callsign} passerer {altitude}, stiger til {altitude}.",
+        "{station}, {callsign} er på {altitude} nedstigning til {altitude}{viaStar}.",
+        "{station}, {callsign} passerer {altitude}, nedstigning til {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, innkommende {approach} innflyvning{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} engelske mil {compass}"
+      ],
+      "viaStar": [
+        "via {route}-ankomst",
+        ""
+      ],
+      "human": [
+        "Goddag.",
+        "Ha det."
+      ],
+      "landing": [
+        "flyplassen er nå IFR. Klarert for å lande med full stopp",
+        "vi er IFR. Klarert for å lande med full stopp",
+        "klarert{landingType} {runway}",
+        "klarert til å lande på helipad {runwayNumber}"
+      ],
+      "landingType": [
+        " for å lande",
+        " for touch and go",
+        " touch and go",
+        " touch and go, {direction} trafikk"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "fot",
+        "Meter",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "kontakt {station} på {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Kontakt {station} på {frequency}.",
+        " Kontakt {station} på {frequency} når innkommende under innflyvningen.",
+        " Kontakt {station} på {frequency} når innkommende."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Forvent {altitude}",
+        " fortsett på kurs",
+        " gjenoppta egen navigering"
+      ],
+      "heavy": [
+        "tung"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "nl-NL",
+    "menus": {
+      "acknowledge": "Overdracht bevestigen",
+      "acknowledge-instruction": "Instructie bevestigen",
+      "acknowledge-descent": "Klaring afdaling bevestigen",
+      "acknowledge-assigned-approach": "Toegewezen nadering bevestigen",
+      "acknowledge-approach": "Naderingsklaring bevestigen",
+      "acknowledge-pattern-entry": "Instructies voor patroonstart bevestigen",
+      "acknowledge-arrival": "Klaring nadering bevestigen"
+    },
+    "contact": {
+      "center": "Contact opnemen met {name} – Centreren",
+      "approach": "Contact opnemen met {name} – Nadering",
+      "tower": "Contact opnemen met {name} – Toren"
+    },
+    "tune": "[ Afstemmen op {name} {role} op {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Midden",
+      "approach": "Naderen",
+      "tower": "Toren",
+      "ground": "Grond",
+      "departure": "Vertrek"
+    },
+    "grammar": {
+      "instruction": [
+        "Houd de snelheid niet boven {speed} knopen",
+        "Draai naar {direction} voor koers {heading}",
+        "Klim en houd een hoogte van {altitude}",
+        "Daal en houd een hoogte van {altitude}",
+        "Houd de huidige hoogte vast",
+        "Houd de huidige koers en hoogte",
+        "Houd de huidige koers"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, je bent {altitude} boven je toegewezen hoogte. {vector} {optionalAltimeter}",
+        "{callsign}, je bent {altitude} onder je toegewezen hoogte. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contact {station} op {frequency}.",
+        "Neem contact op met {station} op {frequency}.",
+        "Neem contact op met {station} op {frequency} wanneer je binnenkomt voor de nadering.",
+        "Neem contact op met {station} op {frequency} wanneer je binnenkomt."
+      ],
+      "descent": [
+        "{callsign}, dalen via {route} naar {altitude}. Verwacht {approach} nadering{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, geklaard voor {route} aankomst.{vector} Verwacht {approach} nadering{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign}, {vector} Verwachte nadering {approach} {approachMethod}.{sidestep}{circle} Geklaard voor {fix}.",
+        "{callsign}, {vector} Verwachte naderingsvectoren {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Goedgekeurde nadering {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Goedgekeurde nadering {approach}",
+        "Begin met basis {direction}",
+        "Vlieg basis {direction}",
+        "Maak basis {direction}",
+        "Begin met benedenwinds {direction}",
+        "Begin met verkeer {direction}",
+        "Vlieg benedenwinds {direction}",
+        "Vlieg verkeer {direction}",
+        "Maak benedenwinds {direction}",
+        "Maak verkeer {direction}",
+        "Vlieg rechtdoor in",
+        "Recht maken in"
+      ],
+      "reminder": [
+        "{callsign}, bevestig laatste transmissie.",
+        "{callsign}, heb je het begrepen?",
+        "{callsign}, heb je mijn laatste transmissie gehoord?",
+        "{callsign}, graag bevestigen."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Koerslijnbaken backcourse",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Koerslijnbaken",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visueel",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " baan {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} radiaal {heading}, DME-boog {number}",
+        " via overgang {fix}",
+        ""
+      ],
+      "runway": [
+        "baan {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " water",
+        ""
+      ],
+      "direction": [
+        "links",
+        "rechts"
+      ],
+      "sidestep": [
+        "",
+        " Ontwijk {runway}."
+      ],
+      "circle": [
+        "",
+        " Draai rond om te landen op {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Hoogtemeter"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Verkeer is {aircraft} op {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} is op {altitude} en klimt naar {altitude}. ",
+        "{station}, {callsign} heeft {altitude} bereikt en klimt naar {altitude}.",
+        "{station}, {callsign} is op {altitude} en daalt naar {altitude}{viaStar}.",
+        "{station}, {callsign} heeft {altitude} bereikt en daalt naar {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, binnenkomende {approach} nadering {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mijl {compass}"
+      ],
+      "viaStar": [
+        "via {route} aankomst",
+        ""
+      ],
+      "human": [
+        "Goedendag.",
+        "Tot ziens."
+      ],
+      "landing": [
+        "de luchthaven is nu IFR. Geklaard om te landen en tot stilstand te komen",
+        "we zijn IFR. Geklaard om te landen en tot stilstand te komen",
+        "toestemming voor{landingType} {runway}",
+        "toestemming om te landen op heliplatform {runwayNumber}"
+      ],
+      "landingType": [
+        " om te landen",
+        " voor een doorstart",
+        " doorstart",
+        " doorstart, verkeer {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Vt",
+        "Voet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contact {station} op {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Neem contact op met {station} op {frequency}.",
+        " Neem contact op met {station} op {frequency} wanneer je binnenkomt voor de nadering.",
+        " Neem contact op met {station} op {frequency} wanneer je binnenkomt."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Verwacht {altitude}",
+        " blijf op koers",
+        " hervat eigen navigatie"
+      ],
+      "heavy": [
+        "zwaar"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "pl-PL",
+    "menus": {
+      "acknowledge": "Potwierdź przyjęcie komunikatu o przekazaniu kontroli",
+      "acknowledge-instruction": "Potwierdź przyjęcie instrukcji",
+      "acknowledge-descent": "Potwierdź przyjęcie pozwolenia na zniżanie",
+      "acknowledge-assigned-approach": "Potwierdź przyjęcie komunikatu o przydzielonym podejściu",
+      "acknowledge-approach": "Potwierdź przyjęcie zgody na podejście",
+      "acknowledge-pattern-entry": "Potwierdź przyjęcie instrukcji dotyczących wejścia w krąg nadlotniskowy",
+      "acknowledge-arrival": "Potwierdź przyjęcie pozwolenia na przylot"
+    },
+    "contact": {
+      "center": "Nawiąż łączność z centrum {name}",
+      "approach": "Nawiąż łączność z kontrolą zbliżania {name}",
+      "tower": "Nawiąż łączność z wieżą {name}"
+    },
+    "tune": "[ Nastaw {name} {role} na {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centrum",
+      "approach": "Podejście",
+      "tower": "Wieża",
+      "ground": "Ziemia",
+      "departure": "Odlot"
+    },
+    "grammar": {
+      "instruction": [
+        "Utrzymuj prędkość nie wyższą niż {speed} węzłów",
+        "Skręć w {direction} na kurs {heading}",
+        "Wznieś się i zachowaj {altitude}",
+        "Zniż się i zachowaj {altitude}",
+        "Utrzymuj obecną wysokość",
+        "Utrzymuj obecny kurs i wysokość",
+        "Utrzymuj obecny kurs"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, jesteś {altitude} powyżej przydzielonej wysokości. {vector} {optionalAltimeter}",
+        "{callsign}, jesteś {altitude} poniżej przydzielonej wysokości. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "nawiąż kontakt z {station} na {frequency}.",
+        "Nawiąż kontakt z {station} na {frequency}.",
+        "Nawiąż łączność z {station} na {frequency} przed podejściem do lądowania.",
+        "Nawiąż kontakt z {station} na {frequency}, kiedy zamierzasz lądować."
+      ],
+      "descent": [
+        "{callsign}, zniżaj się w procedurze {route} do {altitude}. Spodziewaj się podejścia {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, masz zezwolenie na przylot w procedurze {route}. {vector} Spodziewaj się podejścia {approach} {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Spodziewaj się podejścia  {approach} {approachMethod}.{sidestep}{circle} Masz zgodę na {fix}.",
+        "{callsign}, {vector} Spodziewaj się wektorowania podejścia {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Zgoda na podejście {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Zgoda na podejście {approach}",
+        "Wejdź w odcinek po trzecim zakręcie, {direction} krąg",
+        "Leć na odcinku po trzecim zakręcie, {direction} krąg",
+        "Wykonaj trzeci zakręt, {direction} krąg",
+        "Wejdź na odcinek z wiatrem, {direction} krąg",
+        "Wejdź w {direction} krąg",
+        "Leć na odcinku z wiatrem, {direction} krąg",
+        "Wykonaj {direction} krąg",
+        "Wykonaj odcinek z wiatrem, {direction} krąg",
+        "Leć {direction} krąg",
+        "Leć z prostej",
+        "Podejdź z prostej"
+      ],
+      "reminder": [
+        "{callsign}, potwierdź odbiór ostatniej transmisji.",
+        "{callsign}, czy przyjąłeś?",
+        "{callsign}, czy odebrałeś moją ostatnią transmisję?",
+        "{callsign}, potwierdź."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Kurs odwrotny do localizera",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizer",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "VFR",
+        "VOR",
+        "DME VOR"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " droga startowa {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " przez {fix} radial {heading}, łuk DME {number}",
+        " przez przejście {fix}",
+        ""
+      ],
+      "runway": [
+        "droga startowa {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " woda",
+        ""
+      ],
+      "direction": [
+        "lewo",
+        "prawo"
+      ],
+      "sidestep": [
+        "",
+        " Zmiana pasa na równoległy {runway}."
+      ],
+      "circle": [
+        "",
+        " Podejście z okrążeniem {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Wysokościomierz"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Ruch na odcinku {leg}: {aircraft}."
+      ],
+      "checkin": [
+        "{station}, {callsign}, jestem na wysokości {altitude}, wznoszę się na {altitude}. ",
+        "{station}, {callsign} wznoszę się z {altitude} na {altitude}.",
+        "{station}, {callsign}, jest na wysokości {altitude}, zniża na {altitude}{viaStar}.",
+        "{station}, {callsign} mija {altitude} zniża na {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, w dolocie do podejścia {approach} {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} mil {compass}"
+      ],
+      "viaStar": [
+        "przylot w procedurze {route}",
+        ""
+      ],
+      "human": [
+        "Dobrego dnia.",
+        "Do zobaczenia, cześć."
+      ],
+      "landing": [
+        "lotnisko obsługuje teraz loty IFR. Masz zgodę na lądowanie z pełnym zatrzymaniem",
+        "obowiązuje lot IFR. Masz zgodę na lądowanie z pełnym zatrzymaniem",
+        "Masz zgodę, {landingType} {runway}",
+        "masz zezwolenie na lądowanie na lądowisku dla śmigłowców {runwayNumber}"
+      ],
+      "landingType": [
+        " na lądowanie",
+        " konwojer",
+        " konwojer, {direction} krąg"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Stopy",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "nawiąż kontakt z {station} na {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Nawiąż kontakt z {station} na {frequency}.",
+        " Nawiąż łączność z {station} na {frequency} przed podejściem do lądowania.",
+        " Nawiąż kontakt z {station} na {frequency}, kiedy zamierzasz lądować."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Spodziewaj się {altitude}",
+        " kontynuuj lot",
+        " wznów samodzielną nawigację"
+      ],
+      "heavy": [
+        "ciężki"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "pt-BR",
+    "menus": {
+      "acknowledge": "Confirmar Transferência",
+      "acknowledge-instruction": "Confirmar Instrução",
+      "acknowledge-descent": "Confirmar Permissão para Descida",
+      "acknowledge-assigned-approach": "Confirmar Aproximação Atribuída",
+      "acknowledge-approach": "Confirmar Permissão para Aproximação",
+      "acknowledge-pattern-entry": "Confirmar Instruções de Entrada Padrão",
+      "acknowledge-arrival": "Confirmar Permissão para Chegada"
+    },
+    "contact": {
+      "center": "Contatar {name} Centralizar",
+      "approach": "Contatar {name} Aproximação",
+      "tower": "Contatar {name} Torre"
+    },
+    "tune": "[ Ajustar {name} {role} em {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centro",
+      "approach": "Aproximação",
+      "tower": "Torre",
+      "ground": "Solo",
+      "departure": "Partida"
+    },
+    "grammar": {
+      "instruction": [
+        "Mantenha a velocidade não acima de {speed} nós",
+        "Vire {direction} para a proa {heading}",
+        "Suba para {altitude} e mantenha",
+        "Desça para {altitude} e mantenha",
+        "Mantenha a altitude atual",
+        "Mantenha proa e altitude atuais",
+        "Mantenha a proa atual"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, você está {altitude} acima da altitude designada. {vector} {optionalAltimeter}",
+        "{callsign}, você está {altitude} abaixo da altitude designada. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contate {station} em {frequency}.",
+        "Contate {station} em {frequency}.",
+        "Contate {station} em {frequency} quando estiver entrando na aproximação.",
+        "Contate {station} em {frequency} quando estiver entrando."
+      ],
+      "descent": [
+        "{callsign}, desça via {route} até {altitude}. Espere {approach} aproximação{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, Liberada chegada em {route}. {vector} Esperar {approach} aproximação{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Aguarde {approach} a aproximação {approachMethod}.{sidestep}{circle} Liberado para {fix}.",
+        "{callsign},{vector} Aguarde vetores {approach} na aproximação.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Aproximação {approach} liberada"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Aproximação {approach} liberada",
+        "Entre base final a {direction}",
+        "Voe base final a {direction}",
+        "Vá base final a {direction}",
+        "Entre perna do vento a {direction}",
+        "Entre tráfego {direction}",
+        "Voe perna do vento a {direction}",
+        "Voe tráfego a {direction}",
+        "Vá perna do vento a {direction}",
+        "Vá tráfego a {direction}",
+        "Voe em linha reta",
+        "Entre em linha reta"
+      ],
+      "reminder": [
+        "{callsign}, responda à última transmissão.",
+        "{callsign}, está na escuta?",
+        "{callsign}, você ouviu a última transmissão?",
+        "{callsign}, responda."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Curso Inverso de Localizador",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizador",
+        "NDB",
+        "DME NDB",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "DME VOR"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " pista {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} radial {heading}, arco DME {number}",
+        " via transição {fix}",
+        ""
+      ],
+      "runway": [
+        "pista {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " água",
+        ""
+      ],
+      "direction": [
+        "esquerdo",
+        "direito"
+      ],
+      "sidestep": [
+        "",
+        " Desvie de {runway}."
+      ],
+      "circle": [
+        "",
+        " Arremeta para aterrissar em {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altímetro"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " O tráfego está {aircraft} em {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} está em {altitude} subindo a {altitude}. ",
+        "{station}, {callsign} está passando por {altitude} subindo a {altitude}.",
+        "{station}, {callsign} está em {altitude} descendo para {altitude}{viaStar}.",
+        "{station}, {callsign} está passando por {altitude} descendo para {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign} chegando a {location} por aproximação {approach} {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} milhas {compass}"
+      ],
+      "viaStar": [
+        "por meio da chegada {route}",
+        ""
+      ],
+      "human": [
+        "Bom dia.",
+        "Tchauzinho."
+      ],
+      "landing": [
+        "o aeroporto está em IFR. Autorizado para aterrissar em plena parada",
+        "estamos em IFR. Autorizado para aterrissar em plena parada",
+        "liberado para {landingType} {runway}",
+        "autorizado a pousar no heliporto {runwayNumber}"
+      ],
+      "landingType": [
+        " para pousar",
+        " para toque e arremetida",
+        " toque e arremetida",
+        " toque e arremetida, circuito {direction}"
+      ],
+      "flightLevel": [
+        "NV",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Pés",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contate {station} em {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contate {station} em {frequency}.",
+        " Contate {station} em {frequency} quando estiver entrando na aproximação.",
+        " Contate {station} em {frequency} quando estiver entrando."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Espere {altitude}",
+        " proceda no curso",
+        " continuar a navegação"
+      ],
+      "heavy": [
+        "pesado"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "pt-PT",
+    "menus": {
+      "acknowledge": "Confirmar transferência",
+      "acknowledge-instruction": "Confirmar instrução",
+      "acknowledge-descent": "Confirmar Permissão para Descida",
+      "acknowledge-assigned-approach": "Confirmar permissão atribuída",
+      "acknowledge-approach": "Confirmar permissão para aproximação",
+      "acknowledge-pattern-entry": "Confirmar instruções de entrada padrão",
+      "acknowledge-arrival": "Confirmar Permissão para Chegada"
+    },
+    "contact": {
+      "center": "Contactar {name} Centrar",
+      "approach": "Contactar {name} Aproximação",
+      "tower": "Contactar {name} Torre"
+    },
+    "tune": "[ Ajustar {name} {role} em {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Centro",
+      "approach": "Aproximação",
+      "tower": "Torre",
+      "ground": "Solo",
+      "departure": "Partida"
+    },
+    "grammar": {
+      "instruction": [
+        "Mantenha a velocidade não acima de {speed} nós",
+        "Vire {direction} para o rumo {heading}",
+        "Suba para {altitude} e mantenha",
+        "Desça para {altitude} e mantenha",
+        "Mantenha a altitude atual",
+        "Mantenha o rumo e a altitude atuais",
+        "Mantenha o rumo atual"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, está {altitude} acima da altitude designada. {vector} {optionalAltimeter}",
+        "{callsign}, está {altitude} abaixo da altitude designada. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "contacte {station} em {frequency}.",
+        "Contacte {station} em {frequency}.",
+        "Contacte {station} em {frequency} quando estiver a entrar na aproximação.",
+        "Contacte {station} em {frequency} quando estiver a entrar."
+      ],
+      "descent": [
+        "{callsign}, desça via {route} para {altitude}. Espere uma aproximação {approach}, {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, permitida chegada {route}. {vector} Espere uma aproximação {approach}, {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} Espere a aproximação {approach} {approachMethod}.{sidestep}{circle} Autorização para {fix}.",
+        "{callsign},{vector} Espere vetores na aproximação {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Aproximação {approach} autorizada"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Aproximação {approach} autorizada",
+        "Entre na base final a {direction}",
+        "Voe para base final a {direction}",
+        "Vá para base final a {direction}",
+        "Entre na perna do vento de cauda a {direction}",
+        "Entre no tráfego {direction}",
+        "Voe na perna do vento de cauda a {direction}",
+        "Voe no tráfego a {direction}",
+        "Vá para perna do vento de cauda a {direction}",
+        "Vá para o tráfego a {direction}",
+        "Voe em linha reta",
+        "Entre em linha reta"
+      ],
+      "reminder": [
+        "{callsign}, responda à última transmissão.",
+        "{callsign}, confirma?",
+        "{callsign}, ouviu a última transmissão?",
+        "{callsign}, responda."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Curso inverso de localizador",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizador",
+        "NDB",
+        "DME NDB",
+        "RNAV",
+        "SDF",
+        "Visual",
+        "VOR",
+        "DME VOR"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " pista {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} radial {heading}, arco DME {number}",
+        " via transição {fix}",
+        ""
+      ],
+      "runway": [
+        "pista {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " água",
+        ""
+      ],
+      "direction": [
+        "esquerdo",
+        "direito"
+      ],
+      "sidestep": [
+        "",
+        " Desvie de {runway}."
+      ],
+      "circle": [
+        "",
+        " Borregue para aterrar em {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altímetro"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " O tráfego está {aircraft} em {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} está em {altitude} a subir a {altitude}. ",
+        "{station}, {callsign} está a passar {altitude} a subir a {altitude}.",
+        "{station}, {callsign} está a {altitude} a descer para {altitude}{viaStar}.",
+        "{station}, {callsign} está a passar {altitude} a descer para {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign} {location}, a chegar a {approach} aproximação{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} milhas {compass}"
+      ],
+      "viaStar": [
+        "via chegada {route}",
+        ""
+      ],
+      "human": [
+        "Bom dia.",
+        "Adeusinho."
+      ],
+      "landing": [
+        "o aeroporto está em IFR. Autorizado para aterrar em plena parada",
+        "estamos em IFR. Autorizado para aterrar em plena parada",
+        "libertado para {landingType} {runway}",
+        "tem autorização para aterrar no heliponto {runwayNumber}"
+      ],
+      "landingType": [
+        " para aterrar",
+        " para toque e borrego",
+        " toque e borregue",
+        " toque e borregue, circuito {direction}"
+      ],
+      "flightLevel": [
+        "NV",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Pés",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "contacte {station} em {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Contacte {station} em {frequency}.",
+        " Contacte {station} em {frequency} quando estiver a entrar na aproximação.",
+        " Contacte {station} em {frequency} quando estiver a entrar."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Espere {altitude}",
+        " proceda no curso",
+        " retomar a própria navegação"
+      ],
+      "heavy": [
+        "pesado"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "ru-RU",
+    "menus": {
+      "acknowledge": "Подтвердить передачу управления",
+      "acknowledge-instruction": "Подтвердить получение указания",
+      "acknowledge-descent": "Подтвердить получение разрешения на снижение",
+      "acknowledge-assigned-approach": "Подтвердить получение присвоенного захода",
+      "acknowledge-approach": "Подтвердить получение разрешения на заход",
+      "acknowledge-pattern-entry": "Подтвердить получение указаний по входу в круг",
+      "acknowledge-arrival": "Подтвердить получение разрешения на прибытие"
+    },
+    "contact": {
+      "center": "Связаться с районным диспетчерским пунктом {name}",
+      "approach": "Связаться с диспетчерским пунктом захода {name}",
+      "tower": "Связаться с диспетчерским пунктом {name}"
+    },
+    "tune": "[ Настроить {name} {role} на {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Центр",
+      "approach": "Заход на посадку",
+      "tower": "Диспетчерская",
+      "ground": "Земля",
+      "departure": "Вылет"
+    },
+    "grammar": {
+      "instruction": [
+        "Удерживайте скорость не выше {speed} узл.",
+        "Разворот на {direction}, курс {heading}",
+        "Наберите и удерживайте высоту {altitude}",
+        "Снижайтесь и удерживайте высоту {altitude}",
+        "Удерживайте текущую высоту",
+        "Удерживайте текущие курс и высоту",
+        "Удерживайте текущий курс"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, вы на {altitude} выше заданной высоты. {vector} {optionalAltimeter}",
+        "{callsign}, вы на {altitude} ниже заданной высоты. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "свяжитесь — {station} на частоте {frequency}.",
+        "Свяжитесь с {station} на частоте {frequency}.",
+        "Свяжитесь с {station} на частоте {frequency}, когда будете приступать к заходу.",
+        "Свяжитесь с {station} на частоте {frequency}, когда будете заходить."
+      ],
+      "descent": [
+        "{callsign}, снижайтесь к {route} до {altitude}.Ожидайте {approach} заход на посадку{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, разрешено прибытие к {route}. {vector} Ожидайте {approach} заход на посадку {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign}, {vector} Ожидайте {approach} заход{approachMethod}.{sidestep}{circle} Разрешено: {fix}.",
+        "{callsign}, {vector} Ожидайте векторов {approach}, заход.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Заход разрешён — {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Заход разрешён — {approach}",
+        "Войдите в четвёртый разворот {direction}",
+        "Пройдите предпосадочную прямую {direction}",
+        "Выполните четвёртый разворот {direction}",
+        "Войдите в полёт по ветру {direction}",
+        "Войдите в схему захода на посадку {direction}",
+        "Пройдите участок после полёта по ветру {direction}",
+        "Пройдите по схеме воздушного движения {direction}",
+        "Выполните полёт по ветру {direction}",
+        "Выполните пролёт по схеме воздушного движения {direction}",
+        "Выполните посадку с прямой",
+        "Совершите посадку с прямой"
+      ],
+      "reminder": [
+        "{callsign}, подтвердите последнюю передачу.",
+        "{callsign}, как поняли?",
+        "{callsign}, вы получили мою последнюю передачу?",
+        "{callsign}, подтвердите."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Обратный луч курсового маяка",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Курсовой маяк",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Визуальный",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " полоса {runwayNumber} {runwayPosition}"
+      ],
+      "approachMethod": [
+        " через {fix}, {heading} радиал, {number} дуга DME",
+        " через {fix} вход",
+        ""
+      ],
+      "runway": [
+        "полоса {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " вода",
+        ""
+      ],
+      "direction": [
+        "влево",
+        "вправо"
+      ],
+      "sidestep": [
+        "",
+        " Сместитесь, {runway}."
+      ],
+      "circle": [
+        "",
+        " Выполните заход, {runway} с круга."
+      ],
+      "altimeter": [
+        "QNH",
+        "Высотомер"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Cудно — {aircraft}, участок — {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} на высоте {altitude}, набор {altitude} ",
+        "{station}, это {callsign}. Текущая высота {altitude}, набор {altitude}.",
+        "{station}, {callsign} находится на высоте {altitude}, снижается до {altitude}{viaStar}.",
+        "{station}, {callsign} сейчас на высоте {altitude}, снижение до {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}",
+        "{station}, {callsign}. {location}, заход {approach}{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " Расстояние в милях — {number}, {compass}"
+      ],
+      "viaStar": [
+        "через прибытие {route}",
+        ""
+      ],
+      "human": [
+        "Хорошего дня.",
+        "До связи."
+      ],
+      "landing": [
+        "сейчас аэропорт работает по ППП. Посадку с полной остановкой разрешаю",
+        "работаем по ППП. Посадку с полной остановкой разрешаю",
+        "Разрешена посадка: {landingType}, {runway}",
+        "разрешена посадка на вертолетной площадке {runwayNumber}"
+      ],
+      "landingType": [
+        " для приземления",
+        " для посадки «конвейером»",
+        " посадка «конвейером»",
+        " посадка «конвейером», движение на {direction}"
+      ],
+      "flightLevel": [
+        "ЭЛ",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "фт.",
+        "Футы",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "свяжитесь — {station} на частоте {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Свяжитесь с {station} на частоте {frequency}.",
+        " Свяжитесь с {station} на частоте {frequency}, когда будете приступать к заходу.",
+        " Свяжитесь с {station} на частоте {frequency}, когда будете заходить."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign}, {vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Ожидайте {altitude}",
+        " продолжайте полёт по курсу",
+        " продолжайте свою навигацию"
+      ],
+      "heavy": [
+        "сильно"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "sv-SE",
+    "menus": {
+      "acknowledge": "Bekräfta överlämning",
+      "acknowledge-instruction": "Kvittera instruktion",
+      "acknowledge-descent": "Bekräfta nedstigningstillstånd",
+      "acknowledge-assigned-approach": "Kvittera tilldelad inflygning",
+      "acknowledge-approach": "Kvittera inflygningsklarering",
+      "acknowledge-pattern-entry": "Kvittera instruktioner för mönsterstart",
+      "acknowledge-arrival": "Bekräfta ankomsttillstånd"
+    },
+    "contact": {
+      "center": "Kontakta {name} center",
+      "approach": "Kontakta {name} inflygning",
+      "tower": "Kontakta tornet i {name}"
+    },
+    "tune": "[ Ställ in {name} {role} på {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Center",
+      "approach": "Inflygning",
+      "tower": "Tornet",
+      "ground": "Marktjänsten",
+      "departure": "Avgång"
+    },
+    "grammar": {
+      "instruction": [
+        "Håll farten under {speed} knop",
+        "Sväng {direction} kurs {heading}",
+        "Stig och bibehåll {altitude}",
+        "Plané och bibehåll {altitude}",
+        "Bibehåll nuvarande höjd",
+        "Bibehåll nuvarande kurs och höjd",
+        "Bibehåll nuvarande kurs"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign} du är {altitude} över klarerad höjd. {vector} {optionalAltimeter}",
+        "{callsign} du är {altitude} under klarerad höjd. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "kontakta {station} på {frequency}.",
+        "Kontakta {station} på {frequency}.",
+        "Kontakta {station} på {frequency} under inflygning."
+      ],
+      "descent": [
+        "{callsign}, gå ner via {route} till {altitude}. Räkna med {approach} inflygning {approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, klarerad {route} ankomst. {vector} Räkna med {approach} inflygning {approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign}, {vector} räkna med {approach} inflygning {approachMethod}. {sidestep}{circle} Klarerad för {fix}.",
+        "{callsign}, {vector} räkna med vektorer {approach} inflygning. {sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Klar {approach} inflygning"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Klar {approach} inflygning",
+        "Ange {direction} bas",
+        "Flyg {direction} bas",
+        "Gör {direction} bas",
+        "Inpassera {direction} medvind",
+        "Inpassera {direction} trafik",
+        "Flyg {direction} medvind",
+        "Flyg {direction} trafik",
+        "Gör {direction} medvind",
+        "Gör {direction} trafik",
+        "Flyg direkt in",
+        "Gör direktinflygning"
+      ],
+      "reminder": [
+        "{callsign}, kvittera senaste anrop.",
+        "{callsign}, uppfattat?",
+        "{callsign}, hörde du mitt senaste anrop?",
+        "{callsign}, kvittera."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Bakkurs för lokaliserare",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Localizer",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Visuellt",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " bana {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " via {fix} {heading} radial, {number} DME-båge",
+        " via övergången {fix}",
+        ""
+      ],
+      "runway": [
+        "bana {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " vatten",
+        ""
+      ],
+      "direction": [
+        "vänster",
+        "höger"
+      ],
+      "sidestep": [
+        "",
+        " Hoppa över {runway}."
+      ],
+      "circle": [
+        "",
+        " Cirkla och landa {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Höjdmätare"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Trafiken är {aircraft} på {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} är på {altitude} stiger till {altitude}. ",
+        "{station}, {callsign} passerar {altitude} stiger till {altitude}.",
+        "{station}, {callsign} är på {altitude}, går ner till {altitude}{viaStar}.",
+        "{station}, {callsign} passerar {altitude} går ner till {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, inkommande {approach} inflygning{sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} miles {compass}"
+      ],
+      "viaStar": [
+        "via ankomsten {route}",
+        ""
+      ],
+      "human": [
+        "Goddag.",
+        "Hej då."
+      ],
+      "landing": [
+        "instrumentflygregler på flygplatsen. Klar till fullstoplandning",
+        "instrumentflygregler gäller. Klar till fullstoplandning",
+        "klart{landingType} {runway}",
+        "klartecken att landa på helikopterplatta {runwayNumber}"
+      ],
+      "landingType": [
+        " att landa",
+        " för start och landning",
+        " start och landning",
+        " start och landning, {direction} trafik"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "fot",
+        "Meter",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "kontakta {station} på {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Kontakta {station} på {frequency}.",
+        " Kontakta {station} på {frequency} under inflygning."
+      ],
+      "towerHandoffMessage": [
+        "{callsign}, {towerContact}",
+        "{callsign}, {vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Förvänta {altitude}",
+        " fortsätt på kurs",
+        " återuppta egen navigering"
+      ],
+      "heavy": [
+        "tung"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "th-TH",
+    "menus": {
+      "acknowledge": "รับทราบการส่งมอบการควบคุม",
+      "acknowledge-instruction": "รับทราบคําแนะนํา",
+      "acknowledge-descent": "รับทราบการอนุญาตให้ลดระดับความสูง",
+      "acknowledge-assigned-approach": "รับทราบการร่อนลงจอดที่ได้รับมอบหมาย",
+      "acknowledge-approach": "รับทราบการอนุญาตร่อนลงจอด",
+      "acknowledge-pattern-entry": "รับทราบคําสั่งเข้ารูปแบบการบิน",
+      "acknowledge-arrival": "รับทราบการอนุญาตให้เข้าสนามบิน"
+    },
+    "contact": {
+      "center": "ติดต่อศูนย์ {name}",
+      "approach": "ติดต่อ {name} ร่อนลงจอด",
+      "tower": "ติดต่อ {name} หอบังคับ"
+    },
+    "tune": "[ จูน {name} {role} บน {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "เซ็นเตอร์",
+      "approach": "ร่อนลงจอด",
+      "tower": "หอบังคับ",
+      "ground": "พื้นดิน",
+      "departure": "การออกเดินทาง"
+    },
+    "grammar": {
+      "instruction": [
+        "รักษาความเร็วไม่เกิน {speed} น็อต",
+        "หันทิศทางหัวเครื่องบิน {direction} ไป {heading}",
+        "ไต่ระดับและรักษาไว้ที่ {altitude}",
+        "ลดระดับความสูงและคงไว้ที่ {altitude}",
+        "รักษาอัลติจูดปัจจุบัน",
+        "รักษาทิศทางหัวเครื่องบินและอัลติจูดปัจจุบัน",
+        "คงทิศทางหัวเครื่องบินปัจจุบัน"
+      ],
+      "instructionMessage": [
+        "{callsign} {vector}",
+        "{callsign} คุณอยู่ {altitude} เกินอัลติจูดที่กําหนด {vector} {optionalAltimeter}",
+        "{callsign} คุณอยู่ต่ำกว่าระดับความสูงที่กําหนด {altitude} {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "ติดต่อ {station} ที่ {frequency}",
+        "ติดต่อ {station} ที่ {frequency}",
+        "ติดต่อ {station} ที่ {frequency} เมื่อเข้าสู่ช่วงร่อนลงจอด",
+        "ติดต่อ {station} ทาง {frequency} เมื่อขาเข้า"
+      ],
+      "descent": [
+        "{callsign} ลดระดับตามเส้นทาง {route} จนถึงระดับความสูง {altitude} รอ {approach} ร่อนลงจอด {approachMethod}{sidestep}{circle}"
+      ],
+      "arrival": [
+        "{callsign} ได้รับอนุญาตให้ใช้เส้นทางเข้าสนามบิน {route} {vector} รอ {approach} ร่อนลงจอด {approachMethod}{sidestep}{circle}"
+      ],
+      "assigned": [
+        "{callsign},{vector} ให้ {approach} ร่อนลงจอด{approachMethod}{sidestep}{circle} อนุมัติให้ {fix}",
+        "{callsign},{vector} ให้ร่อนลงจอด {approach} ด้วยเวคเตอร์ {sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "ร่อนลงจอด {approach} เคลียร์"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry} "
+      ],
+      "entry": [
+        "ร่อนลงจอด {approach} เคลียร์",
+        "เข้าฐานทาง {direction}",
+        "บิน {direction} ไปที่ฐาน",
+        "ทําฐาน {direction}",
+        "เข้า Downwind {direction}",
+        "เข้าจราจร {direction}",
+        "บิน Downwind {direction}",
+        "บินจราจร {direction}",
+        "ทํา Downwind {direction}",
+        "ทําจราจร {direction}",
+        "บิน Straight-in",
+        "ให้ Straight-in"
+      ],
+      "reminder": [
+        "{callsign} รับทราบการติดต่อครั้งล่าสุด",
+        "{callsign} ทราบแล้วเปลี่ยน",
+        "{callsign} คุณได้ยินการติดต่อครั้งล่าสุดจากเราไหม"
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "การบินด้านหลังโลคอลไลเซอร์",
+        "GPS",
+        "ILS",
+        "LDA",
+        "โลคอลไลเซอร์",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "เห็นด้วยตา",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " รันเวย์ {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " ผ่าน {fix} {heading} Radial, {number} DME Arc",
+        " ผ่านการแวะพัก {fix}",
+        ""
+      ],
+      "runway": [
+        "รันเวย์ {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " น้ำ",
+        ""
+      ],
+      "direction": [
+        "ซ้าย",
+        "ขวา"
+      ],
+      "sidestep": [
+        "",
+        " Sidestep ไปที่ {runway}"
+      ],
+      "circle": [
+        "",
+        " ตีวงเพื่อลงจอดที่ {runway}"
+      ],
+      "altimeter": [
+        "QNH",
+        "อัลติมิเตอร์"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " การจราจร {aircraft} บน {leg}"
+      ],
+      "checkin": [
+        "{station}, {callsign} อยู่ที่ {altitude} กำลังไต่ระดับความสูง {altitude} ",
+        "{station}, {callsign} กำลังผ่าน {altitude} กำลังไต่ระดับความสูง {altitude}",
+        "{station}, {callsign} กำลังอยู่ที่ {altitude} กำลังลดระดับความสูง {altitude}{viaStar}",
+        "{station}, {callsign} กำลังผ่าน {altitude} กำลังลดระดับความสูง {altitude}{viaStar}",
+        "{station}, {callsign}, {altitude}",
+        "{station}, {callsign}, {location}, ขาเข้า {approach} ร่อนลงจอด{sidestep}{circle}"
+      ],
+      "location": [
+        "",
+        " {number} ไมล์ {compass}"
+      ],
+      "viaStar": [
+        "ผ่านเส้นทางเข้าสนามบิน {route}",
+        ""
+      ],
+      "human": [
+        "สวัสดี",
+        "ลาก่อน"
+      ],
+      "landing": [
+        "ตอนนี้สนามบิน IFR จบการบินลงได้",
+        "เรา IFR จบการบินลงได้",
+        "{landingType} อนุมัติ {runway}",
+        "อนุญาตให้ลงจอดที่ลานเฮลิคอปเตอร์ {runwayNumber}"
+      ],
+      "landingType": [
+        " ลงจอด",
+        " สําหรับ Touch and Go",
+        " Touch and Go",
+        " Touch and Go จราจร {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "ติดต่อ {station} ที่ {frequency} {human}"
+      ],
+      "towerContact": [
+        " ติดต่อ {station} ที่ {frequency}",
+        " ติดต่อ {station} ที่ {frequency} เมื่อเข้าสู่ช่วงร่อนลงจอด",
+        " ติดต่อ {station} ทาง {frequency} เมื่อขาเข้า"
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}{towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "คาด {altitude}",
+        " คงเส้นทางเดิมไว้",
+        " กลับไปนำทางด้วยตนเอง"
+      ],
+      "heavy": [
+        "หนัก"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "tr-TR",
+    "menus": {
+      "acknowledge": "Transferi Kabul Edin",
+      "acknowledge-instruction": "Talimatı Kabul Edin",
+      "acknowledge-descent": "İniş İznini Onaylayın",
+      "acknowledge-assigned-approach": "Atanan Yaklaşmayı Kabul Edin",
+      "acknowledge-approach": "Yaklaşma İznini Kabul Edin",
+      "acknowledge-pattern-entry": "Patern Giriş Talimatlarını Kabul Edin",
+      "acknowledge-arrival": "Varış İznini Onaylayın"
+    },
+    "contact": {
+      "center": "Merkezle {name} İletişime Geçin",
+      "approach": "Yaklaşma İle {name} İletişime Geçin",
+      "tower": "Kuleyle {name} İletişime Geçin"
+    },
+    "tune": "[ {mhz}{decimal}{khz} konumunda {name} {role} ayarı yapın ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Merkez",
+      "approach": "Yaklaşma",
+      "tower": "Kule",
+      "ground": "Yer",
+      "departure": "Kalkış"
+    },
+    "grammar": {
+      "instruction": [
+        "Hızınızı {speed} knotun üzerine çıkarmayın",
+        "{direction} yönüne ve {heading} istikametine dönün",
+        "{altitude} irtifaya yükselin ve koruyun",
+        "Alçalın ve {altitude} irtifayı koruyun",
+        "Mevcut irtifayı koruyun",
+        "Mevcut istikameti ve irtifayı koruyun",
+        "Mevcut istikameti koruyun"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, belirlenen irtifanın {altitude} üzerindesiniz. {vector} {optionalAltimeter}",
+        "{callsign}, belirlenen irtifanın {altitude} altındasınız. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "{frequency} frekansı üzerinden {station} ile iletişime geçin.",
+        "{frequency} frekansı üzerinden {station} ile iletişime geçin.",
+        "Yaklaştığınızda {frequency} frekansından {station} ile iletişime geçin.",
+        "Geldiğinizde {frequency} frekansı üzerinden {station} ile iletişime geçin."
+      ],
+      "descent": [
+        "{callsign}, {route} ile {altitude} irtifasına alçalın. {approach} yaklaşma yapabilirsiniz{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, {route} varış rotası serbest. {vector} {approach} yaklaşma yapabilirsiniz{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign},{vector} {approach} yaklaşmasını{approachMethod} bekleyin.{sidestep}{circle} {fix} için izin verildi.",
+        "{callsign},{vector} Vektör {approach} yaklaşması bekleniyor.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "{approach} yaklaşma izni verildi"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "{approach} yaklaşma izni verildi",
+        "{direction} yönüne esas dönüş yapın",
+        "{direction} yönüne esas dönüşle uçun",
+        "{direction} yönü rüzgâraltına girin",
+        "{direction} yönü trafiğine girin",
+        "{direction} yönünde rüzgâraltına girin",
+        "Direkt iniş yapın"
+      ],
+      "reminder": [
+        "{callsign}, son iletiyi aldığınızı onaylayın.",
+        "{callsign}, anlaşıldı mı?",
+        "{callsign}, son iletimi duydunuz mu?",
+        "{callsign}, lütfen onaylayın."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Lokalizer Ters Yayın",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Lokalizer",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Görerek",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " pist {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " {fix} {heading} radyal üzerinden, {number} DME arkı",
+        " {fix} geçişiyle",
+        ""
+      ],
+      "runway": [
+        "pist {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " su",
+        ""
+      ],
+      "direction": [
+        "sol",
+        "sağ"
+      ],
+      "sidestep": [
+        "",
+        " Yandaki {runway} pistine inin."
+      ],
+      "circle": [
+        "",
+        " {runway} pistine iniş için havalimanı çevresinde daire çizin."
+      ],
+      "altimeter": [
+        "QNH",
+        "Altimeter"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " {leg} üzerindeki trafik {aircraft}."
+      ],
+      "checkin": [
+        "{station}, {callsign} şu anda {altitude} irtifada ve {altitude} irtifasına iniyor. ",
+        "{station}, {callsign} şu anda {altitude} irtifasında ve {altitude} irtifasına tırmanıyor.",
+        "{station}, {callsign} şu anda {altitude} irtifada ve {viaStar} ile {altitude} irtifasına iniyor.",
+        "{station}, {callsign} şu anda {altitude} irtifasından geçerek {viaStar} ile {altitude} irtifasına iniyor.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, {sidestep}{circle} istikametine yaklaşılıyor {approach}."
+      ],
+      "location": [
+        "",
+        " {number} mil {compass}"
+      ],
+      "viaStar": [
+        "{route} varış rotası ile",
+        ""
+      ],
+      "human": [
+        "İyi günler.",
+        "Hoşça kalın."
+      ],
+      "landing": [
+        "havaalanı artık IFR'dir. İnişten sonra durma için izin verildi",
+        "IFR'yiz. İnişten sonra durma için izin verildi",
+        "{runway} pistine {landingType} izni verildi",
+        "{runwayNumber} numaralı helikopter pistine iniş izni verildi"
+      ],
+      "landingType": [
+        " iniş için",
+        " touch and go için",
+        " touch and go",
+        " touch and go, {direction} yönünde trafik"
+      ],
+      "flightLevel": [
+        "Uçuş Seviyesi",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Fit",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "{frequency} frekansı üzerinden {station} ile iletişime geçin. {human}"
+      ],
+      "towerContact": [
+        " {frequency} frekansı üzerinden {station} ile iletişime geçin.",
+        " Yaklaştığınızda {frequency} frekansından {station} ile iletişime geçin.",
+        " Geldiğinizde {frequency} frekansı üzerinden {station} ile iletişime geçin."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "{altitude} irtifayı bekleyin.",
+        " rotaya devam edin",
+        " kendi navigasyonunuza devam edin"
+      ],
+      "heavy": [
+        "ağır"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "vi-VN",
+    "menus": {
+      "acknowledge": "Ghi nhận chuyển giao",
+      "acknowledge-instruction": "Ghi nhận hướng dẫn",
+      "acknowledge-descent": "Ghi nhận huấn lệnh hạ độ cao",
+      "acknowledge-assigned-approach": "Ghi nhận cách tiếp cận được chỉ định",
+      "acknowledge-approach": "Ghi nhận huấn lệnh tiếp cận",
+      "acknowledge-pattern-entry": "Ghi nhận hướng dẫn vào vòng chờ",
+      "acknowledge-arrival": "Ghi nhận huấn lệnh bay đến"
+    },
+    "contact": {
+      "center": "Liên hệ trung tâm {name}",
+      "approach": "Liên hệ tiếp cận {name}",
+      "tower": "Liên hệ đài kiểm soát không lưu {name}"
+    },
+    "tune": "[Điều chỉnh {name} {role} trên {mhz}{decimal}{khz}]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "Trung tâm",
+      "approach": "Tiếp cận",
+      "tower": "Đài kiểm soát không lưu",
+      "ground": "Mặt đất",
+      "departure": "Cửa đi"
+    },
+    "grammar": {
+      "instruction": [
+        "Giữ tốc độ không quá {speed} hải lý",
+        "Rẽ sang {direction} theo hướng {heading}",
+        "Nâng độ cao và duy trì ở mức {altitude}",
+        "Hạ độ cao và duy trì ở mức {altitude}",
+        "Duy trì độ cao hiện tại",
+        "Duy trì hướng bay và độ cao hiện tại",
+        "Duy trì hướng bay hiện tại"
+      ],
+      "instructionMessage": [
+        "{callsign}, {vector}.",
+        "{callsign}, bạn đang cao hơn độ cao chỉ định {altitude} . {vector} {optionalAltimeter}",
+        "{callsign}, bạn đang thấp hơn độ cao chỉ định {altitude}. {vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "Liên hệ với {station} ở tần số {frequency}.",
+        "Liên lạc với {station} ở tần số {frequency}.",
+        "Liên hệ với {station} ở {frequency} khi sắp tiếp cận.",
+        "Liên hệ với {station} ở {frequency} khi sắp đến."
+      ],
+      "descent": [
+        "{callsign}, hạ độ cao qua {route} xuống {altitude}. Dự kiến tiếp cận {approach} bằng{approachMethod}{sidestep}{circle}."
+      ],
+      "arrival": [
+        "{callsign}, được phép bay đến qua {route}. {vector} Dự kiến tiếp cận {approach} bằng{approachMethod}{sidestep}{circle}."
+      ],
+      "assigned": [
+        "{callsign}, {vector} Dự kiến tiếp cận {approach} bằng {approachMethod}.{sidestep}{circle} Được phép {fix}.",
+        "{callsign}, {vector} Dự kiến tiếp cận theo véc-tơ {approach}.{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "Được phép tiếp cận {approach}"
+      ],
+      "patternMessage": [
+        "{callsign}, {station}. {altimeterClause} {traffic}, {entry}. "
+      ],
+      "entry": [
+        "Được phép tiếp cận {approach}",
+        "Vào cơ sở {direction}",
+        "Bay cơ sở {direction}",
+        "Vào xuôi gió {direction}",
+        "Vào không lưu {direction}",
+        "Bay xuôi gió {direction}",
+        "Bay không lưu {direction}",
+        "Bay thẳng vào",
+        "Tiến thẳng vào"
+      ],
+      "reminder": [
+        "{callsign}, ghi nhận thông điệp cuối cùng.",
+        "{callsign}, bạn có nghe rõ không?",
+        "{callsign}, bạn có nghe được thông điệp cuối cùng của tôi không?",
+        "{callsign}, vui lòng ghi nhận."
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "Dải tần số hạ cánh sau của đài xác định hướng",
+        "GPS",
+        "ILS",
+        "LDA",
+        "Đài xác định hướng",
+        "NDB",
+        "NDB DME",
+        "RNAV",
+        "SDF",
+        "Tầm nhìn",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " đường băng {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " qua {fix} ở radian {heading}, vòng cung DME {number}",
+        " thông qua chuyển tiếp {fix}",
+        ""
+      ],
+      "runway": [
+        "đường băng {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " nước",
+        ""
+      ],
+      "direction": [
+        "trái",
+        "phải"
+      ],
+      "sidestep": [
+        "",
+        " Tiếp cận song song {runway}."
+      ],
+      "circle": [
+        "",
+        " Bay vòng để hạ cánh trên {runway}."
+      ],
+      "altimeter": [
+        "QNH",
+        "Cao độ kế"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " Máy bay {aircraft} đang ở {leg}."
+      ],
+      "checkin": [
+        "{station}, {callsign} đang ở {altitude}, sẽ nâng độ cao lên {altitude}. ",
+        "{station}, {callsign} đang qua {altitude}, sẽ nâng độ cao lên {altitude}.",
+        "{station}, {callsign} đang ở {altitude}, sẽ hạ độ cao xuống {altitude}{viaStar}.",
+        "{station}, {callsign} đang qua {altitude}, sẽ hạ độ cao xuống {altitude}{viaStar}.",
+        "{station}, {callsign}, {altitude}.",
+        "{station}, {callsign}, {location}, bay đến theo phương thức tiếp cận {approach} {sidestep}{circle}."
+      ],
+      "location": [
+        "",
+        " {number} dặm về hướng {compass}"
+      ],
+      "viaStar": [
+        "bay đến qua {route}",
+        ""
+      ],
+      "human": [
+        "Chúc ngày tốt lành.",
+        "Tạm biệt."
+      ],
+      "landing": [
+        "sân bay ở trạng thái IFR. Được phép hạ cánh và dừng trên đường băng",
+        "chúng tôi ở trạng thái IFR. Được phép hạ cánh và dừng trên đường băng",
+        "được phép{landingType} {runway}",
+        "được phép hạ cánh ở bãi đáp trực thăng {runwayNumber}"
+      ],
+      "landingType": [
+        " hạ cánh",
+        " để tiếp đất và cất cánh",
+        " tiếp đất và cất cánh",
+        " tiếp đất và cất cánh, không lưu {direction}"
+      ],
+      "flightLevel": [
+        "FL",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "Liên hệ với {station} ở tần số {frequency}. {human}"
+      ],
+      "towerContact": [
+        " Liên lạc với {station} ở tần số {frequency}.",
+        " Liên hệ với {station} ở {frequency} khi sắp tiếp cận.",
+        " Liên hệ với {station} ở {frequency} khi sắp đến."
+      ],
+      "towerHandoffMessage": [
+        "{callsign},{towerContact}",
+        "{callsign},{vector}. {towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "Dự kiến ở mức {altitude}",
+        " tiếp tục theo đường bay",
+        " tiếp tục kế hoạch bay của bạn"
+      ],
+      "heavy": [
+        "hạng nặng"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "zh-CN",
+    "menus": {
+      "acknowledge": "确认管制移交",
+      "acknowledge-instruction": "确认指示",
+      "acknowledge-descent": "答复确认下降许可",
+      "acknowledge-assigned-approach": "确认进近安排",
+      "acknowledge-approach": "确认进近许可",
+      "acknowledge-pattern-entry": "确认进入起落航线指示",
+      "acknowledge-arrival": "答复确认到达许可"
+    },
+    "contact": {
+      "center": "联络{name}中心",
+      "approach": "联络{name}进近",
+      "tower": "联络{name}塔台"
+    },
+    "tune": "[联络{mhz}{decimal}{khz}，调频至{name} {role}]",
+    "station": "{name}{role}",
+    "roles": {
+      "center": "森特",
+      "approach": "进近",
+      "tower": "塔台",
+      "ground": "地面",
+      "departure": "进近"
+    },
+    "grammar": {
+      "instruction": [
+        "表速不大于{speed}",
+        "{direction}转航向{heading}",
+        "爬升至{altitude}并保持高度",
+        "下降至{altitude}保持",
+        "保持当前高度",
+        "保持当前航向和高度",
+        "保持当前航向"
+      ],
+      "instructionMessage": [
+        "{callsign}，{vector}。",
+        "{callsign}，您已高于指定高度{altitude}。{vector}{optionalAltimeter}",
+        "{callsign}，您已低于指定高度{altitude}。{vector}{optionalAltimeter}"
+      ],
+      "handoff": [
+        "联系{station}{frequency}，",
+        "请联系{station}，使用频率{frequency}。",
+        "入航进近时，请联系{station}，使用频率{frequency}。",
+        "入航时，请联系{station}，使用频率{frequency}。"
+      ],
+      "descent": [
+        "{callsign}，通过{route}下降至{altitude}。预期{approach}进近{approachMethod}{sidestep}{circle}。"
+      ],
+      "arrival": [
+        "{callsign}，允许{route}到达。{vector}预计{approach}进近{approachMethod}{sidestep}{circle}。"
+      ],
+      "assigned": [
+        "{callsign}，{vector}预计{approach}进近{approachMethod}。{sidestep}{circle}批准进入{fix}。",
+        "{callsign}，{vector}预计矢量{approach}进近。{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "继续{approach}进近"
+      ],
+      "patternMessage": [
+        "{callsign}，{station}。{altimeterClause}{traffic}，{entry}。 "
+      ],
+      "entry": [
+        "继续{approach}进近",
+        "进入{direction}转弯四边",
+        "进入{direction}转弯第四边",
+        "进入{direction}转弯三边",
+        "进入{direction}转弯第三边",
+        "直线进近"
+      ],
+      "reminder": [
+        "{callsign}，{station}，收到请回答。",
+        "{callsign}，{station}呼叫。",
+        "{callsign}，{station},复述指令。"
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "航向信标台回航",
+        "GNSS",
+        "仪表着陆系统",
+        "LDA",
+        "NDB",
+        "无方向性信标台测距仪",
+        "RNAV",
+        "SDF",
+        "目视",
+        "VOR",
+        "VOR DME"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " 跑道{runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " 通过{fix}{heading}径向线，DME弧{number}",
+        " 过渡点{fix}",
+        ""
+      ],
+      "runway": [
+        "跑道{runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " 水",
+        ""
+      ],
+      "direction": [
+        "左",
+        "右"
+      ],
+      "sidestep": [
+        "",
+        " 旁侧进近至{runway}。"
+      ],
+      "circle": [
+        "",
+        " 目视盘旋进近至{runway}。"
+      ],
+      "altimeter": [
+        "修正海压",
+        "高度表"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " 于{leg}上的交通情况{aircraft}。"
+      ],
+      "checkin": [
+        "{station}，{callsign}正从高度{altitude}爬升至高度{altitude}。 ",
+        "{station}，{callsign}高度已高于{altitude}，正爬升至{altitude}。",
+        "{station}，{callsign}正从高度{altitude}降低至高度{altitude}{viaStar}。",
+        "{station}，{callsign}高度已低于{altitude}，正降低至{altitude}{viaStar}。",
+        "{station}，{callsign}，{altitude}。",
+        "{station}你好，{callsign}，{altitude}保持。",
+        "{station}，{callsign}，{location}，以{approach}方式进近{sidestep}{circle}。"
+      ],
+      "location": [
+        "",
+        " {compass}方向{number}英里"
+      ],
+      "viaStar": [
+        "通过{route}到达",
+        ""
+      ],
+      "human": [
+        "你好！",
+        "再见。"
+      ],
+      "landing": [
+        "机场正在执行仪表飞行规则。准许全停降落",
+        "正在执行仪表飞行规则。准许全停降落",
+        "已准许{landingType}{runway}",
+        "已准许着陆于直升机停机坪{runwayNumber}"
+      ],
+      "landingType": [
+        " 以着陆",
+        " 触地复飞",
+        " {direction}航道，触地复飞"
+      ],
+      "flightLevel": [
+        "飞行高度",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "英尺",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "联系{station}{frequency}，{human}"
+      ],
+      "towerContact": [
+        " 请联系{station}，使用频率{frequency}。",
+        " 入航进近时，请联系{station}，使用频率{frequency}。",
+        " 入航时，请联系{station}，使用频率{frequency}。"
+      ],
+      "towerHandoffMessage": [
+        "{callsign}，{towerContact}",
+        "{callsign}，{vector}。{towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "预期{altitude}",
+        " 按预定航线继续飞行",
+        " 恢复自主领航"
+      ],
+      "heavy": [
+        "重型"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  },
+  {
+    "locale": "zh-TW",
+    "menus": {
+      "acknowledge": "確認移交",
+      "acknowledge-instruction": "確認指示",
+      "acknowledge-descent": "確認降落許可",
+      "acknowledge-assigned-approach": "確認指定的進場程序",
+      "acknowledge-approach": "確認進場許可",
+      "acknowledge-pattern-entry": "確認航線進入指示",
+      "acknowledge-arrival": "確認進場許可"
+    },
+    "contact": {
+      "center": "聯絡 {name} 區域管制中心",
+      "approach": "聯絡 {name} 進場",
+      "tower": "聯絡 {name} 塔台"
+    },
+    "tune": "[ 調整 {name} {role} 在 {mhz}{decimal}{khz} ]",
+    "station": "{name} {role}",
+    "roles": {
+      "center": "中心",
+      "approach": "進場",
+      "tower": "塔",
+      "ground": "地面",
+      "departure": "起飛"
+    },
+    "grammar": {
+      "instruction": [
+        "保持速度不超過 {speed} 節",
+        "轉 {direction} 航向 {heading}",
+        "攀升並保持 {altitude}",
+        "下降並保持 {altitude}",
+        "保持目前高度",
+        "保持目前的航向和高度",
+        "保持目前航向"
+      ],
+      "instructionMessage": [
+        "{callsign}，{vector}。",
+        "{callsign}，你在指派高度上方 {altitude}。{vector} {optionalAltimeter}",
+        "{callsign}，你在指派高度下方 {altitude}。{vector} {optionalAltimeter}"
+      ],
+      "handoff": [
+        "聯絡 {station}，頻道 {frequency}。",
+        "聯絡 {station}，頻道 {frequency}。",
+        "進場時聯絡 {station}，頻道 {frequency}。",
+        "接近時聯絡 {station}，頻道 {frequency}。"
+      ],
+      "descent": [
+        "{callsign}，請依循 {route} 下降至 {altitude}。預期採用 {approach} 進場程序 {approachMethod}{sidestep}{circle}。"
+      ],
+      "arrival": [
+        "{callsign}，許可依 {route} 到場程序進場。{vector}，預期採用 {approach} 進場程序 {approachMethod}{sidestep}{circle}。"
+      ],
+      "assigned": [
+        "{callsign}，{vector} 預計 {approach} 進場 {approachMethod}。{sidestep}{circle} 允許飛往 {fix}。",
+        "{callsign}，{vector} 預計向量 {approach} 進場。{sidestep}{circle}"
+      ],
+      "approachClearance": [
+        "准許 {approach} 進場"
+      ],
+      "patternMessage": [
+        "{callsign}，{station}。{altimeterClause} {traffic}，{entry}。 "
+      ],
+      "entry": [
+        "准許 {approach} 進場",
+        "進入 {direction} 基準",
+        "飛行 {direction} 基準",
+        "將 {direction} 設定為基準",
+        "進入 {direction} 側順風航程",
+        "進入 {direction} 起降航線",
+        "在 {direction} 側，順風飛行",
+        "在 {direction} 側，加入起降航線",
+        "維持 {direction} 起降航線",
+        "直線進場"
+      ],
+      "reminder": [
+        "{callsign}，確認上次通話。",
+        "{callsign}，你有收到嗎？",
+        "{callsign}，您有聽到我上次的通話嗎？",
+        "{callsign}，請確認。"
+      ],
+      "approach": [
+        "{approachType}{approachIdentifier}{approachRunway}"
+      ],
+      "approachType": [
+        "航向定位台反航道",
+        "全球定位系統",
+        "儀降系統",
+        "降落航向道",
+        "航向定位台",
+        "無指向性信標",
+        "無指向性信標測距儀",
+        "皇家海軍航空隊",
+        "SDF",
+        "目視",
+        "甚高頻全向信標",
+        "甚高頻全向信標測距儀"
+      ],
+      "approachIdentifier": [
+        "",
+        " {identifier}"
+      ],
+      "approachRunway": [
+        "",
+        " 跑道 {runwayNumber}{runwayPosition}"
+      ],
+      "approachMethod": [
+        " 經由 {fix} {heading} 徑向線，{number} 測距儀弧",
+        " 經由 {fix} 轉換點",
+        ""
+      ],
+      "runway": [
+        "跑道 {runwayNumber}{runwayPosition}"
+      ],
+      "runwayPosition": [
+        "C",
+        "L",
+        "R",
+        " 水",
+        ""
+      ],
+      "direction": [
+        "左",
+        "右"
+      ],
+      "sidestep": [
+        "",
+        " 側飛 {runway} 跑道。"
+      ],
+      "circle": [
+        "",
+        " 盤旋降落 {runway}。"
+      ],
+      "altimeter": [
+        "QNH",
+        "高度計"
+      ],
+      "altimeterClause": [
+        "{altimeter} {number}"
+      ],
+      "traffic": [
+        "",
+        " 航機是 {aircraft}，在 {leg}。"
+      ],
+      "checkin": [
+        "{station}， {callsign} 位於 {altitude} 爬升 {altitude}。 ",
+        "{station}， {callsign} 經過 {altitude} 爬升 {altitude}。",
+        "{station}，{callsign} 目前在 {altitude}，下降至 {altitude}{viaStar}。",
+        "{station}， {callsign} 正通過 {altitude} 下降至 {altitude}{viaStar}。",
+        "{station}，{callsign}，{altitude}。",
+        "{station}，{callsign}，{location}，進場 {approach} 方式 {sidestep}{circle}。"
+      ],
+      "location": [
+        "",
+        " 距離 {number} 英里，方位 {compass}"
+      ],
+      "viaStar": [
+        "經由 {route} 到場",
+        ""
+      ],
+      "human": [
+        "日安。",
+        "再見。"
+      ],
+      "landing": [
+        "機場現在為 IFR。准予降落完全停止",
+        "我們是 IFR。准予降落完全停止",
+        "准許 {landingType} {runway}",
+        "准予降落直升機停機坪 {runwayNumber}"
+      ],
+      "landingType": [
+        " 以降落",
+        " 進行觸地復飛",
+        " 觸地復飛",
+        " 觸地復飛，{direction} 起降航線"
+      ],
+      "flightLevel": [
+        "飛行高度層",
+        "FL"
+      ],
+      "altitudeUnit": [
+        "Ft",
+        "Feet",
+        "ft",
+        "feet",
+        "m"
+      ],
+      "handoffCall": [
+        "聯絡 {station}，頻道 {frequency}。{human}"
+      ],
+      "towerContact": [
+        " 聯絡 {station}，頻道 {frequency}。",
+        " 進場時聯絡 {station}，頻道 {frequency}。",
+        " 接近時聯絡 {station}，頻道 {frequency}。"
+      ],
+      "towerHandoffMessage": [
+        "{callsign}，{towerContact}",
+        "{callsign}，{vector}。{towerContact}"
+      ],
+      "vectorSupplement": [
+        "{altimeter} {number}",
+        "預期 {altitude} 高度",
+        " 按航線前進",
+        " 恢復自主導航"
+      ],
+      "heavy": [
+        "重型"
+      ],
+      "optionalAltimeter": [
+        "",
+        "{altimeterClause}"
+      ]
+    }
+  }
+]
