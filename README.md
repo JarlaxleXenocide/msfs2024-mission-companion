@@ -1,8 +1,12 @@
 # MSFS 2024 Career Approach Companion
 
-Compare MSFS 2024 Career missions by payout, credits/hour, duration, departure distance and destination approaches. Available for Linux and Windows x64.
+MSFS 2024 Career Approach Companion is a desktop companion for **Microsoft Flight Simulator 2024 Career mode**. Compare missions by payout, credits/hour, duration, departure distance and destination approaches on Linux and Windows x64.
+
+[Project website](https://jarlaxlexenocide.github.io/msfs2024-mission-companion/) · [Download releases](https://github.com/JarlaxleXenocide/msfs2024-mission-companion/releases) · [Setup instructions](#get-started)
 
 Filter for ILS, RNAV (LPV and LNAV/VNAV), LOC or VOR, inspect runway details, and preview airports on a map. Airport capability does not guarantee the mission’s assigned approach or aircraft suitability. Mission selection stays in MSFS.
+
+Optional, experimental **radio assistance** handles supported ATC responses and frequency changes. It starts off each launch and switches off at landing clearance; it does not fly the aircraft. See [Radio assist](#radio-assist-experimental) for setup, supported calls and limitations.
 
 ## Get started
 
